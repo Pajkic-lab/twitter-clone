@@ -5,12 +5,14 @@ generator client {
 
 datasource db {
   provider             = "mysql"
-  url                  =  env("DATABASE_URL")
+  url                  = env("DATABASE_URL")
   referentialIntegrity = "prisma"
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
+  password String?
+  name     String?
+  avatar   String?
 }
