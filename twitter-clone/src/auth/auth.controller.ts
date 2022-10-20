@@ -1,25 +1,36 @@
-import { Controller, Get, Req, UseGuards } from '@nestjs/common'
-import { GoogleAuthGurard } from './utils/guards'
+import { Controller, Get, Post, Req, Res, UseGuards } from '@nestjs/common'
+import { Request, Response } from 'express'
+import { GoogleAuthGurard } from './utils/Guards'
 
 @Controller('auth')
 export class AuthController {
   @Get('google/login')
   @UseGuards(GoogleAuthGurard)
   handleLogin() {
-    return { msg: 'google auth' }
+    console.log('controler google login')
   }
 
   @Get('google/redirect')
   @UseGuards(GoogleAuthGurard)
-  handleRedirect() {
-    return { msg: 'OK' }
+  handleRedirect(@Req() request: Request, @Res() response: Response) {
+    response.redirect('http://localhost:3000')  // redirect to base URL, handel base url
   }
 
   @Get('google/logout')
-  // @UseGuards(GoogleAuthGurard)
-  handleLogout(/*@Req */) {
-    // req.logout()   // logout comes from req object... probably set there by google
-    // res.redirect('/')
-    return { msg: 'Loged out!!!' }
+  handleLogout(@Req() request: Request, @Res() response: Response) {
+    console.log(request.user)
+    request.session.destroy(nesto => console.log(nesto))
+    // delete cookie in DB
+    console.log(request.user)
+  }
+
+  @Get('status')
+  user(@Req() request: Request) {
+    console.log(request.user)
+    if (request.user) {
+      return { msg: 'Authenticated' }
+    } else {
+      return { msg: 'Not Authenticated' }
+    }
   }
 }
