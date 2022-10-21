@@ -1,7 +1,8 @@
 import React from 'react'
-import axios from 'axios'
+import { SignIn } from 'components/buttonOpenModal/SignIn'
+import { SignUp } from 'components/buttonOpenModal/SignUp'
 
-export const LandingPage = () => {
+export const LandingPage: React.FC = () => {
 
     const googleLogin = () => {
         window.open("http://localhost:5000/auth/google/login", "_self")
@@ -11,6 +12,8 @@ export const LandingPage = () => {
     <>
       <div>
           <button onClick={()=>googleLogin()}>GOOGLE</button>
+          <SignUp />
+          <SignIn />
       </div>
     </>
   )

@@ -43,6 +43,7 @@
     "passport-google-oauth20": "^2.0.0",
     "passport-oauth2": "^1.6.1",
     "prisma": "^4.4.0",
+    "react-modal": "^3.16.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0"
@@ -58,6 +59,7 @@
     "@types/hpp": "^0.2.2",
     "@types/jest": "28.1.8",
     "@types/node": "^16.0.0",
+    "@types/react-modal": "^3.13.1",
     "@types/supertest": "^2.0.11",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
