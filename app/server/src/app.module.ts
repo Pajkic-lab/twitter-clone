@@ -15,7 +15,7 @@ import { AuthModule } from './auth/auth.module';
       isGlobal: true,
     }),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'client/build'),
+      rootPath: join(__dirname, '..', '../client/build'),
     }),
     PassportModule.register({
       session: true,

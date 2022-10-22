@@ -1,5 +1,5 @@
-import Modal from 'react-modal';
-import React from 'react';
+import Modal from "react-modal";
+import React from "react";
 
 // Make sure to bind modal to your appElement (https://reactcommunity.org/react-modal/accessibility/)
 // Modal.setAppElement('#yourAppElement');
@@ -14,7 +14,7 @@ export const SignUp: React.FC = () => {
 
   function afterOpenModal() {
     // references are now sync'd and can be accessed.
-    subtitle.style.color = '#f00';
+    subtitle.style.color = "#f00";
   }
 
   function closeModal() {
@@ -24,7 +24,13 @@ export const SignUp: React.FC = () => {
   return (
     <>
       <button onClick={openModal}>Open Modal</button>
-      <Modal isOpen={modalIsOpen} onAfterOpen={afterOpenModal} onRequestClose={closeModal} style={customStyles} contentLabel="Example Modal">
+      <Modal
+        isOpen={modalIsOpen}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="Example Modal"
+      >
         {/* <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Hello</h2> */}
         <button onClick={closeModal}>close</button>
         <div>I am a modal</div>
@@ -42,11 +48,11 @@ export const SignUp: React.FC = () => {
 
 const customStyles = {
   content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
   },
 };
