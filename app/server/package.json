@@ -23,8 +23,7 @@
     "db:generate": "prisma generate",
     "db:set": "prisma db push",
     "db:gui": "prisma studio",
-    "db:format": "prisma format",
-    "prepare": "husky install"
+    "db:format": "prisma format"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
