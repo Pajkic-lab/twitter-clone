@@ -1,5 +1,6 @@
-import './App.css';
-import { RoutesContainer } from './components/RoutesContainer';
+import { RoutesContainer } from './components/RoutesContainer'
+import React from 'react'
+import './App.css'
 
 function App() {
   return (
