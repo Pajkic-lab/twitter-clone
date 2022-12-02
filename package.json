@@ -3,6 +3,9 @@
     "husky": "^8.0.2"
   },
   "scripts": {
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "app:set": "npm i && cd app/client && npm i && cd ../server && npm i && npm run db:generate && npm run db:set",
+    "app:run": "",
+    "app:test": ""
   }
 }
