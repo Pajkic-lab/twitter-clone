@@ -1,7 +1,7 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-// import { Counter } from "features/counter/Counter";
-import { LandingPage } from 'pages/LandingPage';
-import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+// import { Counter } from "features/counter/Counter"
+import { LandingPage } from 'pages/LandingPage'
+import React from 'react'
 
 export function RoutesContainer() {
   return (
