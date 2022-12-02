@@ -8,7 +8,6 @@ export function RoutesContainer() {
     <BrowserRouter>
       <Routes>
         {/*
-          //// test
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
