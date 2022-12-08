@@ -1,5 +1,5 @@
-import Modal from 'react-modal';
-import React from 'react';
+import Modal from 'react-modal'
+import React from 'react'
 
 const customStyles = {
   content: {
@@ -10,23 +10,23 @@ const customStyles = {
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
   },
-};
+}
 
 export function SignUp() {
-  let subtitle: { style: { color: string } };
-  const [modalIsOpen, setIsOpen] = React.useState(false);
+  let subtitle: { style: { color: string } }
+  const [modalIsOpen, setIsOpen] = React.useState(false)
 
   function openModal(): void {
-    setIsOpen(true);
+    setIsOpen(true)
   }
 
   function afterOpenModal() {
     // references are now sync'd and can be accessed.
-    subtitle.style.color = '#f00';
+    subtitle.style.color = '#f00'
   }
 
   function closeModal() {
-    setIsOpen(false);
+    setIsOpen(false)
   }
 
   return (
@@ -34,7 +34,13 @@ export function SignUp() {
       <button type="button" onClick={openModal}>
         Open Modal
       </button>
-      <Modal isOpen={modalIsOpen} onAfterOpen={afterOpenModal} onRequestClose={closeModal} style={customStyles} contentLabel="Example Modal">
+      <Modal
+        isOpen={modalIsOpen}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="Example Modal"
+      >
         {/* <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Hello</h2> */}
         <button type="button" onClick={closeModal}>
           close
@@ -42,12 +48,9 @@ export function SignUp() {
         <div>I am a modal 123</div>
         <form>
           <input />
-          <button type="button">tab navigation</button>
-          <button type="button">stays</button>
-          <button type="button">inside</button>
-          <button type="button">the modal</button>
+          <button type="button">tab navigation stays inside the modal</button>
         </form>
       </Modal>
     </>
-  );
+  )
 }

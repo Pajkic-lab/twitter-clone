@@ -1,0 +1,45 @@
+export const Colors = {
+  // layout colors
+  background: '#FFFFFF',
+  borderColor: '#CED4DA',
+  borderColorDark: '#E9ECEF',
+  dividerColor: '#818181',
+  backgroundShadow: '#E6E9F0',
+  titleBackground: '#F7F9FC',
+  shadowColor: 'rgba(0, 0, 0, 0.16)',
+  gunmetal: '#565a5c',
+  inputBackground: '#F8F9FA',
+  lightBorderColor: '#E9ECEF',
+
+  //text colors
+  textColorLight: '#ADB5BD',
+  darkBlue: '#192345',
+  textColor: '#343A40',
+  textGray: '#868E96',
+  linkColor: '#4B85BA',
+
+  //button colors
+  grey: '#939AAD',
+  primary: '#212529',
+  primaryHover: '#343A40',
+  primaryActive: '#070707',
+  white: '#fff',
+  secondary: '#fff',
+  secondaryHover: '#F8F9FA',
+  secondaryActive: '#F1F3F5',
+  secondaryBorder: '#DEE2E6',
+  green: '#57D087',
+  greenLight: '#90EEB6',
+  red: '#F8523F',
+  yellow: '#FFC046',
+  whiteHover: 'rgba(54,74,208,0.15)',
+
+  //checkbox
+  darkGrey: '#d6d6d6',
+
+  //table header
+  chartTitleBackground: '#F7F9FC',
+
+  // notification
+  warningNotification: '#ffb058',
+}

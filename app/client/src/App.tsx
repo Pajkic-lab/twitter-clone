@@ -1,16 +1,18 @@
-import { RoutesContainer } from './components/RoutesContainer'
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+import { Router } from './components/router/Router'
+import { ThemeProvider } from 'styled-components'
+import { useAppSelector } from 'store/hooks'
+import { GlobalStyle } from 'GlobalStyle'
 import React from 'react'
-import './App.css'
 
-function App() {
+export const App = () => {
+  const styleSlice = useAppSelector(state => state.style)
   return (
-    <div className="App">
-      {/* <img src={logo} className="App-logo" alt="logo" /> */}
-      {/* <Counter /> */}
-      {/* <InitialMountContainer /> */}
-      <RoutesContainer />
-    </div>
-  );
+    <>
+      <GlobalStyle {...styleSlice} />
+      <ThemeProvider theme={styleSlice.theme}>
+        <Router />
+      </ThemeProvider>
+    </>
+  )
 }
-
-export default App;
