@@ -4,9 +4,9 @@
     "husky": "^8.0.2"
   },
   "scripts": {
-    "prepare": "husky install",
     "app:set": "npm i && npm run prepare && cd app/client && npm i && cd ../server && npm i && npm run db:generate && npm run db:set",
     "app:dev": "concurrently \"cd app/client && npm run start\" \"cd app/server && npm run start:dev\"",
-    "app:test": ""
+    "app:test": "",
+    "prepare": "husky install"
   }
 }

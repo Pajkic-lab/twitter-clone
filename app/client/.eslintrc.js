@@ -24,6 +24,8 @@ module.exports = {
     project: ['./tsconfig.json'],
   },
   rules: {
+    // '@typescript-eslint/no-misused-promises': 1, //// should be removed
+
     semi: ['warn', 'never'],
     quotes: [1, 'single', { allowTemplateLiterals: true }],
     strict: [2, 'never'],
@@ -42,7 +44,9 @@ module.exports = {
     'prettier/prettier': 1,
     '@typescript-eslint/no-unused-vars': 1,
     '@typescript-eslint/no-explicit-any': 0,
+    '@typescript-eslint/no-non-null-assertion': 0,
     '@typescript-eslint/explicit-function-return-type': 0,
+    '@typescript-eslint/restrict-template-expressions': 'warn',
     '@typescript-eslint/member-delimiter-style': [
       'warn',
       {

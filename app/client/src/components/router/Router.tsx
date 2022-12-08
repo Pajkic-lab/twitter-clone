@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { LandingPage } from 'pages/LandingPage'
 import React from 'react'
 
-export function RoutesContainer() {
+export function Router() {
   return (
     <BrowserRouter>
       <Routes>
@@ -17,5 +17,5 @@ export function RoutesContainer() {
         {/* <Route path="/counter" element={<Counter />} /> */}
       </Routes>
     </BrowserRouter>
-  );
+  )
 }
