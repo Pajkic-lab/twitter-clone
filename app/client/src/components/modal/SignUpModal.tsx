@@ -1,39 +1,23 @@
-import Modal from 'react-modal'
 import React from 'react'
+import Modal from 'react-modal'
 
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-  },
-}
-
-export function SignUp() {
-  let subtitle: { style: { color: string } }
-  const [modalIsOpen, setIsOpen] = React.useState(false)
-
-  function openModal(): void {
-    setIsOpen(true)
-  }
-
+export const SignUpModal = ({
+  modalIsOpen,
+  setModalIsOpen,
+}: {
+  modalIsOpen: boolean
+  setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+}) => {
   function afterOpenModal() {
     // references are now sync'd and can be accessed.
-    subtitle.style.color = '#f00'
+    // subtitle.style.color = '#f00'
   }
 
   function closeModal() {
-    setIsOpen(false)
+    setModalIsOpen(false)
   }
-
   return (
     <>
-      {/* <button type="button" onClick={openModal}>
-        Open Modal
-      </button> */}
       <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
@@ -53,4 +37,15 @@ export function SignUp() {
       </Modal>
     </>
   )
+}
+
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+  },
 }

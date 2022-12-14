@@ -7,13 +7,13 @@ export function Router() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<LandingPage />} />
         {/*
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="*" element={<h1>Redirect to '/'</h1>} />
         */}
-        <Route path="/" element={<LandingPage />} />
         {/* <Route path="/counter" element={<Counter />} /> */}
       </Routes>
     </BrowserRouter>

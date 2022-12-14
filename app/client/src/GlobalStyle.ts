@@ -16,7 +16,7 @@ export const GlobalStyle = createGlobalStyle<{ theme: any; customCss: string }>`
     padding: 0;
     color: ${Colors.textColor};
     font-size: 14px;
-    font-family: 'DM Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: Verdana, "Segoe UI", Arial, sans-serif, Helvetica;
     background-color: ${Colors.background};
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;  
