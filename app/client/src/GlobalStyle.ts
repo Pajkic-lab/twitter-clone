@@ -90,7 +90,7 @@ export const GlobalStyle = createGlobalStyle<{ theme: any; customCss: string }>`
         height: 20px;
         width: 20px;
         display: inline-flex;
-        color: ${Colors.textColorLight};
+        color: ${Colors.textColorLightGray};
         background: ${Colors.backgroundShadow};
         border-radius: 50%;
         cursor: pointer;
