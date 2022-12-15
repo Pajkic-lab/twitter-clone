@@ -12,7 +12,8 @@ export const Colors = {
   lightBorderColor: '#E9ECEF',
 
   //text colors
-  textColorLight: '#ADB5BD',
+  textColorLightGray: '#ADB5BD',
+  textColorLighterGray: '#e7e9ea',
   darkBlue: '#192345',
   textColor: '#343A40',
   textGray: '#d6d9db',
