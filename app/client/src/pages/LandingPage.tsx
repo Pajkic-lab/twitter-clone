@@ -53,6 +53,7 @@ export const LandingPage = () => {
         <LogoSection>
           <LogoSvg />
         </LogoSection>
+
         <ContentSection>
           <ContentWraper>
             <Icon />
@@ -69,6 +70,7 @@ export const LandingPage = () => {
           </ContentWraper>
         </ContentSection>
       </Wrapper>
+
       <Footer />
     </>
   )
@@ -78,6 +80,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: end;
   align-items: end;
+  height: 95vh;
 `
 
 const LogoSection = styled.div`
@@ -85,7 +88,7 @@ const LogoSection = styled.div`
   justify-content: center;
   align-items: center;
   width: calc(100% - 46vw);
-  height: 95vh; ///////////////////////////////////////////
+  height: 100%;
   background-image: url(${backgroundImage});
   background-position: center;
   background-repeat: no-repeat;
@@ -106,27 +109,34 @@ const ContentSection = styled.div`
   display: flex;
   justify-content: start;
   align-items: center;
-  height: 95vh; //////////////////////////////////////////
+  height: 100%;
   width: 46vw;
   min-width: 600px;
   background-color: black;
 `
 
 const ContentWraper = styled.div`
-  padding-left: 25px;
+  padding-left: 35px;
 `
 
 const H1 = styled.h1`
-  font-size: 65px;
-  font-weight: bold;
-  letter-spacing: -3px;
+  font-size: 62px;
+  font-weight: 900;
+  font-family: 'chip-bold';
+  transform: scaleY(1.5);
+  transform: scalex(1.2);
+  transform-origin: 0 0;
+  letter-spacing: -2px;
   color: ${Colors.textColorLighterGray};
 `
 
 const H3 = styled.h3`
-  font-size: 33px;
+  font-size: 32px;
   font-weight: bold;
-  letter-spacing: -3px;
+  transform: scaleY(1.5);
+  transform: scalex(1.2);
+  transform-origin: 0 0;
+  letter-spacing: -1px;
   color: ${Colors.textColorLighterGray};
 `
 
