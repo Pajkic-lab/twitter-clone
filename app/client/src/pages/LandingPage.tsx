@@ -14,6 +14,7 @@ import backgroundImage from '../assets/landing-page-backgrount.png'
 import logo from '../assets/svg/logo.svg'
 import InlineSVG from 'react-inlinesvg/esm'
 import { IconSvg } from 'ui/Svg'
+import { Footer } from 'components/Footer'
 // import myIcon from '../assets/svg/logo.svg'
 
 export const LandingPage = () => {
@@ -28,8 +29,9 @@ export const LandingPage = () => {
 
   return (
     <>
-      <Wrapper>
-        {/* <button type="button" onClick={() => googleLogin()}>
+      <PageWraper>
+        <LayoutWrapper>
+          {/* <button type="button" onClick={() => googleLogin()}>
         GOOGLE
       </button>
       <SignUp />
@@ -50,40 +52,47 @@ export const LandingPage = () => {
         fetch posts
       </button>
       <hr /> */}
-        <LogoSection>
-          <LogoSvg />
-        </LogoSection>
+          <LogoWraper>
+            <LogoSvg />
+          </LogoWraper>
 
-        <ContentSection>
           <ContentWraper>
-            <Icon />
-            <H1>{'Happening now'}</H1>
-            <H3>{'Join Twitter today.'}</H3>
-            <PrimaryButton onClick={() => setModalIsOpen(!modalIsOpen)}>
-              Sign up with email
-            </PrimaryButton>
-            <SignUpModal
-              modalIsOpen={modalIsOpen}
-              setModalIsOpen={setModalIsOpen}
-            />
-            {/* <SignIn /> */}
+            <ContentSection>
+              <Icon />
+              <H1>{'Happening now'}</H1>
+              <H3>{'Join Twitter today.'}</H3>
+              <PrimaryButton onClick={() => setModalIsOpen(!modalIsOpen)}>
+                Sign up with email
+              </PrimaryButton>
+              <SignUpModal
+                modalIsOpen={modalIsOpen}
+                setModalIsOpen={setModalIsOpen}
+              />
+              {/* <SignIn /> */}
+            </ContentSection>
           </ContentWraper>
-        </ContentSection>
-      </Wrapper>
+        </LayoutWrapper>
 
-      <Footer />
+        <Footer />
+      </PageWraper>
     </>
   )
 }
 
-const Wrapper = styled.div`
+const PageWraper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+`
+
+const LayoutWrapper = styled.div`
   display: flex;
   justify-content: end;
   align-items: end;
-  height: 95vh;
+  height: 100%;
 `
 
-const LogoSection = styled.div`
+const LogoWraper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -105,17 +114,17 @@ const LogoSvg = styled(SocialTwitter)`
   }
 `
 
-const ContentSection = styled.div`
+const ContentWraper = styled.div`
   display: flex;
   justify-content: start;
   align-items: center;
   height: 100%;
   width: 46vw;
   min-width: 600px;
-  background-color: black;
+  background-color: ${Colors.black};
 `
 
-const ContentWraper = styled.div`
+const ContentSection = styled.div`
   padding-left: 35px;
 `
 
@@ -145,12 +154,4 @@ const Icon = styled(SocialTwitter)`
   width: 60px;
   height: 60px;
   color: ${Colors.textGray};
-`
-
-const Footer = styled.div`
-  height: 30px;
-  width: 100%;
-  border: 3px solid pink;
-  position: absolute;
-  bottom: 0px;
 `
