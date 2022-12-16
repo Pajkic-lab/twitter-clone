@@ -14,17 +14,19 @@ export const Colors = {
   //text colors
   textColorLightGray: '#ADB5BD',
   textColorLighterGray: '#e7e9ea',
+  darkGray: '#71767b',
   darkBlue: '#192345',
   textColor: '#343A40',
   textGray: '#d6d9db',
   linkColor: '#4B85BA',
+  white: '#fff',
+  black: '#000000',
 
   //button colors
   grey: '#939AAD',
   primary: '#212529',
   primaryHover: '#343A40',
   primaryActive: '#070707',
-  white: '#fff',
   secondary: '#fff',
   secondaryHover: '#F8F9FA',
   secondaryActive: '#F1F3F5',

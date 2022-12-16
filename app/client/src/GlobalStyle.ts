@@ -1,7 +1,10 @@
 import { createGlobalStyle } from 'styled-components'
 import { Colors } from 'ui/styles/styles'
+import chipBold from './fonts/chip-bold.woff'
+import chipRegular from './fonts/chip-regular.woff'
 
 export const GlobalStyle = createGlobalStyle<{ theme: any; customCss: string }>`
+
   * {
     box-sizing: border-box;
     scrollbar-color: #D0D0D0 #DDDDDD59;
@@ -16,7 +19,7 @@ export const GlobalStyle = createGlobalStyle<{ theme: any; customCss: string }>`
     padding: 0;
     color: ${Colors.textColor};
     font-size: 14px;
-    font-family: Verdana, "Segoe UI", Arial, sans-serif, Helvetica;
+    font-family: 'chip-regular', Verdana, "Segoe UI", Arial, sans-serif, Helvetica;
     background-color: ${Colors.background};
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;  
@@ -118,5 +121,22 @@ export const GlobalStyle = createGlobalStyle<{ theme: any; customCss: string }>`
       cursor: default;
     }
   }
+
+  @font-face {
+        font-family: 'chip-bold';
+        src: local('chip-bold'), local('woff'),
+        url(${chipBold}) format('woff');
+        font-weight: 700;
+        font-style: normal;
+    }
+
+  @font-face {
+      font-family: 'chip-regular';
+      src: local('chip-regular'), local('woff'),
+      url(${chipRegular}) format('woff');
+      font-weight: 300;
+      font-style: normal;
+  }
+
   ${props => `${props.customCss}`}
 `
