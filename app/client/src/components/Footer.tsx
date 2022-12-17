@@ -51,11 +51,13 @@ export const Footer = () => {
   return (
     <>
       <Wraper>
-        <ButtonWraper>
-          {buttonsDate.map((el, index) => {
-            return <Span key={index}>{el.buttonText}</Span>
-          })}
-        </ButtonWraper>
+        {buttonsDate.map((el, index) => {
+          return (
+            <A key={index} href={el.link} target="_blank">
+              {el.buttonText}
+            </A>
+          )
+        })}
       </Wraper>
     </>
   )
@@ -63,20 +65,16 @@ export const Footer = () => {
 
 const Wraper = styled.div`
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   width: 100%;
   background-color: ${Colors.black};
+  padding: 12px 0;
 `
 
-const ButtonWraper = styled.div`
-  display: flex;
-  padding: 8px;
-  overflow: visible;
-`
-
-const Span = styled.span`
-  padding: 2px;
+const A = styled.a`
+  padding: 2px 8px;
   font-size: small;
   color: ${Colors.darkGray};
   white-space: nowrap;
