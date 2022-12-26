@@ -1,7 +1,7 @@
 import { createGlobalStyle } from 'styled-components'
 import { Colors } from 'ui/styles/styles'
-import chipBold from './fonts/chip-bold.woff'
-import chipRegular from './fonts/chip-regular.woff'
+import chipBold from 'fonts/chip-bold.woff'
+import chipRegular from 'fonts/chip-regular.woff'
 
 export const GlobalStyle = createGlobalStyle<{ theme: any; customCss: string }>`
 
@@ -93,7 +93,7 @@ export const GlobalStyle = createGlobalStyle<{ theme: any; customCss: string }>`
         height: 20px;
         width: 20px;
         display: inline-flex;
-        color: ${Colors.textColorLightGray};
+        color: ${Colors.lightGray};
         background: ${Colors.backgroundShadow};
         border-radius: 50%;
         cursor: pointer;

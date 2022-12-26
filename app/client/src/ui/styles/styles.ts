@@ -12,9 +12,10 @@ export const Colors = {
   lightBorderColor: '#E9ECEF',
 
   //text colors
-  textColorLightGray: '#ADB5BD',
-  textColorLighterGray: '#e7e9ea',
+  lightGray: '#ADB5BD',
+  lighterGray: '#e7e9ea',
   darkGray: '#71767b',
+  darkerGrey: '#2a2d30',
   darkBlue: '#192345',
   textColor: '#343A40',
   textGray: '#d6d9db',
@@ -24,8 +25,8 @@ export const Colors = {
 
   //button colors
   grey: '#939AAD',
-  primary: '#212529',
-  primaryHover: '#343A40',
+  primary: '#1d9bf0',
+  primaryHover: '#0088cc',
   primaryActive: '#070707',
   secondary: '#fff',
   secondaryHover: '#F8F9FA',
