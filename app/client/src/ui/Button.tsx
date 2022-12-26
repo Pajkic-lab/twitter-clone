@@ -4,43 +4,50 @@ import styled from 'styled-components'
 import { Loader } from './Loader'
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
-  // setModalIsOpen?: React.Dispatch<React.SetStateAction<boolean>>
   loading?: boolean
   align?: 'left' | 'center' | 'right'
   wide?: boolean
+  image?: string
 }
 
 const ButtonComponent = forwardRef<HTMLButtonElement, Props>(
-  ({ /*setModalIsOpen,*/ loading, disabled, children, ...props }, ref) => (
+  ({ loading, disabled, children, image, ...props }, ref) => (
     <button
       ref={ref}
       data-element="button"
       disabled={disabled || loading}
       {...props}
-      // onClick={() => setModalIsOpen(true)}
     >
-      {loading ? <ButtonLoader /> : children}
+      {loading ? (
+        <ButtonLoader />
+      ) : image ? (
+        <>
+          <img src={image} /> {children}
+        </>
+      ) : (
+        children
+      )}
     </button>
   ),
 )
 
 export const ButtonBase = styled(ButtonComponent)`
   padding: 0 1rem;
-  height: 40px;
-  min-width: ${props => (props.wide && 276) || 130}px;
+  height: 42px;
+  width: ${props => (props.wide && 296) || 156}px;
   display: inline-flex;
   align-items: center;
   justify-content: ${props => props.align || 'center'};
   transition: all 0.3s;
-  border: 0;
-  border-radius: 2px;
-  font-family: 'DM Sans', 'Montserrat', sans-serif;
+  border-radius: 5rem;
   font-size: 1rem;
   line-height: 1.1;
   cursor: pointer;
 
-  i {
-    margin-right: 1rem;
+  img {
+    margin-right: 0.5rem;
+    width: 18px;
+    height: 18px;
   }
 
   &[disabled] {
@@ -69,9 +76,10 @@ const ButtonLoader = styled(Loader)`
   }
 `
 
-export const PrimaryButtonV1 = styled(ButtonBase)`
+export const PrimaryButton = styled(ButtonBase)`
   background-color: ${Colors.primary};
   color: ${Colors.white};
+  font-weight: 600;
 
   &:hover {
     background-color: ${Colors.primaryHover};
@@ -82,15 +90,19 @@ export const PrimaryButtonV1 = styled(ButtonBase)`
   }
 `
 
-export const PrimaryButton = styled(ButtonBase)`
-  background-color: ${Colors.primary};
-  color: ${Colors.white};
+export const SocialSignInButton = styled(ButtonBase)`
+  background-color: ${Colors.white};
+  color: ${Colors.darkerGrey};
+  font-weight: 600;
 
   &:hover {
-    background-color: ${Colors.primaryHover};
+    background-color: ${Colors.lighterGray};
   }
+`
 
-  &:focus {
-    background-color: ${Colors.primaryActive};
-  }
+export const SecondaryButton = styled(ButtonBase)`
+  background-color: ${Colors.black};
+  color: ${Colors.primary};
+  font-weight: 600;
+  border: 1px solid ${Colors.darkGray};
 `
