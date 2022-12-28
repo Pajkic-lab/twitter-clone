@@ -33,7 +33,7 @@ export const LandingPage = () => {
 
   return (
     <>
-      <PageWraper>
+      <PageWrapper>
         <LayoutWrapper>
           {/* <button type="button" onClick={() => googleLogin()}>
         GOOGLE
@@ -57,57 +57,55 @@ export const LandingPage = () => {
       </button>
       <hr /> */}
           {/* <SignIn /> */}
-          <LogoWraper>
+          <LogoWrapper>
             <LogoSvg />
-          </LogoWraper>
+          </LogoWrapper>
 
-          <ContentWraper>
+          <ContentWrapper>
             <ContentSection>
               <Icon />
-              <H1>{'Happening now'}</H1>
-              <H3>{'Join Twitter today.'}</H3>
-              <SocialSignInButton image={googleSocialSignInLogo} wide={true}>
+              <H1>Happening now</H1>
+              <H3>Join Twitter today.</H3>
+              <SocialButton image={googleSocialSignInLogo} $wide={true}>
                 Sign up with Google
-              </SocialSignInButton>
-              <SocialSignInButton image={appleSocilSignInlogo} wide={true}>
+              </SocialButton>
+              <SocialButton image={appleSocilSignInlogo} $wide={true}>
                 Sign up with Apple
-              </SocialSignInButton>
-              <DividerWraper>
+              </SocialButton>
+              <DividerWrapper>
                 <DividerLine />
-                <H5>{'or'}</H5>
+                <H5>or</H5>
                 <DividerLine />
-              </DividerWraper>
-              <PrimaryButton
-                wide={true}
+              </DividerWrapper>
+              <SignUpButton
+                $wide={true}
                 onClick={() => setModalIsOpen(!modalIsOpen)}
               >
                 Sign up with email
-              </PrimaryButton>
+              </SignUpButton>
               <SignUpModal
                 modalIsOpen={modalIsOpen}
                 setModalIsOpen={setModalIsOpen}
               />
-              <PolicyTextWraper>
-                By signing up, you agree to the{' '}
-                <span style={{ color: Colors.primary }}>Terms of Service </span>
-                and{' '}
-                <span style={{ color: Colors.primary }}>Privacy Policy </span>,
-                including{' '}
-                <span style={{ color: Colors.primary }}>Cookie Use</span>.
-              </PolicyTextWraper>
-              <H5>{'Already have an account?'}</H5>
-              <SecondaryButton wide={true}>Sign in</SecondaryButton>
+              <PolicyTextWrapper>
+                By signing up, you agree to the
+                <SpanText>Terms of Service </SpanText>
+                and <SpanText>Privacy Policy </SpanText>, including
+                <SpanText>Cookie Use</SpanText>.
+              </PolicyTextWrapper>
+              <H4>Already have an account?</H4>
+              <SignInButton $wide={true}>Sign in</SignInButton>
             </ContentSection>
-          </ContentWraper>
+          </ContentWrapper>
         </LayoutWrapper>
 
         <Footer />
-      </PageWraper>
+      </PageWrapper>
     </>
   )
 }
 
-const PageWraper = styled.div`
+const PageWrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -120,7 +118,7 @@ const LayoutWrapper = styled.div`
   height: 100%;
 `
 
-const LogoWraper = styled.div`
+const LogoWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -142,7 +140,7 @@ const LogoSvg = styled(SocialTwitter)`
   }
 `
 
-const ContentWraper = styled.div`
+const ContentWrapper = styled.div`
   display: flex;
   justify-content: start;
   align-items: center;
@@ -161,44 +159,61 @@ const ContentSection = styled.div`
 
 const Icon = styled(SocialTwitter)`
   margin-left: -5px;
-  width: 60px;
-  height: 60px;
+  width: 56px;
+  height: 56px;
   color: ${Colors.textGray};
 `
 
 const H1 = styled.h1`
+  padding-top: 10px;
+  margin-bottom: 8px;
   font-size: 62px;
   font-weight: 900;
   font-family: 'chip-bold';
+  transform-origin: 0 0;
   transform: scaleY(1.8);
   transform: scalex(1.3);
-  transform-origin: 0 0;
-  letter-spacing: -2px;
+  letter-spacing: -3px;
   color: ${Colors.lighterGray};
 `
 
 const H3 = styled.h3`
+  margin-bottom: 28px;
   font-size: 30px;
   font-weight: 900;
+  transform-origin: 0 0;
   transform: scaleY(1.8);
   transform: scalex(1.4);
   transform-origin: 0 0;
   letter-spacing: -1px;
   color: ${Colors.lighterGray};
 `
+
+const H4 = styled.h4`
+  margin-bottom: 18px;
+  font-weight: 600;
+  font-size: 18px;
+  color: ${Colors.lighterGray};
+`
+
 const H5 = styled.h5`
-  font-weight: 700;
+  font-weight: 500;
   font-size: medium;
   color: ${Colors.lighterGray};
   padding: 7px;
 `
 
-const DividerWraper = styled.div`
+const SpanText = styled.span`
+  color: ${Colors.primary};
+`
+
+const DividerWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 40px;
+  height: 20px;
   width: 296px;
+  margin-bottom: 5px;
 `
 
 const DividerLine = styled.div`
@@ -207,8 +222,19 @@ const DividerLine = styled.div`
   background-color: ${Colors.darkerGrey};
 `
 
-const PolicyTextWraper = styled.div`
-  width: 268px;
+const PolicyTextWrapper = styled.div`
+  width: 300px;
+  margin-bottom: 35px;
   color: ${Colors.darkGray};
-  font-size: x-small;
+  font-size: 11px;
 `
+
+const SocialButton = styled(SocialSignInButton)`
+  margin-bottom: 8px;
+`
+
+const SignUpButton = styled(PrimaryButton)`
+  margin-bottom: 5px;
+`
+
+const SignInButton = styled(SecondaryButton)``
