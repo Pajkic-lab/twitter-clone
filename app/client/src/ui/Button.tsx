@@ -5,9 +5,9 @@ import { Loader } from './Loader'
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   loading?: boolean
-  align?: 'left' | 'center' | 'right'
-  wide?: boolean
   image?: string
+  $wide?: boolean
+  $align?: 'left' | 'center' | 'right'
 }
 
 const ButtonComponent = forwardRef<HTMLButtonElement, Props>(
@@ -33,11 +33,11 @@ const ButtonComponent = forwardRef<HTMLButtonElement, Props>(
 
 export const ButtonBase = styled(ButtonComponent)`
   padding: 0 1rem;
-  height: 42px;
-  width: ${props => (props.wide && 296) || 156}px;
+  height: 40px;
+  width: ${props => (props.$wide && 300) || 156}px;
   display: inline-flex;
   align-items: center;
-  justify-content: ${props => props.align || 'center'};
+  justify-content: ${props => props.$align || 'center'};
   transition: all 0.3s;
   border-radius: 5rem;
   font-size: 1rem;
@@ -84,10 +84,13 @@ export const PrimaryButton = styled(ButtonBase)`
   &:hover {
     background-color: ${Colors.primaryHover};
   }
+`
 
-  &:focus {
-    background-color: ${Colors.primaryActive};
-  }
+export const SecondaryButton = styled(ButtonBase)`
+  background-color: ${Colors.black};
+  color: ${Colors.primary};
+  font-weight: 600;
+  border: 1px solid ${Colors.darkGray};
 `
 
 export const SocialSignInButton = styled(ButtonBase)`
@@ -98,11 +101,4 @@ export const SocialSignInButton = styled(ButtonBase)`
   &:hover {
     background-color: ${Colors.lighterGray};
   }
-`
-
-export const SecondaryButton = styled(ButtonBase)`
-  background-color: ${Colors.black};
-  color: ${Colors.primary};
-  font-weight: 600;
-  border: 1px solid ${Colors.darkGray};
 `
