@@ -4,12 +4,13 @@ export const Colors = {
   borderColor: '#CED4DA',
   borderColorDark: '#E9ECEF',
   dividerColor: '#818181',
-  backgroundShadow: '#E6E9F0',
   titleBackground: '#F7F9FC',
   shadowColor: 'rgba(0, 0, 0, 0.16)',
   gunmetal: '#565a5c',
   inputBackground: '#F8F9FA',
   lightBorderColor: '#E9ECEF',
+  //
+  backgroundShadow: '#5b708366',
 
   //text colors
   lightGray: '#ADB5BD',
