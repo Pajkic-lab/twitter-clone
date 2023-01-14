@@ -5,15 +5,15 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.6",
     "@styled-icons/boxicons-logos": "^10.46.0",
+    "@styled-icons/entypo": "^10.46.0",
     "@styled-icons/foundation": "^10.46.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
     "@types/jest": "^27.5.2",
     "@types/node": "^17.0.45",
-    "@types/react": "^18.0.21",
-    "@types/react-dom": "^18.0.6",
     "axios": "^1.2.1",
+    "classnames": "^2.3.2",
     "immutable": "^4.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -24,6 +24,7 @@
     "react-scripts": "5.0.1",
     "styled-components": "^5.3.6",
     "styled-react-modal": "^3.0.1",
+    "uuid": "^9.0.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -53,9 +54,12 @@
     ]
   },
   "devDependencies": {
+    "@types/react": "^18.0.26",
+    "@types/react-dom": "^18.0.10",
     "@types/react-modal": "^3.13.1",
     "@types/styled-components": "^5.1.26",
     "@types/styled-react-modal": "^1.2.2",
+    "@types/uuid": "^9.0.0",
     "@typescript-eslint/eslint-plugin": "^5.40.1",
     "@typescript-eslint/parser": "^5.46.1",
     "eslint": "^8.26.0",
