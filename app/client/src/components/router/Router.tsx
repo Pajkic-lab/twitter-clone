@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 // import { Counter } from "features/counter/Counter"
 import { LandingPage } from 'pages/LandingPage'
+import { Home } from 'pages/Home'
 import React from 'react'
 
 export function Router() {
@@ -8,6 +9,7 @@ export function Router() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/home" element={<Home />} />
         {/*
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/home" element={<HomePage />} />
