@@ -2,6 +2,8 @@ import Modal from 'styled-react-modal'
 import styled from 'styled-components'
 import React from 'react'
 import { Colors } from 'ui/styles/styles'
+import { Cross } from '@styled-icons/entypo/Cross'
+import { BaseInput } from 'ui/Input'
 
 export const SignUpModal = ({
   modalIsOpen,
@@ -17,11 +19,11 @@ export const SignUpModal = ({
     <>
       <Modal isOpen={modalIsOpen} onBackgroundClick={closeModal}>
         <ModalSection>
-          <span onClick={closeModal}>X</span>
-          <h1>Create your account</h1>
+          <Icon onClick={closeModal} />
+          <H1>Create your account</H1>
           <form>
-            <input placeholder="name" /> <br />
-            <input placeholder="password" />
+            <BaseInput placeholder="Name" /> <br />
+            <BaseInput placeholder="Email" />
             <h5>Date of birth</h5>
             <span>
               This will not be shown publicly. Confirm your own age, even if
@@ -54,8 +56,25 @@ export const SignUpModal = ({
 }
 
 const ModalSection = styled.div`
-  border: 3px solid pink;
-  padding: 15px 20px;
+  position: relative;
+  border-radius: 1rem;
+  padding: 48px 75px 20px 75px;
   background-color: ${Colors.black};
   color: ${Colors.primary};
+`
+
+const Icon = styled(Cross)`
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 36px;
+  height: 30px;
+  color: ${Colors.lighterGray};
+  cursor: pointer;
+`
+
+const H1 = styled.h1`
+  font-size: 32px;
+  font-weight: 600;
+  color: ${Colors.lighterGray};
 `
