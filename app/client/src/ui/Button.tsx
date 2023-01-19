@@ -1,5 +1,5 @@
 import React, { ButtonHTMLAttributes, forwardRef } from 'react'
-import { Colors } from './styles/styles'
+import { Colors } from './styles'
 import styled from 'styled-components'
 import { Loader } from './Loader'
 
@@ -100,5 +100,18 @@ export const SocialSignInButton = styled(ButtonBase)`
 
   &:hover {
     background-color: ${Colors.lighterGray};
+  }
+`
+
+export const JumboButton = styled(ButtonBase)`
+  width: 30rem;
+  height: 4rem;
+  color: ${Colors.black};
+  background-color: ${Colors.darkGray};
+  font-size: medium;
+  font-weight: 700;
+
+  &:hover {
+    opacity: 0.7;
   }
 `

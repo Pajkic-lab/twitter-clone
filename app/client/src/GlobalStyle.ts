@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components'
-import { Colors } from 'ui/styles/styles'
+import { Colors } from 'ui/styles'
 import chipBold from 'fonts/chip-bold.woff'
 import chipRegular from 'fonts/chip-regular.woff'
 

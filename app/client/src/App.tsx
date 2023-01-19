@@ -5,7 +5,7 @@ import { GlobalStyle } from 'GlobalStyle'
 import React from 'react'
 import { ModalProvider } from 'styled-react-modal'
 import styled from 'styled-components'
-import { Colors } from 'ui/styles/styles'
+import { Colors } from 'ui/styles'
 
 export const App = () => {
   const styleSlice = useAppSelector(state => state.style)

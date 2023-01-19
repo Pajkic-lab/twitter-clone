@@ -1,9 +1,11 @@
 import Modal from 'styled-react-modal'
 import styled from 'styled-components'
 import React from 'react'
-import { Colors } from 'ui/styles/styles'
+import { Colors } from 'ui/styles'
 import { Cross } from '@styled-icons/entypo/Cross'
-import { BaseInput } from 'ui/Input'
+import { BaseInput } from 'ui/OldInput'
+import { FloatingInput } from 'ui/Input'
+import { JumboButton } from 'ui/Button'
 
 export const SignUpModal = ({
   modalIsOpen,
@@ -22,32 +24,9 @@ export const SignUpModal = ({
           <Icon onClick={closeModal} />
           <H1>Create your account</H1>
           <form>
-            <BaseInput placeholder="Name" /> <br />
-            <BaseInput placeholder="Email" />
-            <h5>Date of birth</h5>
-            <span>
-              This will not be shown publicly. Confirm your own age, even if
-              this account is for a business, a pet, or something else.
-            </span>
-            <br />
-            <select name="month" id="cars">
-              <option value="jan">jan</option>
-              <option value="feb">feb</option>
-              <option value="mar">mar</option>
-              <option value="apr">apr</option>
-            </select>
-            <select name="day" id="cars">
-              <option>mon</option>
-              <option>thu</option>
-              <option>wen</option>
-              <option>thr</option>
-            </select>
-            <select name="year" id="cars">
-              <option>2022</option>
-              <option>2021</option>
-              <option>2020</option>
-              <option>2019</option>
-            </select>
+            <FloatingInput designation="Name" /> <br />
+            <FloatingInput designation="Email" />
+            <SignUpButton>Submit</SignUpButton>
           </form>
         </ModalSection>
       </Modal>
@@ -58,7 +37,7 @@ export const SignUpModal = ({
 const ModalSection = styled.div`
   position: relative;
   border-radius: 1rem;
-  padding: 48px 75px 20px 75px;
+  padding: 48px 75px 25px 75px;
   background-color: ${Colors.black};
   color: ${Colors.primary};
 `
@@ -77,4 +56,8 @@ const H1 = styled.h1`
   font-size: 32px;
   font-weight: 600;
   color: ${Colors.lighterGray};
+`
+
+const SignUpButton = styled(JumboButton)`
+  margin-top: 3rem;
 `
