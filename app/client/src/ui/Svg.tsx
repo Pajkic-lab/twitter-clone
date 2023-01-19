@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Colors } from './styles/styles'
+import { Colors } from './styles'
 
 interface Props {
   svg: React.SVGProps<SVGSVGElement>
