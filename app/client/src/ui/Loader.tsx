@@ -1,6 +1,6 @@
 import styled, { keyframes } from 'styled-components'
 import React, { FunctionComponent } from 'react'
-import { Colors } from './styles/styles'
+import { Colors } from './styles'
 
 interface Props {
   fullScreen?: boolean
