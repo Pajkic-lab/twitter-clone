@@ -1,11 +1,11 @@
 import { Router } from './components/router/Router'
+import { ModalProvider } from 'styled-react-modal'
 import { ThemeProvider } from 'styled-components'
 import { useAppSelector } from 'store/hooks'
 import { GlobalStyle } from 'GlobalStyle'
-import React from 'react'
-import { ModalProvider } from 'styled-react-modal'
 import styled from 'styled-components'
 import { Colors } from 'ui/styles'
+import React from 'react'
 
 export const App = () => {
   const styleSlice = useAppSelector(state => state.style)
