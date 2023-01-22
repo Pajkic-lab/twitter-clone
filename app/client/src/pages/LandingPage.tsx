@@ -5,7 +5,6 @@ import { updateUsername } from 'store/features/styleSlice'
 import { PrimaryButton, SecondaryButton, SocialSignInButton } from 'ui/Button'
 import React, { useState } from 'react'
 import { useAppDispatch, useAppSelector } from 'store/hooks'
-import { SignUpModal } from 'components/modals/SignUpModal'
 import styled from 'styled-components'
 import { SocialTwitter } from '@styled-icons/foundation/SocialTwitter'
 import { Colors } from 'ui/styles'
@@ -17,6 +16,8 @@ import logo from '../assets/svg/logo.svg'
 import InlineSVG from 'react-inlinesvg/esm'
 import { IconSvg } from 'ui/Svg'
 import { Footer } from 'components/Footer'
+import { SignUpModal } from 'components/modals/SignUpModal'
+import { SignInModal } from 'components/modals/SignInMoudal'
 // import myIcon from '../assets/svg/logo.svg'
 
 export const LandingPage = () => {
@@ -25,7 +26,8 @@ export const LandingPage = () => {
   }
 
   const [isActive, setActive] = useState(false)
-  const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [signUpModalIsOpen, setSignUpModalIsOpen] = useState(false)
+  const [signInModalIsOpen, setSignInModalIsOpen] = useState(false)
   const styleSlice = useAppSelector(state => state.style)
   const dispatch = useAppDispatch()
   // let googleSocilSignInLogo: HTMLImageElement
@@ -79,13 +81,13 @@ export const LandingPage = () => {
               </DividerWrapper>
               <SignUpButton
                 $wide={true}
-                onClick={() => setModalIsOpen(!modalIsOpen)}
+                onClick={() => setSignUpModalIsOpen(!signUpModalIsOpen)}
               >
                 Sign up with email
               </SignUpButton>
               <SignUpModal
-                modalIsOpen={modalIsOpen}
-                setModalIsOpen={setModalIsOpen}
+                signUpModalIsOpen={signUpModalIsOpen}
+                setSignUpModalIsOpen={setSignUpModalIsOpen}
               />
               <PolicyTextWrapper>
                 By signing up, you agree to the
@@ -94,7 +96,16 @@ export const LandingPage = () => {
                 <SpanText>Cookie Use</SpanText>.
               </PolicyTextWrapper>
               <H4>Already have an account?</H4>
-              <SignInButton $wide={true}>Sign in</SignInButton>
+              <SignInButton
+                $wide={true}
+                onClick={() => setSignInModalIsOpen(!signInModalIsOpen)}
+              >
+                Sign in
+              </SignInButton>
+              <SignInModal
+                signInModalIsOpen={signInModalIsOpen}
+                setSignInModalIsOpen={setSignInModalIsOpen}
+              />
             </ContentSection>
           </ContentWrapper>
         </LayoutWrapper>

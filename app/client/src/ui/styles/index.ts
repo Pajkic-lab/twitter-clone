@@ -35,7 +35,7 @@ export const Colors = {
   secondaryBorder: '#DEE2E6',
   green: '#57D087',
   greenLight: '#90EEB6',
-  red: '#F8523F',
+  red: '#d51d28',
   yellow: '#FFC046',
   whiteHover: 'rgba(54,74,208,0.15)',
 

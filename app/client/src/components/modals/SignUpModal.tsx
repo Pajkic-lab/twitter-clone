@@ -1,33 +1,125 @@
+import { updateUsername } from 'store/features/userSlice'
+import { Cross } from '@styled-icons/entypo/Cross'
+import { useAppDispatch } from 'store/hooks'
+import { JumboButton } from 'ui/Button'
 import Modal from 'styled-react-modal'
 import styled from 'styled-components'
-import React from 'react'
+import { FormikHelpers } from 'formik'
+import { BaseInput } from 'ui/Input'
+import { useFormik } from 'formik'
 import { Colors } from 'ui/styles'
-import { Cross } from '@styled-icons/entypo/Cross'
-import { BaseInput } from 'ui/OldInput'
-import { FloatingInput } from 'ui/Input'
-import { JumboButton } from 'ui/Button'
+import * as yup from 'yup'
+import React from 'react'
+
+interface FormValues {
+  name: string
+  email: string
+  password: string
+  confirmPassword: string
+}
 
 export const SignUpModal = ({
-  modalIsOpen,
-  setModalIsOpen,
+  signUpModalIsOpen,
+  setSignUpModalIsOpen,
 }: {
-  modalIsOpen: boolean
-  setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+  signUpModalIsOpen: boolean
+  setSignUpModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }) => {
+  const dispatch = useAppDispatch()
+
   const closeModal = () => {
-    setModalIsOpen(false)
+    setSignUpModalIsOpen(false)
   }
+
+  const onSubmit = (values: FormValues, actions: FormikHelpers<FormValues>) => {
+    dispatch(updateUsername(values))
+    actions.resetForm()
+  }
+
+  const validationSchema = yup.object().shape({
+    name: yup.string().required('Name is required!'),
+    email: yup
+      .string()
+      .required('Email is required!')
+      .email('Please enter a valid email!'),
+    password: yup.string().required('Password is required!'),
+    // .matches(/[a-z]/, 'global.errors.mustHaveLowerCaseLetter')
+    // .matches(/[A-Z]/, 'global.errors.mustHaveUpperCaseLetter')
+    // .matches(/[0-9]/, 'global.errors.mustHaveNumber')
+    // .matches(/[!#@$%^&*)(+=._-]/, 'global.errors.mustHaveSpecialCharacter')
+    // .min(8, 'global.errors.minLenValidator'),
+    confirmPassword: yup
+      .string()
+      .required('Confirm password is required')
+      .oneOf(
+        [yup.ref('password'), null],
+        'Confirm password and password are not eaqual!',
+      ),
+  })
+
+  const { handleSubmit, handleBlur, handleChange, errors, touched, values } =
+    useFormik({
+      initialValues: {
+        name: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+      },
+      onSubmit,
+      validationSchema,
+    })
+
   return (
     <>
-      <Modal isOpen={modalIsOpen} onBackgroundClick={closeModal}>
+      <Modal isOpen={signUpModalIsOpen} onBackgroundClick={closeModal}>
         <ModalSection>
           <Icon onClick={closeModal} />
           <H1>Create your account</H1>
-          <form>
-            <FloatingInput designation="Name" /> <br />
-            <FloatingInput designation="Email" />
-            <SignUpButton>Submit</SignUpButton>
-          </form>
+          <Form onSubmit={handleSubmit}>
+            <Input
+              id={'name'}
+              type={'name'}
+              name={'Name'}
+              value={values.name}
+              error={errors.name}
+              touched={touched.name}
+              onBlure={handleBlur}
+              handleChange={handleChange}
+            />
+            <Input
+              id={'email'}
+              type={'email'}
+              name={'Email'}
+              value={values.email}
+              error={errors.email}
+              touched={touched.email}
+              onBlure={handleBlur}
+              handleChange={handleChange}
+            />
+            <Input
+              id={'password'}
+              type={'password'}
+              name={'Password'}
+              value={values.password}
+              error={errors.password}
+              handleChange={handleChange}
+              onBlure={handleBlur}
+              touched={touched.password}
+            />
+            <Input
+              id={'confirmPassword'}
+              type={'password'}
+              name={'Confirm Password'}
+              value={values.confirmPassword}
+              error={errors.confirmPassword}
+              handleChange={handleChange}
+              onBlure={handleBlur}
+              touched={touched.confirmPassword}
+            />
+            <SignUpButton type="submit" /*isSubmitting={isSubmitting}*/>
+              Sign Up
+            </SignUpButton>
+          </Form>
         </ModalSection>
       </Modal>
     </>
@@ -58,6 +150,10 @@ const H1 = styled.h1`
   color: ${Colors.lighterGray};
 `
 
+const Form = styled.form``
+
+const Input = styled(BaseInput)``
+
 const SignUpButton = styled(JumboButton)`
-  margin-top: 3rem;
+  margin-top: 1.5rem;
 `
