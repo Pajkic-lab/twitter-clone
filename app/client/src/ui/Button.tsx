@@ -1,6 +1,6 @@
 import React, { ButtonHTMLAttributes, forwardRef } from 'react'
-import { Colors } from './styles'
 import styled from 'styled-components'
+import { Colors } from './styles'
 import { Loader } from './Loader'
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -91,6 +91,12 @@ export const SecondaryButton = styled(ButtonBase)`
   color: ${Colors.primary};
   font-weight: 600;
   border: 1px solid ${Colors.darkGray};
+
+  &:hover {
+    background-color: ${Colors.primary};
+    color: ${Colors.white};
+    border: 1px solid ${Colors.primary};
+  }
 `
 
 export const SocialSignInButton = styled(ButtonBase)`
@@ -112,6 +118,6 @@ export const JumboButton = styled(ButtonBase)`
   font-weight: 700;
 
   &:hover {
-    opacity: 0.7;
+    filter: brightness(1.4);
   }
 `
