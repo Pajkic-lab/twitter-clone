@@ -8,7 +8,7 @@ export class AuthService {
   constructor(private prisma: PrismaService) {}
 
   async validateUser(details: UserDto) {
-    console.log('auth service validate user');
+    console.log('auth service validate user, "second instance after google server on local"');
     const user = await this.prisma.user.findUnique({
       where: {
         email: details.email,

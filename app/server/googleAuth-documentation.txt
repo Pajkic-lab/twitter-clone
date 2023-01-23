@@ -1,0 +1,5 @@
+new way of doing social login
+
+https://www.youtube.com/watch?v=XjOEKbHkAeo&ab_channel=TechHarvestingwithNas
+https://www.npmjs.com/package/@react-oauth/google
+https://www.npmjs.com/package/google-auth-library
