@@ -1,64 +1,26 @@
-import { fetchPostsThunk } from 'store/features/styleSlice/thunk'
-// import { SignIn } from 'components/buttonOpenModal/SignIn'
-import { SignUp } from 'components/buttonOpenModal/SignUp'
-import { updateUsername } from 'store/features/styleSlice'
 import { PrimaryButton, SecondaryButton, SocialSignInButton } from 'ui/Button'
-import React, { useState } from 'react'
-import { useAppDispatch, useAppSelector } from 'store/hooks'
-import styled from 'styled-components'
-import { SocialTwitter } from '@styled-icons/foundation/SocialTwitter'
-import { Colors } from 'ui/styles'
-import { icons } from 'react-icons'
-import backgroundImage from 'assets/landing-page-backgrount.png'
-import appleSocilSignInlogo from 'assets/apple-socil-signIn-logo.png'
 import googleSocialSignInLogo from 'assets/googl-socil-signIn-logo.png'
-import logo from '../assets/svg/logo.svg'
-import InlineSVG from 'react-inlinesvg/esm'
-import { IconSvg } from 'ui/Svg'
-import { Footer } from 'components/Footer'
-import { SignUpModal } from 'components/modals/SignUpModal'
+import { SocialTwitter } from '@styled-icons/foundation/SocialTwitter'
+import appleSocilSignInlogo from 'assets/apple-socil-signIn-logo.png'
+import backgroundImage from 'assets/landing-page-backgrount.png'
 import { SignInModal } from 'components/modals/SignInMoudal'
-// import myIcon from '../assets/svg/logo.svg'
+import { SignUpModal } from 'components/modals/SignUpModal'
+import { Footer } from 'components/Footer'
+import React, { useState } from 'react'
+import styled from 'styled-components'
+import { Colors } from 'ui/styles'
 
 export const LandingPage = () => {
+  const [signUpModalIsOpen, setSignUpModalIsOpen] = useState(false)
+  const [signInModalIsOpen, setSignInModalIsOpen] = useState(false)
+
   const googleLogin = () => {
     window.open('http://localhost:5000/auth/google/login', '_self')
   }
-
-  const [isActive, setActive] = useState(false)
-  const [signUpModalIsOpen, setSignUpModalIsOpen] = useState(false)
-  const [signInModalIsOpen, setSignInModalIsOpen] = useState(false)
-  const styleSlice = useAppSelector(state => state.style)
-  const dispatch = useAppDispatch()
-  // let googleSocilSignInLogo: HTMLImageElement
-  // console.log(typeof googleSocilSignInLogo)
-
   return (
     <>
       <PageWrapper>
         <LayoutWrapper>
-          {/* <button type="button" onClick={() => googleLogin()}>
-        GOOGLE
-      </button>
-      <SignUp />
-      <PrimaryButtonV1 onClick={() => setActive(!isActive)}>
-        Toggle
-      </PrimaryButtonV1>
-      <p>{styleSlice.id}</p>
-      <p>{styleSlice.userName}</p>
-      <p>{styleSlice.email}</p>
-      <form>
-        <input
-          placeholder="user name"
-          onChange={e => dispatch(updateUsername(e.target.value))}
-        />{' '}
-        <br />
-      </form>
-      <button onClick={() => void dispatch(fetchPostsThunk())}>
-        fetch posts
-      </button>
-      <hr /> */}
-          {/* <SignIn /> */}
           <LogoWrapper>
             <LogoSvg />
           </LogoWrapper>
@@ -68,7 +30,11 @@ export const LandingPage = () => {
               <Icon />
               <H1>Happening now</H1>
               <H3>Join Twitter today.</H3>
-              <SocialButton image={googleSocialSignInLogo} $wide={true}>
+              <SocialButton
+                onClick={googleLogin}
+                image={googleSocialSignInLogo}
+                $wide={true}
+              >
                 Sign up with Google
               </SocialButton>
               <SocialButton image={appleSocilSignInlogo} $wide={true}>
@@ -92,8 +58,8 @@ export const LandingPage = () => {
               <PolicyTextWrapper>
                 By signing up, you agree to the
                 <SpanText>Terms of Service </SpanText>
-                and <SpanText>Privacy Policy </SpanText>, including
-                <SpanText>Cookie Use</SpanText>.
+                and <SpanText>Privacy Policy</SpanText>, including
+                <SpanText> Cookie Use</SpanText>.
               </PolicyTextWrapper>
               <H4>Already have an account?</H4>
               <SignInButton

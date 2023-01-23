@@ -18,6 +18,7 @@ export const userSlice = createSlice({
     updateUsername: (state, action: PayloadAction<StyleState>) => {
       console.log(action)
       state.name = action.payload.name
+      state.email = action.payload.email
       //   state.email = action.payload
     },
   },

@@ -111,7 +111,7 @@ export const SocialSignInButton = styled(ButtonBase)`
 
 export const JumboButton = styled(ButtonBase)`
   width: 30rem;
-  height: 4rem;
+  height: 3.7rem;
   color: ${Colors.black};
   background-color: ${Colors.darkGray};
   font-size: medium;
