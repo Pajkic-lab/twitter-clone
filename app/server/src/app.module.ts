@@ -1,15 +1,16 @@
+import { CronJobModule } from './cronJob/cronJob.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { PrismaModule } from './prisma/prisma.module';
+import { HelperModule } from './helper/helper.module';
+import { PassportModule } from '@nestjs/passport';
+import { ScheduleModule } from '@nestjs/schedule';
+import { AppController } from './app.controller';
+import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
+import { AppService } from './app.service';
 import { Module } from '@nestjs/common';
 import { join } from 'path';
-import { PassportModule } from '@nestjs/passport';
-import { AppService } from './app.service';
-import { AppController } from './app.controller';
-import { PrismaModule } from './prisma/prisma.module';
-import { UserModule } from './user/user.module';
-import { AuthModule } from './auth/auth.module';
-import { ScheduleModule } from '@nestjs/schedule';
-import { CronJobModule } from './cronJob/cronJob.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { CronJobModule } from './cronJob/cronJob.module';
     UserModule,
     AuthModule,
     CronJobModule,
+    HelperModule,
   ],
   controllers: [AppController],
   providers: [AppService],
