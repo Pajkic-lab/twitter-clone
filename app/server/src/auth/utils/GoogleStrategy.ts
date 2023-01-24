@@ -12,7 +12,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
     super({
       clientID: config.get('GOOGLE_CLIENT_ID'),
       clientSecret: config.get('GOOGLE_CLIENT_SECRET'),
-      callbackURL: 'http://localhost:5000/auth/google/redirect',
+      callbackURL: process.env.NODE_ENV == 'production' ? '/auth/google/redirect' : 'http://localhost:5000/auth/google/redirect',
       scope: ['profile', 'email'],
     });
     this.authService = authService; // do i need this line of code and what it does
