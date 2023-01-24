@@ -16,13 +16,12 @@ export class AuthController {
   @Get('google/redirect')
   @UseGuards(GoogleAuthGurard)
   handleRedirect(@Req() request: Request, @Res() response: Response) {
-    response.redirect('http://localhost:3000/home'); // redirect to base URL, handel base url
+    response.redirect(process.env.NODE_ENV == 'production' ? '/home' : 'http://localhost:3000/home');
   }
 
   @Get('google/logout')
-  @Redirect('http://localhost:3000')
+  @Redirect(process.env.NODE_ENV == 'production' ? '/' : 'http://localhost:3000')
   async logout(@Session() session, @Req() req) {
-    console.log(session);
     delete req.user;
     session.destroy(err => {
       if (err) {
