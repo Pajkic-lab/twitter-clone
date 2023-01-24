@@ -1,9 +1,9 @@
 import { Controller, Get, Req, Res, Session, UseGuards } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { HelperService } from 'src/helper/helper.service';
 import { GoogleAuthGurard } from './utils/Guards';
 import { ConfigService } from '@nestjs/config';
 import { Request, Response } from 'express';
-import { HelperService } from 'src/helper/helper.service';
 
 @Controller('auth')
 export class AuthController {
@@ -31,6 +31,7 @@ export class AuthController {
       }
     });
     await this.prisma.session.deleteMany({
+      // delete or delete many whats the difference
       where: {
         sid: session.sid,
       },
