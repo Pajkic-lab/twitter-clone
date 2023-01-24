@@ -1,11 +1,13 @@
-import { Controller, Get, Redirect, Req, Res, Session, UseGuards } from '@nestjs/common';
-import { Request, Response } from 'express';
+import { Controller, Get, Req, Res, Session, UseGuards } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { GoogleAuthGurard } from './utils/Guards';
+import { ConfigService } from '@nestjs/config';
+import { Request, Response } from 'express';
+import { HelperService } from 'src/helper/helper.service';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService, private config: ConfigService, private helperService: HelperService) {}
 
   @Get('google/login')
   @UseGuards(GoogleAuthGurard)
@@ -16,12 +18,12 @@ export class AuthController {
   @Get('google/redirect')
   @UseGuards(GoogleAuthGurard)
   handleRedirect(@Req() request: Request, @Res() response: Response) {
-    response.redirect(process.env.NODE_ENV == 'production' ? '/home' : 'http://localhost:3000/home');
+    // response.redirect(process.env.NODE_ENV == 'production' ? '/home' : `${this.config.get('BASE_URL_CLIENT')}/home`);
+    response.redirect(this.helperService.baseUrlClient('/home'));
   }
 
   @Get('google/logout')
-  @Redirect(process.env.NODE_ENV == 'production' ? '/' : 'http://localhost:3000')
-  async logout(@Session() session, @Req() req) {
+  async logout(@Session() session, @Req() req, @Res() response: Response) {
     delete req.user;
     session.destroy(err => {
       if (err) {
@@ -33,6 +35,8 @@ export class AuthController {
         sid: session.sid,
       },
     });
+    // response.redirect(process.env.NODE_ENV == 'production' ? '/' : `${this.config.get('BASE_URL_CLIENT')}`);
+    response.redirect(this.helperService.baseUrlClient('/'));
   }
 
   @Get('status')
