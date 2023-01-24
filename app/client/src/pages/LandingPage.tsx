@@ -15,8 +15,11 @@ export const LandingPage = () => {
   const [signInModalIsOpen, setSignInModalIsOpen] = useState(false)
 
   const googleLogin = () => {
-    window.open('http://localhost:5000/auth/google/login', '_self')
+    process.env.NODE_ENV == 'production'
+      ? window.open('/auth/google/login', '_self')
+      : window.open('http://localhost:5000/auth/google/login', '_self')
   }
+  console.log(process.env.NODE_ENV)
   return (
     <>
       <PageWrapper>
