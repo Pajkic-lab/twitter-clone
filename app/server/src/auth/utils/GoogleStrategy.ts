@@ -3,19 +3,21 @@ import { PassportStrategy } from '@nestjs/passport';
 import { ConfigService } from '@nestjs/config';
 import { AuthService } from '../auth.service';
 import { Injectable } from '@nestjs/common';
+import { HelperService } from '../../helper/helper.service';
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy) {
   authService: AuthService;
 
-  constructor(config: ConfigService, authService: AuthService) {
+  constructor(config: ConfigService, authService: AuthService, helperService: HelperService) {
     super({
       clientID: config.get('GOOGLE_CLIENT_ID'),
       clientSecret: config.get('GOOGLE_CLIENT_SECRET'),
-      callbackURL: process.env.NODE_ENV == 'production' ? '/auth/google/redirect' : 'http://localhost:5000/auth/google/redirect',
+      // callbackURL: process.env.NODE_ENV == 'production' ? '/auth/google/redirect' : `${config.get('BASE_URL_SERVER')}/auth/google/redirect`,
+      callbackURL: helperService.baseUrlServer('/auth/google/redirect'),
       scope: ['profile', 'email'],
     });
-    this.authService = authService; // do i need this line of code and what it does
+    this.authService = authService;
   }
 
   async validate(accesToken: string, refreshToken: string, profile: Profile) {
