@@ -11,6 +11,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AppService } from './app.service';
 import { Module } from '@nestjs/common';
 import { join } from 'path';
+import { HttpModule } from './http/http.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { join } from 'path';
     AuthModule,
     CronJobModule,
     HelperModule,
+    HttpModule,
   ],
   controllers: [AppController],
   providers: [AppService],
