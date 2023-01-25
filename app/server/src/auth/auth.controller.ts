@@ -1,42 +1,34 @@
 import { Controller, Get, Req, Res, Session, UseGuards } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
 import { HelperService } from 'src/helper/helper.service';
+import { HttpService } from 'src/http/http.service';
 import { GoogleAuthGurard } from './utils/Guards';
-import { ConfigService } from '@nestjs/config';
 import { Request, Response } from 'express';
+import { AuthService } from './auth.service';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private prisma: PrismaService, private config: ConfigService, private helperService: HelperService) {}
+  constructor(
+    private helperService: HelperService,
+    private authService: AuthService,
+    private httpService: HttpService,
+  ) {}
 
   @Get('google/login')
   @UseGuards(GoogleAuthGurard)
   handleLogin() {
-    console.log('saljem request google serveru poslednja instanca na masini');
+    console.log('');
   }
 
   @Get('google/redirect')
   @UseGuards(GoogleAuthGurard)
   handleRedirect(@Req() request: Request, @Res() response: Response) {
-    // response.redirect(process.env.NODE_ENV == 'production' ? '/home' : `${this.config.get('BASE_URL_CLIENT')}/home`);
+    this.httpService.baseUrlServer('/home');
     response.redirect(this.helperService.baseUrlClient('/home'));
   }
 
   @Get('google/logout')
-  async logout(@Session() session, @Req() req, @Res() response: Response) {
-    delete req.user;
-    session.destroy(err => {
-      if (err) {
-        console.log(err);
-      }
-    });
-    await this.prisma.session.deleteMany({
-      // delete or delete many whats the difference
-      where: {
-        sid: session.sid,
-      },
-    });
-    // response.redirect(process.env.NODE_ENV == 'production' ? '/' : `${this.config.get('BASE_URL_CLIENT')}`);
+  async logout(@Session() session: Record<string, any>, @Req() request: Request, @Res() response: Response) {
+    this.authService.deleteSession(request, session);
     response.redirect(this.helperService.baseUrlClient('/'));
   }
 
