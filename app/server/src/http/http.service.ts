@@ -12,8 +12,6 @@ export class HttpService {
       production: '/',
     };
     this.serverLookupTable = serverLookupTable;
-
-    console.log('11111111111111111111111111111111111111111111111111111111', process.env.BASE_URL);
   }
 
   baseUrlServer(sufix: string): void {
