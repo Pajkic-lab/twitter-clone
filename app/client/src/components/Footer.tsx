@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import React from 'react'
 import { Colors } from 'ui/styles'
+import React from 'react'
 
 export const Footer = () => {
   const buttonsDate = [
