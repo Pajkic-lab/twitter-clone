@@ -1,8 +1,8 @@
 import { Controller, Get, Req, Res, Session, UseGuards } from '@nestjs/common';
 import { HttpService } from 'src/http/http.service';
 import { GoogleAuthGurard } from './utils/Guards';
-import { Request, Response } from 'express';
 import { AuthService } from './auth.service';
+import { Request, Response } from 'express';
 
 @Controller('auth')
 export class AuthController {
@@ -11,7 +11,7 @@ export class AuthController {
   @Get('google/login')
   @UseGuards(GoogleAuthGurard)
   handleLogin() {
-    console.log('');
+    null;
   }
 
   @Get('google/redirect')
@@ -22,13 +22,15 @@ export class AuthController {
 
   @Get('google/logout')
   async logout(@Session() session: Record<string, any>, @Req() request: Request, @Res() response: Response) {
-    this.authService.deleteSession(request, session);
-    response.redirect(this.httpService.baseUrlClient('/'));
+    request.logOut(err => {
+      err && console.log(err);
+    });
+    response.clearCookie('twitter-clone-auth-session').redirect(this.httpService.baseUrlClient('/'));
   }
 
   @Get('status')
   user(@Req() request: Request) {
-    console.log(request.user);
+    console.log(request.isAuthenticated());
     if (request.user) {
       return {
         msg: 'Authenticated',

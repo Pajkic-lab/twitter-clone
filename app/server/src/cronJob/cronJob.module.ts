@@ -1,8 +1,8 @@
-import { HelperService } from 'src/helper/helper.service';
 import { CronJobService } from './cronJob.service';
+import { HttpService } from 'src/http/http.service';
 import { Module } from '@nestjs/common';
 
 @Module({
-  providers: [CronJobService, HelperService],
+  providers: [CronJobService, HttpService],
 })
 export class CronJobModule {}
