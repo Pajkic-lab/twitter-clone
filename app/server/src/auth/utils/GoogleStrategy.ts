@@ -1,4 +1,3 @@
-import { HelperService } from '../../helper/helper.service';
 import { Profile, Strategy } from 'passport-google-oauth20';
 import { PassportStrategy } from '@nestjs/passport';
 import { HttpService } from 'src/http/http.service';
@@ -10,7 +9,7 @@ import { Injectable } from '@nestjs/common';
 export class GoogleStrategy extends PassportStrategy(Strategy) {
   authService: AuthService;
 
-  constructor(config: ConfigService, authService: AuthService, helperService: HelperService, httpService: HttpService) {
+  constructor(config: ConfigService, authService: AuthService, httpService: HttpService) {
     super({
       clientID: config.get('GOOGLE_CLIENT_ID'),
       clientSecret: config.get('GOOGLE_CLIENT_SECRET'),

@@ -19,7 +19,7 @@ export const LandingPage = () => {
       ? window.open('/auth/google/login', '_self')
       : window.open('http://localhost:5000/auth/google/login', '_self')
   }
-  console.log(process.env.NODE_ENV)
+
   return (
     <>
       <PageWrapper>
