@@ -21,7 +21,7 @@ import * as hpp from 'hpp';
   app.use(compression());
   app.use(
     session({
-      name: 'twitter-clone-auth-session',
+      name: configService.get('SESSION_NAME'),
       secret: configService.get('SESSION_SECRET'),
       saveUninitialized: false,
       resave: false,

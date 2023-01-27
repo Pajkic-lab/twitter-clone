@@ -1,7 +1,6 @@
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 import { UserDto } from 'src/dtos/userDto';
-import { Request } from 'express';
 
 @Injectable()
 export class AuthService {
@@ -18,7 +17,7 @@ export class AuthService {
     const newUser = await this.prisma.user.create({
       data: {
         email: details.email,
-        name: details.displayName,
+        name: details.displayName || 'testni input',
       },
     });
     return newUser;
@@ -33,17 +32,17 @@ export class AuthService {
     return user;
   }
 
-  async deleteSession(request: Request, session: Record<string, any>) {
-    delete request.user;
-    session.destroy(err => {
-      if (err) {
-        console.log(err);
-      }
-    });
-    await this.prisma.session.deleteMany({
-      where: {
-        sid: session.sid,
-      },
-    });
-  }
+  // async deleteSession(request: Request, session: Record<string, any>) {
+  //   delete request.user;
+  //   session.destroy(err => {
+  //     if (err) {
+  //       console.log(err);
+  //     }
+  //   });
+  //   await this.prisma.session.deleteMany({
+  //     where: {
+  //       sid: session.sid,
+  //     },
+  //   });
+  // }
 }
