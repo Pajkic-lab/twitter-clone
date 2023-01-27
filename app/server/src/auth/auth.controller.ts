@@ -5,7 +5,6 @@ import { ConfigService } from '@nestjs/config';
 import { Request, Response } from 'express';
 import { LocalAuthGurard } from './local-strategy/local-auth.guard';
 import { IsAuthGurard } from './is-auth.guard';
-import { AuthGuard } from '@nestjs/passport';
 
 @Controller('auth')
 export class AuthController {
