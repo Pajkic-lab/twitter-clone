@@ -1,6 +1,6 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
 import styleReducer from './features/styleSlice'
-import userReducer from './features/userSlice'
+import authReducer from './features/authSlice'
 
 export type AppDispatch = typeof store.dispatch
 export type RootState = ReturnType<typeof store.getState>
@@ -14,7 +14,7 @@ export type AppThunk<ReturnType = void> = ThunkAction<
 export const store = configureStore({
   reducer: {
     style: styleReducer,
-    user: userReducer,
+    auth: authReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
