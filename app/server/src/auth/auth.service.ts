@@ -17,7 +17,7 @@ export class AuthService {
     const newUser = await this.prisma.user.create({
       data: {
         email: details.email,
-        name: details.displayName || 'testni input',
+        name: details.displayName,
       },
     });
     return newUser;
@@ -32,17 +32,21 @@ export class AuthService {
     return user;
   }
 
-  // async deleteSession(request: Request, session: Record<string, any>) {
-  //   delete request.user;
-  //   session.destroy(err => {
-  //     if (err) {
-  //       console.log(err);
-  //     }
-  //   });
-  //   await this.prisma.session.deleteMany({
-  //     where: {
-  //       sid: session.sid,
-  //     },
-  //   });
-  // }
+  async validateUserLocal(details: { username: string; email: string; password: string }) {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        email: details.email,
+      },
+    });
+    if (user) return user;
+
+    const newUser = await this.prisma.user.create({
+      data: {
+        email: details.email,
+        name: details.username,
+        password: details.password,
+      },
+    });
+    return newUser;
+  }
 }

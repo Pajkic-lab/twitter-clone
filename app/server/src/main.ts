@@ -8,13 +8,18 @@ import { AppModule } from './app.module';
 import * as passport from 'passport';
 import helmet from 'helmet';
 import * as hpp from 'hpp';
+import { CorsService } from './http/cors.service';
+// import { CorsService } from './http/http.service';
 
 (async function () {
   const app = await NestFactory.create(AppModule);
   const configService = app.get<ConfigService>(ConfigService);
   const prismaService = app.get<PrismaService>(PrismaService);
+  const corsService = app.get<CorsService>(CorsService);
   app.enableCors({
-    origin: '*',
+    // origin: '*',
+    origin: corsService.configCors(),
+    credentials: true,
   });
   app.use(hpp());
   app.use(helmet());

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { fetchPostsThunk } from './thunk'
-import { Post } from 'types'
+import { Post } from 'types/oldIndex'
 
 interface StyleState {
   id: number

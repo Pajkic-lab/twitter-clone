@@ -4,17 +4,21 @@ import { ConfigService } from '@nestjs/config';
 import { AuthService } from '../auth.service';
 import { Injectable } from '@nestjs/common';
 import { Strategy } from 'passport-local';
+import { Request } from 'express';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
   constructor(private config: ConfigService, private authService: AuthService, private httpService: HttpService) {
-    console.log('3333333333333333333333333333333333333333');
-    super();
+    super({
+      passReqToCallback: true,
+      // usernameField: 'email',
+    });
   }
 
-  async validate(name: string, email: string, password: string) {
-    console.log(name, email, password); ////////////////////////////////////////
-    const user = await this.authService.validateUser({
+  async validate(request: Request) {
+    const { username, email, password } = request.body;
+    const user = await this.authService.validateUserLocal({
+      username,
       email,
       password,
     }); // no user throw error

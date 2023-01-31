@@ -27,11 +27,11 @@ export class HttpService {
     this.clientLookupTable = clientLookupTable;
   }
 
-  baseUrlServer(sufix: string): string {
+  baseUrlServer(sufix: string) {
     return `${this.serverLookupTable[this.env]}${sufix}`;
   }
 
-  baseUrlClient(sufix: string): string {
+  baseUrlClient(sufix: string) {
     return `${this.clientLookupTable[this.env]}${sufix}`;
   }
 }

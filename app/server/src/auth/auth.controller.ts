@@ -23,6 +23,7 @@ export class AuthController {
   }
 
   @Get('google/logout')
+  @UseGuards(IsAuthGurard)
   async logout(@Req() request: Request, @Res() response: Response) {
     request.logOut(err => {
       err && console.log(err);
@@ -30,8 +31,8 @@ export class AuthController {
     response.clearCookie(this.config.get('SESSION_NAME')).redirect(this.httpService.baseUrlClient('/'));
   }
 
-  @UseGuards(IsAuthGurard)
   @Get('status')
+  @UseGuards(IsAuthGurard)
   user(@Req() request: Request) {
     if (request.user) {
       return {
@@ -43,12 +44,10 @@ export class AuthController {
     };
   }
 
-  // local passport
+  @Post('register')
   @UseGuards(LocalAuthGurard)
-  @Post('login')
-  handleLocalLogin(@Req() request: Request) {
-    console.log('sdfkdshfhfk');
-    return request.user;
+  handleLocalLogin(@Req() request: Request, @Res() response: Response) {
+    response.send();
   }
 
   @Get('protected')
