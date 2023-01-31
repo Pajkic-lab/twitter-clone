@@ -1,4 +1,4 @@
-import { updateUsername } from 'store/features/userSlice'
+import { signUpThunk } from 'store/features/authSlice/thunk'
 import { Cross } from '@styled-icons/entypo/Cross'
 import { useAppDispatch } from 'store/hooks'
 import { JumboButton } from 'ui/Button'
@@ -8,15 +8,9 @@ import { FormikHelpers } from 'formik'
 import { BaseInput } from 'ui/Input'
 import { useFormik } from 'formik'
 import { Colors } from 'ui/styles'
+import { User } from 'types'
 import * as yup from 'yup'
 import React from 'react'
-
-interface FormValues {
-  name: string
-  email: string
-  password: string
-  confirmPassword: string
-}
 
 export const SignUpModal = ({
   signUpModalIsOpen,
@@ -31,8 +25,8 @@ export const SignUpModal = ({
     setSignUpModalIsOpen(false)
   }
 
-  const onSubmit = (values: FormValues, actions: FormikHelpers<FormValues>) => {
-    dispatch(updateUsername(values))
+  const onSubmit = async (values: User, actions: FormikHelpers<User>) => {
+    await dispatch(signUpThunk(values))
     actions.resetForm()
   }
 
@@ -102,9 +96,9 @@ export const SignUpModal = ({
               name={'Password'}
               value={values.password}
               error={errors.password}
-              handleChange={handleChange}
-              onBlure={handleBlur}
               touched={touched.password}
+              onBlure={handleBlur}
+              handleChange={handleChange}
             />
             <Input
               id={'confirmPassword'}
@@ -112,9 +106,9 @@ export const SignUpModal = ({
               name={'Confirm Password'}
               value={values.confirmPassword}
               error={errors.confirmPassword}
-              handleChange={handleChange}
-              onBlure={handleBlur}
               touched={touched.confirmPassword}
+              onBlure={handleBlur}
+              handleChange={handleChange}
             />
             <SignUpButton type="submit" /*isSubmitting={isSubmitting}*/>
               Sign Up

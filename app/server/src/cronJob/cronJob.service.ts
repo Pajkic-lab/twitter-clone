@@ -13,11 +13,8 @@ export class CronJobService {
     console.log(await this.prisma.$queryRaw`SELECT 1`);
   }
 
-  @Cron(CronExpression.EVERY_30_MINUTES)
+  @Cron(CronExpression.EVERY_12_HOURS)
   async googlePing() {
-    console.log('1111111111111', this.httpService.baseUrlServer('/auth/google/login'));
-    console.log('2222222222222', axios.get(this.httpService.baseUrlServer('/auth/google/login')));
-    const { status } = await axios.get(this.httpService.baseUrlServer('/auth/google/login'));
-    status == 200 ? console.log('google auth service ping success!') : console.log('google auth service ping fail!');
+    await axios.get('https://twitter-clone-j82h.onrender.com/auth/google/login');
   }
 }

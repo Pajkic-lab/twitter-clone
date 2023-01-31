@@ -7,11 +7,11 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { AppController } from './app.controller';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
+import { HttpModule } from './http/http.module';
 import { ConfigModule } from '@nestjs/config';
 import { AppService } from './app.service';
 import { Module } from '@nestjs/common';
 import { join } from 'path';
-import { HttpModule } from './http/http.module';
 
 @Module({
   imports: [

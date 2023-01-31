@@ -1,7 +1,6 @@
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 import { UserDto } from 'src/dtos/userDto';
-import { Request } from 'express';
 
 @Injectable()
 export class AuthService {
@@ -33,17 +32,21 @@ export class AuthService {
     return user;
   }
 
-  async deleteSession(request: Request, session: Record<string, any>) {
-    delete request.user;
-    session.destroy(err => {
-      if (err) {
-        console.log(err);
-      }
-    });
-    await this.prisma.session.deleteMany({
+  async validateUserLocal(details: { username: string; email: string; password: string }) {
+    const user = await this.prisma.user.findUnique({
       where: {
-        sid: session.sid,
+        email: details.email,
       },
     });
+    if (user) return user;
+
+    const newUser = await this.prisma.user.create({
+      data: {
+        email: details.email,
+        name: details.username,
+        password: details.password,
+      },
+    });
+    return newUser;
   }
 }
