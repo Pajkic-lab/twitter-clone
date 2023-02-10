@@ -20,6 +20,6 @@ model User {
 model Session {
   id        String   @id
   sid       String   @unique
-  data      String   @db.VarChar(300)  //set to musch more do to avatar try 2000
+  data      String   @db.VarChar(300)  
   expiresAt DateTime
 }

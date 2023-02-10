@@ -25,3 +25,8 @@ serializer and deserializer are not ment to be guards/middlewares they are just 
 you must use protection on every route specific
 
 request.logOut() changes value of cokie so it makes it unusabel, but it remanis in browser as it should
+
+*** local strategy important!!! request coming has to be exectly like following code. request.username and request.password it must be
+accesable from req and username can not be user-name or userName it must be username
+
+*** 401 unautorize error it means that probably request is badly formed, read text above

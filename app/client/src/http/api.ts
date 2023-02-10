@@ -1,5 +1,5 @@
+import { SignInUser, User } from 'types'
 import { httpClient } from './client'
-import { User } from 'types'
 
 export default {
   auth: {
@@ -11,8 +11,12 @@ export default {
         confirmPassword,
       })
     },
-    signIn() {
-      return httpClient.post('login', {})
+    signIn({ email, password }: SignInUser) {
+      return httpClient.post('auth/login', {
+        username: 'placeholder',
+        email,
+        password,
+      })
     },
     authUser() {
       return httpClient.get(`auth`)

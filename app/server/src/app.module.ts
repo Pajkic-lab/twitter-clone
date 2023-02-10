@@ -1,4 +1,4 @@
-import { CronJobModule } from './cronJob/cronJob.module';
+import { CronJobModule } from './cron-job/cron-job.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { PrismaModule } from './prisma/prisma.module';
 import { HelperModule } from './helper/helper.module';
