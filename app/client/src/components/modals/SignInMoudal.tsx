@@ -1,9 +1,14 @@
+import { signInThunk } from 'store/features/authSlice/thunk'
 import { Cross } from '@styled-icons/entypo/Cross'
+import { FormikHelpers, useFormik } from 'formik'
+import { useAppDispatch } from 'store/hooks'
 import { JumboButton } from 'ui/Button'
 import Modal from 'styled-react-modal'
 import styled from 'styled-components'
 import { BaseInput } from 'ui/Input'
+import { SignInUser } from 'types'
 import { Colors } from 'ui/styles'
+import * as yup from 'yup'
 import React from 'react'
 
 export const SignInModal = ({
@@ -13,19 +18,71 @@ export const SignInModal = ({
   signInModalIsOpen: boolean
   setSignInModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }) => {
+  const dispatch = useAppDispatch()
+
   const closeModal = () => {
     setSignInModalIsOpen(false)
   }
+
+  const onSubmit = async (
+    values: SignInUser,
+    actions: FormikHelpers<SignInUser>,
+  ) => {
+    await dispatch(signInThunk(values))
+    actions.resetForm()
+  }
+
+  const validationSchema = yup.object().shape({
+    email: yup
+      .string()
+      .required('Email is required!')
+      .email('Please enter a valid email!'),
+    password: yup.string().required('Password is required!'),
+    // .matches(/[a-z]/, 'global.errors.mustHaveLowerCaseLetter')
+    // .matches(/[A-Z]/, 'global.errors.mustHaveUpperCaseLetter')
+    // .matches(/[0-9]/, 'global.errors.mustHaveNumber')
+    // .matches(/[!#@$%^&*)(+=._-]/, 'global.errors.mustHaveSpecialCharacter')
+    // .min(8, 'global.errors.minLenValidator'),
+  })
+
+  const { handleSubmit, handleBlur, handleChange, errors, touched, values } =
+    useFormik({
+      initialValues: {
+        email: '',
+        password: '',
+      },
+      onSubmit,
+      validationSchema,
+    })
+
   return (
     <>
       <Modal isOpen={signInModalIsOpen} onBackgroundClick={closeModal}>
         <ModalSection>
           <Icon onClick={closeModal} />
           <H1>Sign in</H1>
-          <Form>
-            {/* <Input name={'Email'} />
-            <Input name={'Password'} /> */}
-            <SignUpButton>Sign In</SignUpButton>
+          <Form onSubmit={handleSubmit}>
+            <Input
+              id={'email'}
+              type={'email'}
+              name={'Email'}
+              value={values.email}
+              error={errors.email}
+              touched={touched.email}
+              onBlure={handleBlur}
+              handleChange={handleChange}
+            />
+            <Input
+              id={'password'}
+              type={'password'}
+              name={'Password'}
+              value={values.password}
+              error={errors.password}
+              touched={touched.password}
+              onBlure={handleBlur}
+              handleChange={handleChange}
+            />
+            <SignInButton type="submit">Sign In</SignInButton>
           </Form>
         </ModalSection>
       </Modal>
@@ -61,6 +118,6 @@ const Form = styled.form``
 
 const Input = styled(BaseInput)``
 
-const SignUpButton = styled(JumboButton)`
+const SignInButton = styled(JumboButton)`
   margin-top: 1.5rem;
 `

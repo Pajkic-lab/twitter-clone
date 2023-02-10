@@ -1,52 +1,50 @@
-import { PrismaService } from 'src/prisma/prisma.service';
-import { Injectable } from '@nestjs/common';
-import { UserDto } from 'src/dtos/userDto';
+import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
+import { CreatGoogleUserDto, CreateUserDto, ConfirmUserDto } from 'src/dtos';
+import { AuthRepository } from './auth.repository';
+import { Req } from '@nestjs/common/decorators';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private authRepository: AuthRepository) {}
 
-  async validateUser(details: UserDto) {
-    const user = await this.prisma.user.findUnique({
-      where: {
-        email: details.email,
-      },
-    });
-    if (user) return user;
+  async registerUser(createUser: CreateUserDto) {
+    const salt = 10;
 
-    const newUser = await this.prisma.user.create({
-      data: {
-        email: details.email,
-        name: details.displayName,
-      },
-    });
+    const user = await this.authRepository.findUserByEmail(createUser.email);
+    if (user) throw new NotFoundException('User already exist');
+
+    createUser.password = await bcrypt.hash(createUser.password, salt);
+    delete createUser.confirmPassword;
+
+    const newUser = await this.authRepository.createUser(createUser);
     return newUser;
   }
 
-  async findUser(id: number) {
-    const user = await this.prisma.user.findUnique({
-      where: {
-        id,
-      },
-    });
+  async loginUser(confirmUser: ConfirmUserDto) {
+    const user = await this.authRepository.findUserByEmail(confirmUser.email);
+
+    if (!user) throw new NotFoundException('User do not exist');
+    if (await bcrypt.compare(confirmUser.password, user.password)) return user;
+    throw new NotFoundException('Invalid credentials');
+  }
+
+  async validateGoogleUser(createUser: CreatGoogleUserDto) {
+    const user = await this.authRepository.findUserByEmail(createUser.email);
+    if (user) return user;
+
+    const newUser = await this.authRepository.createGoogleUser(createUser);
+    return newUser;
+  }
+
+  async findUser(userId: number) {
+    const user = await this.authRepository.findUserById(userId);
     return user;
   }
 
-  async validateUserLocal(details: { username: string; email: string; password: string }) {
-    const user = await this.prisma.user.findUnique({
-      where: {
-        email: details.email,
-      },
+  logOut(@Req() request) {
+    request.logOut(err => {
+      if (err) throw new BadRequestException(err.message);
     });
-    if (user) return user;
-
-    const newUser = await this.prisma.user.create({
-      data: {
-        email: details.email,
-        name: details.username,
-        password: details.password,
-      },
-    });
-    return newUser;
   }
 }

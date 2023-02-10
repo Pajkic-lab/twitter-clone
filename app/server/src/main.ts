@@ -1,5 +1,7 @@
 import { PrismaSessionStore } from '@quixo3/prisma-session-store';
 import { PrismaService } from './prisma/prisma.service';
+import { ValidationPipe } from '@nestjs/common/pipes';
+import { CorsService } from './http/cors.service';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import * as session from 'express-session';
@@ -8,8 +10,6 @@ import { AppModule } from './app.module';
 import * as passport from 'passport';
 import helmet from 'helmet';
 import * as hpp from 'hpp';
-import { CorsService } from './http/cors.service';
-// import { CorsService } from './http/http.service';
 
 (async function () {
   const app = await NestFactory.create(AppModule);
@@ -17,7 +17,6 @@ import { CorsService } from './http/cors.service';
   const prismaService = app.get<PrismaService>(PrismaService);
   const corsService = app.get<CorsService>(CorsService);
   app.enableCors({
-    // origin: '*',
     origin: corsService.configCors(),
     credentials: true,
   });
@@ -31,7 +30,7 @@ import { CorsService } from './http/cors.service';
       saveUninitialized: false,
       resave: false,
       cookie: {
-        maxAge: 6000000,
+        maxAge: 86400,
       },
       store: new PrismaSessionStore(prismaService, {
         checkPeriod: 2 * 60 * 1000,
@@ -42,6 +41,11 @@ import { CorsService } from './http/cors.service';
   );
   app.use(passport.initialize());
   app.use(passport.session());
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+    }),
+  );
   await app.listen(configService.get('PORT') || 5000);
   console.log(`Application is running on: ${await app.getUrl()} 🚀🚀🚀`);
 })();

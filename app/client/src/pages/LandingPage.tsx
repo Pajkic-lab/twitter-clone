@@ -20,6 +20,10 @@ export const LandingPage = () => {
       : window.open('http://localhost:5000/auth/google/login', '_self')
   }
 
+  const appleLogin = () => {
+    window.open('http://shorturl.at/nDFY3', '_blank')
+  }
+
   return (
     <>
       <PageWrapper>
@@ -40,7 +44,11 @@ export const LandingPage = () => {
               >
                 Sign up with Google
               </SocialButton>
-              <SocialButton image={appleSocilSignInlogo} $wide={true}>
+              <SocialButton
+                onClick={appleLogin}
+                image={appleSocilSignInlogo}
+                $wide={true}
+              >
                 Sign up with Apple
               </SocialButton>
               <DividerWrapper>
