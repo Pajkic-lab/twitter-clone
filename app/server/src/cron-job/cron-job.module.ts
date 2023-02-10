@@ -1,4 +1,4 @@
-import { CronJobService } from './cronJob.service';
+import { CronJobService } from './cron-job.service';
 import { HttpService } from 'src/http/http.service';
 import { Module } from '@nestjs/common';
 

@@ -15,6 +15,7 @@ export class CronJobService {
 
   @Cron(CronExpression.EVERY_12_HOURS)
   async googlePing() {
-    await axios.get('https://twitter-clone-j82h.onrender.com/auth/google/login');
+    const { status } = await axios.get('https://twitter-clone-j82h.onrender.com/auth/google/login');
+    console.log('google ping', status);
   }
 }

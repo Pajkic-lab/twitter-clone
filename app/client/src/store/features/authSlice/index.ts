@@ -1,17 +1,24 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { signUpThunk } from './thunk'
+import { signInThunk } from './thunk'
 import { User } from 'types'
 
 interface AuthState extends User {
+  userId: number | null
   isLoading: boolean
+  isSubmiting: boolean
+  errorMessage: string
 }
 
 const initialState: AuthState = {
+  userId: null,
   name: '',
   email: '',
   password: '',
   confirmPassword: '',
   isLoading: false,
+  isSubmiting: false,
+  errorMessage: 'catch error from server and refactor code',
 }
 
 export const authSlice = createSlice({
@@ -32,18 +39,33 @@ export const authSlice = createSlice({
   },
   extraReducers: builder => {
     builder
-      .addCase(signUpThunk.pending, state => {
-        // state.loading = true
-        console.log(1, 'panding')
+      .addCase(signUpThunk.pending, ({ isSubmiting }) => {
+        isSubmiting = true
       })
-      .addCase(signUpThunk.fulfilled, (state, action) => {
-        // state.loading = false
-        // state.posts = action.payload.data
-        console.log(2, 'success')
+      .addCase(signUpThunk.fulfilled, ({ isSubmiting }) => {
+        isSubmiting = false
       })
-      .addCase(signUpThunk.rejected, state => {
-        // state.loading = false
+      .addCase(
+        signUpThunk.rejected,
+        ({ isSubmiting, errorMessage }, action) => {
+          isSubmiting = false
+          errorMessage = ''
+        },
+      )
+      .addCase(signInThunk.pending, ({ isSubmiting }) => {
+        isSubmiting = true
       })
+      .addCase(signInThunk.fulfilled, ({ isSubmiting }) => {
+        console.log('success')
+        isSubmiting = false
+      })
+      .addCase(
+        signInThunk.rejected,
+        ({ isSubmiting, errorMessage }, action) => {
+          errorMessage = ''
+          isSubmiting = false
+        },
+      )
   },
 })
 

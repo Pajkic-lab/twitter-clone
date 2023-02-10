@@ -1,15 +1,31 @@
+import { GoogleAuthGurard } from './google-strategy/google-auth.gurard';
 import { GoogleStrategy } from './google-strategy/google-strategy';
-import { SessionSerializer } from './google-strategy/serializer';
+import { DtoValidation } from './local-strategy/dto-validation';
+import { LocalStrategy } from './local-strategy/local-strategy';
 import { HelperService } from 'src/helper/helper.service';
 import { HttpService } from 'src/http/http.service';
 import { AuthController } from './auth.controller';
+import { AuthRepository } from './auth.repository';
+import { IsGuestGurard } from './is-guest.guard';
+import { SessionSerializer } from './serializer';
+import { IsAuthGurard } from './is-auth.guard';
 import { AuthService } from './auth.service';
 import { Module } from '@nestjs/common';
-import { LocalStrategy } from './local-strategy/local-strategy';
-import { IsAuthGurard } from './is-auth.guard';
 
 @Module({
   controllers: [AuthController],
-  providers: [AuthService, GoogleStrategy, SessionSerializer, HelperService, HttpService, LocalStrategy, IsAuthGurard],
+  providers: [
+    AuthService,
+    GoogleStrategy,
+    SessionSerializer,
+    HelperService,
+    HttpService,
+    LocalStrategy,
+    AuthRepository,
+    DtoValidation,
+    IsGuestGurard,
+    IsAuthGurard,
+    GoogleAuthGurard,
+  ],
 })
 export class AuthModule {}
