@@ -35,6 +35,12 @@ export class AuthController {
     return;
   }
 
+  @Get('user')
+  @UseGuards(IsAuthGurard)
+  handleAuthUser(@Req() request) {
+    return this.authService.authUser(request.user.id);
+  }
+
   @Get('logout')
   @UseGuards(IsAuthGurard)
   async logout(@Req() request, @Res() response) {

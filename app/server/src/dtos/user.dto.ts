@@ -47,6 +47,6 @@ export class ConfirmUserDto {
 
   @IsNotEmpty()
   @IsString()
-  @Length(5, 200)
+  // @Length(5, 200)
   password: string;
 }

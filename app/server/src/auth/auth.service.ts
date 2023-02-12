@@ -29,6 +29,14 @@ export class AuthService {
     throw new NotFoundException('Invalid credentials');
   }
 
+  async authUser(userId: number) {
+    const user = await this.authRepository.findUserById(userId);
+    if (!user) throw new NotFoundException('User do not exist');
+    delete user.password;
+    // delete user.avatar; /////////////////////////////////////////////////////
+    return { user };
+  }
+
   async validateGoogleUser(createUser: CreatGoogleUserDto) {
     const user = await this.authRepository.findUserByEmail(createUser.email);
     if (user) return user;

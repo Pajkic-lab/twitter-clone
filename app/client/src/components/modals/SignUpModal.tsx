@@ -1,6 +1,7 @@
 import { signUpThunk } from 'store/features/authSlice/thunk'
 import { Cross } from '@styled-icons/entypo/Cross'
 import { useAppDispatch } from 'store/hooks'
+import React, { useEffect } from 'react'
 import { JumboButton } from 'ui/Button'
 import Modal from 'styled-react-modal'
 import styled from 'styled-components'
@@ -8,9 +9,8 @@ import { FormikHelpers } from 'formik'
 import { BaseInput } from 'ui/Input'
 import { useFormik } from 'formik'
 import { Colors } from 'ui/styles'
-import { User } from 'types'
+import { CreateUser } from 'types'
 import * as yup from 'yup'
-import React from 'react'
 
 export const SignUpModal = ({
   signUpModalIsOpen,
@@ -25,17 +25,14 @@ export const SignUpModal = ({
     setSignUpModalIsOpen(false)
   }
 
-  const onSubmit = async (values: User, actions: FormikHelpers<User>) => {
+  const onSubmit = async (values: CreateUser, actions: FormikHelpers<CreateUser>) => {
     await dispatch(signUpThunk(values))
     actions.resetForm()
   }
 
   const validationSchema = yup.object().shape({
     name: yup.string().required('Name is required!'),
-    email: yup
-      .string()
-      .required('Email is required!')
-      .email('Please enter a valid email!'),
+    email: yup.string().required('Email is required!').email('Please enter a valid email!'),
     password: yup.string().required('Password is required!'),
     // .matches(/[a-z]/, 'global.errors.mustHaveLowerCaseLetter')
     // .matches(/[A-Z]/, 'global.errors.mustHaveUpperCaseLetter')
@@ -45,23 +42,19 @@ export const SignUpModal = ({
     confirmPassword: yup
       .string()
       .required('Confirm password is required')
-      .oneOf(
-        [yup.ref('password'), null],
-        'Confirm password and password are not eaqual!',
-      ),
+      .oneOf([yup.ref('password'), null], 'Confirm password and password are not eaqual!'),
   })
 
-  const { handleSubmit, handleBlur, handleChange, errors, touched, values } =
-    useFormik({
-      initialValues: {
-        name: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-      },
-      onSubmit,
-      validationSchema,
-    })
+  const { handleSubmit, handleBlur, handleChange, errors, touched, values } = useFormik({
+    initialValues: {
+      name: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+    },
+    onSubmit,
+    validationSchema,
+  })
 
   return (
     <>
@@ -110,9 +103,7 @@ export const SignUpModal = ({
               onBlure={handleBlur}
               handleChange={handleChange}
             />
-            <SignUpButton type="submit" /*isSubmitting={isSubmitting}*/>
-              Sign Up
-            </SignUpButton>
+            <SignUpButton type="submit" /*isSubmitting={isSubmitting}*/>Sign Up</SignUpButton>
           </Form>
         </ModalSection>
       </Modal>

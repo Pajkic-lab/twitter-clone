@@ -6,7 +6,7 @@ import { JumboButton } from 'ui/Button'
 import Modal from 'styled-react-modal'
 import styled from 'styled-components'
 import { BaseInput } from 'ui/Input'
-import { SignInUser } from 'types'
+import { VerifyUser } from 'types'
 import { Colors } from 'ui/styles'
 import * as yup from 'yup'
 import React from 'react'
@@ -24,19 +24,13 @@ export const SignInModal = ({
     setSignInModalIsOpen(false)
   }
 
-  const onSubmit = async (
-    values: SignInUser,
-    actions: FormikHelpers<SignInUser>,
-  ) => {
+  const onSubmit = async (values: VerifyUser, actions: FormikHelpers<VerifyUser>) => {
     await dispatch(signInThunk(values))
     actions.resetForm()
   }
 
   const validationSchema = yup.object().shape({
-    email: yup
-      .string()
-      .required('Email is required!')
-      .email('Please enter a valid email!'),
+    email: yup.string().required('Email is required!').email('Please enter a valid email!'),
     password: yup.string().required('Password is required!'),
     // .matches(/[a-z]/, 'global.errors.mustHaveLowerCaseLetter')
     // .matches(/[A-Z]/, 'global.errors.mustHaveUpperCaseLetter')
@@ -45,15 +39,14 @@ export const SignInModal = ({
     // .min(8, 'global.errors.minLenValidator'),
   })
 
-  const { handleSubmit, handleBlur, handleChange, errors, touched, values } =
-    useFormik({
-      initialValues: {
-        email: '',
-        password: '',
-      },
-      onSubmit,
-      validationSchema,
-    })
+  const { handleSubmit, handleBlur, handleChange, errors, touched, values } = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    onSubmit,
+    validationSchema,
+  })
 
   return (
     <>

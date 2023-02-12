@@ -1,71 +1,85 @@
+import { authUserThunk, signUpThunk, signInThunk } from './thunk'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { signUpThunk } from './thunk'
-import { signInThunk } from './thunk'
+import { AxiosResponse } from 'axios'
 import { User } from 'types'
 
 interface AuthState extends User {
-  userId: number | null
   isLoading: boolean
   isSubmiting: boolean
   errorMessage: string
+  AuthTrigger: boolean
 }
 
 const initialState: AuthState = {
-  userId: null,
+  id: null,
   name: '',
   email: '',
-  password: '',
-  confirmPassword: '',
   isLoading: false,
   isSubmiting: false,
-  errorMessage: 'catch error from server and refactor code',
+  errorMessage: 'catch exception from server and refactor code',
+  AuthTrigger: false,
 }
 
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    updateAuthData: (
-      state,
-      {
-        payload: { name, email, password, confirmPassword },
-      }: PayloadAction<AuthState>,
-    ) => {
+    updateAuthData: (state, { payload: { name, email } }: PayloadAction<AuthState>) => {
       state.name = name
       state.email = email
-      state.password = password
-      state.confirmPassword = confirmPassword
     },
   },
+  /**
+   * Do not destructure state inside extraReducers because code wont work for some reason
+   */
   extraReducers: builder => {
     builder
-      .addCase(signUpThunk.pending, ({ isSubmiting }) => {
-        isSubmiting = true
+
+      // Sign up logic
+      .addCase(signUpThunk.pending, state => {
+        state.isSubmiting = true
       })
-      .addCase(signUpThunk.fulfilled, ({ isSubmiting }) => {
-        isSubmiting = false
+      .addCase(signUpThunk.fulfilled, state => {
+        state.isSubmiting = false
+        state.AuthTrigger = true
+      })
+      .addCase(signUpThunk.rejected, state => {
+        state.errorMessage = ''
+        state.isSubmiting = false
+      })
+
+      // // Sign in logic
+      .addCase(signInThunk.pending, state => {
+        state.isSubmiting = true
+      })
+      .addCase(signInThunk.fulfilled, state => {
+        state.isSubmiting = false
+        state.AuthTrigger = true
+      })
+      .addCase(signInThunk.rejected, state => {
+        state.errorMessage = ''
+        state.isSubmiting = false
+      })
+
+      // // Authenticate user
+      .addCase(authUserThunk.pending, state => {
+        state.isLoading = true
       })
       .addCase(
-        signUpThunk.rejected,
-        ({ isSubmiting, errorMessage }, action) => {
-          isSubmiting = false
-          errorMessage = ''
+        authUserThunk.fulfilled,
+        (state, { payload }: PayloadAction<AxiosResponse<{ user: User }, any> | undefined>) => {
+          if (payload && payload.data) {
+            state.id = payload.data.user.id as number
+            state.name = payload.data.user.name
+            state.email = payload.data.user.email
+          }
+          state.isLoading = false
         },
       )
-      .addCase(signInThunk.pending, ({ isSubmiting }) => {
-        isSubmiting = true
+      .addCase(authUserThunk.rejected, state => {
+        state.errorMessage = ''
+        state.isLoading = false
       })
-      .addCase(signInThunk.fulfilled, ({ isSubmiting }) => {
-        console.log('success')
-        isSubmiting = false
-      })
-      .addCase(
-        signInThunk.rejected,
-        ({ isSubmiting, errorMessage }, action) => {
-          errorMessage = ''
-          isSubmiting = false
-        },
-      )
   },
 })
 

@@ -1,8 +1,9 @@
-import { Router } from './components/router/Router'
+import { AuthTrigger } from 'customHooks/AuthTrigger'
 import { ModalProvider } from 'styled-react-modal'
 import { ThemeProvider } from 'styled-components'
 import { useAppSelector } from 'store/hooks'
 import { GlobalStyle } from 'GlobalStyle'
+import { Router } from './router/Router'
 import styled from 'styled-components'
 import { Colors } from 'ui/styles'
 import React from 'react'
@@ -11,6 +12,7 @@ export const App = () => {
   const styleSlice = useAppSelector(state => state.style)
   return (
     <>
+      <AuthTrigger />
       <GlobalStyle {...styleSlice} />
       <ThemeProvider theme={styleSlice.theme}>
         <ModalProvider backgroundComponent={ModalBackground}>
