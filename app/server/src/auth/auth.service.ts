@@ -33,7 +33,6 @@ export class AuthService {
     const user = await this.authRepository.findUserById(userId);
     if (!user) throw new NotFoundException('User do not exist');
     delete user.password;
-    // delete user.avatar; /////////////////////////////////////////////////////
     return { user };
   }
 
@@ -50,9 +49,10 @@ export class AuthService {
     return user;
   }
 
-  logOut(@Req() request) {
+  async logOut(@Req() request) {
     request.logOut(err => {
       if (err) throw new BadRequestException(err.message);
     });
+    return;
   }
 }

@@ -1,7 +1,6 @@
 import { signUpThunk } from 'store/features/authSlice/thunk'
 import { Cross } from '@styled-icons/entypo/Cross'
 import { useAppDispatch } from 'store/hooks'
-import React, { useEffect } from 'react'
 import { JumboButton } from 'ui/Button'
 import Modal from 'styled-react-modal'
 import styled from 'styled-components'
@@ -11,14 +10,14 @@ import { useFormik } from 'formik'
 import { Colors } from 'ui/styles'
 import { CreateUser } from 'types'
 import * as yup from 'yup'
+import React from 'react'
 
-export const SignUpModal = ({
-  signUpModalIsOpen,
-  setSignUpModalIsOpen,
-}: {
+interface Props {
   signUpModalIsOpen: boolean
   setSignUpModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>
-}) => {
+}
+
+export const SignUpModal: React.FC<Props> = ({ signUpModalIsOpen, setSignUpModalIsOpen }) => {
   const dispatch = useAppDispatch()
 
   const closeModal = () => {
@@ -45,7 +44,7 @@ export const SignUpModal = ({
       .oneOf([yup.ref('password'), null], 'Confirm password and password are not eaqual!'),
   })
 
-  const { handleSubmit, handleBlur, handleChange, errors, touched, values } = useFormik({
+  const { handleSubmit, handleBlur, handleChange, isSubmitting, errors, touched, values } = useFormik({
     initialValues: {
       name: '',
       email: '',
@@ -103,7 +102,9 @@ export const SignUpModal = ({
               onBlure={handleBlur}
               handleChange={handleChange}
             />
-            <SignUpButton type="submit" /*isSubmitting={isSubmitting}*/>Sign Up</SignUpButton>
+            <SignUpButton type="submit" loading={isSubmitting}>
+              Sign Up
+            </SignUpButton>
           </Form>
         </ModalSection>
       </Modal>

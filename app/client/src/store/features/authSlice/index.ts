@@ -1,13 +1,14 @@
-import { authUserThunk, signUpThunk, signInThunk } from './thunk'
+import { authUserThunk, signUpThunk, signInThunk, signOutThunk } from './thunk'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AxiosResponse } from 'axios'
+import Cookies from 'js-cookie'
 import { User } from 'types'
 
 interface AuthState extends User {
   isLoading: boolean
-  isSubmiting: boolean
+
+  isAuth: boolean
   errorMessage: string
-  AuthTrigger: boolean
 }
 
 const initialState: AuthState = {
@@ -15,9 +16,9 @@ const initialState: AuthState = {
   name: '',
   email: '',
   isLoading: false,
-  isSubmiting: false,
+
+  isAuth: Cookies.get('twitter-clone-auth-session') ? true : false,
   errorMessage: 'catch exception from server and refactor code',
-  AuthTrigger: false,
 }
 
 export const authSlice = createSlice({
@@ -36,32 +37,22 @@ export const authSlice = createSlice({
     builder
 
       // Sign up logic
-      .addCase(signUpThunk.pending, state => {
-        state.isSubmiting = true
-      })
       .addCase(signUpThunk.fulfilled, state => {
-        state.isSubmiting = false
-        state.AuthTrigger = true
+        state.isAuth = true
       })
       .addCase(signUpThunk.rejected, state => {
         state.errorMessage = ''
-        state.isSubmiting = false
       })
 
-      // // Sign in logic
-      .addCase(signInThunk.pending, state => {
-        state.isSubmiting = true
-      })
+      // Sign in logic
       .addCase(signInThunk.fulfilled, state => {
-        state.isSubmiting = false
-        state.AuthTrigger = true
+        state.isAuth = true
       })
       .addCase(signInThunk.rejected, state => {
         state.errorMessage = ''
-        state.isSubmiting = false
       })
 
-      // // Authenticate user
+      // Authenticate user
       .addCase(authUserThunk.pending, state => {
         state.isLoading = true
       })
@@ -79,6 +70,16 @@ export const authSlice = createSlice({
       .addCase(authUserThunk.rejected, state => {
         state.errorMessage = ''
         state.isLoading = false
+      })
+
+      // Sign out logic
+      .addCase(signOutThunk.fulfilled, state => {
+        Cookies.remove('twitter-clone-auth-session')
+        Object.assign(state, initialState)
+        // window.location.reload()
+      })
+      .addCase(signOutThunk.rejected, state => {
+        state.errorMessage = ''
       })
   },
 })

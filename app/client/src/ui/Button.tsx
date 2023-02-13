@@ -12,12 +12,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const ButtonComponent = forwardRef<HTMLButtonElement, Props>(
   ({ loading, disabled, children, image, ...props }, ref) => (
-    <button
-      ref={ref}
-      data-element="button"
-      disabled={disabled || loading}
-      {...props}
-    >
+    <button ref={ref} data-element="button" disabled={disabled || loading} {...props}>
       {loading ? (
         <ButtonLoader />
       ) : image ? (
@@ -63,11 +58,11 @@ export const ButtonBase = styled(ButtonComponent)`
 `
 
 const ButtonLoader = styled(Loader)`
-  width: 1rem;
-  height: 1rem;
+  width: 1.2rem;
+  height: 1.2rem;
   margin: auto;
-  border: 4px solid rgba(255, 255, 255, 0.6);
-  border-left-color: ${Colors.darkBlue};
+  border: 3px solid rgba(255, 255, 255, 0.6);
+  border-left-color: ${Colors.primary};
 
   ::after {
     width: 1.5rem;

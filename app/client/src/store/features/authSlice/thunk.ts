@@ -31,3 +31,13 @@ export const authUserThunk = createAsyncThunk('auth/authUser', async () => {
     }
   }
 })
+
+export const signOutThunk = createAsyncThunk('auth/signOut', async () => {
+  try {
+    return await http.auth.signOut()
+  } catch (error) {
+    if (error instanceof Error) {
+      // return rejectWithValue(error)
+    }
+  }
+})

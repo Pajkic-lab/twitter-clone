@@ -21,7 +21,10 @@ export default {
       })
     },
     authUser(): Promise<AxiosResponse<{ user: User }, any>> {
-      return httpClient.get(`auth/user`)
+      return httpClient.get('auth/user')
+    },
+    signOut() {
+      return httpClient.get('auth/logout')
     },
   },
 }

@@ -3,9 +3,9 @@ import { ModalProvider } from 'styled-react-modal'
 import { ThemeProvider } from 'styled-components'
 import { useAppSelector } from 'store/hooks'
 import { GlobalStyle } from 'GlobalStyle'
-import { Router } from './router/Router'
 import styled from 'styled-components'
 import { Colors } from 'ui/styles'
+import { Router } from './router'
 import React from 'react'
 
 export const App = () => {

@@ -20,7 +20,7 @@ export class AuthController {
   @Get('google/redirect')
   @UseGuards(GoogleAuthGurard)
   handleGoogleRedirect(@Res() response) {
-    response.redirect(this.httpService.baseUrlClient('/home'));
+    response.redirect(this.httpService.baseUrlClient('/'));
   }
 
   @Post('register')
@@ -43,9 +43,8 @@ export class AuthController {
 
   @Get('logout')
   @UseGuards(IsAuthGurard)
-  async logout(@Req() request, @Res() response) {
-    this.authService.logOut(request);
-    response.clearCookie(this.config.get('SESSION_NAME')).redirect(this.httpService.baseUrlClient('/'));
+  handlelogout(@Req() request) {
+    return this.authService.logOut(request);
   }
 
   @Get('status')

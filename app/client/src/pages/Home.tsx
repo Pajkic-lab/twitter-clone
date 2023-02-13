@@ -1,10 +1,12 @@
+import { signOutThunk } from 'store/features/authSlice/thunk'
+import { useAppDispatch } from 'store/hooks'
 import React from 'react'
 
 export const Home = () => {
+  const dispatch = useAppDispatch()
+
   const logOut = () => {
-    process.env.NODE_ENV == 'production'
-      ? window.open('/auth/logout', '_self')
-      : window.open('http://localhost:5000/auth/logout', '_self')
+    void dispatch(signOutThunk())
   }
 
   return (

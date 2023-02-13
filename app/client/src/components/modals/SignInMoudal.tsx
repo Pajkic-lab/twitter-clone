@@ -11,13 +11,12 @@ import { Colors } from 'ui/styles'
 import * as yup from 'yup'
 import React from 'react'
 
-export const SignInModal = ({
-  signInModalIsOpen,
-  setSignInModalIsOpen,
-}: {
+interface Props {
   signInModalIsOpen: boolean
   setSignInModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>
-}) => {
+}
+
+export const SignInModal: React.FC<Props> = ({ signInModalIsOpen, setSignInModalIsOpen }) => {
   const dispatch = useAppDispatch()
 
   const closeModal = () => {
@@ -39,7 +38,7 @@ export const SignInModal = ({
     // .min(8, 'global.errors.minLenValidator'),
   })
 
-  const { handleSubmit, handleBlur, handleChange, errors, touched, values } = useFormik({
+  const { handleSubmit, handleBlur, handleChange, isSubmitting, errors, touched, values } = useFormik({
     initialValues: {
       email: '',
       password: '',
@@ -75,7 +74,9 @@ export const SignInModal = ({
               onBlure={handleBlur}
               handleChange={handleChange}
             />
-            <SignInButton type="submit">Sign In</SignInButton>
+            <SignInButton loading={isSubmitting} type="submit">
+              Sign In
+            </SignInButton>
           </Form>
         </ModalSection>
       </Modal>
