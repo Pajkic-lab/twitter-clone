@@ -1,9 +1,11 @@
-import { SignInUser, User } from 'types'
+import { VerifyUser, CreateUser } from 'types'
+import { AxiosResponse } from 'axios'
 import { httpClient } from './client'
+import { User } from 'types'
 
 export default {
   auth: {
-    signUp({ name, email, password, confirmPassword }: User) {
+    signUp({ name, email, password, confirmPassword }: CreateUser) {
       return httpClient.post('auth/register', {
         username: name,
         email,
@@ -11,15 +13,18 @@ export default {
         confirmPassword,
       })
     },
-    signIn({ email, password }: SignInUser) {
+    signIn({ email, password }: VerifyUser) {
       return httpClient.post('auth/login', {
         username: 'placeholder',
         email,
         password,
       })
     },
-    authUser() {
-      return httpClient.get(`auth`)
+    authUser(): Promise<AxiosResponse<{ user: User }, any>> {
+      return httpClient.get('auth/user')
+    },
+    signOut() {
+      return httpClient.get('auth/logout')
     },
   },
 }

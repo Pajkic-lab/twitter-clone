@@ -30,7 +30,8 @@ import * as hpp from 'hpp';
       saveUninitialized: false,
       resave: false,
       cookie: {
-        maxAge: 86400,
+        maxAge: 2147483647,
+        httpOnly: false,
       },
       store: new PrismaSessionStore(prismaService, {
         checkPeriod: 2 * 60 * 1000,
