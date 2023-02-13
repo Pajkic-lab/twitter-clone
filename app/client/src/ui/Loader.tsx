@@ -4,15 +4,10 @@ import { Colors } from './styles'
 
 interface Props {
   fullScreen?: boolean
-  height?: number
 }
-export const Loader: FunctionComponent<Props> = ({
-  fullScreen,
-  height = 300,
-  ...props
-}) => {
+export const Loader: FunctionComponent<Props> = ({ fullScreen, ...props }) => {
   return fullScreen ? (
-    <Wrapper height={height}>
+    <Wrapper>
       <Element data-element="loader" {...props} />
     </Wrapper>
   ) : (
@@ -30,9 +25,10 @@ const loaderKeyframe = keyframes`
   }
 `
 
-const Wrapper = styled.div<{ height?: number }>`
+const Wrapper = styled.div`
   width: 100%;
-  ${props => `height: ${props.height}px`};
+  height: 100vh;
+  background-color: ${Colors.black};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -45,7 +41,7 @@ const Element = styled.div`
   font-size: 10px;
   position: relative;
   border: 4px solid transparent;
-  border-left-color: ${Colors.darkBlue};
+  border-left-color: ${Colors.primary};
   transform: translateZ(0);
   animation: ${loaderKeyframe} 1.1s infinite linear;
 
