@@ -56,4 +56,31 @@ export class AuthRepository {
       throw new HttpException('Error while finding user via google', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
+
+  async isUserNameUnique(uniqueName: string) {
+    try {
+      return await this.prisma.user.findUnique({
+        where: {
+          uniqueName,
+        },
+      });
+    } catch (error) {
+      throw new HttpException('Error while cheching name uniqueness', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async createUserNameUnique(id: number, uniqueName: string) {
+    try {
+      return await this.prisma.user.update({
+        where: {
+          id,
+        },
+        data: {
+          uniqueName,
+        },
+      });
+    } catch (error) {
+      throw new HttpException('Error while cheching name uniqueness', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
 }

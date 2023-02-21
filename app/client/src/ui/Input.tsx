@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from 'react'
+import React, { forwardRef } from 'react'
 import styled from 'styled-components'
 import { Colors } from './styles'
 
@@ -14,10 +14,7 @@ interface Props {
 }
 
 export const BaseInput = forwardRef<HTMLInputElement, Props>(
-  (
-    { name, value, error, type, id, touched, handleChange, onBlure, ...props },
-    ref,
-  ) => {
+  ({ name, value, error, type, id, touched, handleChange, onBlure, ...props }, ref) => {
     return (
       <Wrapper>
         <Input

@@ -1,7 +1,8 @@
+import { useAppDispatch, useAppSelector } from 'store/hooks'
 import { signInThunk } from 'store/features/authSlice/thunk'
 import { Cross } from '@styled-icons/entypo/Cross'
-import { FormikHelpers, useFormik } from 'formik'
-import { useAppDispatch } from 'store/hooks'
+import { useFormik, FormikHelpers } from 'formik'
+import React, { useEffect } from 'react'
 import { JumboButton } from 'ui/Button'
 import Modal from 'styled-react-modal'
 import styled from 'styled-components'
@@ -9,7 +10,6 @@ import { BaseInput } from 'ui/Input'
 import { VerifyUser } from 'types'
 import { Colors } from 'ui/styles'
 import * as yup from 'yup'
-import React from 'react'
 
 interface Props {
   signInModalIsOpen: boolean
@@ -18,14 +18,15 @@ interface Props {
 
 export const SignInModal: React.FC<Props> = ({ signInModalIsOpen, setSignInModalIsOpen }) => {
   const dispatch = useAppDispatch()
+  const { errorMessage } = useAppSelector(state => state.auth)
 
   const closeModal = () => {
     setSignInModalIsOpen(false)
+    // on close modal reset global error message
   }
 
   const onSubmit = async (values: VerifyUser, actions: FormikHelpers<VerifyUser>) => {
     await dispatch(signInThunk(values))
-    actions.resetForm()
   }
 
   const validationSchema = yup.object().shape({
@@ -38,7 +39,7 @@ export const SignInModal: React.FC<Props> = ({ signInModalIsOpen, setSignInModal
     // .min(8, 'global.errors.minLenValidator'),
   })
 
-  const { handleSubmit, handleBlur, handleChange, isSubmitting, errors, touched, values } = useFormik({
+  const { handleSubmit, handleBlur, handleChange, setErrors, isSubmitting, errors, touched, values } = useFormik({
     initialValues: {
       email: '',
       password: '',
@@ -46,6 +47,12 @@ export const SignInModal: React.FC<Props> = ({ signInModalIsOpen, setSignInModal
     onSubmit,
     validationSchema,
   })
+
+  useEffect(() => {
+    if (errorMessage) {
+      setErrors({ email: errorMessage, password: errorMessage })
+    }
+  }, [errorMessage])
 
   return (
     <>
