@@ -3,6 +3,8 @@ import { CreatGoogleUserDto, CreateUserDto, ConfirmUserDto } from 'src/dtos';
 import { AuthRepository } from './auth.repository';
 import { Req } from '@nestjs/common/decorators';
 import * as bcrypt from 'bcrypt';
+import { HttpException } from '@nestjs/common/exceptions';
+import { HttpStatus } from '@nestjs/common/enums';
 
 @Injectable()
 export class AuthService {
@@ -24,14 +26,14 @@ export class AuthService {
   async loginUser(confirmUser: ConfirmUserDto) {
     const user = await this.authRepository.findUserByEmail(confirmUser.email);
 
-    if (!user) throw new NotFoundException('User do not exist');
+    if (!user) throw new NotFoundException('User does not exist');
     if (await bcrypt.compare(confirmUser.password, user.password)) return user;
     throw new NotFoundException('Invalid credentials');
   }
 
   async authUser(userId: number) {
     const user = await this.authRepository.findUserById(userId);
-    if (!user) throw new NotFoundException('User do not exist');
+    if (!user) throw new NotFoundException('User does not exist');
     delete user.password;
     return { user };
   }
@@ -54,5 +56,25 @@ export class AuthService {
       if (err) throw new BadRequestException(err.message);
     });
     return;
+  }
+
+  async checkNameUniqueness(uniqueName: string) {
+    const res = await this.authRepository.isUserNameUnique(uniqueName);
+    if (res !== null) {
+      return { isNameUnique: false };
+    }
+    return { isNameUnique: true };
+  }
+
+  async createUniqueUserName(userId: number, uniqueName: string) {
+    let user;
+    const res = await this.authRepository.isUserNameUnique(uniqueName);
+    if (res !== null) {
+      throw new NotFoundException('Uniqu user name already exist!');
+    } else {
+      user = await this.authRepository.createUserNameUnique(userId, uniqueName);
+      if (!user) throw new HttpException('Error while updating unique user name', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    return { uniqueName: user.uniqueName };
   }
 }

@@ -5,6 +5,22 @@ import { Colors } from 'ui/styles'
 
 export const GlobalStyle = createGlobalStyle<{ theme: any; customCss: string }>`
 
+  @font-face {
+    font-family: 'chip-bold';
+    src: local('chip-bold'),
+    url(${chipBold}) format('woff');
+    font-weight: 700;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'chip-regular';
+    src: local('chip-regular'), 
+    url(${chipRegular}) format('woff');
+    font-weight: 300;
+    font-style: normal;
+  }
+
   * {
     box-sizing: border-box;
     scrollbar-color: #D0D0D0 #DDDDDD59;
@@ -120,22 +136,6 @@ export const GlobalStyle = createGlobalStyle<{ theme: any; customCss: string }>`
     div {
       cursor: default;
     }
-  }
-
-  @font-face {
-        font-family: 'chip-bold';
-        src: local('chip-bold'), local('woff'),
-        url(${chipBold}) format('woff');
-        font-weight: 700;
-        font-style: normal;
-    }
-
-  @font-face {
-      font-family: 'chip-regular';
-      src: local('chip-regular'), local('woff'),
-      url(${chipRegular}) format('woff');
-      font-weight: 300;
-      font-style: normal;
   }
 
   ${props => `${props.customCss}`}

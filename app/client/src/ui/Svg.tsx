@@ -10,7 +10,6 @@ interface Props {
 }
 
 const SvgComponent: React.FC<Props> = props => {
-  console.log(props)
   return <IconSvg {...props} />
 }
 

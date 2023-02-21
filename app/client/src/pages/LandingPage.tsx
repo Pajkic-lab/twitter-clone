@@ -3,7 +3,7 @@ import googleSocialSignInLogo from 'assets/googl-socil-signIn-logo.png'
 import { SocialTwitter } from '@styled-icons/foundation/SocialTwitter'
 import appleSocilSignInlogo from 'assets/apple-socil-signIn-logo.png'
 import backgroundImage from 'assets/landing-page-backgrount.png'
-import { SignInModal } from 'components/modals/SignInMoudal'
+import { SignInModal } from 'components/modals/SignInModal'
 import { SignUpModal } from 'components/modals/SignUpModal'
 import { Footer } from 'components/Footer'
 import React, { useState } from 'react'
@@ -14,6 +14,10 @@ export const LandingPage = () => {
   const [signUpModalIsOpen, setSignUpModalIsOpen] = useState(false)
   const [signInModalIsOpen, setSignInModalIsOpen] = useState(false)
 
+  /**
+   * Google auth is being triggerd this way because it does not make issue at backend when redirecting back to front,
+   * Axios instance thet is being used in rest of the app has credentials flagg set to true,
+   */
   const googleLogin = () => {
     process.env.NODE_ENV == 'production'
       ? window.open('/auth/google/login', '_self')
@@ -37,18 +41,10 @@ export const LandingPage = () => {
               <Icon />
               <H1>Happening now</H1>
               <H3>Join Twitter today.</H3>
-              <SocialButton
-                onClick={googleLogin}
-                image={googleSocialSignInLogo}
-                $wide={true}
-              >
+              <SocialButton onClick={googleLogin} image={googleSocialSignInLogo} $wide={true}>
                 Sign up with Google
               </SocialButton>
-              <SocialButton
-                onClick={appleLogin}
-                image={appleSocilSignInlogo}
-                $wide={true}
-              >
+              <SocialButton onClick={appleLogin} image={appleSocilSignInlogo} $wide={true}>
                 Sign up with Apple
               </SocialButton>
               <DividerWrapper>
@@ -56,16 +52,10 @@ export const LandingPage = () => {
                 <H5>or</H5>
                 <DividerLine />
               </DividerWrapper>
-              <SignUpButton
-                $wide={true}
-                onClick={() => setSignUpModalIsOpen(!signUpModalIsOpen)}
-              >
+              <SignUpButton $wide={true} onClick={() => setSignUpModalIsOpen(!signUpModalIsOpen)}>
                 Sign up with email
               </SignUpButton>
-              <SignUpModal
-                signUpModalIsOpen={signUpModalIsOpen}
-                setSignUpModalIsOpen={setSignUpModalIsOpen}
-              />
+              <SignUpModal signUpModalIsOpen={signUpModalIsOpen} setSignUpModalIsOpen={setSignUpModalIsOpen} />
               <PolicyTextWrapper>
                 By signing up, you agree to the
                 <SpanText>Terms of Service </SpanText>
@@ -73,16 +63,10 @@ export const LandingPage = () => {
                 <SpanText> Cookie Use</SpanText>.
               </PolicyTextWrapper>
               <H4>Already have an account?</H4>
-              <SignInButton
-                $wide={true}
-                onClick={() => setSignInModalIsOpen(!signInModalIsOpen)}
-              >
+              <SignInButton $wide={true} onClick={() => setSignInModalIsOpen(!signInModalIsOpen)}>
                 Sign in
               </SignInButton>
-              <SignInModal
-                signInModalIsOpen={signInModalIsOpen}
-                setSignInModalIsOpen={setSignInModalIsOpen}
-              />
+              <SignInModal signInModalIsOpen={signInModalIsOpen} setSignInModalIsOpen={setSignInModalIsOpen} />
             </ContentSection>
           </ContentWrapper>
         </LayoutWrapper>

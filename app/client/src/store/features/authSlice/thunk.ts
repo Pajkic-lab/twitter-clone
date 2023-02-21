@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { VerifyUser, CreateUser } from 'types'
+import { isAxiosError } from 'axios'
 import http from 'http/api'
 
 export const signUpThunk = createAsyncThunk('auth/signUp', async (user: CreateUser, { rejectWithValue }) => {
@@ -7,7 +8,11 @@ export const signUpThunk = createAsyncThunk('auth/signUp', async (user: CreateUs
     return await http.auth.signUp(user)
   } catch (error) {
     if (error instanceof Error) {
-      return rejectWithValue(error)
+      if (isAxiosError(error)) {
+        return rejectWithValue(error.response?.data)
+      } else {
+        return rejectWithValue({ message: error.message })
+      }
     }
   }
 })
@@ -17,27 +22,67 @@ export const signInThunk = createAsyncThunk('auth/signIn', async (user: VerifyUs
     return await http.auth.signIn(user)
   } catch (error) {
     if (error instanceof Error) {
+      if (isAxiosError(error)) {
+        return rejectWithValue(error.response?.data)
+      } else {
+        return rejectWithValue({ message: error.message })
+      }
+    }
+  }
+})
+
+export const authenticateViaGoogle = createAsyncThunk('auth/google', async (__, { rejectWithValue }) => {
+  try {
+    return await http.auth.googleAuthenticate()
+  } catch (error) {
+    if (error instanceof Error) {
       return rejectWithValue(error)
     }
   }
 })
 
-export const authUserThunk = createAsyncThunk('auth/authUser', async () => {
+export const authUserThunk = createAsyncThunk('auth/authUser', async (__, { rejectWithValue }) => {
   try {
     return await http.auth.authUser()
   } catch (error) {
     if (error instanceof Error) {
-      // return rejectWithValue(error)
+      return rejectWithValue(error)
     }
   }
 })
 
-export const signOutThunk = createAsyncThunk('auth/signOut', async () => {
+export const signOutThunk = createAsyncThunk('auth/signOut', async (__, { rejectWithValue }) => {
   try {
     return await http.auth.signOut()
   } catch (error) {
     if (error instanceof Error) {
-      // return rejectWithValue(error)
+      return rejectWithValue(error)
     }
   }
 })
+
+export const checkNameUniqueness = createAsyncThunk(
+  'auth/checkNameUniqueness',
+  async (uniqueName: string, { rejectWithValue }) => {
+    try {
+      return await http.auth.checkNameUniqueness(uniqueName)
+    } catch (error) {
+      if (error instanceof Error) {
+        return rejectWithValue(error)
+      }
+    }
+  },
+)
+
+export const createUserUniqueName = createAsyncThunk(
+  'auth/createuUserUniqueName',
+  async (uniqueName: string, { rejectWithValue }) => {
+    try {
+      return await http.auth.createUserUniqueName(uniqueName)
+    } catch (error) {
+      if (error instanceof Error) {
+        return rejectWithValue(error)
+      }
+    }
+  },
+)
