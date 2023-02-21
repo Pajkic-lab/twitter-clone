@@ -21,7 +21,7 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "db:generate": "prisma generate",
-    "db:set": "prisma db push --force-reset",
+    "db:set": "prisma db push --force-reset --accept-data-loss",
     "db:gui": "prisma studio",
     "db:format": "prisma format"
   },
