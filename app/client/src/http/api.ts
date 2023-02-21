@@ -20,11 +20,20 @@ export default {
         password,
       })
     },
+    googleAuthenticate() {
+      return httpClient.get('auth/google/login')
+    },
     authUser(): Promise<AxiosResponse<{ user: User }, any>> {
       return httpClient.get('auth/user')
     },
     signOut() {
       return httpClient.get('auth/logout')
+    },
+    checkNameUniqueness(uniqueName: string) {
+      return httpClient.post('auth/nameuniqueness', { uniqueName })
+    },
+    createUserUniqueName(uniqueName: string) {
+      return httpClient.post('auth/createuniquename', { uniqueName })
     },
   },
 }

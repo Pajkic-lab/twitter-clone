@@ -4,13 +4,13 @@ import React, { useEffect } from 'react'
 
 export const AuthTrigger = () => {
   const dispatch = useAppDispatch()
-  const isAuthenticated = useAppSelector(state => state.auth.isAuth)
+  const { isAuth } = useAppSelector(state => state.auth)
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuth) {
       void dispatch(authUserThunk())
     }
-  }, [isAuthenticated])
+  }, [isAuth])
 
   return null
 }

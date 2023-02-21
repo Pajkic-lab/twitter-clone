@@ -1,16 +1,15 @@
+import { useAppDispatch, useAppSelector } from 'store/hooks'
 import { signUpThunk } from 'store/features/authSlice/thunk'
 import { Cross } from '@styled-icons/entypo/Cross'
-import { useAppDispatch } from 'store/hooks'
+import { useFormik, FormikHelpers } from 'formik'
+import React, { useEffect } from 'react'
 import { JumboButton } from 'ui/Button'
 import Modal from 'styled-react-modal'
 import styled from 'styled-components'
-import { FormikHelpers } from 'formik'
 import { BaseInput } from 'ui/Input'
-import { useFormik } from 'formik'
-import { Colors } from 'ui/styles'
 import { CreateUser } from 'types'
+import { Colors } from 'ui/styles'
 import * as yup from 'yup'
-import React from 'react'
 
 interface Props {
   signUpModalIsOpen: boolean
@@ -19,14 +18,15 @@ interface Props {
 
 export const SignUpModal: React.FC<Props> = ({ signUpModalIsOpen, setSignUpModalIsOpen }) => {
   const dispatch = useAppDispatch()
+  const { errorMessage } = useAppSelector(state => state.auth)
 
   const closeModal = () => {
     setSignUpModalIsOpen(false)
+    // on close modal reset global error message
   }
 
   const onSubmit = async (values: CreateUser, actions: FormikHelpers<CreateUser>) => {
     await dispatch(signUpThunk(values))
-    actions.resetForm()
   }
 
   const validationSchema = yup.object().shape({
@@ -44,7 +44,7 @@ export const SignUpModal: React.FC<Props> = ({ signUpModalIsOpen, setSignUpModal
       .oneOf([yup.ref('password'), null], 'Confirm password and password are not eaqual!'),
   })
 
-  const { handleSubmit, handleBlur, handleChange, isSubmitting, errors, touched, values } = useFormik({
+  const { handleSubmit, handleBlur, handleChange, setErrors, isSubmitting, errors, touched, values } = useFormik({
     initialValues: {
       name: '',
       email: '',
@@ -54,6 +54,12 @@ export const SignUpModal: React.FC<Props> = ({ signUpModalIsOpen, setSignUpModal
     onSubmit,
     validationSchema,
   })
+
+  useEffect(() => {
+    if (errorMessage) {
+      setErrors({ name: errorMessage, email: errorMessage, password: errorMessage, confirmPassword: errorMessage })
+    }
+  }, [errorMessage])
 
   return (
     <>

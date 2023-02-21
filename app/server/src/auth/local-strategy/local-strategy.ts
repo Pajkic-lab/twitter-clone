@@ -39,7 +39,6 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
       try {
         await this.dtoValidation.validateConfirmUserDto(email, password);
       } catch (error) {
-        console.log(error);
         throw error;
       }
 
