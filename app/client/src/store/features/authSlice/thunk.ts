@@ -74,11 +74,11 @@ export const checkNameUniqueness = createAsyncThunk(
   },
 )
 
-export const createUserUniqueName = createAsyncThunk(
+export const updateUserUniqueName = createAsyncThunk(
   'auth/createuUserUniqueName',
   async (uniqueName: string, { rejectWithValue }) => {
     try {
-      return await http.auth.createUserUniqueName(uniqueName)
+      return await http.auth.updateUserUniqueName(uniqueName)
     } catch (error) {
       if (error instanceof Error) {
         return rejectWithValue(error)

@@ -69,7 +69,7 @@ export class AuthRepository {
     }
   }
 
-  async createUserNameUnique(id: number, uniqueName: string) {
+  async updateUserNameUnique(id: number, uniqueName: string) {
     try {
       return await this.prisma.user.update({
         where: {
