@@ -1,4 +1,4 @@
-import { checkNameUniqueness, createUserUniqueName } from 'store/features/authSlice/thunk'
+import { checkNameUniqueness, updateUserUniqueName } from 'store/features/authSlice/thunk'
 import { SocialTwitter } from '@styled-icons/foundation/SocialTwitter'
 import { useAppDispatch, useAppSelector } from 'store/hooks'
 import React, { useEffect } from 'react'
@@ -17,7 +17,7 @@ export const SetAccountModal: React.FC = () => {
 
   const onSubmit = async () => {
     if (isNameUnique && !errors.uniqueName) {
-      await dispatch(createUserUniqueName(values.uniqueName))
+      await dispatch(updateUserUniqueName(values.uniqueName))
     }
   }
 

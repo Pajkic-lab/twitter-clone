@@ -32,7 +32,7 @@ export default {
     checkNameUniqueness(uniqueName: string) {
       return httpClient.post('auth/nameuniqueness', { uniqueName })
     },
-    createUserUniqueName(uniqueName: string) {
+    updateUserUniqueName(uniqueName: string) {
       return httpClient.post('auth/createuniquename', { uniqueName })
     },
   },
