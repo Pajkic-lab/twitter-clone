@@ -12,8 +12,8 @@ export const Home = () => {
 
   return (
     <>
-      <button onClick={logOut}>Logout</button>
       <SetAccountModal />
+      <button onClick={logOut}>Logout</button>
     </>
   )
 }

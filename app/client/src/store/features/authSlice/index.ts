@@ -5,7 +5,7 @@ import {
   signInThunk,
   signOutThunk,
   checkNameUniqueness,
-  createUserUniqueName,
+  updateUserUniqueName,
 } from './thunk'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AxiosResponse } from 'axios'
@@ -121,7 +121,7 @@ export const authSlice = createSlice({
 
       // Update unique name
       .addCase(
-        createUserUniqueName.fulfilled,
+        updateUserUniqueName.fulfilled,
         (state, { payload }: PayloadAction<AxiosResponse<{ uniqueName: string }, any> | undefined>) => {
           if (payload && payload.data) {
             // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
@@ -130,7 +130,7 @@ export const authSlice = createSlice({
         },
       )
       .addCase(
-        createUserUniqueName.rejected,
+        updateUserUniqueName.rejected,
         (state, { payload }: PayloadAction<RejectedWithValueActionFromAsyncThunk<AnyAsyncThunk>>) => {
           // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
           state.errorMessage = payload.message

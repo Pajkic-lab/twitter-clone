@@ -66,13 +66,13 @@ export class AuthService {
     return { isNameUnique: true };
   }
 
-  async createUniqueUserName(userId: number, uniqueName: string) {
+  async updateUniqueUserName(userId: number, uniqueName: string) {
     let user;
     const res = await this.authRepository.isUserNameUnique(uniqueName);
     if (res !== null) {
       throw new NotFoundException('Uniqu user name already exist!');
     } else {
-      user = await this.authRepository.createUserNameUnique(userId, uniqueName);
+      user = await this.authRepository.updateUserNameUnique(userId, uniqueName);
       if (!user) throw new HttpException('Error while updating unique user name', HttpStatus.INTERNAL_SERVER_ERROR);
     }
     return { uniqueName: user.uniqueName };

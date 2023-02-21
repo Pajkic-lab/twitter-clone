@@ -54,8 +54,8 @@ export class AuthController {
 
   @Post('createuniquename')
   @UseGuards(IsAuthGurard)
-  handleCreateUserUniqueName(@Req() request) {
-    return this.authService.createUniqueUserName(request.user.id, request.body.uniqueName);
+  handleUpdateUserUniqueName(@Req() request) {
+    return this.authService.updateUniqueUserName(request.user.id, request.body.uniqueName);
   }
 
   @Get('status')
