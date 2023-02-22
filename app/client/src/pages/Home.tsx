@@ -1,6 +1,8 @@
 import { SetAccountModal } from 'components/modals/SetAccountModal'
 import { signOutThunk } from 'store/features/authSlice/thunk'
 import { useAppDispatch } from 'store/hooks'
+import { SideBar } from 'ui/layout/SideBar'
+import styled from 'styled-components'
 import React from 'react'
 
 export const Home = () => {
@@ -11,9 +13,19 @@ export const Home = () => {
   }
 
   return (
-    <>
+    <WindowWrapper>
       <SetAccountModal />
-      <button onClick={logOut}>Logout</button>
-    </>
+      <SideBar />
+      {/**mainLane */}
+      {/**trendBar/ mediaBar */}
+      {/* <button onClick={logOut}>Logout</button> */}
+    </WindowWrapper>
   )
 }
+
+const WindowWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  height: 100vh;
+`
