@@ -10,6 +10,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
+    "@tippyjs/react": "^4.2.6",
     "@types/jest": "^27.5.2",
     "@types/js-cookie": "^3.0.2",
     "@types/node": "^17.0.45",
@@ -28,6 +29,7 @@
     "react-use-cookie": "^1.4.0",
     "styled-components": "^5.3.6",
     "styled-react-modal": "^3.0.1",
+    "svg-react-loader": "^0.4.6",
     "uuid": "^9.0.0",
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11"

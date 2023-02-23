@@ -27,6 +27,7 @@ export const SetAccountModal: React.FC = () => {
       .matches(/^@/, 'Unique Name must start with @ symbol')
       .required('Unique Name is required')
       .min(4, 'minimum 4 characters')
+      .max(8, 'Name can not be longer then 8 characters')
       .matches(/^[^@]*@[^@]*$/, 'String should contain only one @ symbol'),
   })
 
