@@ -13,17 +13,17 @@ export const Home = () => {
   }
 
   return (
-    <WindowWrapper>
+    <Wrapper>
       <SetAccountModal />
       <SideBar />
       {/**mainLane */}
       {/**trendBar/ mediaBar */}
       {/* <button onClick={logOut}>Logout</button> */}
-    </WindowWrapper>
+    </Wrapper>
   )
 }
 
-const WindowWrapper = styled.div`
+const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: start;

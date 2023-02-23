@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { ReactComponent as notifications } from 'assets/svg/notifications.svg'
 import { ReactComponent as twitterLogo } from 'assets/svg/twitterLogo.svg'
 import { ReactComponent as bookmark } from 'assets/svg/bookmark.svg'
@@ -6,14 +5,16 @@ import { ReactComponent as hashTag } from 'assets/svg/hashTag.svg'
 import { ReactComponent as message } from 'assets/svg/message.svg'
 import { ReactComponent as profile } from 'assets/svg/profile.svg'
 import { ReactComponent as options } from 'assets/svg/options.svg'
+import { signOutThunk } from 'store/features/authSlice/thunk'
+import { useAppDispatch, useAppSelector } from 'store/hooks'
 import { ReactComponent as more } from 'assets/svg/more.svg'
 import { ReactComponent as home } from 'assets/svg/home.svg'
 import { ReactComponent as list } from 'assets/svg/list.svg'
+import { PrimaryButton } from 'ui/Button'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Colors } from 'ui/styles'
-import React, { useState } from 'react'
-import { PrimaryButton } from 'ui/Button'
-import { useAppSelector } from 'store/hooks'
+import Tippy from '@tippyjs/react'
 
 type SideBarLogoProps = {
   component: React.FunctionComponent<React.SVGProps<SVGSVGElement>>
@@ -22,10 +23,23 @@ type SideBarLogoProps = {
   height?: string
 }
 
-export const SideBar = () => {
+export const SideBar: React.FC = () => {
+  const dispatch = useAppDispatch()
   const { name, uniqueName } = useAppSelector(state => state.auth)
 
-  const [profileButtonActive, setProfileButtonActive] = useState(false)
+  const [visible, setVisible] = useState(false)
+
+  const logOut = () => {
+    void dispatch(signOutThunk())
+  }
+
+  const Balloon: React.FC = () => {
+    return (
+      <BallonWrapper onClick={logOut}>
+        <SpanText>Log out {uniqueName}</SpanText>
+      </BallonWrapper>
+    )
+  }
 
   return (
     <Wrapper>
@@ -45,54 +59,28 @@ export const SideBar = () => {
         })}
       </ContentWrapper>
       <Button>Tweet</Button>
-      <ProfileButtonWrapper onClick={() => setProfileButtonActive(!profileButtonActive)}>
-        <BioWrapper>
-          <ProfileImage />
-          <TextWrapper>
-            <H3>{name}</H3>
-            <Span>{uniqueName}</Span>
-          </TextWrapper>
-        </BioWrapper>
-        <Options />
-      </ProfileButtonWrapper>
+
+      <Tippy
+        visible={visible}
+        arrow={true}
+        interactive={true}
+        onClickOutside={() => setVisible(!visible)}
+        content={<Balloon />}
+      >
+        <ProfileButtonWrapper onClick={() => setVisible(!visible)}>
+          <BioWrapper>
+            <ProfileImage />
+            <TextWrapper>
+              <H3>{name}</H3>
+              <Span>{uniqueName}</Span>
+            </TextWrapper>
+          </BioWrapper>
+          <Options />
+        </ProfileButtonWrapper>
+      </Tippy>
     </Wrapper>
   )
 }
-
-const sideBarData = [
-  {
-    component: home,
-    name: 'Home',
-  },
-  {
-    component: hashTag,
-    name: 'Explore',
-  },
-  {
-    component: notifications,
-    name: 'Notifications',
-  },
-  {
-    component: message,
-    name: 'Messages',
-  },
-  {
-    component: bookmark,
-    name: 'Bookmarks',
-  },
-  {
-    component: list,
-    name: 'Lists',
-  },
-  {
-    component: profile,
-    name: 'Profile',
-  },
-  {
-    component: more,
-    name: 'More',
-  },
-]
 
 const Wrapper = styled.div`
   position: relative;
@@ -192,12 +180,14 @@ const H3 = styled.h3`
   margin: 0;
   padding-left: 0.8rem;
   color: ${Colors.textGray};
+  font-weight: 700;
 `
 
 const Span = styled.span`
   margin: 0;
   padding-left: 0.8rem;
   color: ${Colors.darkGray};
+  font-weight: 500;
 `
 
 const Options = styled(options)`
@@ -205,3 +195,51 @@ const Options = styled(options)`
   width: 2rem;
   height: 2rem;
 `
+
+const BallonWrapper = styled.div`
+  width: 16rem;
+  padding: 1.2rem 1.6rem;
+  border-radius: 0.4rem;
+  box-shadow: 0 0 8px hsla(0, 100%, 99.2156862745098%, 0.738);
+  cursor: pointer;
+`
+
+const SpanText = styled.span`
+  color: ${Colors.textGray};
+  font-weight: 700;
+`
+
+const sideBarData = [
+  {
+    component: home,
+    name: 'Home',
+  },
+  {
+    component: hashTag,
+    name: 'Explore',
+  },
+  {
+    component: notifications,
+    name: 'Notifications',
+  },
+  {
+    component: message,
+    name: 'Messages',
+  },
+  {
+    component: bookmark,
+    name: 'Bookmarks',
+  },
+  {
+    component: list,
+    name: 'Lists',
+  },
+  {
+    component: profile,
+    name: 'Profile',
+  },
+  {
+    component: more,
+    name: 'More',
+  },
+]
