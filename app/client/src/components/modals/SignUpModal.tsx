@@ -30,7 +30,7 @@ export const SignUpModal: React.FC<Props> = ({ signUpModalIsOpen, setSignUpModal
   }
 
   const validationSchema = yup.object().shape({
-    name: yup.string().required('Name is required!'),
+    name: yup.string().required('Name is required!').max(8, 'Name can not be longer then 8 characters'),
     email: yup.string().required('Email is required!').email('Please enter a valid email!'),
     password: yup.string().required('Password is required!'),
     // .matches(/[a-z]/, 'global.errors.mustHaveLowerCaseLetter')

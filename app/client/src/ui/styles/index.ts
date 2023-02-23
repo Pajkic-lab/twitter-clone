@@ -1,6 +1,6 @@
 export const Colors = {
   // layout colors
-  background: '#6d727a',
+  background: '#000000',
   borderColor: '#CED4DA',
   borderColorDark: '#E9ECEF',
   dividerColor: '#818181',
@@ -23,6 +23,7 @@ export const Colors = {
   linkColor: '#4B85BA',
   white: '#fff',
   black: '#000000',
+  blackActive: '#0d0d0d',
 
   //button colors
   grey: '#939AAD',
