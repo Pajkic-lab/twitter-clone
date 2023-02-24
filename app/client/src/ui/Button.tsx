@@ -85,12 +85,10 @@ export const SecondaryButton = styled(ButtonBase)`
   background-color: ${Colors.black};
   color: ${Colors.primary};
   font-weight: 600;
-  border: 1px solid ${Colors.darkGray};
+  border: 1px solid ${Colors.textGray};
 
   &:hover {
-    background-color: ${Colors.primary};
-    color: ${Colors.white};
-    border: 1px solid ${Colors.primary};
+    background-color: ${Colors.blackActive};
   }
 `
 
