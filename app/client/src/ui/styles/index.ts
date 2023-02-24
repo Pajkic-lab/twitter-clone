@@ -23,7 +23,7 @@ export const Colors = {
   linkColor: '#4B85BA',
   white: '#fff',
   black: '#000000',
-  blackActive: '#0d0d0d',
+  blackActive: '#16181c',
 
   //button colors
   grey: '#939AAD',
