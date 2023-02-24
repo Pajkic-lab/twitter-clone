@@ -12,6 +12,7 @@ import { ReactComponent as home } from 'assets/svg/home.svg'
 import { ReactComponent as list } from 'assets/svg/list.svg'
 import { PrimaryButton } from 'ui/Button'
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { Colors } from 'ui/styles'
 import Tippy from '@tippyjs/react'
@@ -49,12 +50,14 @@ export const SideBar: React.FC = () => {
       <ContentWrapper>
         {sideBarData.map((el, index) => {
           return (
-            <LinkWrapper key={index}>
-              <SVGWrapper>
-                <SideBarLogo component={el.component} />
-              </SVGWrapper>
-              <H2>{el.name}</H2>
-            </LinkWrapper>
+            <Link to={el.path} key={index}>
+              <LinkWrapper>
+                <SVGWrapper>
+                  <SideBarLogo component={el.component} />
+                </SVGWrapper>
+                <H2>{el.name}</H2>
+              </LinkWrapper>
+            </Link>
           )
         })}
       </ContentWrapper>
@@ -213,33 +216,41 @@ const sideBarData = [
   {
     component: home,
     name: 'Home',
+    path: '/home',
   },
   {
     component: hashTag,
     name: 'Explore',
+    path: '/explore',
   },
   {
     component: notifications,
     name: 'Notifications',
+    path: '/notifications',
   },
   {
     component: message,
     name: 'Messages',
+    path: '/messages',
   },
   {
     component: bookmark,
     name: 'Bookmarks',
+    path: '/bookmarks',
   },
   {
     component: list,
     name: 'Lists',
+    path: '/lists',
   },
   {
     component: profile,
     name: 'Profile',
+    path: '/profile',
   },
   {
     component: more,
     name: 'More',
+    path: '/more',
   },
 ]

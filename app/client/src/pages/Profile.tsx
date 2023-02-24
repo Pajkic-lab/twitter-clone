@@ -1,14 +1,11 @@
-import { SetAccountModal } from 'components/modals/SetAccountModal'
-import { signOutThunk } from 'store/features/authSlice/thunk'
+import React from 'react'
+import styled from 'styled-components'
 import { MainLane } from 'ui/layout/mainLane'
 import { SideBar } from 'ui/layout/SideBar'
-import styled from 'styled-components'
-import React from 'react'
 
-export const Home = () => {
+export const Profile = () => {
   return (
     <Wrapper>
-      <SetAccountModal />
       <SideBar />
       <MainLane />
       {/**trendBar/ mediaBar */}

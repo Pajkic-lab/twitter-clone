@@ -1,5 +1,6 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { LandingPage } from 'pages/LandingPage'
+import { Profile } from 'pages/Profile'
 import { Home } from 'pages/Home'
 import { Filter } from './Filter'
 import React from 'react'
@@ -24,6 +25,15 @@ export const Router: React.FC = () => {
             </Filter>
           }
         />
+        <Route
+          path="/profile"
+          element={
+            <Filter authType="protected">
+              <Profile />
+            </Filter>
+          }
+        />
+        <Route path="/*" element={<Navigate to="/home" replace />} />
       </Routes>
     </BrowserRouter>
   )
