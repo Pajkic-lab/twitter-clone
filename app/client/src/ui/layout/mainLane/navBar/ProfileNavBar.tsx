@@ -47,10 +47,12 @@ export const ProfileNavBar = () => {
           <SpanBio>{uniqueName}</SpanBio>
         </TextWrapper>
 
-        <SpanText>
-          Bio goes here!!! Life is full of surprises, both good and bad. It s up to us to make the best of every
-          situation and keep moving forward. Stay strong and never give up!
-        </SpanText>
+        <SpanTextWrapper>
+          <SpanText>
+            Bio goes here!!! Life is full of surprises, both good and bad. It s up to us to make the best of every
+            situation and keep moving forward. Stay strong and never give up!
+          </SpanText>
+        </SpanTextWrapper>
 
         <DescriptionWrapper>
           <LocationAndWebsiteWrapper>
@@ -190,17 +192,22 @@ const SpanBio = styled.span`
   font-weight: 500;
 `
 
+const SpanTextWrapper = styled.div`
+  padding-bottom: 1rem;
+`
+
 const SpanText = styled.span`
   color: ${Colors.white};
 `
 
-const DescriptionWrapper = styled.div``
+const DescriptionWrapper = styled.div`
+  padding-bottom: 1rem;
+`
 
 const LocationAndWebsiteWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: start;
-  padding-top: 1rem;
 `
 
 const LocationLogo = styled(Location)`
@@ -234,7 +241,6 @@ const SocialStatsWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: start;
-  padding-top: 1rem;
   padding-bottom: 1rem;
 `
 
