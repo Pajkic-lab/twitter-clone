@@ -91,6 +91,7 @@ export const authSlice = createSlice({
       .addCase(authUserThunk.rejected, state => {
         state.errorMessage = ''
         state.isLoading = false
+        state.isAuth = false
       })
 
       // Sign out logic
