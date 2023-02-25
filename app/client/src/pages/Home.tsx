@@ -1,7 +1,7 @@
 import { SetAccountModal } from 'components/modals/SetAccountModal'
 import { signOutThunk } from 'store/features/authSlice/thunk'
-import { MainLane } from 'ui/layout/mainLane'
-import { SideBar } from 'ui/layout/SideBar'
+import { MainLane } from 'components/layout/mainLane'
+import { SideBar } from 'components/layout/SideBar'
 import styled from 'styled-components'
 import React from 'react'
 

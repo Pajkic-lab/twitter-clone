@@ -1,7 +1,7 @@
-import React from 'react'
+import { MainLane } from 'components/layout/mainLane'
+import { SideBar } from 'components/layout/SideBar'
 import styled from 'styled-components'
-import { MainLane } from 'ui/layout/mainLane'
-import { SideBar } from 'ui/layout/SideBar'
+import React from 'react'
 
 export const Profile = () => {
   return (

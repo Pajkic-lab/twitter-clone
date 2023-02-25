@@ -1,7 +1,8 @@
 import { ReactComponent as ArrowLeft } from 'assets/svg/arrowLeft.svg'
+import { EditProfileModal } from 'components/modals/EditProfileModal'
 import { ReactComponent as Location } from 'assets/svg/location.svg'
-import { ReactComponent as WebLink } from 'assets/svg/webLink.svg'
 import { ReactComponent as Calender } from 'assets/svg/calender.svg'
+import { ReactComponent as WebLink } from 'assets/svg/webLink.svg'
 import { useNavigate } from 'react-router-dom'
 import { useAppSelector } from 'store/hooks'
 import { SecondaryButton } from 'ui/Button'
@@ -19,8 +20,9 @@ export const ProfileNavBar = () => {
     media: false,
     likes: false,
   })
-
   const { tweets, tweetsReplies, media, likes } = selected
+
+  const [editProfileModalIsOpen, setEditProfileModalIsOpen] = useState(false)
 
   return (
     <Wrapper>
@@ -38,7 +40,11 @@ export const ProfileNavBar = () => {
 
       <ProfileImageWrapper>
         <ImageWrapper />
-        <EditProfileButton>Edit profile</EditProfileButton>
+        <EditProfileButton onClick={() => setEditProfileModalIsOpen(true)}>Edit profile</EditProfileButton>
+        <EditProfileModal
+          editProfileModalIsOpen={editProfileModalIsOpen}
+          setEditProfileModalIsOpen={setEditProfileModalIsOpen}
+        />
       </ProfileImageWrapper>
 
       <BioWrapper>
