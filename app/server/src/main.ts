@@ -18,22 +18,13 @@ import * as hpp from 'hpp';
   const prismaService = app.get<PrismaService>(PrismaService);
   const corsService = app.get<CorsService>(CorsService);
   app.enableCors({
-    origin: corsService.configCors(),
+    origin: [corsService.configCors(), corsService.configCloudinaryCors()],
     credentials: true,
   });
   app.use(json({ limit: '50mb' }));
   app.use(urlencoded({ extended: true, limit: '50mb' }));
   app.use(hpp());
-  // app.use(
-  //   helmet({
-  //     contentSecurityPolicy: {
-  //       directives: {
-  //         'default-src': ["'self'"],
-  //         'img-src': ["'self'", 'data:', 'https://res.cloudinary.com'],
-  //       },
-  //     },
-  //   }),
-  // );
+  app.use(helmet());
   app.use(compression());
   app.use(
     session({
