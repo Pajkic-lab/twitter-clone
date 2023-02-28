@@ -190,6 +190,7 @@ const CoverWeapper = styled.div<{ $backgroundImage: string }>`
     props.$backgroundImage &&
     `
     background-image: url(${props.$backgroundImage});
+    crossOrigin: 'anonymous'
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -210,6 +211,7 @@ const AvatarWrapper = styled.div<{ $backgroundImage: string }>`
     props.$backgroundImage &&
     `
     background-image: url(${props.$backgroundImage});
+    crossOrigin: 'anonymous'
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
