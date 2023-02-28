@@ -1,13 +1,16 @@
 import { ReactComponent as Cross } from 'assets/svg/cross.svg'
-import { ReactComponent as Image } from 'assets/svg/image.svg'
 import { FormikHelpers, useFormik } from 'formik'
 import { SecondaryButton } from 'ui/Button'
+import { ImageInput } from 'ui/ImageInput'
+import React, { useState } from 'react'
 import Modal from 'styled-react-modal'
 import styled from 'styled-components'
 import { BaseInput } from 'ui/Input'
 import { Colors } from 'ui/styles'
 import * as yup from 'yup'
-import React from 'react'
+import { useAppDispatch } from 'store/hooks'
+import { updateUser } from 'store/features/authSlice/thunk'
+import { UpdateUser } from 'types'
 
 interface Props {
   editProfileModalIsOpen: boolean
@@ -15,19 +18,26 @@ interface Props {
 }
 
 export const EditProfileModal: React.FC<Props> = ({ editProfileModalIsOpen, setEditProfileModalIsOpen }) => {
+  const dispatch = useAppDispatch()
+
+  const [cover, setCoverData] = useState('')
+  const [avatar, setAvatarData] = useState('')
+
   const closeModal = () => {
     setEditProfileModalIsOpen(false)
   }
 
-  const onSubmit = (values: any, actions: FormikHelpers<any>) => {
-    console.log(values)
+  const onSubmit = async (values: any, actions: FormikHelpers<any>) => {
+    await dispatch(updateUser({ ...values, cover, avatar } as UpdateUser))
+    setEditProfileModalIsOpen(false)
+    actions.resetForm()
   }
 
   const validationSchema = yup.object().shape({
     name: yup.string().max(12, 'Name can not be longer then 8 characters').min(3, 'Name has to be minimum 3 character'),
     bio: yup.string().max(160, 'Bio can not be longer then 160 characters'),
-    location: yup.string().max(20, 'Location can not be longer then 20 characters'),
-    website: yup.string().url().max(35, 'Website can not be longer then 35 characters'),
+    location: yup.string().max(15, 'Location can not be longer then 15 characters'),
+    website: yup.string().url().max(50, 'Website can not be longer then 50 characters'),
   })
 
   const { handleSubmit, handleBlur, handleChange, setErrors, isSubmitting, errors, touched, values } = useFormik({
@@ -45,27 +55,27 @@ export const EditProfileModal: React.FC<Props> = ({ editProfileModalIsOpen, setE
     <>
       <Modal isOpen={editProfileModalIsOpen} onBackgroundClick={closeModal}>
         <ModalSection>
-          <TittleWrapper>
-            <SVGTittleWrapper>
-              <ExitSvgWrapper onClick={closeModal}>
-                <CrossSvg />
-              </ExitSvgWrapper>
-              <H2Tittle>Eddit profile</H2Tittle>
-            </SVGTittleWrapper>
-            <SaveModalButton>Save</SaveModalButton>
-          </TittleWrapper>
-
-          <CoverWeapper>
-            <SVGWrapper>
-              <ImageSVG />
-            </SVGWrapper>
-          </CoverWeapper>
-
-          <AvatarWrapper>
-            <ImageSVG />
-          </AvatarWrapper>
-
           <Form onSubmit={handleSubmit}>
+            <TittleWrapper>
+              <SVGTittleWrapper>
+                <ExitSvgWrapper onClick={closeModal}>
+                  <CrossSvg />
+                </ExitSvgWrapper>
+                <H2Tittle>Eddit profile</H2Tittle>
+              </SVGTittleWrapper>
+              <SaveModalButton type="submit" loading={isSubmitting}>
+                Save
+              </SaveModalButton>
+            </TittleWrapper>
+
+            <CoverWeapper $backgroundImage={cover}>
+              <ImageInput id={'cover'} type={'file'} name={'Cover'} setImageData={setCoverData} />
+            </CoverWeapper>
+
+            <AvatarWrapper $backgroundImage={avatar}>
+              <ImageInput id={'avatar'} type={'file'} name={'Avatar'} setImageData={setAvatarData} />
+            </AvatarWrapper>
+
             <Input
               id={'name'}
               type={'name'}
@@ -114,7 +124,7 @@ export const EditProfileModal: React.FC<Props> = ({ editProfileModalIsOpen, setE
 }
 
 const ModalSection = styled.div`
-  height: 70vh;
+  height: 75vh;
   overflow-y: scroll;
   border-radius: 1rem;
   padding: 0 1.5rem 1rem 1.5rem;
@@ -170,30 +180,23 @@ const SaveModalButton = styled(SecondaryButton)`
   padding-right: 0;
 `
 
-const CoverWeapper = styled.div`
+const CoverWeapper = styled.div<{ $backgroundImage: string }>`
   display: flex;
   justify-content: center;
   align-items: center;
   height: 200px;
-  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  ${props =>
+    props.$backgroundImage &&
+    `
+    background-image: url(${props.$backgroundImage});
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  `}
 `
 
-const SVGWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 3rem;
-  height: 3rem;
-  border-radius: 50%;
-  margin-right: 1rem;
-  cursor: pointer;
-
-  &:hover {
-    background-color: ${Colors.blackActive};
-  }
-`
-
-const AvatarWrapper = styled.div`
+const AvatarWrapper = styled.div<{ $backgroundImage: string }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -203,13 +206,14 @@ const AvatarWrapper = styled.div`
   margin-right: 1rem;
   background-color: ${Colors.textColor};
   margin-bottom: 1rem;
-  cursor: pointer;
-`
-
-const ImageSVG = styled(Image)`
-  fill: ${Colors.textGray};
-  width: 1.5rem;
-  height: 1.5rem;
+  ${props =>
+    props.$backgroundImage &&
+    `
+    background-image: url(${props.$backgroundImage});
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  `}
 `
 
 const Form = styled.form``

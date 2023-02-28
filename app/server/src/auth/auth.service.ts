@@ -1,14 +1,15 @@
+import { CreatGoogleUserDto, CreateUserDto, ConfirmUserDto, UpdateUserDto, MediaDirectory } from 'src/dtos';
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
-import { CreatGoogleUserDto, CreateUserDto, ConfirmUserDto } from 'src/dtos';
+import { AuthMediaRepository } from './auth.media-repository';
+import { HttpException } from '@nestjs/common/exceptions';
 import { AuthRepository } from './auth.repository';
+import { HttpStatus } from '@nestjs/common/enums';
 import { Req } from '@nestjs/common/decorators';
 import * as bcrypt from 'bcrypt';
-import { HttpException } from '@nestjs/common/exceptions';
-import { HttpStatus } from '@nestjs/common/enums';
 
 @Injectable()
 export class AuthService {
-  constructor(private authRepository: AuthRepository) {}
+  constructor(private authRepository: AuthRepository, private mediaRepository: AuthMediaRepository) {}
 
   async registerUser(createUser: CreateUserDto) {
     const salt = 10;
@@ -76,5 +77,26 @@ export class AuthService {
       if (!user) throw new HttpException('Error while updating unique user name', HttpStatus.INTERNAL_SERVER_ERROR);
     }
     return { uniqueName: user.uniqueName };
+  }
+
+  async updateUser(userId: number, updateUser: UpdateUserDto) {
+    let avatarUrl;
+    let coverUrl;
+
+    updateUser.id = userId;
+    if (updateUser.avatar) {
+      const res = await this.mediaRepository.uploadImage(updateUser.avatar, userId, MediaDirectory.Private);
+      avatarUrl = res.url;
+      updateUser.avatar = avatarUrl;
+    }
+    if (updateUser.cover) {
+      const res = await this.mediaRepository.uploadImage(updateUser.cover, userId, MediaDirectory.Private);
+      coverUrl = res.url;
+      updateUser.cover = coverUrl;
+    }
+
+    const user = await this.authRepository.updateUser(updateUser);
+    delete user.password;
+    return { user };
   }
 }
