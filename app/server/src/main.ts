@@ -24,7 +24,16 @@ import * as hpp from 'hpp';
   app.use(json({ limit: '50mb' }));
   app.use(urlencoded({ extended: true, limit: '50mb' }));
   app.use(hpp());
-  app.use(helmet());
+  app.use(
+    helmet({
+      contentSecurityPolicy: {
+        directives: {
+          'default-src': ["'self'"],
+          'img-src': ["'self'", 'data:', 'https://res.cloudinary.com'],
+        },
+      },
+    }),
+  );
   app.use(compression());
   app.use(
     session({
