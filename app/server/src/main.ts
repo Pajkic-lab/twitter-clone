@@ -6,6 +6,7 @@ import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import * as session from 'express-session';
 import * as compression from 'compression';
+import { urlencoded, json } from 'express';
 import { AppModule } from './app.module';
 import * as passport from 'passport';
 import helmet from 'helmet';
@@ -20,6 +21,8 @@ import * as hpp from 'hpp';
     origin: corsService.configCors(),
     credentials: true,
   });
+  app.use(json({ limit: '50mb' }));
+  app.use(urlencoded({ extended: true, limit: '50mb' }));
   app.use(hpp());
   app.use(helmet());
   app.use(compression());

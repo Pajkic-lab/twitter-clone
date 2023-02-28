@@ -1,4 +1,4 @@
-import { CreatGoogleUserDto, CreateUserDto } from 'src/dtos';
+import { CreatGoogleUserDto, CreateUserDto, UpdateUserDto } from 'src/dtos';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
@@ -81,6 +81,26 @@ export class AuthRepository {
       });
     } catch (error) {
       throw new HttpException('Error while cheching name uniqueness', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async updateUser({ id, name, avatar, cover, bio, website, location }: UpdateUserDto) {
+    try {
+      return await this.prisma.user.update({
+        where: {
+          id,
+        },
+        data: {
+          ...(name && { name }),
+          ...(avatar && { avatar }),
+          ...(cover && { cover }),
+          ...(bio && { bio }),
+          ...(website && { website }),
+          ...(location && { location }),
+        },
+      });
+    } catch (error) {
+      throw new HttpException('Error while editing user', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }

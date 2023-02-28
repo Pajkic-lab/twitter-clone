@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Req, Res, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Patch, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { GoogleAuthGurard } from './google-strategy/google-auth.gurard';
 import { LocalAuthGurard } from './local-strategy/local-auth.guard';
 import { HttpService } from 'src/http/http.service';
@@ -56,6 +56,12 @@ export class AuthController {
   @UseGuards(IsAuthGurard)
   handleUpdateUserUniqueName(@Req() request) {
     return this.authService.updateUniqueUserName(request.user.id, request.body.uniqueName);
+  }
+
+  @Patch('update/user')
+  @UseGuards(IsAuthGurard)
+  handleUpdateUser(@Req() request) {
+    return this.authService.updateUser(request.user.id, request.body.updateUser);
   }
 
   @Get('status')

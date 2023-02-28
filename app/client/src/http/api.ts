@@ -1,4 +1,4 @@
-import { VerifyUser, CreateUser } from 'types'
+import { VerifyUser, CreateUser, UpdateUser } from 'types'
 import { AxiosResponse } from 'axios'
 import { httpClient } from './client'
 import { User } from 'types'
@@ -34,6 +34,9 @@ export default {
     },
     updateUserUniqueName(uniqueName: string) {
       return httpClient.post('auth/createuniquename', { uniqueName })
+    },
+    updateUser(updateUser: UpdateUser) {
+      return httpClient.patch('auth/update/user', { updateUser })
     },
   },
 }

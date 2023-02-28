@@ -1,3 +1,4 @@
+import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { CronJobModule } from './cron-job/cron-job.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { PrismaModule } from './prisma/prisma.module';
@@ -27,6 +28,7 @@ import { join } from 'path';
     CronJobModule,
     HelperModule,
     HttpModule,
+    CloudinaryModule,
   ],
 })
 export class AppModule {}

@@ -2,6 +2,7 @@ import { GoogleAuthGurard } from './google-strategy/google-auth.gurard';
 import { GoogleStrategy } from './google-strategy/google-strategy';
 import { DtoValidation } from './local-strategy/dto-validation';
 import { LocalStrategy } from './local-strategy/local-strategy';
+import { AuthMediaRepository } from './auth.media-repository';
 import { HelperService } from 'src/helper/helper.service';
 import { HttpService } from 'src/http/http.service';
 import { AuthController } from './auth.controller';
@@ -26,6 +27,7 @@ import { Module } from '@nestjs/common';
     IsGuestGurard,
     IsAuthGurard,
     GoogleAuthGurard,
+    AuthMediaRepository,
   ],
 })
 export class AuthModule {}
