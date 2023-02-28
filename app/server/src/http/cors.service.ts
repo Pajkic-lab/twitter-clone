@@ -22,4 +22,8 @@ export class CorsService {
   configCors() {
     return `${this.corsLookupTable[this.env]}`;
   }
+
+  configCloudinaryCors() {
+    return 'https://res.cloudinary.com';
+  }
 }
