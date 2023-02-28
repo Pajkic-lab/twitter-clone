@@ -8,8 +8,7 @@ export interface User {
   bio: string
   location: string
   website: string
-  birthDate: string
-  createdDate: string
+  createdAt: string
 }
 
 export interface CreateUser {
@@ -20,3 +19,5 @@ export interface CreateUser {
 }
 
 export type VerifyUser = Omit<CreateUser, 'name' | 'confirmPassword'>
+
+export type UpdateUser = Partial<Pick<User, 'name' | 'bio' | 'location' | 'website' | 'cover' | 'avatar'>>

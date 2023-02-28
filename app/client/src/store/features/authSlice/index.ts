@@ -6,6 +6,7 @@ import {
   signOutThunk,
   checkNameUniqueness,
   updateUserUniqueName,
+  updateUser,
 } from './thunk'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AxiosResponse } from 'axios'
@@ -29,8 +30,7 @@ const initialState: AuthState = {
   bio: '',
   location: '',
   website: '',
-  birthDate: '',
-  createdDate: '',
+  createdAt: '',
   isLoading: false,
   isAuth: Cookies.get('twitter-clone-auth-session') ? true : false,
   errorMessage: '',
@@ -84,6 +84,13 @@ export const authSlice = createSlice({
             state.email = payload.data.user.email
             // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
             state.uniqueName = payload.data.user.uniqueName as string
+            state.avatar = payload.data.user.avatar
+            state.cover = payload.data.user.cover
+            state.bio = payload.data.user.bio
+            state.location = payload.data.user.location
+            state.website = payload.data.user.website
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+            state.createdAt = payload.data.user.createdAt as string
           }
           state.isLoading = false
         },
@@ -132,6 +139,30 @@ export const authSlice = createSlice({
       )
       .addCase(
         updateUserUniqueName.rejected,
+        (state, { payload }: PayloadAction<RejectedWithValueActionFromAsyncThunk<AnyAsyncThunk>>) => {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+          state.errorMessage = payload.message
+        },
+      )
+
+      // Update User
+      .addCase(
+        updateUser.fulfilled,
+        (state, { payload }: PayloadAction<AxiosResponse<{ user: User }, any> | undefined>) => {
+          if (payload && payload.data) {
+            state.name = payload.data.user.name
+            state.avatar = payload.data.user.avatar
+            state.cover = payload.data.user.cover
+            state.bio = payload.data.user.bio
+            state.location = payload.data.user.location
+            state.website = payload.data.user.website
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+            state.createdAt = payload.data.user.createdAt as string
+          }
+        },
+      )
+      .addCase(
+        updateUser.rejected,
         (state, { payload }: PayloadAction<RejectedWithValueActionFromAsyncThunk<AnyAsyncThunk>>) => {
           // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
           state.errorMessage = payload.message

@@ -11,7 +11,7 @@ import styled from 'styled-components'
 import { Colors } from 'ui/styles'
 
 export const ProfileNavBar = () => {
-  const { name, uniqueName } = useAppSelector(state => state.auth)
+  const { name, uniqueName, avatar, cover, bio, createdAt, location, website } = useAppSelector(state => state.auth)
   const navigate = useNavigate()
 
   const [selected, setSelected] = useState({
@@ -36,10 +36,10 @@ export const ProfileNavBar = () => {
         </TittleWrapper>
       </HeaderWrapper>
 
-      <CoverWrapper />
+      <CoverWrapper $backgroundImage={cover} />
 
       <ProfileImageWrapper>
-        <ImageWrapper />
+        <ImageWrapper $backgroundImage={avatar} />
         <EditProfileButton onClick={() => setEditProfileModalIsOpen(true)}>Edit profile</EditProfileButton>
         <EditProfileModal
           editProfileModalIsOpen={editProfileModalIsOpen}
@@ -54,22 +54,21 @@ export const ProfileNavBar = () => {
         </TextWrapper>
 
         <SpanTextWrapper>
-          <SpanText>
-            Bio goes here!!! Life is full of surprises, both good and bad. It s up to us to make the best of every
-            situation and keep moving forward. Stay strong and never give up!
-          </SpanText>
+          <SpanText>{bio}</SpanText>
         </SpanTextWrapper>
 
         <DescriptionWrapper>
           <LocationAndWebsiteWrapper>
-            <LocationLogo />
-            <SpanBio>Location goes here</SpanBio>
-            <WebLinkLogo />
-            <WebLinkSpan>twitter-clone-j82h.onrender.com/home</WebLinkSpan>
+            {location && <LocationLogo />}
+            <SpanBio>{location}</SpanBio>
+            {website && <WebLinkLogo />}
+            <WebLinkSpan href={website} target="_blank">
+              {website}
+            </WebLinkSpan>
           </LocationAndWebsiteWrapper>
           <DateWrapper>
             <CanlenderLogo />
-            <SpanBio>Joined October 2022</SpanBio>
+            <SpanBio>{createdAt}</SpanBio>
           </DateWrapper>
         </DescriptionWrapper>
 
@@ -148,10 +147,18 @@ const SpanHeader = styled.span`
   color: ${Colors.darkGray};
 `
 
-const CoverWrapper = styled.div`
+const CoverWrapper = styled.div<{ $backgroundImage: string }>`
   width: 100%;
   height: 200px;
   background-color: ${Colors.darkerGrey};
+  ${props =>
+    props.$backgroundImage &&
+    `
+    background-image: url(${props.$backgroundImage});
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  `}
 `
 
 const ProfileImageWrapper = styled.div`
@@ -162,7 +169,7 @@ const ProfileImageWrapper = styled.div`
   height: 85px;
 `
 
-const ImageWrapper = styled.div`
+const ImageWrapper = styled.div<{ $backgroundImage: string }>`
   position: absolute;
   top: -5rem;
   left: 1rem;
@@ -171,6 +178,14 @@ const ImageWrapper = styled.div`
   border: 4px solid ${Colors.black};
   border-radius: 50%;
   background-color: ${Colors.darkerGrey};
+  ${props =>
+    props.$backgroundImage &&
+    `
+    background-image: url(${props.$backgroundImage});
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  `}
 `
 
 const EditProfileButton = styled(SecondaryButton)`
@@ -204,6 +219,7 @@ const SpanTextWrapper = styled.div`
 
 const SpanText = styled.span`
   color: ${Colors.white};
+  overflow-wrap: break-word;
 `
 
 const DescriptionWrapper = styled.div`
@@ -231,9 +247,10 @@ const WebLinkLogo = styled(WebLink)`
   margin-right: 0.3rem;
 `
 
-const WebLinkSpan = styled.span`
+const WebLinkSpan = styled.a`
   color: ${Colors.primary};
   font-weight: 500;
+  overflow-wrap: break-word;
   cursor: pointer;
 `
 
