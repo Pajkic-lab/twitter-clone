@@ -24,6 +24,6 @@ export class CorsService {
   }
 
   configCloudinaryCors() {
-    return 'https://res.cloudinary.com';
+    return 'https://cloudinary.com/';
   }
 }
