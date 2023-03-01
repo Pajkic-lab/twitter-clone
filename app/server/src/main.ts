@@ -34,14 +34,10 @@ import * as hpp from 'hpp';
     }),
   );
   app.enableCors({
-    origin: [corsService.configCors(), 'https://cloudinary.com/', 'https://res.cloudinary.com/'],
+    // origin: [corsService.configCors(), 'https://cloudinary.com/', 'https://res.cloudinary.com/'],
+    origin: corsService.configCors(),
     credentials: true,
   });
-  // app.use((req, res, next) => {
-  //   res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
-  //   res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
-  //   next();
-  // });
   app.use(json({ limit: '50mb' }));
   app.use(urlencoded({ extended: true, limit: '50mb' }));
   app.use(compression());
