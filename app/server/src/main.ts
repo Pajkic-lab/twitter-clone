@@ -18,7 +18,7 @@ import * as hpp from 'hpp';
   const prismaService = app.get<PrismaService>(PrismaService);
   const corsService = app.get<CorsService>(CorsService);
   app.use(hpp());
-  app.use(helmet());
+  app.use(helmet({ contentSecurityPolicy: false }));
   app.enableCors({
     origin: [corsService.configCors(), corsService.configCloudinaryCors()],
     credentials: true,
