@@ -20,6 +20,7 @@ import * as hpp from 'hpp';
   app.use(hpp());
   app.use(
     helmet({
+      crossOriginResourcePolicy: false,
       contentSecurityPolicy: {
         directives: {
           defaultSrc: ["'self'"],
@@ -35,6 +36,11 @@ import * as hpp from 'hpp';
     origin: [corsService.configCors(), corsService.configCloudinaryCors()],
     credentials: true,
   });
+  // app.use((req, res, next) => {
+  //   res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
+  //   res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
+  //   next();
+  // });
   app.use(json({ limit: '50mb' }));
   app.use(urlencoded({ extended: true, limit: '50mb' }));
   app.use(compression());
