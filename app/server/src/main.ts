@@ -20,6 +20,7 @@ import * as hpp from 'hpp';
   app.use(hpp());
   app.use(
     helmet({
+      crossOriginEmbedderPolicy: false,
       crossOriginResourcePolicy: false,
       contentSecurityPolicy: {
         directives: {
@@ -33,7 +34,7 @@ import * as hpp from 'hpp';
     }),
   );
   app.enableCors({
-    origin: [corsService.configCors(), corsService.configCloudinaryCors()],
+    origin: [corsService.configCors(), 'https://cloudinary.com/', 'https://res.cloudinary.com/'],
     credentials: true,
   });
   // app.use((req, res, next) => {
