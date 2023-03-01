@@ -21,7 +21,7 @@ import * as hpp from 'hpp';
   app.use(
     helmet({
       contentSecurityPolicy: {
-        directives: { imgSrc: ["'self'", 'https://cloudinary.com/', 'https://res.cloudinary.com/'] },
+        directives: { imgSrc: ["'self'", 'data:', 'https://cloudinary.com/', 'https://res.cloudinary.com/'] },
       },
     }),
   );
