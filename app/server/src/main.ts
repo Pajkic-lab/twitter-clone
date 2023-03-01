@@ -34,13 +34,12 @@ import * as hpp from 'hpp';
     }),
   );
   app.enableCors({
-    // origin: [corsService.configCors(), 'https://cloudinary.com/', 'https://res.cloudinary.com/'],
     origin: corsService.configCors(),
     credentials: true,
   });
   app.use(json({ limit: '50mb' }));
   app.use(urlencoded({ extended: true, limit: '50mb' }));
-  app.use(compression());
+
   app.use(
     session({
       name: configService.get('SESSION_NAME'),
@@ -60,6 +59,7 @@ import * as hpp from 'hpp';
   );
   app.use(passport.initialize());
   app.use(passport.session());
+  app.use(compression());
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
