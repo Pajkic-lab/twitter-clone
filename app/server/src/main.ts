@@ -17,14 +17,14 @@ import * as hpp from 'hpp';
   const configService = app.get<ConfigService>(ConfigService);
   const prismaService = app.get<PrismaService>(PrismaService);
   const corsService = app.get<CorsService>(CorsService);
+  app.use(hpp());
+  app.use(helmet());
   app.enableCors({
     origin: [corsService.configCors(), corsService.configCloudinaryCors()],
     credentials: true,
   });
   app.use(json({ limit: '50mb' }));
   app.use(urlencoded({ extended: true, limit: '50mb' }));
-  app.use(hpp());
-  app.use(helmet());
   app.use(compression());
   app.use(
     session({
