@@ -1,17 +1,18 @@
 import { ReactComponent as ArrowLeft } from 'assets/svg/arrowLeft.svg'
-import { EditProfileModal } from 'components/modals/EditProfileModal'
 import { ReactComponent as Location } from 'assets/svg/location.svg'
 import { ReactComponent as Calender } from 'assets/svg/calender.svg'
 import { ReactComponent as WebLink } from 'assets/svg/webLink.svg'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAppSelector } from 'store/hooks'
 import { SecondaryButton } from 'ui/Button'
-import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Colors } from 'ui/styles'
 
-export const ProfileNavBar: React.FC = () => {
-  const { name, uniqueName, avatar, cover, bio, createdAt, location, website } = useAppSelector(state => state.auth)
+export const PublicProfileNavBar: React.FC = () => {
+  const { name, uniqueName, avatar, cover, bio, createdAt, location, website } = useAppSelector(
+    state => state.publicProfile,
+  )
   const navigate = useNavigate()
 
   const [selected, setSelected] = useState({
@@ -22,7 +23,7 @@ export const ProfileNavBar: React.FC = () => {
   })
   const { tweets, tweetsReplies, media, likes } = selected
 
-  const [editProfileModalIsOpen, setEditProfileModalIsOpen] = useState(false)
+  // const [editProfileModalIsOpen, setEditProfileModalIsOpen] = useState(false)
 
   return (
     <Wrapper>
@@ -40,11 +41,11 @@ export const ProfileNavBar: React.FC = () => {
 
       <ProfileImageWrapper>
         <ImageWrapper $backgroundImage={avatar} />
-        <EditProfileButton onClick={() => setEditProfileModalIsOpen(true)}>Edit profile</EditProfileButton>
-        <EditProfileModal
-          editProfileModalIsOpen={editProfileModalIsOpen}
-          setEditProfileModalIsOpen={setEditProfileModalIsOpen}
-        />
+        {/* <EditProfileButton onClick={() => setEditProfileModalIsOpen(true)}>Edit profile</EditProfileButton>
+          <EditProfileModal
+            editProfileModalIsOpen={editProfileModalIsOpen}
+            setEditProfileModalIsOpen={setEditProfileModalIsOpen}
+          /> */}
       </ProfileImageWrapper>
 
       <BioWrapper>
@@ -154,11 +155,11 @@ const CoverWrapper = styled.div<{ $backgroundImage: string }>`
   ${props =>
     props.$backgroundImage &&
     `
-    background-image: url(${props.$backgroundImage});
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  `}
+      background-image: url(${props.$backgroundImage});
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    `}
 `
 
 const ProfileImageWrapper = styled.div`
@@ -181,18 +182,18 @@ const ImageWrapper = styled.div<{ $backgroundImage: string }>`
   ${props =>
     props.$backgroundImage &&
     `
-    background-image: url(${props.$backgroundImage});
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  `}
+      background-image: url(${props.$backgroundImage});
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    `}
 `
 
-const EditProfileButton = styled(SecondaryButton)`
-  color: ${Colors.textGray};
-  padding-left: 0;
-  padding-right: 0;
-`
+// const EditProfileButton = styled(SecondaryButton)`
+//   color: ${Colors.textGray};
+//   padding-left: 0;
+//   padding-right: 0;
+// `
 
 const BioWrapper = styled.div`
   padding: 0 1rem;
@@ -323,8 +324,8 @@ const Span = styled.div<{ $active: boolean }>`
   ${props =>
     props.$active &&
     `
-    border-bottom: 5px solid ${Colors.primary};
-    color: ${Colors.textGray};
-    font-weight: 800;
-  `}
+      border-bottom: 5px solid ${Colors.primary};
+      color: ${Colors.textGray};
+      font-weight: 800;
+    `}
 `

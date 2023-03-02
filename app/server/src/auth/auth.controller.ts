@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Patch, Post, Req, Res, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post, Req, Res, UseGuards, UsePipes } from '@nestjs/common';
 import { GoogleAuthGurard } from './google-strategy/google-auth.gurard';
 import { LocalAuthGurard } from './local-strategy/local-auth.guard';
 import { HttpService } from 'src/http/http.service';
@@ -64,16 +64,9 @@ export class AuthController {
     return this.authService.updateUser(request.user.id, request.body.updateUser);
   }
 
-  @Get('status')
-  @UseGuards(IsAuthGurard)
-  user(@Req() request) {
-    if (request.user) {
-      return {
-        msg: 'Authenticated',
-      };
-    }
-    return {
-      msg: 'Not Authenticated',
-    };
+  @Get('public/user/:id')
+  @UsePipes(new ParseIntPipe())
+  handleGetPublicUser(@Param('id') id: number, @Req() request) {
+    return this.authService.getPublicUser(id, request.user?.id);
   }
 }

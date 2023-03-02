@@ -99,4 +99,15 @@ export class AuthService {
     delete user.password;
     return { user };
   }
+
+  async getPublicUser(publicUserId: number, userId?: number) {
+    if (publicUserId === userId) {
+      throw new NotFoundException('Can not acces to specific user as authenticated same user');
+    }
+    const user = await this.authRepository.findUserById(publicUserId);
+    if (!user) throw new NotFoundException('User does not exist');
+    delete user.password;
+    delete user.email;
+    return { user };
+  }
 }

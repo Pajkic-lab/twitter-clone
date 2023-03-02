@@ -1,8 +1,10 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { PublicProfile } from 'pages/PublicProfile'
 import { LandingPage } from 'pages/LandingPage'
 import { Profile } from 'pages/Profile'
 import { Home } from 'pages/Home'
 import { Filter } from './Filter'
+import { AuthType } from 'types'
 import React from 'react'
 
 export const Router: React.FC = () => {
@@ -12,7 +14,7 @@ export const Router: React.FC = () => {
         <Route
           path="/"
           element={
-            <Filter authType="guest">
+            <Filter authType={AuthType.Guest}>
               <LandingPage />
             </Filter>
           }
@@ -20,7 +22,7 @@ export const Router: React.FC = () => {
         <Route
           path="/home"
           element={
-            <Filter authType="protected">
+            <Filter authType={AuthType.Protected}>
               <Home />
             </Filter>
           }
@@ -28,8 +30,17 @@ export const Router: React.FC = () => {
         <Route
           path="/profile"
           element={
-            <Filter authType="protected">
+            <Filter authType={AuthType.Protected}>
               <Profile />
+            </Filter>
+          }
+        />
+        <Route
+          path="/user/:id/unique-name/:name"
+          element={
+            // http://localhost:3000/user/1/unique-name/marko
+            <Filter authType={AuthType.Public}>
+              <PublicProfile />
             </Filter>
           }
         />

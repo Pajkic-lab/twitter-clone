@@ -1,5 +1,5 @@
-import { createAsyncThunk } from '@reduxjs/toolkit'
 import { VerifyUser, CreateUser, UpdateUser } from 'types'
+import { createAsyncThunk } from '@reduxjs/toolkit'
 import { isAxiosError } from 'axios'
 import http from 'http/api'
 

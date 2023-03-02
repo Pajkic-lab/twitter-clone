@@ -1,17 +1,20 @@
+import { PublicProfileNavBar } from './navBar/PublicProfileNavBar'
+import { useLocation, useParams } from 'react-router-dom'
 import { ProfileNavBar } from './navBar/ProfileNavBar'
 import { HomeNavBar } from './navBar/HomeNavBar'
-import { useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 import { Colors } from 'ui/styles'
 import React from 'react'
 
-const lookupNavBarTable: { [key: string]: JSX.Element } = {
-  '/home': <HomeNavBar />,
-  '/profile': <ProfileNavBar />,
-}
-
 export const MainLane = () => {
   const location = useLocation()
+  const params = useParams()
+
+  const lookupNavBarTable: { [key: string]: JSX.Element } = {
+    '/home': <HomeNavBar />,
+    '/profile': <ProfileNavBar />,
+    [`/user/${params.id}/unique-name/${params.name}`]: <PublicProfileNavBar />,
+  }
 
   return <Wrapper>{lookupNavBarTable[location.pathname]}</Wrapper>
 }

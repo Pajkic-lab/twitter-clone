@@ -21,3 +21,5 @@ export interface CreateUser {
 export type VerifyUser = Omit<CreateUser, 'name' | 'confirmPassword'>
 
 export type UpdateUser = Partial<Pick<User, 'name' | 'bio' | 'location' | 'website' | 'cover' | 'avatar'>>
+
+export type PublicUser = Omit<User, 'email'>
