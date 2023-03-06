@@ -103,4 +103,28 @@ export class AuthRepository {
       throw new HttpException('Error while editing user', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
+
+  async followUser(userId: number, userIdToFollow: number) {
+    console.log(userId, userIdToFollow);
+    try {
+      const followingCount = await this.prisma.social.count({
+        where: { userId },
+      });
+
+      await this.prisma.social.create({
+        data: {
+          userId,
+          followingId: userIdToFollow,
+        },
+        select: {
+          followingId: true,
+        },
+      });
+
+      console.log(followingCount);
+      return { followingCount };
+    } catch (error) {
+      throw new HttpException('Error while following user', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
 }

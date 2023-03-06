@@ -7,6 +7,7 @@ import {
   checkNameUniqueness,
   updateUserUniqueName,
   updateUser,
+  followUserThunk,
 } from './thunk'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AxiosResponse } from 'axios'
@@ -18,6 +19,9 @@ interface AuthState extends User {
   isAuth: boolean
   errorMessage: string
   isNameUnique: boolean | undefined
+  following: number | null
+  followers: number | null
+  followIsSubmitting: boolean
 }
 
 const initialState: AuthState = {
@@ -35,12 +39,19 @@ const initialState: AuthState = {
   isAuth: Cookies.get('twitter-clone-auth-session') ? true : false,
   errorMessage: '',
   isNameUnique: undefined,
+  following: null,
+  followers: null,
+  followIsSubmitting: false,
 }
 
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+    resetAuthState: state => {
+      return initialState
+    },
+  },
   /**
    * Do not destructure state inside extraReducers because code wont work for some reason
    */
@@ -168,6 +179,24 @@ export const authSlice = createSlice({
           state.errorMessage = payload.message
         },
       )
+
+      // follow
+      .addCase(followUserThunk.pending, state => {
+        state.followIsSubmitting = true
+      })
+      .addCase(
+        followUserThunk.fulfilled,
+        (state, { payload }: PayloadAction<AxiosResponse<{ user: User }, any> | undefined>) => {
+          if (payload && payload.data) {
+            console.log(payload)
+          }
+          state.followIsSubmitting = false
+        },
+      )
+      .addCase(followUserThunk.rejected, state => {
+        state.errorMessage = ''
+        state.followIsSubmitting = false
+      })
   },
 })
 

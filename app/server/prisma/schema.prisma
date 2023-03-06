@@ -9,6 +9,13 @@ datasource db {
   referentialIntegrity = "prisma"
 }
 
+model Session {
+  id        String   @id
+  sid       String   @unique
+  data      String   @db.VarChar(300)
+  expiresAt DateTime
+}
+
 model User {
   id         Int      @id @default(autoincrement())
   email      String   @unique
@@ -22,11 +29,14 @@ model User {
   website    String?
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
+  social     Social[]
+  followers  Social[] @relation("following")
 }
 
-model Session {
-  id        String   @id
-  sid       String   @unique
-  data      String   @db.VarChar(300)
-  expiresAt DateTime
+model Social {
+  id          Int  @id @default(autoincrement())
+  user        User @relation(fields: [userId], references: [id])
+  userId      Int
+  following   User @relation("following", fields: [followingId], references: [id])
+  followingId Int
 }
