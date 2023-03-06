@@ -1,5 +1,5 @@
-import { createAsyncThunk } from '@reduxjs/toolkit'
 import { VerifyUser, CreateUser, UpdateUser } from 'types'
+import { createAsyncThunk } from '@reduxjs/toolkit'
 import { isAxiosError } from 'axios'
 import http from 'http/api'
 
@@ -90,6 +90,16 @@ export const updateUserUniqueName = createAsyncThunk(
 export const updateUser = createAsyncThunk('auth/updateUser', async (updateUser: UpdateUser, { rejectWithValue }) => {
   try {
     return await http.auth.updateUser(updateUser)
+  } catch (error) {
+    if (error instanceof Error) {
+      return rejectWithValue(error)
+    }
+  }
+})
+
+export const followUserThunk = createAsyncThunk('auth/followUser', async (userId: number, { rejectWithValue }) => {
+  try {
+    return await http.auth.followUser(userId)
   } catch (error) {
     if (error instanceof Error) {
       return rejectWithValue(error)

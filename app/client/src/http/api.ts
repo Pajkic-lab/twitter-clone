@@ -38,5 +38,11 @@ export default {
     updateUser(updateUser: UpdateUser) {
       return httpClient.patch('auth/update/user', { updateUser })
     },
+    getPublicUser(id: number) {
+      return httpClient.get(`auth/public/user/${id}`)
+    },
+    followUser(userId: number) {
+      return httpClient.post('auth/follow/user', { userId })
+    },
   },
 }

@@ -24,9 +24,11 @@ type SideBarLogoProps = {
   height?: string
 }
 
+// when logd out render just expore and settings
+
 export const SideBar: React.FC = () => {
   const dispatch = useAppDispatch()
-  const { name, uniqueName } = useAppSelector(state => state.auth)
+  const { name, uniqueName, isAuth } = useAppSelector(state => state.auth)
 
   const [visible, setVisible] = useState(false)
 
@@ -63,24 +65,26 @@ export const SideBar: React.FC = () => {
       </ContentWrapper>
       <Button>Tweet</Button>
 
-      <Tippy
-        visible={visible}
-        arrow={true}
-        interactive={true}
-        onClickOutside={() => setVisible(!visible)}
-        content={<Balloon />}
-      >
-        <ProfileButtonWrapper onClick={() => setVisible(!visible)}>
-          <BioWrapper>
-            <ProfileImage />
-            <TextWrapper>
-              <H3>{name}</H3>
-              <Span>{uniqueName}</Span>
-            </TextWrapper>
-          </BioWrapper>
-          <Options />
-        </ProfileButtonWrapper>
-      </Tippy>
+      {isAuth && (
+        <Tippy
+          visible={visible}
+          arrow={true}
+          interactive={true}
+          onClickOutside={() => setVisible(!visible)}
+          content={<Balloon />}
+        >
+          <ProfileButtonWrapper onClick={() => setVisible(!visible)}>
+            <BioWrapper>
+              <ProfileImage />
+              <TextWrapper>
+                <H3>{name}</H3>
+                <Span>{uniqueName}</Span>
+              </TextWrapper>
+            </BioWrapper>
+            <Options />
+          </ProfileButtonWrapper>
+        </Tippy>
+      )}
     </Wrapper>
   )
 }

@@ -1,16 +1,16 @@
 import { ReactComponent as Cross } from 'assets/svg/cross.svg'
+import { updateUser } from 'store/features/authSlice/thunk'
 import { FormikHelpers, useFormik } from 'formik'
+import { useAppDispatch } from 'store/hooks'
 import { SecondaryButton } from 'ui/Button'
 import { ImageInput } from 'ui/ImageInput'
 import React, { useState } from 'react'
 import Modal from 'styled-react-modal'
 import styled from 'styled-components'
 import { BaseInput } from 'ui/Input'
+import { UpdateUser } from 'types'
 import { Colors } from 'ui/styles'
 import * as yup from 'yup'
-import { useAppDispatch } from 'store/hooks'
-import { updateUser } from 'store/features/authSlice/thunk'
-import { UpdateUser } from 'types'
 
 interface Props {
   editProfileModalIsOpen: boolean
