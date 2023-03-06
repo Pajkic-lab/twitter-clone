@@ -38,7 +38,7 @@ export const Router: React.FC = () => {
         <Route
           path="/user/:id/unique-name/:name"
           element={
-            // http://localhost:3000/user/1/unique-name/marko
+            // http://localhost:3000/user/2/unique-name/marko
             <Filter authType={AuthType.Public}>
               <PublicProfile />
             </Filter>

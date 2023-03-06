@@ -41,5 +41,8 @@ export default {
     getPublicUser(id: number) {
       return httpClient.get(`auth/public/user/${id}`)
     },
+    followUser(userId: number) {
+      return httpClient.post('auth/follow/user', { userId })
+    },
   },
 }

@@ -110,4 +110,9 @@ export class AuthService {
     delete user.email;
     return { user };
   }
+
+  async followUser(userId, userIdToFollow) {
+    console.log(userId, userIdToFollow);
+    const res = await this.authRepository.followUser(userId, userIdToFollow);
+  }
 }

@@ -96,3 +96,13 @@ export const updateUser = createAsyncThunk('auth/updateUser', async (updateUser:
     }
   }
 })
+
+export const followUserThunk = createAsyncThunk('auth/followUser', async (userId: number, { rejectWithValue }) => {
+  try {
+    return await http.auth.followUser(userId)
+  } catch (error) {
+    if (error instanceof Error) {
+      return rejectWithValue(error)
+    }
+  }
+})

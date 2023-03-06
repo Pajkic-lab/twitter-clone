@@ -25,7 +25,11 @@ const initialState: PublicProfileState = {
 export const publicProfileSlice = createSlice({
   name: 'publicProfile',
   initialState,
-  reducers: {},
+  reducers: {
+    resetState: state => {
+      return initialState
+    },
+  },
   extraReducers: builder => {
     builder
 
@@ -59,5 +63,7 @@ export const publicProfileSlice = createSlice({
       })
   },
 })
+
+export const { resetState } = publicProfileSlice.actions
 
 export default publicProfileSlice.reducer

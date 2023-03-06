@@ -69,4 +69,10 @@ export class AuthController {
   handleGetPublicUser(@Param('id') id: number, @Req() request) {
     return this.authService.getPublicUser(id, request.user?.id);
   }
+
+  @Post('follow/user')
+  @UseGuards(IsAuthGurard)
+  handleFollowUser(@Req() request) {
+    return this.authService.followUser(request.user.id, request.body.userId);
+  }
 }
