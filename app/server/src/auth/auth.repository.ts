@@ -104,25 +104,80 @@ export class AuthRepository {
     }
   }
 
-  async followUser(userId: number, userIdToFollow: number) {
-    console.log(userId, userIdToFollow);
+  async getSocialStats(userId: number) {
     try {
       const followingCount = await this.prisma.social.count({
         where: { userId },
       });
+      const followersCount = await this.prisma.social.count({
+        where: {
+          followingId: userId,
+        },
+      });
+      return { followingCount, followersCount };
+    } catch (error) {
+      throw new HttpException('Error while geting social stats', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
 
+  async getFollowingStatus(publicUserId: number, userId: number) {
+    try {
+      const res = await this.prisma.social.findFirst({
+        where: {
+          userId,
+          followingId: publicUserId,
+        },
+      });
+      if (res) return true;
+      return false;
+    } catch (error) {
+      throw new HttpException('Error while geting social status', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async followUser(userId: number, userIdToFollow: number) {
+    try {
       await this.prisma.social.create({
         data: {
           userId,
           followingId: userIdToFollow,
         },
-        select: {
-          followingId: true,
+      });
+
+      const followingCount = await this.prisma.social.count({
+        where: { userId },
+      });
+
+      const followersCount = await this.prisma.social.count({
+        where: {
+          followingId: userId,
+        },
+      });
+      return { followingCount, followersCount };
+    } catch (error) {
+      throw new HttpException('Error while following user', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async unFollowUser(userId: number, userIdToUnFollow: number) {
+    try {
+      await this.prisma.social.deleteMany({
+        where: {
+          userId: userId,
+          followingId: userIdToUnFollow,
         },
       });
 
-      console.log(followingCount);
-      return { followingCount };
+      const followingCount = await this.prisma.social.count({
+        where: { userId },
+      });
+
+      const followersCount = await this.prisma.social.count({
+        where: {
+          followingId: userId,
+        },
+      });
+      return { followingCount, followersCount };
     } catch (error) {
       throw new HttpException('Error while following user', HttpStatus.INTERNAL_SERVER_ERROR);
     }

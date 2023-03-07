@@ -8,20 +8,22 @@ import {
   updateUserUniqueName,
   updateUser,
   followUserThunk,
+  unFollowUserThunk,
 } from './thunk'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { SocialStats, User } from 'types'
 import { AxiosResponse } from 'axios'
 import Cookies from 'js-cookie'
-import { User } from 'types'
 
 interface AuthState extends User {
   isLoading: boolean
   isAuth: boolean
   errorMessage: string
   isNameUnique: boolean | undefined
-  following: number | null
-  followers: number | null
+  followingCount: number
+  followersCount: number
   followIsSubmitting: boolean
+  followingStatus: boolean // is not in use but needs to be difinde here
 }
 
 const initialState: AuthState = {
@@ -39,9 +41,10 @@ const initialState: AuthState = {
   isAuth: Cookies.get('twitter-clone-auth-session') ? true : false,
   errorMessage: '',
   isNameUnique: undefined,
-  following: null,
-  followers: null,
+  followingCount: 0,
+  followersCount: 0,
   followIsSubmitting: false,
+  followingStatus: false,
 }
 
 export const authSlice = createSlice({
@@ -88,7 +91,10 @@ export const authSlice = createSlice({
       })
       .addCase(
         authUserThunk.fulfilled,
-        (state, { payload }: PayloadAction<AxiosResponse<{ user: User }, any> | undefined>) => {
+        (
+          state,
+          { payload }: PayloadAction<AxiosResponse<{ user: User; socialStats: SocialStats }, any> | undefined>,
+        ) => {
           if (payload && payload.data) {
             state.id = payload.data.user.id as number
             state.name = payload.data.user.name
@@ -102,6 +108,8 @@ export const authSlice = createSlice({
             state.website = payload.data.user.website
             // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
             state.createdAt = payload.data.user.createdAt as string
+            state.followingCount = payload.data.socialStats.followingCount
+            state.followersCount = payload.data.socialStats.followersCount
           }
           state.isLoading = false
         },
@@ -180,20 +188,50 @@ export const authSlice = createSlice({
         },
       )
 
-      // follow
+      // Follow user
       .addCase(followUserThunk.pending, state => {
         state.followIsSubmitting = true
       })
       .addCase(
         followUserThunk.fulfilled,
-        (state, { payload }: PayloadAction<AxiosResponse<{ user: User }, any> | undefined>) => {
+        (
+          state,
+          {
+            payload,
+          }: PayloadAction<AxiosResponse<{ followingCount: number; followersCount: number }, any> | undefined>,
+        ) => {
           if (payload && payload.data) {
-            console.log(payload)
+            state.followingCount = payload.data.followingCount
+            state.followersCount = payload.data.followersCount
           }
           state.followIsSubmitting = false
         },
       )
       .addCase(followUserThunk.rejected, state => {
+        state.errorMessage = ''
+        state.followIsSubmitting = false
+      })
+
+      // Unfollow user
+      .addCase(unFollowUserThunk.pending, state => {
+        state.followIsSubmitting = true
+      })
+      .addCase(
+        unFollowUserThunk.fulfilled,
+        (
+          state,
+          {
+            payload,
+          }: PayloadAction<AxiosResponse<{ followingCount: number; followersCount: number }, any> | undefined>,
+        ) => {
+          if (payload && payload.data) {
+            state.followingCount = payload.data.followingCount
+            state.followersCount = payload.data.followersCount
+          }
+          state.followIsSubmitting = false
+        },
+      )
+      .addCase(unFollowUserThunk.rejected, state => {
         state.errorMessage = ''
         state.followIsSubmitting = false
       })

@@ -18,6 +18,11 @@ export interface CreateUser {
   confirmPassword: string
 }
 
+export interface SocialStats {
+  followingCount: number
+  followersCount: number
+}
+
 export type VerifyUser = Omit<CreateUser, 'name' | 'confirmPassword'>
 
 export type UpdateUser = Partial<Pick<User, 'name' | 'bio' | 'location' | 'website' | 'cover' | 'avatar'>>

@@ -36,7 +36,9 @@ export class AuthService {
     const user = await this.authRepository.findUserById(userId);
     if (!user) throw new NotFoundException('User does not exist');
     delete user.password;
-    return { user };
+    const socialStats = await this.authRepository.getSocialStats(userId);
+    if (!socialStats) throw new NotFoundException('Social stats do not exist');
+    return { user, socialStats };
   }
 
   async validateGoogleUser(createUser: CreatGoogleUserDto) {
@@ -101,6 +103,7 @@ export class AuthService {
   }
 
   async getPublicUser(publicUserId: number, userId?: number) {
+    let followingStatus;
     if (publicUserId === userId) {
       throw new NotFoundException('Can not acces to specific user as authenticated same user');
     }
@@ -108,11 +111,22 @@ export class AuthService {
     if (!user) throw new NotFoundException('User does not exist');
     delete user.password;
     delete user.email;
-    return { user };
+    const socialStats = await this.authRepository.getSocialStats(publicUserId);
+
+    if (!socialStats) throw new NotFoundException('Social status do not exist');
+    if (userId) {
+      followingStatus = await this.authRepository.getFollowingStatus(publicUserId, userId);
+    }
+    return { user, socialStats, followingStatus };
   }
 
   async followUser(userId, userIdToFollow) {
-    console.log(userId, userIdToFollow);
-    const res = await this.authRepository.followUser(userId, userIdToFollow);
+    const { followingCount, followersCount } = await this.authRepository.followUser(userId, userIdToFollow);
+    return { followingCount, followersCount };
+  }
+
+  async unFollowUser(userId, userIdToUnFollow) {
+    const { followingCount, followersCount } = await this.authRepository.unFollowUser(userId, userIdToUnFollow);
+    return { followingCount, followersCount };
   }
 }

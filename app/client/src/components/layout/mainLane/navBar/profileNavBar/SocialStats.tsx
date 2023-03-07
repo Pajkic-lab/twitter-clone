@@ -1,16 +1,17 @@
+import { SocialStats as SocialStatistics } from 'types'
 import styled from 'styled-components'
 import { Colors } from 'ui/styles'
 import React from 'react'
 
-export const SocialStats = () => {
+export const SocialStats: React.FC<SocialStatistics> = ({ followersCount, followingCount }) => {
   return (
     <SocialStatsWrapper>
       <FollowingStatsWrapper>
-        <StatsNumberSpan>0</StatsNumberSpan>
+        <StatsNumberSpan>{followingCount}</StatsNumberSpan>
         <StatsTextSpan>Following</StatsTextSpan>
       </FollowingStatsWrapper>
       <FollowersStatsWrapper>
-        <StatsNumberSpan>0</StatsNumberSpan>
+        <StatsNumberSpan>{followersCount}</StatsNumberSpan>
         <StatsTextSpan>Followers</StatsTextSpan>
       </FollowersStatsWrapper>
     </SocialStatsWrapper>
