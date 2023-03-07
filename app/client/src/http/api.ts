@@ -1,4 +1,4 @@
-import { VerifyUser, CreateUser, UpdateUser } from 'types'
+import { VerifyUser, CreateUser, UpdateUser, SocialStats } from 'types'
 import { AxiosResponse } from 'axios'
 import { httpClient } from './client'
 import { User } from 'types'
@@ -23,7 +23,7 @@ export default {
     googleAuthenticate() {
       return httpClient.get('auth/google/login')
     },
-    authUser(): Promise<AxiosResponse<{ user: User }, any>> {
+    authUser(): Promise<AxiosResponse<{ user: User; socialStats: SocialStats; followingStatus?: boolean }, any>> {
       return httpClient.get('auth/user')
     },
     signOut() {
@@ -43,6 +43,9 @@ export default {
     },
     followUser(userId: number) {
       return httpClient.post('auth/follow/user', { userId })
+    },
+    unFollowUser(userId: number) {
+      return httpClient.delete(`auth/unfollow/user/${userId}`)
     },
   },
 }

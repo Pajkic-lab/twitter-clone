@@ -1,11 +1,11 @@
 import { EditProfileModal } from 'components/modals/EditProfileModal'
+import { followUserThunk, unFollowUserThunk } from 'store/features/authSlice/thunk'
 import { useAppDispatch, useAppSelector } from 'store/hooks'
+import { useParams } from 'react-router-dom'
 import { SecondaryButton } from 'ui/Button'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Colors } from 'ui/styles'
-import { followUserThunk } from 'store/features/authSlice/thunk'
-import { useParams } from 'react-router-dom'
 
 export const AvatarAndOptions: React.FC<{ avatar: string; pathname: string }> = ({ avatar, pathname }) => {
   const [editProfileModalIsOpen, setEditProfileModalIsOpen] = useState(false)
@@ -13,11 +13,33 @@ export const AvatarAndOptions: React.FC<{ avatar: string; pathname: string }> = 
   const dispatch = useAppDispatch()
 
   const { isAuth } = useAppSelector(state => state.auth)
+  const { followingStatus, followIsSubmitting } = useAppSelector(state => state.publicProfile)
 
   const followUserHelper = () => {
     if (params.id) {
       void dispatch(followUserThunk(parseInt(params.id)))
     }
+  }
+  const unFollowUserHelper = () => {
+    if (params.id) {
+      void dispatch(unFollowUserThunk(parseInt(params.id)))
+    }
+  }
+
+  const ButtonOptons: React.FC = () => {
+    return (
+      <>
+        {followingStatus ? (
+          <UnFolloweButton onClick={() => unFollowUserHelper()} loading={followIsSubmitting}>
+            UnFollow
+          </UnFolloweButton>
+        ) : (
+          <FolloweButton onClick={() => followUserHelper()} loading={followIsSubmitting}>
+            Follow
+          </FolloweButton>
+        )}
+      </>
+    )
   }
 
   return (
@@ -32,7 +54,7 @@ export const AvatarAndOptions: React.FC<{ avatar: string; pathname: string }> = 
           />
         </>
       )}
-      {pathname !== '/profile' && isAuth && <FolloweButton onClick={() => followUserHelper()}>follow</FolloweButton>}
+      {pathname !== '/profile' && isAuth && <ButtonOptons />}
       {pathname !== '/profile' && !isAuth && null}
     </ProfileImageWrapper>
   )
@@ -72,7 +94,22 @@ const EditProfileButton = styled(SecondaryButton)`
 `
 
 const FolloweButton = styled(SecondaryButton)`
+  color: ${Colors.black};
+  background-color: ${Colors.white};
+  padding-left: 0;
+  padding-right: 0;
+
+  &:hover {
+    color: ${Colors.white};
+  }
+`
+const UnFolloweButton = styled(SecondaryButton)`
   color: ${Colors.textGray};
   padding-left: 0;
   padding-right: 0;
+
+  &:hover {
+    color: ${Colors.red};
+    border: 1px solid ${Colors.red};
+  }
 `
