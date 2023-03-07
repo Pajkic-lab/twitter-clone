@@ -13,9 +13,8 @@ import React from 'react'
 export const ProfileNavBar: React.FC = () => {
   const { pathname } = useLocation()
 
-  const { name, uniqueName, avatar, cover, bio, createdAt, location, website } = useAppSelector(
-    pathname === '/profile' ? state => state.auth : state => state.publicProfile,
-  )
+  const { name, uniqueName, avatar, cover, bio, createdAt, location, website, followersCount, followingCount } =
+    useAppSelector(pathname === '/profile' ? state => state.auth : state => state.publicProfile)
 
   return (
     <Wrapper>
@@ -31,7 +30,7 @@ export const ProfileNavBar: React.FC = () => {
           website={website}
           createdAt={createdAt}
         />
-        <SocialStats />
+        <SocialStats followersCount={followersCount} followingCount={followingCount} />
       </BioWrapper>
       <TweetsNavigation />
     </Wrapper>

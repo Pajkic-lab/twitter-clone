@@ -1,4 +1,17 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post, Req, Res, UseGuards, UsePipes } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
+  Req,
+  Res,
+  UseGuards,
+  UsePipes,
+} from '@nestjs/common';
 import { GoogleAuthGurard } from './google-strategy/google-auth.gurard';
 import { LocalAuthGurard } from './local-strategy/local-auth.guard';
 import { HttpService } from 'src/http/http.service';
@@ -74,5 +87,12 @@ export class AuthController {
   @UseGuards(IsAuthGurard)
   handleFollowUser(@Req() request) {
     return this.authService.followUser(request.user.id, request.body.userId);
+  }
+
+  @Delete('unfollow/user/:userIdToUnfollow')
+  @UseGuards(IsAuthGurard)
+  @UsePipes(new ParseIntPipe())
+  handleUnFollowUser(@Param('userIdToUnfollow') userIdToUnfollow: number, @Req() request) {
+    return this.authService.unFollowUser(request.body.userId, userIdToUnfollow);
   }
 }
