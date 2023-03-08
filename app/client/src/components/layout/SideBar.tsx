@@ -24,7 +24,7 @@ type SideBarLogoProps = {
   height?: string
 }
 
-// when logd out render just expore and settings
+// when logd out render just explore and settings
 
 export const SideBar: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -63,7 +63,7 @@ export const SideBar: React.FC = () => {
           )
         })}
       </ContentWrapper>
-      <Button>Tweet</Button>
+      {isAuth && <Button>Tweet</Button>}
 
       {isAuth && (
         <Tippy

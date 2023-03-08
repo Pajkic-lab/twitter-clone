@@ -10,6 +10,7 @@ import { HttpModule } from './http/http.module';
 import { ConfigModule } from '@nestjs/config';
 import { Module } from '@nestjs/common';
 import { join } from 'path';
+import { UtileModule } from './utile/utile.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { join } from 'path';
     HelperModule,
     HttpModule,
     CloudinaryModule,
+    UtileModule,
   ],
 })
 export class AppModule {}
