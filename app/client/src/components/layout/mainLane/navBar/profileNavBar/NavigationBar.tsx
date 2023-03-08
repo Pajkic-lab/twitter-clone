@@ -3,13 +3,21 @@ import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { Colors } from 'ui/styles'
 import React from 'react'
+import { useAppDispatch } from 'store/hooks'
+import { resetState } from 'store/features/publicProfileSlice'
 
 export const NavigationBar: React.FC<{ name: string }> = ({ name }) => {
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
+
+  const nvigateBack = () => {
+    dispatch(resetState())
+    navigate(-1)
+  }
 
   return (
     <HeaderWrapper>
-      <SVGWrapper onClick={() => navigate(-1)}>
+      <SVGWrapper onClick={() => nvigateBack()}>
         <ArrowLogo />
       </SVGWrapper>
       <TittleWrapper>

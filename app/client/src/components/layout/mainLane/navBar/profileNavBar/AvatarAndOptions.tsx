@@ -1,5 +1,5 @@
-import { EditProfileModal } from 'components/modals/EditProfileModal'
 import { followUserThunk, unFollowUserThunk } from 'store/features/authSlice/thunk'
+import { EditProfileModal } from 'components/modals/EditProfileModal'
 import { useAppDispatch, useAppSelector } from 'store/hooks'
 import { useParams } from 'react-router-dom'
 import { SecondaryButton } from 'ui/Button'
