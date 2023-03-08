@@ -48,4 +48,9 @@ export default {
       return httpClient.delete(`auth/unfollow/user/${userId}`)
     },
   },
+  utile: {
+    getMostPopularUsers() {
+      return httpClient.get('utile/most/popular/users')
+    },
+  },
 }
