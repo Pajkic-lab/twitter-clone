@@ -12,13 +12,13 @@ export const PublicProfileTrigger = () => {
   const { name } = useAppSelector(state => state.publicProfile)
   const { id } = useAppSelector(state => state.auth)
 
-  console.log('params', params, typeof params) // stays for testing in prod
+  // console.log('params', params, typeof params) // stays for testing in prod
 
   let paramsId: number
 
   if (params.id) {
     paramsId = parseInt(params.id)
-    console.log('paramsId', paramsId, typeof paramsId) // stays for testing in prod
+    // console.log('paramsId', paramsId, typeof paramsId) // stays for testing in prod
   }
 
   useEffect(() => {
