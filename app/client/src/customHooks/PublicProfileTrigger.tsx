@@ -12,15 +12,22 @@ export const PublicProfileTrigger = () => {
   const { name } = useAppSelector(state => state.publicProfile)
   const { id } = useAppSelector(state => state.auth)
 
+  console.log('params', params, typeof params) // stays for testing in prod
+
+  let paramsId: number
+
+  if (params.id) {
+    paramsId = parseInt(params.id)
+    console.log('paramsId', paramsId, typeof paramsId) // stays for testing in prod
+  }
+
   useEffect(() => {
-    if (parseInt(params.id!) === id || typeof parseInt(params.id!) !== 'number') {
+    if (paramsId === id || typeof paramsId !== 'number') {
       navigate('/home')
     }
-    if (params.id && !name) {
-      // eslint-disable-next-line curly
-      if (parseInt(params.id) === id) return
+    if (paramsId && !name) {
       dispatch(resetState())
-      void dispatch(getPublicProfile(parseInt(params.id)))
+      void dispatch(getPublicProfile(paramsId))
     }
   }, [])
   return null
