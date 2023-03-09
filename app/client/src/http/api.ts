@@ -39,6 +39,7 @@ export default {
       return httpClient.patch('auth/update/user', { updateUser })
     },
     getPublicUser(id: number) {
+      console.log('api route', `auth/public/user/${id}`)
       return httpClient.get(`auth/public/user/${id}`)
     },
     followUser(userId: number) {

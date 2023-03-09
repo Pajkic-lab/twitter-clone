@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Logger,
   Param,
   ParseIntPipe,
   Patch,
@@ -77,10 +78,12 @@ export class AuthController {
     return this.authService.updateUser(request.user.id, request.body.updateUser);
   }
 
+  private readonly logger = new Logger(AuthController.name); // only for testing
   @Get('public/user/:id')
   @UsePipes(new ParseIntPipe())
   handleGetPublicUser(@Param('id') id: number, @Req() request) {
     console.log('controller user', id, typeof id, request.user?.id, typeof request.user?.id); // stays for testing in prod
+    this.logger.log(`controller user logger ${id} ${typeof id} ${request.user?.id} ${typeof request.user?.id}`);
     return this.authService.getPublicUser(id, request.user?.id);
   }
 
