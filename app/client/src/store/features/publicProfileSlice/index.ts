@@ -77,7 +77,7 @@ export const publicProfileSlice = createSlice({
         },
       )
       .addCase(getPublicProfile.rejected, state => {
-        state.errorMessage = ''
+        state.errorMessage = 'no existing user' // refactor logic for this operation
         state.isLoading = false
       })
 
