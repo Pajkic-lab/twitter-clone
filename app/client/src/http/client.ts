@@ -3,7 +3,7 @@ import axios from 'axios'
 const serverLookupTable: { [key: string]: string } = {
   development: 'http://localhost:5000',
   test: '',
-  production: '',
+  production: 'https://twitter-clone-j82h.onrender.com',
 }
 
 export const httpClient = axios.create({
