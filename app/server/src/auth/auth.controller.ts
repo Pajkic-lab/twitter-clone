@@ -80,6 +80,7 @@ export class AuthController {
   @Get('public/user/:id')
   @UsePipes(new ParseIntPipe())
   handleGetPublicUser(@Param('id') id: number, @Req() request) {
+    console.log('controller user', id, typeof id, request.user?.id, typeof request.user?.id); // stays for testing in prod
     return this.authService.getPublicUser(id, request.user?.id);
   }
 
