@@ -33,6 +33,7 @@ export const MainLane = () => {
 
 const Wrapper = styled.div`
   width: 600px;
+  min-width: 600px;
   min-height: 100vh;
   border-left: 2px solid ${Colors.darkerGrey};
   border-right: 2px solid ${Colors.darkerGrey};

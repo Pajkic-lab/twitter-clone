@@ -1,4 +1,4 @@
-import { Get, Req, UseGuards } from '@nestjs/common/decorators';
+import { Get, Param, Req, UseGuards } from '@nestjs/common/decorators';
 import { IsAuthGurard } from 'src/auth/is-auth.guard';
 import { UtileService } from './utile.service';
 import { Controller } from '@nestjs/common';
@@ -11,5 +11,10 @@ export class UtileController {
   @UseGuards(IsAuthGurard)
   handleGetMostPopularUsers(@Req() request) {
     return this.utileService.getMostPupularUsers(request.user.id);
+  }
+
+  @Get('search/:searchData')
+  handleGetSearchData(@Param('searchData') searchData: string, @Req() request) {
+    return this.utileService.getSearchData(searchData, request?.user?.id);
   }
 }

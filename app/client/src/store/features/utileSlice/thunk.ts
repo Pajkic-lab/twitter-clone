@@ -15,3 +15,17 @@ export const getMostPopularProfiles = createAsyncThunk('utile/getMostPopularUser
     }
   }
 })
+
+export const searchThunk = createAsyncThunk('utile/search', async (searchData: string, { rejectWithValue }) => {
+  try {
+    return await http.utile.getSearchTerm(searchData)
+  } catch (error) {
+    if (error instanceof Error) {
+      if (isAxiosError(error)) {
+        return rejectWithValue(error.response?.data)
+      } else {
+        return rejectWithValue({ message: error.message })
+      }
+    }
+  }
+})

@@ -1,9 +1,9 @@
 import { SetAccountModal } from 'components/modals/SetAccountModal'
-import { signOutThunk } from 'store/features/authSlice/thunk'
 import { MainLane } from 'components/layout/mainLane'
 import { SideBar } from 'components/layout/SideBar'
 import styled from 'styled-components'
 import React from 'react'
+import { MediaBar } from 'components/layout/mediaBar'
 
 export const Home = () => {
   return (
@@ -11,7 +11,7 @@ export const Home = () => {
       <SetAccountModal />
       <SideBar />
       <MainLane />
-      {/**trendBar/ mediaBar */}
+      <MediaBar />
     </Wrapper>
   )
 }
