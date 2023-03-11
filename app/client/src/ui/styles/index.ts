@@ -11,6 +11,7 @@ export const Colors = {
   lightBorderColor: '#E9ECEF',
   //
   backgroundShadow: '#5b708366',
+  mediaBackground: '#202327',
 
   //text colors
   lightGray: '#ADB5BD',

@@ -3,6 +3,7 @@ import { ReactComponent as Calender } from 'assets/svg/calender.svg'
 import { ReactComponent as WebLink } from 'assets/svg/webLink.svg'
 import styled from 'styled-components'
 import { Colors } from 'ui/styles'
+import moment from 'moment'
 import React from 'react'
 
 interface Props {
@@ -15,6 +16,8 @@ interface Props {
 }
 
 export const ProfileData: React.FC<Props> = ({ name, uniqueName, bio, location, website, createdAt }: Props) => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+  const formattedTime = moment(createdAt).format('MMMM YYYY')
   return (
     <>
       <TextWrapper>
@@ -37,7 +40,7 @@ export const ProfileData: React.FC<Props> = ({ name, uniqueName, bio, location, 
         </LocationAndWebsiteWrapper>
         <DateWrapper>
           <CanlenderLogo />
-          <SpanBio>{createdAt}</SpanBio>
+          <SpanBio>Joined {formattedTime}</SpanBio>
         </DateWrapper>
       </DescriptionWrapper>
     </>
