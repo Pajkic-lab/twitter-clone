@@ -1,11 +1,11 @@
+import { getMostPopularProfiles } from 'store/features/utileSlice/thunk'
+import { followUserThunk } from 'store/features/authSlice/thunk'
+import { useAppDispatch, useAppSelector } from 'store/hooks'
+import { useNavigate } from 'react-router-dom'
 import { SecondaryButton } from 'ui/Button'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { Colors } from 'ui/styles'
-import React, { useEffect } from 'react'
-import { getMostPopularProfiles } from 'store/features/utileSlice/thunk'
-import { useAppDispatch, useAppSelector } from 'store/hooks'
-import { followUserThunk } from 'store/features/authSlice/thunk'
-import { useNavigate } from 'react-router-dom'
 
 export const WhoToFollow = () => {
   const navigate = useNavigate()

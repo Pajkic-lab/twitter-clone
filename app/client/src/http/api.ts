@@ -52,5 +52,8 @@ export default {
     getMostPopularUsers() {
       return httpClient.get('utile/most/popular/users')
     },
+    getSearchTerm(searchData: string) {
+      return httpClient.get(`utile/search/${searchData}`)
+    },
   },
 }

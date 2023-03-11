@@ -28,7 +28,29 @@ export class UtileRepository {
         take: 3,
       });
     } catch (error) {
-      throw new HttpException('Error while finding user', HttpStatus.INTERNAL_SERVER_ERROR);
+      throw new HttpException('Error while finding users', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async getSearchData(searchData: string, userId?: number) {
+    try {
+      const normalizedSearchData = searchData.toLowerCase();
+      return await this.prisma.user.findMany({
+        where: {
+          OR: [{ uniqueName: { contains: normalizedSearchData } }, { name: { contains: normalizedSearchData } }],
+          NOT: {
+            id: userId,
+          },
+        },
+        orderBy: {
+          followers: {
+            _count: 'desc',
+          },
+        },
+        take: 10,
+      });
+    } catch (error) {
+      throw new HttpException('Error while searching for user', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }

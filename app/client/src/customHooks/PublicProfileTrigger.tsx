@@ -4,12 +4,14 @@ import { useAppDispatch, useAppSelector } from 'store/hooks'
 import { useNavigate, useParams } from 'react-router-dom'
 import React, { useEffect } from 'react'
 
-export const PublicProfileTrigger = () => {
+export const PublicProfileTrigger: React.FC = () => {
   const params = useParams()
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
   const { name, errorMessage } = useAppSelector(state => state.publicProfile)
+  const publicProfileId = useAppSelector(state => state.publicProfile.id)
+
   const { id } = useAppSelector(state => state.auth)
 
   let paramsId: number
@@ -25,10 +27,11 @@ export const PublicProfileTrigger = () => {
     if (errorMessage === 'no existing user') {
       navigate('/')
     }
-    if (paramsId && !name) {
+    if (paramsId && publicProfileId !== paramsId) {
       dispatch(resetState())
       void dispatch(getPublicProfile(paramsId))
     }
-  }, [errorMessage])
+  }, [errorMessage, params.id])
+
   return null
 }

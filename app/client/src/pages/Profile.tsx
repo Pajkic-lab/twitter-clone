@@ -1,3 +1,4 @@
+import { MediaBar } from 'components/layout/mediaBar'
 import { MainLane } from 'components/layout/mainLane'
 import { SideBar } from 'components/layout/SideBar'
 import styled from 'styled-components'
@@ -8,7 +9,7 @@ export const Profile = () => {
     <Wrapper>
       <SideBar />
       <MainLane />
-      {/**trendBar/ mediaBar */}
+      <MediaBar />
     </Wrapper>
   )
 }

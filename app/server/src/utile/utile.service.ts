@@ -14,4 +14,12 @@ export class UtileService {
     }
     return { mostPupularUsers };
   }
+
+  async getSearchData(searchData: string, userId?: number) {
+    const searchRespons = await this.utileRepository.getSearchData(searchData, userId);
+    if (!searchRespons) {
+      throw new HttpException('Error while searching for user', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    return { searchRespons };
+  }
 }
