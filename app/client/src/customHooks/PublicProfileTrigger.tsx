@@ -9,7 +9,7 @@ export const PublicProfileTrigger: React.FC = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
-  const { name, errorMessage } = useAppSelector(state => state.publicProfile)
+  const { errorMessage } = useAppSelector(state => state.publicProfile)
   const publicProfileId = useAppSelector(state => state.publicProfile.id)
 
   const { id } = useAppSelector(state => state.auth)

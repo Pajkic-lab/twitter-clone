@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import React from 'react'
 import { MediaBar } from 'components/layout/mediaBar'
 
-export const Home = () => {
+export const Home: React.FC = () => {
   return (
     <Wrapper>
       <SetAccountModal />

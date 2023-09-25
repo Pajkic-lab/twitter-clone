@@ -59,12 +59,12 @@ export const SearchBar: React.FC<{ InputId: string }> = ({ InputId }) => {
                   </BioWrapper>
                 </ProfileButtonWrapper>
               ))}
-            {searchIsLoading && searchRespons.length < 1 && (
+            {searchIsLoading && (!searchRespons || searchRespons.length < 1) && (
               <LoaderWrapper>
                 <Loader />
               </LoaderWrapper>
             )}
-            {searchRespons.length < 1 && !searchIsLoading && (
+            {(!searchRespons || searchRespons.length < 1) && !searchIsLoading && (
               <NoResultWrapper>
                 <H3>No matching data</H3>
               </NoResultWrapper>

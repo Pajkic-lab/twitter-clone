@@ -93,6 +93,6 @@ export class AuthController {
   @UseGuards(IsAuthGurard)
   @UsePipes(new ParseIntPipe())
   handleUnFollowUser(@Param('userIdToUnfollow') userIdToUnfollow: number, @Req() request) {
-    return this.authService.unFollowUser(request.body.userId, userIdToUnfollow);
+    return this.authService.unFollowUser(request.user.id, userIdToUnfollow);
   }
 }

@@ -53,4 +53,106 @@ export class UtileRepository {
       throw new HttpException('Error while searching for user', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
+
+  async getUserList() {
+    try {
+      return await this.prisma.user.findMany({
+        take: 20,
+        orderBy: {
+          createdAt: 'desc',
+        },
+      });
+    } catch (error) {
+      throw new HttpException('Error while getting user list', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async getFollowers(userId: number, offset: number, limit: number) {
+    try {
+      const followers = await this.prisma.social.findMany({
+        where: {
+          followingId: userId,
+        },
+        select: {
+          user: true,
+        },
+        orderBy: {
+          user: {
+            createdAt: 'desc',
+          },
+        },
+        skip: offset,
+        take: limit,
+      });
+
+      const followersWithStatus = await Promise.all(
+        followers.map(async follower => {
+          const res = await this.prisma.social.findFirst({
+            where: {
+              userId,
+              followingId: follower.user.id,
+            },
+          });
+
+          return {
+            ...follower.user,
+            followingStatus: Boolean(res),
+          };
+        }),
+      );
+
+      return followersWithStatus;
+    } catch (error) {
+      throw new HttpException('Error while getting followers', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async getFollowingUsers(userId: number, offset: number, limit: number) {
+    try {
+      const followingUsers = await this.prisma.social.findMany({
+        where: {
+          userId,
+        },
+        select: {
+          following: {
+            select: {
+              id: true,
+              email: true,
+              password: true,
+              name: true,
+              avatar: true,
+              cover: true,
+              uniqueName: true,
+              bio: true,
+              location: true,
+              website: true,
+              createdAt: true,
+              updatedAt: true,
+            },
+          },
+        },
+        // orderBy: {
+        //   user: {
+        //     createdAt: 'desc',
+        //   },
+        // },
+        skip: offset,
+        take: limit,
+      });
+
+      const followingUserWithStatus = await Promise.all(
+        followingUsers.map(async followingUser => {
+          return {
+            ...followingUser.following,
+            followingStatus: true,
+          };
+        }),
+      );
+
+      // console.log(followingUserWithStatus);
+      return followingUserWithStatus;
+    } catch (error) {
+      throw new HttpException('Error while getting followers', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
 }

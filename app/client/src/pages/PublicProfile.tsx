@@ -5,7 +5,7 @@ import { SideBar } from 'components/layout/SideBar'
 import styled from 'styled-components'
 import React from 'react'
 
-export const PublicProfile = () => {
+export const PublicProfile: React.FC = () => {
   return (
     <Wrapper>
       <PublicProfileTrigger />

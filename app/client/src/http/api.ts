@@ -55,5 +55,33 @@ export default {
     getSearchTerm(searchData: string) {
       return httpClient.get(`utile/search/${searchData}`)
     },
+    getFollowers({ followerOffset, followerLimit }: { followerOffset: number; followerLimit: number }) {
+      return httpClient.get(`utile/followers/${followerOffset}/${followerLimit}`)
+    },
+    getFollowingUsers({ followingOffset, followingLimit }: { followingOffset: number; followingLimit: number }) {
+      return httpClient.get(`utile/following/${followingOffset}/${followingLimit}`)
+    },
+    getPPFollowers({
+      PPfollowerOffset,
+      PPfollowerLimit,
+      userId,
+    }: {
+      PPfollowerOffset: number
+      PPfollowerLimit: number
+      userId: number
+    }) {
+      return httpClient.get(`utile/pp/followers/${userId}/${PPfollowerOffset}/${PPfollowerLimit}`)
+    },
+    getPPFollowingUsers({
+      userId,
+      PPfollowingOffset,
+      PPfollowingLimit,
+    }: {
+      userId: number
+      PPfollowingOffset: number
+      PPfollowingLimit: number
+    }) {
+      return httpClient.get(`utile/pp/following/${userId}/${PPfollowingOffset}/${PPfollowingLimit}`)
+    },
   },
 }

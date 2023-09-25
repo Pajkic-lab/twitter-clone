@@ -121,12 +121,14 @@ export class AuthService {
   }
 
   async followUser(userId, userIdToFollow) {
-    const { followingCount, followersCount } = await this.authRepository.followUser(userId, userIdToFollow);
-    return { followingCount, followersCount };
+    const res = await this.authRepository.followUser(userId, userIdToFollow);
+    if (!res) throw new HttpException('Error while following user', HttpStatus.INTERNAL_SERVER_ERROR);
+    return { userIdToFollow };
   }
 
   async unFollowUser(userId, userIdToUnFollow) {
-    const { followingCount, followersCount } = await this.authRepository.unFollowUser(userId, userIdToUnFollow);
-    return { followingCount, followersCount };
+    const res = await this.authRepository.unFollowUser(userId, userIdToUnFollow);
+    if (!res) throw new HttpException('Error while unFollowing user', HttpStatus.INTERNAL_SERVER_ERROR);
+    return { userIdToUnFollow };
   }
 }

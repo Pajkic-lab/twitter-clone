@@ -23,7 +23,6 @@ interface AuthState extends User {
   followingCount: number
   followersCount: number
   followIsSubmitting: boolean
-  followingStatus: boolean // is not in use but needs to be difinde here
 }
 
 const initialState: AuthState = {
@@ -192,21 +191,10 @@ export const authSlice = createSlice({
       .addCase(followUserThunk.pending, state => {
         state.followIsSubmitting = true
       })
-      .addCase(
-        followUserThunk.fulfilled,
-        (
-          state,
-          {
-            payload,
-          }: PayloadAction<AxiosResponse<{ followingCount: number; followersCount: number }, any> | undefined>,
-        ) => {
-          if (payload && payload.data) {
-            state.followingCount = payload.data.followingCount
-            state.followersCount = payload.data.followersCount
-          }
-          state.followIsSubmitting = false
-        },
-      )
+      .addCase(followUserThunk.fulfilled, state => {
+        state.followingCount = state.followingCount + 1
+        state.followIsSubmitting = false
+      })
       .addCase(followUserThunk.rejected, state => {
         state.errorMessage = ''
         state.followIsSubmitting = false
@@ -216,21 +204,10 @@ export const authSlice = createSlice({
       .addCase(unFollowUserThunk.pending, state => {
         state.followIsSubmitting = true
       })
-      .addCase(
-        unFollowUserThunk.fulfilled,
-        (
-          state,
-          {
-            payload,
-          }: PayloadAction<AxiosResponse<{ followingCount: number; followersCount: number }, any> | undefined>,
-        ) => {
-          if (payload && payload.data) {
-            state.followingCount = payload.data.followingCount
-            state.followersCount = payload.data.followersCount
-          }
-          state.followIsSubmitting = false
-        },
-      )
+      .addCase(unFollowUserThunk.fulfilled, state => {
+        state.followingCount = state.followingCount - 1
+        state.followIsSubmitting = false
+      })
       .addCase(unFollowUserThunk.rejected, state => {
         state.errorMessage = ''
         state.followIsSubmitting = false
