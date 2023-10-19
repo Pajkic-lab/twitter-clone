@@ -8,7 +8,7 @@ import axios from 'axios';
 export class CronJobService {
   constructor(private prisma: PrismaService, private httpService: HttpService) {}
 
-  @Cron(CronExpression.EVERY_6_HOURS)
+  @Cron(CronExpression.EVERY_10_MINUTES)
   async dbPing() {
     console.log(await this.prisma.$queryRaw`SELECT 1`);
   }

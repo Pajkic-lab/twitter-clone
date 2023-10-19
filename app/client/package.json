@@ -24,6 +24,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.7.1",
+    "react-infinite-scroll-component": "^6.1.0",
     "react-inlinesvg": "^3.0.1",
     "react-redux": "^8.0.4",
     "react-router-dom": "^6.4.2",
@@ -32,6 +33,7 @@
     "styled-components": "^5.3.6",
     "styled-react-modal": "^3.0.1",
     "svg-react-loader": "^0.4.6",
+    "use-debounce": "^9.0.3",
     "uuid": "^9.0.0",
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11"

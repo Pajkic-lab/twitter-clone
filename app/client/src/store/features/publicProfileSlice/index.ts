@@ -10,7 +10,6 @@ interface PublicProfileState extends Omit<User, 'email'> {
   followingCount: number
   followersCount: number
   followIsSubmitting: boolean
-  followingStatus: boolean
 }
 
 const initialState: PublicProfileState = {
@@ -57,7 +56,6 @@ export const publicProfileSlice = createSlice({
           >,
         ) => {
           if (payload && payload.data) {
-            // console.log(payload)
             state.id = payload.data.user.id as number
             state.name = payload.data.user.name
             // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion

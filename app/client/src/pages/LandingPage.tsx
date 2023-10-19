@@ -10,7 +10,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Colors } from 'ui/styles'
 
-export const LandingPage = () => {
+export const LandingPage: React.FC = () => {
   const [signUpModalIsOpen, setSignUpModalIsOpen] = useState(false)
   const [signInModalIsOpen, setSignInModalIsOpen] = useState(false)
 
