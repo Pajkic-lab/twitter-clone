@@ -16,9 +16,9 @@ export const PPFollowersList: React.FC<{ userId: number }> = ({ userId }) => {
   const { PPfollowerListIsLoading, PPfollowersList, PPfollowerOffset, PPfollowerLimit, PPfollowerHasMore } =
     useAppSelector(state => state.utile)
 
-  console.log(2222, PPfollowersList)
-
   const { followIsSubmitting } = useAppSelector(state => state.publicProfile)
+
+  const { id } = useAppSelector(state => state.auth)
 
   const followUserHelper = (userId: number) => {
     void dispatch(followUserThunk(userId))
@@ -29,7 +29,11 @@ export const PPFollowersList: React.FC<{ userId: number }> = ({ userId }) => {
   }
 
   const navigateToProfile = (userId: number, uniqueName: string) => {
-    navigate(`/user/${userId}/unique-name/${uniqueName}`)
+    if (userId === id) {
+      navigate('/profile')
+    } else {
+      navigate(`/user/${userId}/unique-name/${uniqueName}`)
+    }
   }
 
   return (
@@ -57,7 +61,11 @@ export const PPFollowersList: React.FC<{ userId: number }> = ({ userId }) => {
                   <Span>{user.uniqueName}</Span>
                 </TextWrapper>
               </BioWrapper>
-              {user.followingStatus ? (
+              {/*  */}
+
+              {user.id === id ? (
+                <></>
+              ) : user.followingStatus ? (
                 <UnFolloweButton
                   onClick={e => {
                     e.stopPropagation()
@@ -78,6 +86,8 @@ export const PPFollowersList: React.FC<{ userId: number }> = ({ userId }) => {
                   Follow
                 </FolloweButton>
               )}
+
+              {/*  */}
             </ProfileButtonWrapper>
           ))}
 

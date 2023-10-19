@@ -131,11 +131,6 @@ export class UtileRepository {
             },
           },
         },
-        // orderBy: {
-        //   user: {
-        //     createdAt: 'desc',
-        //   },
-        // },
         skip: offset,
         take: limit,
       });
@@ -149,7 +144,6 @@ export class UtileRepository {
         }),
       );
 
-      // console.log(followingUserWithStatus);
       return followingUserWithStatus;
     } catch (error) {
       throw new HttpException('Error while getting followers', HttpStatus.INTERNAL_SERVER_ERROR);

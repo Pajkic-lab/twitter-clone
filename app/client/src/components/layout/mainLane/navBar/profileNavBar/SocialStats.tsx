@@ -26,7 +26,7 @@ export const SocialStats = ({
           pathname === '/profile'
             ? navigate('/profile/social/following')
             : // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-              navigate(`/user/${id!}/unique-name/${uniqueName!}/social/following`)
+              navigate(`/user/${id!}/social/following`)
         }
       >
         <StatsNumberSpan>{followingCount}</StatsNumberSpan>
@@ -38,7 +38,7 @@ export const SocialStats = ({
           pathname === '/profile'
             ? navigate('/profile/social/followers')
             : // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-              navigate(`/user/${id!}/unique-name/${uniqueName!}/social/followers`)
+              navigate(`/user/${id!}/social/followers`)
         }
       >
         <StatsNumberSpan>{followersCount}</StatsNumberSpan>

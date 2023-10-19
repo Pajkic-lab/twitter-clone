@@ -14,8 +14,6 @@ export const PublicProfileConnectiosTrigger = () => {
 
   useEffect(() => {
     const getFollowersHelper = async () => {
-      // console.log('userId', userId)
-
       if (!PPfollowerOffset) {
         await dispatch(getPPFollowersThunk({ userId, PPfollowerOffset, PPfollowerLimit }))
       }

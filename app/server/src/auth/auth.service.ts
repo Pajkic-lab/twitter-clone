@@ -5,7 +5,7 @@ import { HttpException } from '@nestjs/common/exceptions';
 import { AuthRepository } from './auth.repository';
 import { HttpStatus } from '@nestjs/common/enums';
 import { Req } from '@nestjs/common/decorators';
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class AuthService {

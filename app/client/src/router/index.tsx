@@ -55,7 +55,7 @@ export const Router: React.FC = () => {
           }
         />
         <Route
-          path="/user/:id/unique-name/:unique-name/social/:option"
+          path="/user/:id/social/:option"
           element={
             <Filter authType={AuthType.Public}>
               <PublicProfileContactList />
