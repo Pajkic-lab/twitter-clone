@@ -6,11 +6,12 @@ import { SecondaryButton } from 'ui/Button'
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { Colors } from 'ui/styles'
+import { Loader } from 'ui/Loader'
 
 export const WhoToFollow = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const { mostPopularUsers } = useAppSelector(state => state.utile)
+  const { mostPopularUsers, mostPupularUsersIsLoading } = useAppSelector(state => state.utile)
   const { followIsSubmitting } = useAppSelector(state => state.publicProfile)
 
   const followUserHelper = (userId: number) => {
@@ -41,11 +42,23 @@ export const WhoToFollow = () => {
                 <Span>{user.uniqueName}</Span>
               </TextWrapper>
             </BioWrapper>
-            <FolloweButton onClick={() => followUserHelper(user.id!)} loading={followIsSubmitting}>
+            <FolloweButton
+              onClick={e => {
+                e.stopPropagation()
+                followUserHelper(user.id!)
+              }}
+              loading={followIsSubmitting}
+            >
               Follow
             </FolloweButton>
           </ProfileButtonWrapper>
         ))}
+
+      {mostPupularUsersIsLoading && mostPopularUsers.length < 1 && (
+        <LoaderWrapper>
+          <Loader />
+        </LoaderWrapper>
+      )}
     </Wrapper>
   )
 }
@@ -120,4 +133,12 @@ const FolloweButton = styled(SecondaryButton)`
   &:hover {
     color: ${Colors.white};
   }
+`
+
+const LoaderWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 `

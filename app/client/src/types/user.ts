@@ -9,6 +9,8 @@ export interface User {
   location: string
   website: string
   createdAt: string
+  ////////////////////////////////////////////////////
+  followingStatus?: boolean
 }
 
 export interface CreateUser {

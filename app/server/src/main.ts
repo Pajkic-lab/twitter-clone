@@ -1,5 +1,6 @@
+import 'reflect-metadata';
+
 import { PrismaSessionStore } from '@quixo3/prisma-session-store';
-import { PrismaService } from './prisma/prisma.service';
 import { ValidationPipe } from '@nestjs/common/pipes';
 import { CorsService } from './http/cors.service';
 import { ConfigService } from '@nestjs/config';
@@ -11,11 +12,12 @@ import { AppModule } from './app.module';
 import * as passport from 'passport';
 import helmet from 'helmet';
 import * as hpp from 'hpp';
+import { PrismaClient } from '@prisma/client';
 
 (async function () {
   const app = await NestFactory.create(AppModule);
   const configService = app.get<ConfigService>(ConfigService);
-  const prismaService = app.get<PrismaService>(PrismaService);
+  // const prismaService = app.get<PrismaService>(PrismaService);
   const corsService = app.get<CorsService>(CorsService);
   app.use(hpp());
   app.use(
@@ -50,7 +52,7 @@ import * as hpp from 'hpp';
         maxAge: 2147483647,
         httpOnly: false,
       },
-      store: new PrismaSessionStore(prismaService, {
+      store: new PrismaSessionStore(new PrismaClient(), {
         checkPeriod: 2 * 60 * 1000,
         dbRecordIdIsSessionId: true,
         dbRecordIdFunction: undefined,

@@ -7,16 +7,14 @@ export const GlobalStyle = createGlobalStyle<{ theme: any; customCss: string }>`
 
   @font-face {
     font-family: 'chip-bold';
-    src: local('chip-bold'),
-    url(${chipBold}) format('woff');
+    src: local('chip-bold'), url(${chipBold}) format('woff');
     font-weight: 700;
     font-style: normal;
   }
 
   @font-face {
     font-family: 'chip-regular';
-    src: local('chip-regular'), 
-    url(${chipRegular}) format('woff');
+    src: local('chip-regular'), url(${chipRegular}) format('woff');
     font-weight: 300;
     font-style: normal;
   }
