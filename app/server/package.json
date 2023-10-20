@@ -5,6 +5,9 @@
   "author": "Marko Pajkic",
   "private": true,
   "license": "UNLICENSED",
+  "engines": {
+    "node": "18.18.0"
+  },
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
