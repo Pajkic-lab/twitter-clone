@@ -18,7 +18,6 @@ import { UtileModule } from './utile/utile.module';
       isGlobal: true,
     }),
     ServeStaticModule.forRoot({
-      // rootPath: join(__dirname, '..', '../client/build'),
       rootPath: join(__dirname, '..', '../../client/build'),
     }),
     PassportModule.register({
@@ -35,8 +34,3 @@ import { UtileModule } from './utile/utile.module';
   ],
 })
 export class AppModule {}
-
-// cd server && npm i && npm run build && cd ../client && npm i && npm run build && cd ../..
-
-// Oct 20 05:58:54 PM  [Nest] 340  - 10/20/2023, 3:58:54 PM   ERROR [ExceptionsHandler] ENOENT: no such file or directory, stat '/opt/render/project/src/app/server/client/build/index.html'
-// Oct 20 05:58:54 PM  Error: ENOENT: no such file or directory, stat '/opt/render/project/src/app/server/client/build/index.html'
