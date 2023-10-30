@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { HelperService } from 'src/helper/helper.service';
 import { HttpService } from 'src/http/http.service';
-import { ConfModule } from 'src/modules/conf/conf.module';
 import { AuthController } from './auth.controller';
 import { AuthMediaRepository } from './auth.media-repository';
 import { AuthRepository } from './auth.repository';
@@ -30,6 +29,6 @@ import { SessionSerializer } from './serializer';
     GoogleAuthGuard,
     AuthMediaRepository,
   ],
-  imports: [ConfModule],
+  imports: [],
 })
 export class AuthModule {}

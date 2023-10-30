@@ -8,7 +8,7 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { CronJobModule } from './cron-job/cron-job.module';
 import { HelperModule } from './helper/helper.module';
 import { HttpModule } from './http/http.module';
-import { ConfModule } from './modules/conf/conf.module';
+import { ConfigurationModule } from './modules/conf/configuration.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { UtileModule } from './utile/utile.module';
 
@@ -22,7 +22,7 @@ import { UtileModule } from './utile/utile.module';
       session: true,
     }),
     ScheduleModule.forRoot(),
-    ConfModule,
+    ConfigurationModule,
     AuthModule,
     CronJobModule,
     HelperModule,

@@ -1,7 +1,8 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { ConfService } from './conf.service';
 
+@Global()
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -11,4 +12,4 @@ import { ConfService } from './conf.service';
   providers: [ConfService],
   exports: [ConfService],
 })
-export class ConfModule {}
+export class ConfigurationModule {}
