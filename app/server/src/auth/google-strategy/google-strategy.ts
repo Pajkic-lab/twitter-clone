@@ -1,18 +1,18 @@
-import { Profile, Strategy } from 'passport-google-oauth20';
-import { PassportStrategy } from '@nestjs/passport';
-import { HttpService } from 'src/http/http.service';
-import { ConfigService } from '@nestjs/config';
-import { AuthService } from '../auth.service';
 import { Injectable } from '@nestjs/common';
+import { PassportStrategy } from '@nestjs/passport';
+import { Profile, Strategy } from 'passport-google-oauth20';
+import { HttpService } from 'src/http/http.service';
+import { ConfService } from 'src/modules/conf/conf.service';
+import { AuthService } from '../auth.service';
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy) {
   authService: AuthService;
 
-  constructor(config: ConfigService, authService: AuthService, httpService: HttpService) {
+  constructor(authService: AuthService, httpService: HttpService, private confService: ConfService) {
     super({
-      clientID: config.get('GOOGLE_CLIENT_ID'),
-      clientSecret: config.get('GOOGLE_CLIENT_SECRET'),
+      clientID: confService.googleClientId,
+      clientSecret: confService.googleClientSecret,
       callbackURL: httpService.baseUrlServer('/auth/google/redirect'),
       scope: ['profile', 'email'],
     });

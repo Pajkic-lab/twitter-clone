@@ -1,10 +1,10 @@
-import { CreateUserDto, ConfirmUserDto } from 'src/dtos';
-import { PassportStrategy } from '@nestjs/passport';
-import { DtoValidation } from './dto-validation';
-import { AuthService } from '../auth.service';
 import { Injectable } from '@nestjs/common';
-import { Strategy } from 'passport-local';
+import { PassportStrategy } from '@nestjs/passport';
 import { Request } from 'express';
+import { Strategy } from 'passport-local';
+import { ConfirmUserDto, CreateUserDto } from 'src/dtos';
+import { AuthService } from '../auth.service';
+import { DtoValidation } from './dto-validation';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {

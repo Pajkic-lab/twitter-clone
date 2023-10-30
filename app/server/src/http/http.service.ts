@@ -1,23 +1,24 @@
-import { ConfigService } from '@nestjs/config';
 import { Injectable } from '@nestjs/common';
+import { ConfService } from 'src/modules/conf/conf.service';
 
 @Injectable()
 export class HttpService {
   env: string;
+
   private serverLookupTable: { [key: string]: string } = {};
   private clientLookupTable: { [key: string]: string } = {};
 
-  constructor(private config: ConfigService) {
-    const env = config.get('NODE_ENV');
+  constructor(private confService: ConfService) {
+    const env = this.confService.nodeEnvironment;
 
     const serverLookupTable = {
-      development: config.get('BASE_URL_SERVER'),
+      development: this.confService.baseUrlServer,
       test: '',
       production: '',
     };
 
     const clientLookupTable = {
-      development: config.get('BASE_URL_CLIENT'),
+      development: this.confService.baseUrlClient,
       test: '',
       production: '',
     };

@@ -12,67 +12,67 @@ import {
   UseGuards,
   UsePipes,
 } from '@nestjs/common';
-import { GoogleAuthGurard } from './google-strategy/google-auth.gurard';
-import { LocalAuthGurard } from './local-strategy/local-auth.guard';
 import { HttpService } from 'src/http/http.service';
-import { IsGuestGurard } from './is-guest.guard';
-import { IsAuthGurard } from './is-auth.guard';
 import { AuthService } from './auth.service';
+import { GoogleAuthGuard } from './google-strategy/google-auth.guard';
+import { IsAuthGuard } from './is-auth.guard';
+import { IsGuestGuard } from './is-guest.guard';
+import { LocalAuthGuard } from './local-strategy/local-auth.guard';
 
 @Controller('auth')
 export class AuthController {
   constructor(private httpService: HttpService, private authService: AuthService) {}
 
   @Get('google/login')
-  @UseGuards(IsGuestGurard, GoogleAuthGurard)
+  @UseGuards(IsGuestGuard, GoogleAuthGuard)
   handleGooleLogin() {
     return;
   }
 
   @Get('google/redirect')
-  @UseGuards(GoogleAuthGurard)
+  @UseGuards(GoogleAuthGuard)
   handleGoogleRedirect(@Res() response) {
     response.redirect(this.httpService.baseUrlClient('/'));
   }
 
   @Post('register')
-  @UseGuards(IsGuestGurard, LocalAuthGurard)
+  @UseGuards(IsGuestGuard, LocalAuthGuard)
   handleLocalRegister() {
     return;
   }
 
   @Post('login')
-  @UseGuards(IsGuestGurard, LocalAuthGurard)
+  @UseGuards(IsGuestGuard, LocalAuthGuard)
   handleLocalLogin() {
     return;
   }
 
   @Get('user')
-  @UseGuards(IsAuthGurard)
+  @UseGuards(IsAuthGuard)
   handleAuthUser(@Req() request) {
     return this.authService.authUser(request.user.id);
   }
 
   @Get('logout')
-  @UseGuards(IsAuthGurard)
+  @UseGuards(IsAuthGuard)
   handlelogout(@Req() request) {
     return this.authService.logOut(request);
   }
 
   @Post('nameuniqueness')
-  @UseGuards(IsAuthGurard)
+  @UseGuards(IsAuthGuard)
   handleNameuniqueness(@Body() body) {
     return this.authService.checkNameUniqueness(body.uniqueName);
   }
 
   @Post('createuniquename')
-  @UseGuards(IsAuthGurard)
+  @UseGuards(IsAuthGuard)
   handleUpdateUserUniqueName(@Req() request) {
     return this.authService.updateUniqueUserName(request.user.id, request.body.uniqueName);
   }
 
   @Patch('update/user')
-  @UseGuards(IsAuthGurard)
+  @UseGuards(IsAuthGuard)
   handleUpdateUser(@Req() request) {
     return this.authService.updateUser(request.user.id, request.body.updateUser);
   }
@@ -84,13 +84,13 @@ export class AuthController {
   }
 
   @Post('follow/user')
-  @UseGuards(IsAuthGurard)
+  @UseGuards(IsAuthGuard)
   handleFollowUser(@Req() request) {
     return this.authService.followUser(request.user.id, request.body.userId);
   }
 
   @Delete('unfollow/user/:userIdToUnfollow')
-  @UseGuards(IsAuthGurard)
+  @UseGuards(IsAuthGuard)
   @UsePipes(new ParseIntPipe())
   handleUnFollowUser(@Param('userIdToUnfollow') userIdToUnfollow: number, @Req() request) {
     return this.authService.unFollowUser(request.user.id, userIdToUnfollow);

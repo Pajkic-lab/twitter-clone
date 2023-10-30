@@ -1,12 +1,17 @@
-import { PrismaService } from 'src/prisma/prisma.service';
-import { Cron, CronExpression } from '@nestjs/schedule';
-import { HttpService } from 'src/http/http.service';
 import { Injectable } from '@nestjs/common';
+import { Cron, CronExpression } from '@nestjs/schedule';
 import axios from 'axios';
+// import { HelperService } from 'src/helper/helper.service';
+// import { ConfService } from 'src/modules/conf/conf.service';
+
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class CronJobService {
-  constructor(private prisma: PrismaService, private httpService: HttpService) {}
+  constructor(private prisma: PrismaService /*, private help: HelperService, private conf: ConfService*/) {
+    // this.conf.testService();
+    // this.help.test();
+  }
 
   @Cron(CronExpression.EVERY_10_MINUTES)
   async dbPing() {

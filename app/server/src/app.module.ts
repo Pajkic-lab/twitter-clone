@@ -1,22 +1,20 @@
-import { CloudinaryModule } from './cloudinary/cloudinary.module';
-import { CronJobModule } from './cron-job/cron-job.module';
-import { ServeStaticModule } from '@nestjs/serve-static';
-import { PrismaModule } from './prisma/prisma.module';
-import { HelperModule } from './helper/helper.module';
+import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
 import { ScheduleModule } from '@nestjs/schedule';
-import { AuthModule } from './auth/auth.module';
-import { HttpModule } from './http/http.module';
-import { ConfigModule } from '@nestjs/config';
-import { Module } from '@nestjs/common';
+import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { AuthModule } from './auth/auth.module';
+import { CloudinaryModule } from './cloudinary/cloudinary.module';
+import { CronJobModule } from './cron-job/cron-job.module';
+import { HelperModule } from './helper/helper.module';
+import { HttpModule } from './http/http.module';
+import { ConfModule } from './modules/conf/conf.module';
+import { PrismaModule } from './prisma/prisma.module';
 import { UtileModule } from './utile/utile.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-    }),
+    PrismaModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', '../../client/build'),
     }),
@@ -24,7 +22,7 @@ import { UtileModule } from './utile/utile.module';
       session: true,
     }),
     ScheduleModule.forRoot(),
-    PrismaModule,
+    ConfModule,
     AuthModule,
     CronJobModule,
     HelperModule,
@@ -32,5 +30,6 @@ import { UtileModule } from './utile/utile.module';
     CloudinaryModule,
     UtileModule,
   ],
+  providers: [],
 })
 export class AppModule {}

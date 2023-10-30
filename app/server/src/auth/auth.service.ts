@@ -1,11 +1,11 @@
-import { CreatGoogleUserDto, CreateUserDto, ConfirmUserDto, UpdateUserDto, MediaDirectory } from 'src/dtos';
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
-import { AuthMediaRepository } from './auth.media-repository';
-import { HttpException } from '@nestjs/common/exceptions';
-import { AuthRepository } from './auth.repository';
-import { HttpStatus } from '@nestjs/common/enums';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { Req } from '@nestjs/common/decorators';
+import { HttpStatus } from '@nestjs/common/enums';
+import { HttpException } from '@nestjs/common/exceptions';
 import * as bcrypt from 'bcryptjs';
+import { ConfirmUserDto, CreateUserDto, CreatGoogleUserDto, MediaDirectory, UpdateUserDto } from 'src/dtos';
+import { AuthMediaRepository } from './auth.media-repository';
+import { AuthRepository } from './auth.repository';
 
 @Injectable()
 export class AuthService {

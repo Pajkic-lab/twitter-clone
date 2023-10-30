@@ -1,16 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { ConfService } from 'src/modules/conf/conf.service';
 
 @Injectable()
 export class CorsService {
   env: string;
   private corsLookupTable: { [key: string]: string } = {};
 
-  constructor(private config: ConfigService) {
-    const env = config.get('NODE_ENV');
+  constructor(private confService: ConfService) {
+    const env = this.confService.nodeEnvironment;
 
     const corsLookupTable = {
-      development: config.get('BASE_URL_CLIENT'),
+      development: this.confService.baseUrlClient,
       test: '',
       production: 'http://twitter-clone-j82h.onrender.com',
     };

@@ -1,7 +1,12 @@
-import { ConfigService } from '@nestjs/config';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class HelperService {
-  constructor(private config: ConfigService) {}
+  constructor() {
+    // console.log('test render helper service');
+  }
+
+  test() {
+    console.log('test helper service');
+  }
 }

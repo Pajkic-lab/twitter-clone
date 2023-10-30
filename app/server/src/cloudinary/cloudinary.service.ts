@@ -1,15 +1,15 @@
-import { ConfigService } from '@nestjs/config';
-import { v2 as cloudinary } from 'cloudinary';
 import { Injectable } from '@nestjs/common';
+import { v2 as cloudinary } from 'cloudinary';
 import { MediaDirectory } from 'src/dtos';
+import { ConfService } from 'src/modules/conf/conf.service';
 
 @Injectable()
 export class CloudinaryService {
-  constructor(configService: ConfigService) {
+  constructor(private confService: ConfService) {
     cloudinary.config({
-      cloud_name: configService.get('CLOUDINARY_CLOUD_NAME'),
-      api_key: configService.get('CLOUDINARY_API_KEY'),
-      api_secret: configService.get('CLOUDINARY_API_SECRET'),
+      cloud_name: this.confService.cloudinaryCloudName,
+      api_key: this.confService.cloudinaryApiKey,
+      api_secret: this.confService.cloudinarySecret,
     });
   }
 

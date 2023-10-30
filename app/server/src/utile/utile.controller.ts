@@ -1,21 +1,21 @@
-import { Get, Param, Req, Res, UseGuards } from '@nestjs/common/decorators';
-import { IsAuthGurard } from 'src/auth/is-auth.guard';
-import { UtileService } from './utile.service';
 import { Controller } from '@nestjs/common';
+import { Get, Param, Req, Res, UseGuards } from '@nestjs/common/decorators';
+import { IsAuthGuard } from 'src/auth/is-auth.guard';
+import { UtileService } from './utile.service';
 
 @Controller('utile')
 export class UtileController {
   constructor(private utileService: UtileService) {}
 
   @Get('li')
-  @UseGuards(IsAuthGurard)
+  @UseGuards(IsAuthGuard)
   async handleGetUserList(@Res() response) {
     const res = await this.utileService.handleGetUserList();
     response.json(res);
   }
 
   @Get('most/popular/users')
-  @UseGuards(IsAuthGurard)
+  @UseGuards(IsAuthGuard)
   handleGetMostPopularUsers(@Req() request) {
     return this.utileService.getMostPupularUsers(request.user.id);
   }
@@ -26,13 +26,13 @@ export class UtileController {
   }
 
   @Get('followers/:offset/:limit')
-  @UseGuards(IsAuthGurard)
+  @UseGuards(IsAuthGuard)
   handleGetFollowers(@Param('offset') offset: number, @Param('limit') limit: number, @Req() request) {
     return this.utileService.handleFollowers(request.user.id, offset, limit);
   }
 
   @Get('following/:offset/:limit')
-  @UseGuards(IsAuthGurard)
+  @UseGuards(IsAuthGuard)
   handleGetFollowing(@Param('offset') offset: number, @Param('limit') limit: number, @Req() request) {
     return this.utileService.handleFollowing(request.user.id, offset, limit);
   }

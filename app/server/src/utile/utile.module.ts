@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { UtileService } from './utile.service';
 import { UtileController } from './utile.controller';
 import { UtileRepository } from './utile.repository';
+import { UtileService } from './utile.service';
 
 @Module({
   providers: [UtileService, UtileRepository],

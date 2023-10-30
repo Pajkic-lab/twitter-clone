@@ -1,7 +1,7 @@
+import { Injectable } from '@nestjs/common';
+import { HttpStatus } from '@nestjs/common/enums';
 import { HttpException } from '@nestjs/common/exceptions';
 import { UtileRepository } from './utile.repository';
-import { HttpStatus } from '@nestjs/common/enums';
-import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class UtileService {
