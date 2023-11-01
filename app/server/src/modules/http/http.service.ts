@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { ConfService } from 'src/modules/conf/conf.service';
+import { ConfigurationService } from '../configuration/configuration.service';
 
 @Injectable()
 export class HttpService {
@@ -8,7 +8,7 @@ export class HttpService {
   private serverLookupTable: { [key: string]: string } = {};
   private clientLookupTable: { [key: string]: string } = {};
 
-  constructor(private confService: ConfService) {
+  constructor(private confService: ConfigurationService) {
     const env = this.confService.nodeEnvironment;
 
     const serverLookupTable = {

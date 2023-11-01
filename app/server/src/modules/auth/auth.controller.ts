@@ -12,7 +12,7 @@ import {
   UseGuards,
   UsePipes,
 } from '@nestjs/common';
-import { HttpService } from 'src/http/http.service';
+import { HttpService } from 'src/modules/http/http.service';
 import { AuthService } from './auth.service';
 import { GoogleAuthGuard } from './google-strategy/google-auth.guard';
 import { IsAuthGuard } from './is-auth.guard';

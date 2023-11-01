@@ -1,6 +1,6 @@
 import { Controller } from '@nestjs/common';
 import { Get, Param, Req, Res, UseGuards } from '@nestjs/common/decorators';
-import { IsAuthGuard } from 'src/auth/is-auth.guard';
+import { IsAuthGuard } from 'src/modules/auth/is-auth.guard';
 import { UtileService } from './utile.service';
 
 @Controller('utile')

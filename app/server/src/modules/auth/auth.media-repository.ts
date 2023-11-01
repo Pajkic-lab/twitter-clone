@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 import { MediaDirectory } from 'src/dtos';
+import { CloudinaryService } from 'src/modules/cloudinary/cloudinary.service';
 
 @Injectable()
 export class AuthMediaRepository {

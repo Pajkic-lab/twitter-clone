@@ -3,33 +3,30 @@ import { PassportModule } from '@nestjs/passport';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
-import { AuthModule } from './auth/auth.module';
-import { CloudinaryModule } from './cloudinary/cloudinary.module';
-import { CronJobModule } from './cron-job/cron-job.module';
-import { HelperModule } from './helper/helper.module';
-import { HttpModule } from './http/http.module';
-import { ConfigurationModule } from './modules/conf/configuration.module';
-import { PrismaModule } from './prisma/prisma.module';
-import { UtileModule } from './utile/utile.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { CloudinaryModule } from './modules/cloudinary/cloudinary.module';
+import { ConfigurationModule } from './modules/configuration/configuration.module';
+import { CronJobModule } from './modules/cron-job/cron-job.module';
+import { HelperModule } from './modules/helper/helper.module';
+import { HttpModule } from './modules/http/http.module';
+import { PrismaModule } from './modules/prisma/prisma.module';
+import { UtileModule } from './modules/utile/utile.module';
+
+const coreModules = [
+  ConfigurationModule,
+  PrismaModule,
+  ServeStaticModule.forRoot({
+    rootPath: join(__dirname, '..', '../../client/build'),
+  }),
+  PassportModule.register({
+    session: true,
+  }),
+  ScheduleModule.forRoot(),
+];
+
+const applicationModules = [AuthModule, CronJobModule, HelperModule, HttpModule, CloudinaryModule, UtileModule];
 
 @Module({
-  imports: [
-    PrismaModule,
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', '../../client/build'),
-    }),
-    PassportModule.register({
-      session: true,
-    }),
-    ScheduleModule.forRoot(),
-    ConfigurationModule,
-    AuthModule,
-    CronJobModule,
-    HelperModule,
-    HttpModule,
-    CloudinaryModule,
-    UtileModule,
-  ],
-  providers: [],
+  imports: [...coreModules, ...applicationModules],
 })
 export class AppModule {}

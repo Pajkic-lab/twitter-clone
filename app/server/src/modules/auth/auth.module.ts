@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { HelperService } from 'src/helper/helper.service';
-import { HttpService } from 'src/http/http.service';
+import { HelperService } from 'src/modules/helper/helper.service';
+import { HttpService } from 'src/modules/http/http.service';
 import { AuthController } from './auth.controller';
 import { AuthMediaRepository } from './auth.media-repository';
 import { AuthRepository } from './auth.repository';

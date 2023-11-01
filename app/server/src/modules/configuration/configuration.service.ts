@@ -5,7 +5,7 @@ import { validateSync } from 'class-validator';
 import { EnvironmentVariables } from './confTypes';
 
 @Injectable()
-export class ConfService {
+export class ConfigurationService {
   constructor(private config: ConfigService<EnvironmentVariables>) {}
 
   static validate(config: Record<string, unknown>) {

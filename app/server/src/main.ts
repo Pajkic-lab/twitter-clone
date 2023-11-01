@@ -11,14 +11,14 @@ import helmet from 'helmet';
 import * as hpp from 'hpp';
 import * as passport from 'passport';
 import { AppModule } from './app.module';
-import { CorsService } from './http/cors.service';
-import { ConfService } from './modules/conf/conf.service';
+import { ConfigurationService } from './modules/configuration/configuration.service';
+import { CorsService } from './modules/http/cors.service';
 
 (async function () {
   const app = await NestFactory.create(AppModule);
-  const port = app.get(ConfService).port;
-  const sessionName = app.get(ConfService).sessionName;
-  const sessionSecret = app.get(ConfService).sessionSecret;
+  const port = app.get(ConfigurationService).port;
+  const sessionName = app.get(ConfigurationService).sessionName;
+  const sessionSecret = app.get(ConfigurationService).sessionSecret;
   const corsService = app.get<CorsService>(CorsService);
 
   app.use(hpp());

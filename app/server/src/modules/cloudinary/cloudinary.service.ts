@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { v2 as cloudinary } from 'cloudinary';
 import { MediaDirectory } from 'src/dtos';
-import { ConfService } from 'src/modules/conf/conf.service';
+import { ConfigurationService } from '../configuration/configuration.service';
 
 @Injectable()
 export class CloudinaryService {
-  constructor(private confService: ConfService) {
+  constructor(private confService: ConfigurationService) {
     cloudinary.config({
       cloud_name: this.confService.cloudinaryCloudName,
       api_key: this.confService.cloudinaryApiKey,

@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { ConfService } from 'src/modules/conf/conf.service';
+import { ConfigurationService } from '../configuration/configuration.service';
 
 @Injectable()
 export class CorsService {
   env: string;
   private corsLookupTable: { [key: string]: string } = {};
 
-  constructor(private confService: ConfService) {
+  constructor(private confService: ConfigurationService) {
     const env = this.confService.nodeEnvironment;
 
     const corsLookupTable = {
