@@ -27,7 +27,7 @@ export class ConfigurationService {
   }
 
   get port(): string {
-    return this.get('SERVER_PORT');
+    return this.get('PORT');
   }
 
   get baseUrlClient(): string {
