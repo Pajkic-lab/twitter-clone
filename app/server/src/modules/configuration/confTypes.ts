@@ -3,7 +3,7 @@ import { IsIn, IsNotEmpty } from 'class-validator';
 export class EnvironmentVariables {
   /* PORT */
   @IsNotEmpty()
-  SERVER_PORT: string;
+  PORT: string;
 
   /* URL */
   @IsNotEmpty()
