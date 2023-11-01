@@ -1,5 +1,4 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { Prisma } from '@prisma/client';
 import { CreateUserDto, CreatGoogleUserDto, UpdateUserDto } from 'src/dtos';
 import { PrismaService } from 'src/modules/prisma/prisma.service';
 
@@ -19,8 +18,7 @@ export class AuthRepository {
     }
   }
 
-  // DTO check can it be used from prisma, research this ???????????
-  async createUser({ name, email, password }: Prisma.UserCreateInput | CreateUserDto) {
+  async createUser({ name, email, password }: CreateUserDto) {
     try {
       return await this.prisma.user.create({
         data: {
