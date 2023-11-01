@@ -1,24 +1,26 @@
 import 'reflect-metadata';
 
-import { PrismaSessionStore } from '@quixo3/prisma-session-store';
 import { ValidationPipe } from '@nestjs/common/pipes';
-import { CorsService } from './http/cors.service';
-import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
-import * as session from 'express-session';
+import { PrismaClient } from '@prisma/client';
+import { PrismaSessionStore } from '@quixo3/prisma-session-store';
 import * as compression from 'compression';
-import { urlencoded, json } from 'express';
-import { AppModule } from './app.module';
-import * as passport from 'passport';
+import { json, urlencoded } from 'express';
+import * as session from 'express-session';
 import helmet from 'helmet';
 import * as hpp from 'hpp';
-import { PrismaClient } from '@prisma/client';
+import * as passport from 'passport';
+import { AppModule } from './app.module';
+import { ConfigurationService } from './modules/configuration/configuration.service';
+import { CorsService } from './modules/http/cors.service';
 
 (async function () {
   const app = await NestFactory.create(AppModule);
-  const configService = app.get<ConfigService>(ConfigService);
-  // const prismaService = app.get<PrismaService>(PrismaService);
+  const port = app.get(ConfigurationService).port;
+  const sessionName = app.get(ConfigurationService).sessionName;
+  const sessionSecret = app.get(ConfigurationService).sessionSecret;
   const corsService = app.get<CorsService>(CorsService);
+
   app.use(hpp());
   app.use(
     helmet({
@@ -44,8 +46,8 @@ import { PrismaClient } from '@prisma/client';
 
   app.use(
     session({
-      name: configService.get('SESSION_NAME'),
-      secret: configService.get('SESSION_SECRET'),
+      name: sessionName,
+      secret: sessionSecret,
       saveUninitialized: false,
       resave: false,
       cookie: {
@@ -67,6 +69,7 @@ import { PrismaClient } from '@prisma/client';
       transform: true,
     }),
   );
-  await app.listen(configService.get('PORT') || 5000);
+
+  await app.listen(port);
   console.log(`Application is running on: ${await app.getUrl()} 🚀🚀🚀`);
 })();
