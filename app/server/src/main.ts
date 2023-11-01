@@ -17,6 +17,7 @@ import { CorsService } from './modules/http/cors.service';
 (async function () {
   const app = await NestFactory.create(AppModule);
   const port = app.get(ConfigurationService).port;
+  const nodeEnv = app.get(ConfigurationService).nodeEnvironment;
   const sessionName = app.get(ConfigurationService).sessionName;
   const sessionSecret = app.get(ConfigurationService).sessionSecret;
   const corsService = app.get<CorsService>(CorsService);
@@ -70,6 +71,6 @@ import { CorsService } from './modules/http/cors.service';
     }),
   );
 
-  await app.listen(port || 5000);
+  await app.listen(nodeEnv === 'development' ? port : 5000);
   console.log(`Application is running on: ${await app.getUrl()} 🚀🚀🚀`);
 })();
