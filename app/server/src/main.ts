@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 
 import { ValidationPipe } from '@nestjs/common/pipes';
+import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { PrismaClient } from '@prisma/client';
 import { PrismaSessionStore } from '@quixo3/prisma-session-store';
@@ -16,10 +17,15 @@ import { CorsService } from './modules/http/cors.service';
 
 (async function () {
   const app = await NestFactory.create(AppModule);
+
   const port = app.get(ConfigurationService).port;
   const nodeEnv = app.get(ConfigurationService).nodeEnvironment;
+
   const sessionName = app.get(ConfigurationService).sessionName;
   const sessionSecret = app.get(ConfigurationService).sessionSecret;
+  //
+  const configService = app.get<ConfigService>(ConfigService);
+  //
   const corsService = app.get<CorsService>(CorsService);
 
   app.use(hpp());
@@ -71,6 +77,7 @@ import { CorsService } from './modules/http/cors.service';
     }),
   );
 
-  await app.listen(nodeEnv === 'development' ? port : 5000);
+  // await app.listen(nodeEnv === 'development' ? port : 5000);
+  await app.listen(configService.get('PORT') || 5000);
   console.log(`Application is running on: ${await app.getUrl()} 🚀🚀🚀`);
 })();
