@@ -21,6 +21,9 @@ export class EnvironmentVariables {
   @IsIn(['development', 'staging', 'production'])
   NODE_ENV: string;
 
+  @IsNotEmpty()
+  NODE_VERSION: string;
+
   /* GOOGLE */
   @IsNotEmpty()
   GOOGLE_CLIENT_ID: string;

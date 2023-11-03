@@ -27,7 +27,9 @@
     "db:set": "prisma db push --force-reset --accept-data-loss",
     "db:gui": "prisma studio",
     "db:format": "prisma format",
-    "seed:user": "ts-node seeds/user.seed.ts"
+    "seed:user": "ts-node seeds/user.seed.ts",
+    "db:migrate": "prisma migrate dev",
+    "db:deploy": "prisma migrate deploy"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
