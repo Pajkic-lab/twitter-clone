@@ -42,6 +42,10 @@ export class ConfigurationService {
     return this.get('NODE_ENV');
   }
 
+  get nodeVersion(): string {
+    return this.get('NODE_VERSION');
+  }
+
   get googleClientId(): string {
     return this.get('GOOGLE_CLIENT_ID');
   }
