@@ -8,17 +8,17 @@ export class HttpService {
   private serverLookupTable: { [key: string]: string } = {};
   private clientLookupTable: { [key: string]: string } = {};
 
-  constructor(private confService: ConfigurationService) {
-    const env = this.confService.nodeEnvironment;
+  constructor(private configurationService: ConfigurationService) {
+    const env = this.configurationService.nodeEnvironment;
 
     const serverLookupTable = {
-      development: this.confService.baseUrlServer,
+      development: this.configurationService.baseUrlServer,
       test: '',
       production: '',
     };
 
     const clientLookupTable = {
-      development: this.confService.baseUrlClient,
+      development: this.configurationService.baseUrlClient,
       test: '',
       production: '',
     };
@@ -29,10 +29,12 @@ export class HttpService {
   }
 
   baseUrlServer(sufix: string) {
-    return `${this.serverLookupTable[this.env]}${sufix}`;
+    // return `${this.serverLookupTable[this.env]}${sufix}`;
+    return `${this.configurationService.baseUrlServer}${sufix}`;
   }
 
   baseUrlClient(sufix: string) {
-    return `${this.clientLookupTable[this.env]}${sufix}`;
+    // return `${this.clientLookupTable[this.env]}${sufix}`;
+    return `${this.configurationService.baseUrlClient}${sufix}`;
   }
 }

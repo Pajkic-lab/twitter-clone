@@ -6,11 +6,11 @@ export class CorsService {
   env: string;
   private corsLookupTable: { [key: string]: string } = {};
 
-  constructor(private confService: ConfigurationService) {
-    const env = this.confService.nodeEnvironment;
+  constructor(private configurationService: ConfigurationService) {
+    const env = this.configurationService.nodeEnvironment;
 
     const corsLookupTable = {
-      development: this.confService.baseUrlClient,
+      development: this.configurationService.baseUrlClient,
       test: '',
       production: 'http://twitter-clone-j82h.onrender.com',
     };
@@ -20,7 +20,8 @@ export class CorsService {
   }
 
   configCors() {
-    return `${this.corsLookupTable[this.env]}`;
+    // return `${this.corsLookupTable[this.env]}`;
+    return `${this.configurationService.baseUrlClient}`;
   }
 
   configCloudinaryCors() {
