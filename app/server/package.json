@@ -28,7 +28,7 @@
     "db:gui": "prisma studio",
     "db:format": "prisma format",
     "seed:user": "ts-node seeds/user.seed.ts",
-    "db:migrate": "prisma migrate dev",
+    "db:migrate": "prisma migrate dev --accept-data-loss",
     "db:deploy": "prisma migrate deploy"
   },
   "dependencies": {
