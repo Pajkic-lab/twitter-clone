@@ -29,7 +29,7 @@
     "db:format": "prisma format",
     "seed:user": "ts-node seeds/user.seed.ts",
     "db:migrate": "prisma migrate dev",
-    "db:deploy": "prisma migrate reset && prisma migrate deploy"
+    "db:deploy": "prisma migrate reset --force && prisma migrate deploy"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
