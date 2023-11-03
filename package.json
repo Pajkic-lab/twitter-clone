@@ -7,10 +7,12 @@
     "node": "18.18.0"
   },
   "scripts": {
-    "app:set": "npm i && npm run prepare && cd app/client && npm i && cd ../server && npm i && npm run db:format && npm run db:generate && npm run db:set",
+    "app:set": "npm i && npm run prepare && cd app/client && npm i && cd ../server && npm i && npm run db:format && npm run db:generate && npm run db:migrate && npm run db:deploy",
     "app:dev": "concurrently \"cd app/client && npm run start\" \"cd app/server && npm run start:dev\"",
+    "app:build": "cd app/server && npm i && npm run db:generate && npm run build && cd ../client && npm i && npm run build && cd ../..",
+    "app:prod": "cd app/server && npm run db:deploy && npm run start:prod",
     "app:seed": "cd app/server && seed:user",
-    "app:db": "cd app/server && npm run db:gui",
+    "db:gui": "cd app/server && npm run db:gui",
     "app:test": "",
     "prepare": "husky install",
     "depcheck:fe": "cd app/client && depcheck",
