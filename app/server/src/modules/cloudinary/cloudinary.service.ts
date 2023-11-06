@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { v2 as cloudinary } from 'cloudinary';
-import { MediaDirectory } from 'src/dtos';
+import { MediaDirectory } from '../../dtos';
 import { ConfigurationService } from '../configuration/configuration.service';
 
 @Injectable()

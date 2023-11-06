@@ -3,7 +3,7 @@ import { Req } from '@nestjs/common/decorators';
 import { HttpStatus } from '@nestjs/common/enums';
 import { HttpException } from '@nestjs/common/exceptions';
 import * as bcrypt from 'bcryptjs';
-import { ConfirmUserDto, CreateUserDto, CreatGoogleUserDto, MediaDirectory, UpdateUserDto } from 'src/dtos';
+import { ConfirmUserDto, CreateUserDto, CreatGoogleUserDto, MediaDirectory, UpdateUserDto } from '../../dtos';
 import { AuthMediaRepository } from './auth.media-repository';
 import { AuthRepository } from './auth.repository';
 
@@ -120,13 +120,13 @@ export class AuthService {
     return { user, socialStats, followingStatus };
   }
 
-  async followUser(userId, userIdToFollow) {
+  async followUser(userId: number, userIdToFollow: number) {
     const res = await this.authRepository.followUser(userId, userIdToFollow);
     if (!res) throw new HttpException('Error while following user', HttpStatus.INTERNAL_SERVER_ERROR);
     return { userIdToFollow };
   }
 
-  async unFollowUser(userId, userIdToUnFollow) {
+  async unFollowUser(userId: number, userIdToUnFollow: number) {
     const res = await this.authRepository.unFollowUser(userId, userIdToUnFollow);
     if (!res) throw new HttpException('Error while unFollowing user', HttpStatus.INTERNAL_SERVER_ERROR);
     return { userIdToUnFollow };

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Request } from 'express';
 import { Strategy } from 'passport-local';
-import { ConfirmUserDto, CreateUserDto } from 'src/dtos';
+import { ConfirmUserDto, CreateUserDto } from '../../../dtos';
 import { AuthService } from '../auth.service';
 import { DtoValidation } from './dto-validation';
 
