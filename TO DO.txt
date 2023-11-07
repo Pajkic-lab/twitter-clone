@@ -2,6 +2,8 @@ make it work for start
 
 - add client to nx
 
+- settle svg imports
+
 - set serve static file
 
 - move prisma to separate lib data-access
