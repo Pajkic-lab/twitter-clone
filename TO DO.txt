@@ -1,0 +1,13 @@
+make it work for start
+
+- add client to nx
+
+- set serve static file
+
+- move prisma to separate lib data-access
+
+- settle tsconfig.base.json file
+
+- remove old app and extract all from tw dir
+
+- add deploy commands and deploy
