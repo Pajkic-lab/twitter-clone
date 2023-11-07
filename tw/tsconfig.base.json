@@ -13,6 +13,15 @@
     "lib": ["es2020", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
+
+    // TO DO uncomment following config
+
+    // "strict": true,
+    // "strictPropertyInitialization": false,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    // "useUnknownInCatchVariables": true,
+    // "noUncheckedIndexedAccess": true,
     "baseUrl": ".",
     "paths": {}
   },

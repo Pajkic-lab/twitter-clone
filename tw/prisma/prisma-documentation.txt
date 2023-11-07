@@ -1,0 +1,12 @@
+/* PRISMA */
+
+prisma is not design to use revert migrations, simply make changes to schema and create new migration.
+
+
+prisma flow:
+
+in development after schema changes rum prisma generate and after that create migration file and deploy it.
+in production run prisma generate before nest build because it adds types to node_modules, after that you can apply migrations.
+
+to my understanding prisma generate command generates types and nest them in node_modules so you can use up-to-date prisma client,
+it is separate concern from prisma migration.
