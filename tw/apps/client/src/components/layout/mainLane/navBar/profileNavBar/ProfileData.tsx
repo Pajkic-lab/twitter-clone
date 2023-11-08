@@ -1,6 +1,6 @@
-import { ReactComponent as Location } from 'assets/svg/location.svg';
-import { ReactComponent as Calender } from 'assets/svg/calender.svg';
-import { ReactComponent as WebLink } from 'assets/svg/webLink.svg';
+import { ReactComponent as Location } from '../../../../../assets/svg/location.svg';
+import { ReactComponent as Calender } from '../../../../../assets/svg/calender.svg';
+import { ReactComponent as WebLink } from '../../../../../assets/svg/webLink.svg';
 import styled from 'styled-components';
 import moment from 'moment';
 import React from 'react';

@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
-import chipRegular from 'fonts/chip-regular.woff';
-import chipBold from 'fonts/chip-bold.woff';
+import chipRegular from './fonts/chip-regular.woff';
+import chipBold from './fonts/chip-bold.woff';
 import { Colors } from './ui/styles';
 // import { Colors } from 'ui/styles'
 

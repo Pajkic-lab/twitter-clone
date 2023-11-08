@@ -16,7 +16,7 @@ const coreModules = [
   ConfigurationModule,
   PrismaModule,
   ServeStaticModule.forRoot({
-    rootPath: join(__dirname, '..', '../../client/build'),
+    rootPath: join(__dirname, '../client'),
   }),
   PassportModule.register({
     session: true,
@@ -24,7 +24,14 @@ const coreModules = [
   ScheduleModule.forRoot(),
 ];
 
-const applicationModules = [AuthModule, CronJobModule, HelperModule, HttpModule, CloudinaryModule, UtileModule];
+const applicationModules = [
+  AuthModule,
+  CronJobModule,
+  HelperModule,
+  HttpModule,
+  CloudinaryModule,
+  UtileModule,
+];
 
 @Module({
   imports: [...coreModules, ...applicationModules],

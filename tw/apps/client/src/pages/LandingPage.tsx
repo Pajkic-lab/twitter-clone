@@ -1,7 +1,7 @@
-import googleSocialSignInLogo from 'assets/googl-socil-signIn-logo.png';
+import googleSocialSignInLogo from '../assets/googl-socil-signIn-logo.png';
 import { SocialTwitter } from '@styled-icons/foundation/SocialTwitter';
-import appleSocilSignInlogo from 'assets/apple-socil-signIn-logo.png';
-import backgroundImage from 'assets/landing-page-backgrount.png';
+import appleSocilSignInlogo from '../assets/apple-socil-signIn-logo.png';
+import backgroundImage from '../assets/landing-page-backgrount.png';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { SignUpModal } from '../components/modals/SignUpModal';

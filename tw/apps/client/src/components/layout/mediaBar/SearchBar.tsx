@@ -1,4 +1,4 @@
-import { ReactComponent as magnifyingGlass } from 'assets/svg/magnifyingGlass.svg';
+import { ReactComponent as magnifyingGlass } from '../../../assets/svg/magnifyingGlass.svg';
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import styled from 'styled-components';
@@ -37,9 +37,7 @@ export const SearchBar: React.FC<{ InputId: string }> = ({ InputId }) => {
   return (
     <Wrapper>
       <>
-        <Label htmlFor={InputId}>
-          <Svg $isFocused={isFocused} />
-        </Label>
+        <Label htmlFor={InputId}>{<Svg $isFocused={isFocused} />}</Label>
         <Input
           id={InputId}
           placeholder="Search Twitter"

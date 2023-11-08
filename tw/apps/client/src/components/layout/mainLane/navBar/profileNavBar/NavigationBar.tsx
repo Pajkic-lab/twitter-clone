@@ -1,4 +1,4 @@
-import { ReactComponent as ArrowLeft } from 'assets/svg/arrowLeft.svg';
+import { ReactComponent as ArrowLeft } from '../../../../../assets/svg/arrowLeft.svg';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import React from 'react';

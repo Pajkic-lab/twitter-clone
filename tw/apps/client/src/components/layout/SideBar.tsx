@@ -1,27 +1,23 @@
-import { ReactComponent as notificationsActive } from 'assets/svg/notificationsActive.svg';
-import { ReactComponent as bookmarkActive } from 'assets/svg/bookmarkActive.svg';
-import { ReactComponent as messageActive } from 'assets/svg/messageActive.svg';
-import { ReactComponent as notifications } from 'assets/svg/notifications.svg';
-import { ReactComponent as hashTagActive } from 'assets/svg/hashTagActive.svg';
-import { ReactComponent as profileActive } from 'assets/svg/profileActive.svg';
-import { ReactComponent as twitterLogo } from 'assets/svg/twitterLogo.svg';
-import { ReactComponent as listActive } from 'assets/svg/listActive.svg';
-import { ReactComponent as homeActive } from 'assets/svg/homeActive.svg';
-import { ReactComponent as bookmark } from 'assets/svg/bookmark.svg';
-import { ReactComponent as hashTag } from 'assets/svg/hashTag.svg';
-import { ReactComponent as message } from 'assets/svg/message.svg';
-import { ReactComponent as profile } from 'assets/svg/profile.svg';
-import { ReactComponent as options } from 'assets/svg/options.svg';
+import { ReactComponent as notificationsActive } from '../../assets/svg/notificationsActive.svg';
+import { ReactComponent as bookmarkActive } from '../../assets/svg/bookmarkActive.svg';
+import { ReactComponent as messageActive } from '../../assets/svg/messageActive.svg';
+import { ReactComponent as notifications } from '../../assets/svg/notifications.svg';
+import { ReactComponent as hashTagActive } from '../../assets/svg/hashTagActive.svg';
+import { ReactComponent as profileActive } from '../../assets/svg/profileActive.svg';
+import { ReactComponent as twitterLogo } from '../../assets/svg/twitterLogo.svg';
+import { ReactComponent as listActive } from '../../assets/svg/listActive.svg';
+import { ReactComponent as homeActive } from '../../assets/svg/homeActive.svg';
+import { ReactComponent as bookmark } from '../../assets/svg/bookmark.svg';
+import { ReactComponent as hashTag } from '../../assets/svg/hashTag.svg';
+import { ReactComponent as message } from '../../assets/svg/message.svg';
+import { ReactComponent as profile } from '../../assets/svg/profile.svg';
+import { ReactComponent as options } from '../../assets/svg/options.svg';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-// import { signOutThunk } from 'store/features/authSlice/thunk'
-// import { useAppDispatch, useAppSelector } from 'store/hooks'
-import { ReactComponent as more } from 'assets/svg/more.svg';
-import { ReactComponent as home } from 'assets/svg/home.svg';
-import { ReactComponent as list } from 'assets/svg/list.svg';
-// import { PrimaryButton } from 'ui/Button'
+import { ReactComponent as more } from '../../assets/svg/more.svg';
+import { ReactComponent as home } from '../../assets/svg/home.svg';
+import { ReactComponent as list } from '../../assets/svg/list.svg';
 import React, { useState } from 'react';
 import styled from 'styled-components';
-// import { Colors } from 'ui/styles'
 import Tippy from '@tippyjs/react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { signOutThunk } from '../../store/features/authSlice/thunk';

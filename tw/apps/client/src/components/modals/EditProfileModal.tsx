@@ -1,4 +1,4 @@
-import { ReactComponent as Cross } from 'assets/svg/cross.svg';
+import { ReactComponent as Cross } from '../../assets/svg/cross.svg';
 import { FormikHelpers, useFormik } from 'formik';
 import React, { useState } from 'react';
 import Modal from 'styled-react-modal';
