@@ -6,9 +6,17 @@ make it work for start
 
 - set serve static file
 
+- settle client port
+
+- test the app 
+
+
+
 - move prisma to separate lib data-access
 
 - settle tsconfig.base.json file
+
+- add commands from current root package json for app set and deploy and others
 
 - remove old app and extract all from tw dir
 
