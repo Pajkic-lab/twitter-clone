@@ -146,9 +146,12 @@ export const utileSlice = createSlice({
           >
         ) => {
           if (payload && payload.data) {
-            if (payload.data.followersList.length) {
-              const firstUserId = payload.data.followersList[0].id;
-              if (firstUserId !== null) {
+            if (
+              payload.data.followersList &&
+              payload.data.followersList.length
+            ) {
+              const firstUserId = payload.data.followersList[0]?.id;
+              if (firstUserId !== null && firstUserId !== undefined) {
                 const followersIds = state.followersList.map((el) => el.id);
                 const res = followersIds.includes(firstUserId);
                 if (!res) {
@@ -189,8 +192,8 @@ export const utileSlice = createSlice({
         ) => {
           if (payload && payload.data) {
             if (payload.data.followingList.length) {
-              const firstUserId = payload.data.followingList[0].id;
-              if (firstUserId !== null) {
+              const firstUserId = payload.data.followingList[0]?.id;
+              if (firstUserId !== null && firstUserId !== undefined) {
                 const followingIds = state.followingList.map((el) => el.id);
                 const res = followingIds.includes(firstUserId);
                 if (!res) {
@@ -301,8 +304,8 @@ export const utileSlice = createSlice({
         ) => {
           if (payload && payload.data) {
             if (payload.data.followersList.length) {
-              const firstUserId = payload.data.followersList[0].id;
-              if (firstUserId !== null) {
+              const firstUserId = payload.data.followersList[0]?.id;
+              if (firstUserId !== null && firstUserId !== undefined) {
                 const followersIds = state.PPfollowersList.map((el) => el.id);
                 const res = followersIds.includes(firstUserId);
                 if (!res) {
@@ -343,8 +346,8 @@ export const utileSlice = createSlice({
         ) => {
           if (payload && payload.data) {
             if (payload.data.followingList.length) {
-              const firstUserId = payload.data.followingList[0].id;
-              if (firstUserId !== null) {
+              const firstUserId = payload.data.followingList[0]?.id;
+              if (firstUserId !== null && firstUserId !== undefined) {
                 const followingIds = state.PPfollowingList.map((el) => el.id);
                 const res = followingIds.includes(firstUserId);
                 if (!res) {

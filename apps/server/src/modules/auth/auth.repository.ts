@@ -194,17 +194,6 @@ export class AuthRepository {
           followingId: userIdToUnFollow,
         },
       });
-
-      // const followingCount = await this.prisma.social.count({
-      //   where: { userId },
-      // });
-
-      // const followersCount = await this.prisma.social.count({
-      //   where: {
-      //     followingId: userId,
-      //   },
-      // });
-      // return { followingCount, followersCount };
     } catch (error) {
       throw new HttpException(
         'Error while following user',

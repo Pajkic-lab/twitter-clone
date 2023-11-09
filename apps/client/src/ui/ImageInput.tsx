@@ -32,7 +32,7 @@ export const ImageInput = forwardRef<HTMLInputElement, Props>(
               const file = event.target.files[0];
               const reader = new FileReader();
 
-              reader.readAsDataURL(file);
+              reader.readAsDataURL(file!);
               reader.onload = function () {
                 if (reader.result) {
                   setImageData(reader.result as string);

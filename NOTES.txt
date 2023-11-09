@@ -1,13 +1,15 @@
+npx nx generate lib <name>
+
+
 - research node module imports, current problem with data-access and prisma library
 
-- settle tsconfig.base.json file - the problem with this is because i have to create new DTOS and this is out of scope, so this will be
-resolved as last thing
+- move DTOS to data library
+
+- uncomment compiler options
     // "strict": true,
     // "strictPropertyInitialization": false,
     // "useUnknownInCatchVariables": true,
     // "noUncheckedIndexedAccess": true,
-
-npx nx generate lib <name>
 
 - eslint plugins: unicorn, prettier, unused-imports, typescript-eslint,        Backend: nest-js, Frontend: react, 
 
