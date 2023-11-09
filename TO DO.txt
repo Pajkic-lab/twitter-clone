@@ -12,6 +12,5 @@ npx nx generate lib <name>
 - eslint plugins: unicorn, prettier, unused-imports, typescript-eslint,        Backend: nest-js, Frontend: react, 
 
 - prettier add dep for auto import sort: prettier-plugin-organize-imports, som options: prettier-plugin-typescript, prettier-plugin-nest-js, prettier-plugin-react
-  convert eslint.json to js file https://www.youtube.com/watch?v=32XH909CZrY
 
-- create new branch and refactor data-access lib to node environment so it can accept redux toolkit. Research if this is doable
+- create new branch and refactor data-access lib to node environment so it can accept redux toolkit. Research this should it be done or maybe its better to keep it as is

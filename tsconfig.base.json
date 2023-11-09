@@ -13,17 +13,13 @@
     "lib": ["es2020", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-
-    // "strict": true,
-    // "strictPropertyInitialization": false,
-
     "resolveJsonModule": true,
     "esModuleInterop": true,
-
+    "baseUrl": ".",
+    // "strict": true,
+    // "strictPropertyInitialization": false,
     // "useUnknownInCatchVariables": true,
     // "noUncheckedIndexedAccess": true,
-
-    "baseUrl": ".",
     "paths": {
       "@tw/data-access": ["libs/data-access/src/index.ts"]
     }
