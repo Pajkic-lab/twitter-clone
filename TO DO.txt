@@ -1,7 +1,3 @@
-make it work for start
-
-- settle git branches and render
-
 - research node module imports, current problem with data-access and prisma library
 
 - settle tsconfig.base.json file - the problem with this is because i have to create new DTOS and this is out of scope, so this will be
@@ -11,8 +7,11 @@ resolved as last thing
     // "useUnknownInCatchVariables": true,
     // "noUncheckedIndexedAccess": true,
 
-- create new branch and refactor data-access lib to node environment so it can accept redux toolkit. Research if this is doable
-
-
-
 npx nx generate lib <name>
+
+- eslint plugins: unicorn, prettier, unused-imports, typescript-eslint,        Backend: nest-js, Frontend: react, 
+
+- prettier add dep for auto import sort: prettier-plugin-organize-imports, som options: prettier-plugin-typescript, prettier-plugin-nest-js, prettier-plugin-react
+  convert eslint.json to js file https://www.youtube.com/watch?v=32XH909CZrY
+
+- create new branch and refactor data-access lib to node environment so it can accept redux toolkit. Research if this is doable
