@@ -1,18 +1,8 @@
 make it work for start
 
-- add client to nx
+- settle git branches and render
 
-- settle svg imports
-
-- set serve static file
-
-- settle client port
-
-- test the app 
-
-- move prisma to separate lib data-access
-
-- cleanup code
+- research node module imports, current problem with data-access and prisma library
 
 - settle tsconfig.base.json file - the problem with this is because i have to create new DTOS and this is out of scope, so this will be
 resolved as last thing
@@ -21,16 +11,7 @@ resolved as last thing
     // "useUnknownInCatchVariables": true,
     // "noUncheckedIndexedAccess": true,
 
-- migrate to pnpm
-
-- add commands from current root package json for app set and deploy and others
-
-
-- remove old app and extract all from tw dir
-
-- add deploy commands and deploy
-
-- research migrating from package.json to package.yaml file
+- create new branch and refactor data-access lib to node environment so it can accept redux toolkit. Research if this is doable
 
 
 
