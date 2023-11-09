@@ -4,7 +4,7 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "app:build": "pnpm run db:generate && npx nx build client && npx nx build server",
+    "app:build": "pnpm i && pnpm run db:generate && npx nx build client && npx nx build server",
     "app:dev": "concurrently \"npx nx serve server\" \"npx nx serve client\"",
     "app:prod": "pnpm run db:deploy && npx nx serve server --prod",
     "app:set": "pnpm i && pnpm run db:format && pnpm run db:generate && pnpm run db:migrate && pnpm run db:deploy",
