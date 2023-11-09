@@ -10,14 +10,28 @@ make it work for start
 
 - test the app 
 
-
-
 - move prisma to separate lib data-access
 
-- settle tsconfig.base.json file
+- cleanup code
+
+- settle tsconfig.base.json file - the problem with this is because i have to create new DTOS and this is out of scope, so this will be
+resolved as last thing
+    // "strict": true,
+    // "strictPropertyInitialization": false,
+    // "useUnknownInCatchVariables": true,
+    // "noUncheckedIndexedAccess": true,
+
+- migrate to pnpm
 
 - add commands from current root package json for app set and deploy and others
+
 
 - remove old app and extract all from tw dir
 
 - add deploy commands and deploy
+
+- research migrating from package.json to package.yaml file
+
+
+
+npx nx generate lib <name>
