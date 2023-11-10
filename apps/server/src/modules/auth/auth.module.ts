@@ -12,7 +12,7 @@ import { LocalStrategy } from './local-strategy/local-strategy';
 import { SessionSerializer } from './serializer';
 import { HelperService } from '../helper/helper.service';
 import { HttpService } from '../http/http.service';
-import { DataAccessModule } from '@tw/data-access';
+// import { DataAccessModule } from '@tw/data-access';
 
 @Module({
   controllers: [AuthController],
@@ -30,6 +30,6 @@ import { DataAccessModule } from '@tw/data-access';
     GoogleAuthGuard,
     AuthMediaRepository,
   ],
-  imports: [DataAccessModule],
+  imports: [],
 })
 export class AuthModule {}

@@ -1,11 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { CreateUser, UpdateUser, VerifyUser } from 'apps/client/src/types';
+import { UpdateUser } from 'apps/client/src/types';
 import { isAxiosError } from 'axios';
 import http from 'apps/client/src/http/api';
+import { CreateUserDto, ConfirmUserDto } from '@tw/data';
 
 export const signUpThunk = createAsyncThunk(
   'auth/signUp',
-  async (user: CreateUser, { rejectWithValue }) => {
+  async (user: CreateUserDto, { rejectWithValue }) => {
     try {
       return await http.auth.signUp(user);
     } catch (error) {
@@ -22,7 +23,7 @@ export const signUpThunk = createAsyncThunk(
 
 export const signInThunk = createAsyncThunk(
   'auth/signIn',
-  async (user: VerifyUser, { rejectWithValue }) => {
+  async (user: ConfirmUserDto, { rejectWithValue }) => {
     try {
       return await http.auth.signIn(user);
     } catch (error) {

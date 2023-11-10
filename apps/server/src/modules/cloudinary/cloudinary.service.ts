@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { v2 as cloudinary } from 'cloudinary';
-import { MediaDirectory } from '../../dtos';
+import { MediaDirectory } from '@tw/data';
 import { ConfigurationService } from '../configuration/configuration.service';
 
 @Injectable()
@@ -13,7 +13,13 @@ export class CloudinaryService {
     });
   }
 
-  async uploadImage(image: string, userId: number, dir: MediaDirectory.Private) {
-    return await cloudinary.uploader.upload(image, { folder: `twitter-clone/user_${userId}/${dir}` });
+  async uploadImage(
+    image: string,
+    userId: number,
+    dir: MediaDirectory.Private
+  ) {
+    return await cloudinary.uploader.upload(image, {
+      folder: `twitter-clone/user_${userId}/${dir}`,
+    });
   }
 }

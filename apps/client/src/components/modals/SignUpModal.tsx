@@ -5,11 +5,11 @@ import Modal from 'styled-react-modal';
 import styled from 'styled-components';
 import * as yup from 'yup';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { CreateUser } from '../../types';
 import { signUpThunk } from '../../store/features/authSlice/thunk';
 import { Colors } from '../../ui/styles';
 import { BaseInput } from '../../ui/Input';
 import { JumboButton } from '../../ui/Button';
+import { CreateUserDto } from '@tw/data';
 
 interface Props {
   signUpModalIsOpen: boolean;
@@ -29,8 +29,8 @@ export const SignUpModal: React.FC<Props> = ({
   };
 
   const onSubmit = async (
-    values: CreateUser,
-    actions: FormikHelpers<CreateUser>
+    values: CreateUserDto,
+    actions: FormikHelpers<CreateUserDto>
   ) => {
     await dispatch(signUpThunk(values));
   };
