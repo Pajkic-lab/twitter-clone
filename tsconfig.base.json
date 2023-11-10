@@ -16,10 +16,13 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "baseUrl": ".",
-    // "strict": true,
     "strictPropertyInitialization": false,
     "useUnknownInCatchVariables": true,
     "noUncheckedIndexedAccess": true,
+
+    // "strict": true,
+    // "noImplicitReturns": true,
+    // "noUnusedLocals": true,
 
     "paths": {
       "@tw/data": ["libs/data/src/index.ts"],

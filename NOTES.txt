@@ -1,14 +1,20 @@
 npx nx generate lib <name>
 
 
-- follow the treed and refactor integration between Frontend and Backend move everything to DTOS lib, add types to http object at front and maybe move http 
-to data-access library, at Backend add types to controllers and compiler has to be set to strict
+render alternative Cyclic: https://www.cyclic.sh/
 
-- uncomment compiler options
+
+- follow the treed and refactor integration between Frontend and Backend move everything to DTOS lib, add types to http object at front and maybe move http 
+to data-access library, redux is not part of this scope. Also follow in parallel athena pear treed. At Backend add types to controllers and compiler 
+has to be set to strict
+    - first treed to follow conventional register, login, logout, social login
+
+- add following to tsconfig file
     // "strict": true,
-    // "strictPropertyInitialization": false,
-    // "useUnknownInCatchVariables": true,
-    // "noUncheckedIndexedAccess": true,
+    // "noImplicitReturns": true,
+    // "noUnusedLocals": true,
+
+- Research in depth common dir nested in server athena project
 
 - eslint plugins: unicorn, prettier, unused-imports, typescript-eslint,        Backend: nest-js, Frontend: react, 
 
@@ -17,3 +23,6 @@ to data-access library, at Backend add types to controllers and compiler has to 
 - create new branch and refactor data-access lib to node environment so it can accept redux toolkit. Research this should it be done or maybe its better to keep it as is
 
 - Types at Frontend to be removed and replaced with types from data library, in this scope i need to refactor http object and probably other things.
+
+
+

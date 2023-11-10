@@ -1,8 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Profile, Strategy } from 'passport-google-oauth20';
-// import { ConfigurationService } from 'src/modules/configuration/configuration.service';
-// import { HttpService } from 'src/modules/http/http.service';
 import { AuthService } from '../auth.service';
 import { HttpService } from '../../http/http.service';
 import { ConfigurationService } from '../../configuration/configuration.service';
@@ -14,7 +12,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
   constructor(
     authService: AuthService,
     httpService: HttpService,
-    private confService: ConfigurationService
+    confService: ConfigurationService
   ) {
     super({
       clientID: confService.googleClientId,
