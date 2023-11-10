@@ -7,16 +7,16 @@ import { Req } from '@nestjs/common/decorators';
 import { HttpStatus } from '@nestjs/common/enums';
 import { HttpException } from '@nestjs/common/exceptions';
 import bcrypt from 'bcryptjs';
-import {
-  ConfirmUserDto,
-  CreateUserDto,
-  CreatGoogleUserDto,
-  MediaDirectory,
-  UpdateUserDto,
-} from '../../dtos';
 import { AuthMediaRepository } from './auth.media-repository';
 import { AuthRepository } from './auth.repository';
 import { Request } from 'express';
+import {
+  ConfirmUserDto,
+  CreatGoogleUserDto,
+  CreateUserDto,
+  UpdateUserDto,
+  MediaDirectory,
+} from '@tw/data';
 
 @Injectable()
 export class AuthService {

@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { CreateUserDto, CreatGoogleUserDto, UpdateUserDto } from '../../dtos';
 import { PrismaService } from 'libs/data-access/src/lib/prisma/prisma.service';
+import { CreateUserDto, CreatGoogleUserDto, UpdateUserDto } from '@tw/data';
 
 @Injectable()
 export class AuthRepository {

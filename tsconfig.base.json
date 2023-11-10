@@ -17,10 +17,12 @@
     "esModuleInterop": true,
     "baseUrl": ".",
     // "strict": true,
-    // "strictPropertyInitialization": false,
+    "strictPropertyInitialization": false,
     "useUnknownInCatchVariables": true,
     "noUncheckedIndexedAccess": true,
+
     "paths": {
+      "@tw/data": ["libs/data/src/index.ts"],
       "@tw/data-access": ["libs/data-access/src/index.ts"]
     }
   },

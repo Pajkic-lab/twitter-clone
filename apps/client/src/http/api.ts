@@ -1,16 +1,11 @@
 import { AxiosResponse } from 'axios';
 import { httpClient } from './client';
-import {
-  CreateUser,
-  VerifyUser,
-  User,
-  SocialStats,
-  UpdateUser,
-} from '../types';
+import { User, SocialStats, UpdateUser } from '../types';
+import { CreateUserDto, ConfirmUserDto } from '@tw/data';
 
 export default {
   auth: {
-    signUp({ name, email, password, confirmPassword }: CreateUser) {
+    signUp({ name, email, password, confirmPassword }: CreateUserDto) {
       return httpClient.post('auth/register', {
         username: name,
         email,
@@ -18,7 +13,7 @@ export default {
         confirmPassword,
       });
     },
-    signIn({ email, password }: VerifyUser) {
+    signIn({ email, password }: ConfirmUserDto) {
       return httpClient.post('auth/login', {
         username: 'placeholder',
         email,

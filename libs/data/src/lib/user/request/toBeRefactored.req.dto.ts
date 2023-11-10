@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsEmail, IsOptional, IsString, IsNotEmpty } from 'class-validator';
 
 export class CreatGoogleUserDto {
   @IsNotEmpty()
@@ -35,6 +35,8 @@ export class CreateUserDto {
 }
 
 export class ConfirmUserDto {
+  // to resolve this do i need constructor and why?
+
   constructor(data: ConfirmUserDto) {
     Object.assign(this, data);
   }
@@ -72,4 +74,9 @@ export class UpdateUserDto {
 
   @IsOptional()
   avatar: string;
+}
+
+export enum MediaDirectory {
+  Private = 'private',
+  Public = 'public',
 }
