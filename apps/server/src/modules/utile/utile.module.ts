@@ -2,10 +2,10 @@ import { Module } from '@nestjs/common';
 import { UtileController } from './utile.controller';
 import { UtileRepository } from './utile.repository';
 import { UtileService } from './utile.service';
-import { DataAccessModule } from '@tw/data-access';
+// import { DataAccessModule } from '@tw/data-access';
 
 @Module({
-  imports: [DataAccessModule],
+  imports: [],
   providers: [UtileService, UtileRepository],
   controllers: [UtileController],
 })

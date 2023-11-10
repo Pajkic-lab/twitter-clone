@@ -2,13 +2,16 @@ import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Request } from 'express';
 import { Strategy } from 'passport-local';
-import { ConfirmUserDto, CreateUserDto } from '../../../dtos';
 import { AuthService } from '../auth.service';
 import { DtoValidation } from './dto-validation';
+import { ConfirmUserDto, CreateUserDto } from '@tw/data';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
-  constructor(private authService: AuthService, private dtoValidation: DtoValidation) {
+  constructor(
+    private authService: AuthService,
+    private dtoValidation: DtoValidation
+  ) {
     super({
       passReqToCallback: true,
     });
@@ -24,7 +27,12 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
          * validation is conducted in validate function because guard runs before validation pipe in controller.
          */
 
-        await this.dtoValidation.validateCreateUserDto(username, email, password, confirmPassword);
+        await this.dtoValidation.validateCreateUserDto(
+          username,
+          email,
+          password,
+          confirmPassword
+        );
       } catch (error) {
         throw error;
       }

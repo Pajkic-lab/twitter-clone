@@ -1,10 +1,15 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { validate, ValidationError } from 'class-validator';
-import { ConfirmUserDto, CreateUserDto } from '../../../dtos';
+import { CreateUserDto, ConfirmUserDto } from '@tw/data';
 
 @Injectable()
 export class DtoValidation {
-  validateCreateUserDto = async (username: string, email: string, password: string, confirmPassword: string) => {
+  validateCreateUserDto = async (
+    username: string,
+    email: string,
+    password: string,
+    confirmPassword: string
+  ) => {
     const createUserDto = new CreateUserDto({
       name: username,
       email,
@@ -24,7 +29,7 @@ export class DtoValidation {
         {
           message: validationErrors.join(', '),
         },
-        HttpStatus.BAD_REQUEST,
+        HttpStatus.BAD_REQUEST
       );
     }
   };
@@ -47,7 +52,7 @@ export class DtoValidation {
         {
           message: validationErrors.join(', '),
         },
-        HttpStatus.BAD_REQUEST,
+        HttpStatus.BAD_REQUEST
       );
     }
   };

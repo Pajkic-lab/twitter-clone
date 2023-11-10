@@ -1,0 +1,19 @@
+npx nx generate lib <name>
+
+
+- follow the treed and refactor integration between Frontend and Backend move everything to DTOS lib, add types to http object at front and maybe move http 
+to data-access library, at Backend add types to controllers and compiler has to be set to strict
+
+- uncomment compiler options
+    // "strict": true,
+    // "strictPropertyInitialization": false,
+    // "useUnknownInCatchVariables": true,
+    // "noUncheckedIndexedAccess": true,
+
+- eslint plugins: unicorn, prettier, unused-imports, typescript-eslint,        Backend: nest-js, Frontend: react, 
+
+- prettier add dep for auto import sort: prettier-plugin-organize-imports, som options: prettier-plugin-typescript, prettier-plugin-nest-js, prettier-plugin-react
+
+- create new branch and refactor data-access lib to node environment so it can accept redux toolkit. Research this should it be done or maybe its better to keep it as is
+
+- Types at Frontend to be removed and replaced with types from data library, in this scope i need to refactor http object and probably other things.

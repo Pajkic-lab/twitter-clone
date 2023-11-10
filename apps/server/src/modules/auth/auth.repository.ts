@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { CreateUserDto, CreatGoogleUserDto, UpdateUserDto } from '../../dtos';
 import { PrismaService } from 'libs/data-access/src/lib/prisma/prisma.service';
+import { CreateUserDto, CreatGoogleUserDto, UpdateUserDto } from '@tw/data';
 
 @Injectable()
 export class AuthRepository {
@@ -194,17 +194,6 @@ export class AuthRepository {
           followingId: userIdToUnFollow,
         },
       });
-
-      // const followingCount = await this.prisma.social.count({
-      //   where: { userId },
-      // });
-
-      // const followersCount = await this.prisma.social.count({
-      //   where: {
-      //     followingId: userId,
-      //   },
-      // });
-      // return { followingCount, followersCount };
     } catch (error) {
       throw new HttpException(
         'Error while following user',
