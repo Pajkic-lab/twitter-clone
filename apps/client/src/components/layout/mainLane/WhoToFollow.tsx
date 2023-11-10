@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from 'apps/client/src/store/hooks';
 import { followUserThunk } from 'apps/client/src/store/features/authSlice/thunk';

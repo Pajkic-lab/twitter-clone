@@ -55,7 +55,7 @@ export const EditProfileModal: React.FC<Props> = ({
     handleSubmit,
     handleBlur,
     handleChange,
-    setErrors,
+    // setErrors,
     isSubmitting,
     errors,
     touched,

@@ -19,10 +19,10 @@
     "strictPropertyInitialization": false,
     "useUnknownInCatchVariables": true,
     "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
 
-    // "strict": true,
     // "noImplicitReturns": true,
-    // "noUnusedLocals": true,
+    // "strict": true,
 
     "paths": {
       "@tw/data": ["libs/data/src/index.ts"],

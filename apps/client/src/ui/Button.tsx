@@ -1,18 +1,23 @@
-import React, { ButtonHTMLAttributes, forwardRef } from 'react'
-import styled from 'styled-components'
-import { Colors } from './styles'
-import { Loader } from './Loader'
+import { ButtonHTMLAttributes, forwardRef } from 'react';
+import styled from 'styled-components';
+import { Colors } from './styles';
+import { Loader } from './Loader';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
-  loading?: boolean
-  image?: string
-  $wide?: boolean
-  $align?: 'left' | 'center' | 'right'
+  loading?: boolean;
+  image?: string;
+  $wide?: boolean;
+  $align?: 'left' | 'center' | 'right';
 }
 
 const ButtonComponent = forwardRef<HTMLButtonElement, Props>(
   ({ loading, disabled, children, image, ...props }, ref) => (
-    <button ref={ref} data-element="button" disabled={disabled || loading} {...props}>
+    <button
+      ref={ref}
+      data-element="button"
+      disabled={disabled || loading}
+      {...props}
+    >
       {loading ? (
         <ButtonLoader />
       ) : image ? (
@@ -23,16 +28,16 @@ const ButtonComponent = forwardRef<HTMLButtonElement, Props>(
         children
       )}
     </button>
-  ),
-)
+  )
+);
 
 export const ButtonBase = styled(ButtonComponent)`
   padding: 0 1rem;
   height: 40px;
-  width: ${props => (props.$wide && 300) || 156}px;
+  width: ${(props) => (props.$wide && 300) || 156}px;
   display: inline-flex;
   align-items: center;
-  justify-content: ${props => props.$align || 'center'};
+  justify-content: ${(props) => props.$align || 'center'};
   transition: all 0.3s;
   border-radius: 5rem;
   font-size: 1rem;
@@ -55,7 +60,7 @@ export const ButtonBase = styled(ButtonComponent)`
   &:focus {
     outline: 0;
   }
-`
+`;
 
 const ButtonLoader = styled(Loader)`
   width: 1.2rem;
@@ -69,7 +74,7 @@ const ButtonLoader = styled(Loader)`
     height: 1.5rem;
     border-radius: 50%;
   }
-`
+`;
 
 export const PrimaryButton = styled(ButtonBase)`
   background-color: ${Colors.primary};
@@ -79,7 +84,7 @@ export const PrimaryButton = styled(ButtonBase)`
   &:hover {
     background-color: ${Colors.primaryHover};
   }
-`
+`;
 
 export const SecondaryButton = styled(ButtonBase)`
   background-color: ${Colors.black};
@@ -90,7 +95,7 @@ export const SecondaryButton = styled(ButtonBase)`
   &:hover {
     background-color: ${Colors.blackActive};
   }
-`
+`;
 
 export const SocialSignInButton = styled(ButtonBase)`
   background-color: ${Colors.white};
@@ -100,7 +105,7 @@ export const SocialSignInButton = styled(ButtonBase)`
   &:hover {
     background-color: ${Colors.lighterGray};
   }
-`
+`;
 
 export const JumboButton = styled(ButtonBase)`
   width: 30rem;
@@ -113,4 +118,4 @@ export const JumboButton = styled(ButtonBase)`
   &:hover {
     filter: brightness(1.4);
   }
-`
+`;

@@ -2,7 +2,7 @@ import { Controller } from '@nestjs/common';
 import { Get, Param, Req, Res, UseGuards } from '@nestjs/common/decorators';
 import { UtileService } from './utile.service';
 import { IsAuthGuard } from '../auth/is-auth.guard';
-import { Request, Response } from 'express';
+import { Response } from 'express';
 
 @Controller('utile')
 export class UtileController {
