@@ -26,3 +26,4 @@ has to be set to strict
 
 
 
+- keep same routes and refactor Backend, split auth module to auth and user modules, utile module should be refactored to something else.
