@@ -17,8 +17,20 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AxiosResponse } from 'axios';
 import Cookies from 'js-cookie';
 import { SocialStats, User } from 'apps/client/src/types';
+import { AuthenticationResponseDto } from '@tw/data';
 
-interface AuthState extends User {
+interface AuthState {
+  id: number | null;
+  name: string;
+  email: string;
+  avatar: string;
+  cover: string;
+  uniqueName: string;
+  bio: string;
+  location: string;
+  website: string;
+  createdAt: string;
+  followingStatus?: boolean;
   isLoading: boolean;
   isAuth: boolean;
   errorMessage: string;
@@ -64,7 +76,8 @@ export const authSlice = createSlice({
     builder
 
       // Sign up logic
-      .addCase(signUpThunk.fulfilled, (state) => {
+      .addCase(signUpThunk.fulfilled, (state, payload) => {
+        // isAuth set to true should probably be done in auth request, should research where this flag is being used...
         state.isAuth = true;
       })
       .addCase(
@@ -81,7 +94,8 @@ export const authSlice = createSlice({
       )
 
       // Sign in logic
-      .addCase(signInThunk.fulfilled, (state) => {
+      .addCase(signInThunk.fulfilled, (state, payload) => {
+        // isAuth set to true should probably be done in auth request, should research where this flag is being used...
         state.isAuth = true;
       })
       .addCase(
@@ -108,11 +122,15 @@ export const authSlice = createSlice({
           {
             payload,
           }: PayloadAction<
-            | AxiosResponse<{ user: User; socialStats: SocialStats }, any>
+            | AxiosResponse<
+                { user: AuthenticationResponseDto; socialStats: SocialStats },
+                any
+              >
             | undefined
           >
         ) => {
           if (payload && payload.data) {
+            // console.log(payload);
             state.id = payload.data.user.id as number;
             state.name = payload.data.user.name;
             state.email = payload.data.user.email;

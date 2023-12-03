@@ -1,19 +1,26 @@
 import { AxiosResponse } from 'axios';
 import { httpClient } from './client';
-import { User, SocialStats, UpdateUser } from '../types';
-import { CreateUserDto, ConfirmUserDto } from '@tw/data';
+import { SocialStats, UpdateUser } from '../types';
+import {
+  SignUpEmailRequestDto,
+  SignUpEmailResponseDto,
+  SignInEmailRequestDto,
+  AuthenticationResponseDto,
+  SignInEmailResponseDto,
+  NameUniquenessRequestDto,
+} from '@tw/data';
 
-export default {
+export const http = {
   auth: {
-    signUp({ name, email, password, confirmPassword }: CreateUserDto) {
-      return httpClient.post('auth/register', {
-        username: name,
-        email,
-        password,
-        confirmPassword,
-      });
+    signUp(
+      user: SignUpEmailRequestDto
+    ): Promise<AxiosResponse<SignUpEmailResponseDto>> {
+      return httpClient.post('auth/register', user);
     },
-    signIn({ email, password }: ConfirmUserDto) {
+    signIn({
+      email,
+      password,
+    }: SignInEmailRequestDto): Promise<AxiosResponse<SignInEmailResponseDto>> {
       return httpClient.post('auth/login', {
         username: 'placeholder',
         email,
@@ -23,9 +30,14 @@ export default {
     googleAuthenticate() {
       return httpClient.get('auth/google/login');
     },
+    // this request must be split to few requests
     authUser(): Promise<
       AxiosResponse<
-        { user: User; socialStats: SocialStats; followingStatus?: boolean },
+        {
+          user: AuthenticationResponseDto;
+          socialStats: SocialStats;
+          followingStatus?: boolean;
+        },
         any
       >
     > {
@@ -34,12 +46,15 @@ export default {
     signOut() {
       return httpClient.get('auth/logout');
     },
-    checkNameUniqueness(uniqueName: string) {
-      return httpClient.post('auth/nameuniqueness', { uniqueName });
+  },
+  user: {
+    checkNameUniqueness(data: NameUniquenessRequestDto) {
+      return httpClient.post('auth/name-uniqueness', data);
     },
-    updateUserUniqueName(uniqueName: string) {
-      return httpClient.post('auth/createuniquename', { uniqueName });
+    updateUserUniqueName(data: NameUniquenessRequestDto) {
+      return httpClient.post('auth/create-unique-name', data);
     },
+    //
     updateUser(updateUser: UpdateUser) {
       return httpClient.patch('auth/update/user', { updateUser });
     },
@@ -53,7 +68,7 @@ export default {
       return httpClient.delete(`auth/unfollow/user/${userId}`);
     },
   },
-  utile: {
+  social: {
     getMostPopularUsers() {
       return httpClient.get('utile/most/popular/users');
     },

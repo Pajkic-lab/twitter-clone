@@ -9,7 +9,7 @@ import { signInThunk } from '../../store/features/authSlice/thunk';
 import { Colors } from '../../ui/styles';
 import { BaseInput } from '../../ui/Input';
 import { JumboButton } from '../../ui/Button';
-import { ConfirmUserDto } from '@tw/data';
+import { SignInEmailRequestDto } from '@tw/data';
 
 interface Props {
   signInModalIsOpen: boolean;
@@ -29,8 +29,8 @@ export const SignInModal: React.FC<Props> = ({
   };
 
   const onSubmit = async (
-    values: ConfirmUserDto,
-    actions: FormikHelpers<ConfirmUserDto>
+    values: SignInEmailRequestDto,
+    actions: FormikHelpers<SignInEmailRequestDto>
   ) => {
     await dispatch(signInThunk(values));
   };

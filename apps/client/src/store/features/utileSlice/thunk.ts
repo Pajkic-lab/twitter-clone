@@ -1,12 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { isAxiosError } from 'axios';
-import http from 'apps/client/src/http/api';
+// import { http } from '@tw/data-access';
+import { http } from 'apps/client/src/http/api';
 
 export const getMostPopularProfiles = createAsyncThunk(
   'utile/getMostPopularUsers',
   async (__, { rejectWithValue }) => {
     try {
-      return await http.utile.getMostPopularUsers();
+      return await http.social.getMostPopularUsers();
     } catch (error) {
       if (error instanceof Error) {
         if (isAxiosError(error)) {
@@ -23,7 +24,7 @@ export const searchThunk = createAsyncThunk(
   'utile/search',
   async (searchData: string, { rejectWithValue }) => {
     try {
-      return await http.utile.getSearchTerm(searchData);
+      return await http.social.getSearchTerm(searchData);
     } catch (error) {
       if (error instanceof Error) {
         if (isAxiosError(error)) {
@@ -46,7 +47,7 @@ export const getFollowersThunk = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      return await http.utile.getFollowers({ followerOffset, followerLimit });
+      return await http.social.getFollowers({ followerOffset, followerLimit });
     } catch (error) {
       if (error instanceof Error) {
         if (isAxiosError(error)) {
@@ -69,7 +70,7 @@ export const getFollowingUsersThunk = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      return await http.utile.getFollowingUsers({
+      return await http.social.getFollowingUsers({
         followingOffset,
         followingLimit,
       });
@@ -96,7 +97,7 @@ export const getPPFollowersThunk = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      return await http.utile.getPPFollowers({
+      return await http.social.getPPFollowers({
         userId,
         PPfollowerOffset,
         PPfollowerLimit,
@@ -124,7 +125,7 @@ export const getPPFollowingUsersThunk = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      return await http.utile.getPPFollowingUsers({
+      return await http.social.getPPFollowingUsers({
         userId,
         PPfollowingOffset,
         PPfollowingLimit,

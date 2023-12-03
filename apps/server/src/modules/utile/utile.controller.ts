@@ -15,36 +15,36 @@ export class UtileController {
     response.json(res);
   }
 
-  @Get('most/popular/users')
-  @UseGuards(IsAuthGuard)
-  handleGetMostPopularUsers(@Req() request) {
-    return this.utileService.getMostPupularUsers(request.user.id);
-  }
+  // @Get('most/popular/users')
+  // @UseGuards(IsAuthGuard)
+  // handleGetMostPopularUsers(@Req() request) {
+  //   return this.utileService.getMostPupularUsers(request.user.id);
+  // }
 
-  @Get('search/:searchData')
-  handleGetSearchData(@Param('searchData') searchData: string, @Req() request) {
-    return this.utileService.getSearchData(searchData, request?.user?.id);
-  }
+  // @Get('search/:searchData')
+  // handleGetSearchData(@Param('searchData') searchData: string, @Req() request) {
+  //   return this.utileService.getSearchData(searchData, request?.user?.id);
+  // }
 
-  @Get('followers/:offset/:limit')
-  @UseGuards(IsAuthGuard)
-  handleGetFollowers(
-    @Param('offset') offset: number,
-    @Param('limit') limit: number,
-    @Req() request
-  ) {
-    return this.utileService.handleFollowers(request.user.id, offset, limit);
-  }
+  // @Get('followers/:offset/:limit')
+  // @UseGuards(IsAuthGuard)
+  // handleGetFollowers(
+  //   @Param('offset') offset: number,
+  //   @Param('limit') limit: number,
+  //   @Req() request
+  // ) {
+  //   return this.utileService.handleFollowers(request.user.id, offset, limit);
+  // }
 
-  @Get('following/:offset/:limit')
-  @UseGuards(IsAuthGuard)
-  handleGetFollowing(
-    @Param('offset') offset: number,
-    @Param('limit') limit: number,
-    @Req() request
-  ) {
-    return this.utileService.handleFollowing(request.user.id, offset, limit);
-  }
+  // @Get('following/:offset/:limit')
+  // @UseGuards(IsAuthGuard)
+  // handleGetFollowing(
+  //   @Param('offset') offset: number,
+  //   @Param('limit') limit: number,
+  //   @Req() request
+  // ) {
+  //   return this.utileService.handleFollowing(request.user.id, offset, limit);
+  // }
 
   @Get('pp/followers/:userId/:offset/:limit')
   handleGetPPFollowers(

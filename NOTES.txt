@@ -4,15 +4,17 @@ npx nx generate lib <name>
 render alternative Cyclic: https://www.cyclic.sh/
 
 
+
+
+
 - follow the treed and refactor integration between Frontend and Backend move everything to DTOS lib, add types to http object at front and maybe move http 
 to data-access library, redux is not part of this scope. Also follow in parallel athena pear treed. At Backend add types to controllers and compiler 
 has to be set to strict
     - first treed to follow conventional register, login, logout, social login
+    
+- services and repository will be refactored according to Athena
 
-- add following to tsconfig file
-    // "strict": true,
-    // "noImplicitReturns": true,
-    // "noUnusedLocals": true,
+- https://www.youtube.com/watch?v=eJXVEju3XLM
 
 - Research in depth common dir nested in server athena project
 
@@ -20,10 +22,15 @@ has to be set to strict
 
 - prettier add dep for auto import sort: prettier-plugin-organize-imports, som options: prettier-plugin-typescript, prettier-plugin-nest-js, prettier-plugin-react
 
-- create new branch and refactor data-access lib to node environment so it can accept redux toolkit. Research this should it be done or maybe its better to keep it as is
-
-- Types at Frontend to be removed and replaced with types from data library, in this scope i need to refactor http object and probably other things.
 
 
 
 - keep same routes and refactor Backend, split auth module to auth and user modules, utile module should be refactored to something else.
+
+- should adjust routes names nameuniqness and register and others
+
+
+Frontend:
+
+check out this package: https://redux-toolkit.js.org/rtk-query/overview
+

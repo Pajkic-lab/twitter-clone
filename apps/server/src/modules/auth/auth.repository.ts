@@ -1,12 +1,20 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from 'libs/data-access/src/lib/prisma/prisma.service';
-import { CreateUserDto, CreatGoogleUserDto, UpdateUserDto } from '@tw/data';
+import {
+  CreatableGoogleUser,
+  CreatableUser,
+  CreateUserDto,
+  CreatGoogleUserDto,
+  SignUpEmailResponseDto,
+  UpdateUserDto,
+} from '@tw/data';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class AuthRepository {
   constructor(private prisma: PrismaService) {}
 
-  async findUserByEmail(email: string) {
+  async findUserByEmail(email: string): Promise<Prisma.UserCreateInput | null> {
     try {
       return await this.prisma.user.findUnique({
         where: {
@@ -21,7 +29,11 @@ export class AuthRepository {
     }
   }
 
-  async createUser({ name, email, password }: CreateUserDto) {
+  async createUser({
+    name,
+    email,
+    password,
+  }: CreatableUser): Promise<Prisma.UserCreateInput> {
     try {
       return await this.prisma.user.create({
         data: {
@@ -38,7 +50,10 @@ export class AuthRepository {
     }
   }
 
-  async createGoogleUser({ name, email }: CreatGoogleUserDto) {
+  async createGoogleUser({
+    name,
+    email,
+  }: CreatableGoogleUser): Promise<Prisma.UserCreateInput> {
     try {
       return await this.prisma.user.create({
         data: {
@@ -54,7 +69,7 @@ export class AuthRepository {
     }
   }
 
-  async findUserById(userId: number) {
+  async findUserById(userId: number): Promise<Prisma.UserCreateInput | null> {
     try {
       return await this.prisma.user.findUnique({
         where: {
@@ -69,7 +84,9 @@ export class AuthRepository {
     }
   }
 
-  async isUserNameUnique(uniqueName: string) {
+  async isUserNameUnique(
+    uniqueName: string
+  ): Promise<Prisma.UserCreateInput | null> {
     try {
       return await this.prisma.user.findUnique({
         where: {
@@ -84,7 +101,10 @@ export class AuthRepository {
     }
   }
 
-  async updateUserNameUnique(id: number, uniqueName: string) {
+  async updateUserNameUnique(
+    id: number,
+    uniqueName: string
+  ): Promise<Prisma.UserCreateInput> {
     try {
       return await this.prisma.user.update({
         where: {

@@ -3,6 +3,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+
 import { Req } from '@nestjs/common/decorators';
 import { HttpStatus } from '@nestjs/common/enums';
 import { HttpException } from '@nestjs/common/exceptions';
@@ -16,7 +17,16 @@ import {
   CreateUserDto,
   UpdateUserDto,
   MediaDirectory,
+  SignUpEmailRequestDto,
+  CreatableUser,
+  SignUpEmailResponseDto,
+  SignInEmailRequestDto,
+  SignInEmailResponseDto,
+  AuthenticationResponseDto,
+  CreatableGoogleUser,
+  NameUniquenessRequestDto,
 } from '@tw/data';
+import { plainToClass } from 'class-transformer';
 
 @Injectable()
 export class AuthService {
@@ -25,37 +35,55 @@ export class AuthService {
     private mediaRepository: AuthMediaRepository
   ) {}
 
-  async registerUser(createUser: CreateUserDto) {
+  async registerUser(
+    createUser: SignUpEmailRequestDto
+  ): Promise<SignUpEmailResponseDto> {
     const salt = 10;
 
     const user = await this.authRepository.findUserByEmail(createUser.email);
     if (user) throw new NotFoundException('User already exist');
 
-    createUser.password = await bcrypt.hash(createUser.password, salt);
-    delete createUser.confirmPassword;
+    const hashedPassword = await bcrypt.hash(createUser.password, salt);
 
-    const newUser = await this.authRepository.createUser(createUser);
-    return newUser;
+    const creatableUser: CreatableUser = {
+      name: createUser.username,
+      email: createUser.email,
+      password: hashedPassword,
+    };
+
+    const createdUser = await this.authRepository.createUser(creatableUser);
+
+    const responseDto = plainToClass(SignUpEmailResponseDto, createdUser);
+
+    return responseDto;
   }
 
-  async loginUser(confirmUser: ConfirmUserDto) {
-    const user = await this.authRepository.findUserByEmail(confirmUser.email);
+  async loginUser(signInUser: SignInEmailRequestDto) {
+    const user = await this.authRepository.findUserByEmail(signInUser.email);
 
     if (!user) throw new NotFoundException('User does not exist');
-    if (await bcrypt.compare(confirmUser.password, user.password)) return user;
+    if (await bcrypt.compare(signInUser.password, user?.password!)) {
+      const responseDto = plainToClass(SignInEmailResponseDto, user);
+      return responseDto;
+    }
     throw new NotFoundException('Invalid credentials');
   }
 
   async authUser(userId: number) {
-    const user = await this.authRepository.findUserById(userId);
+    let user;
+    user = await this.authRepository.findUserById(userId);
     if (!user) throw new NotFoundException('User does not exist');
-    delete user.password;
+    user = plainToClass(AuthenticationResponseDto, user);
+
+    // this should be separate request
     const socialStats = await this.authRepository.getSocialStats(userId);
     if (!socialStats) throw new NotFoundException('Social stats do not exist');
+
+    // user should be renamed to response DTO
     return { user, socialStats };
   }
 
-  async validateGoogleUser(createUser: CreatGoogleUserDto) {
+  async validateGoogleUser(createUser: CreatableGoogleUser) {
     const user = await this.authRepository.findUserByEmail(createUser.email);
     if (user) return user;
 
@@ -75,21 +103,24 @@ export class AuthService {
     return;
   }
 
-  async checkNameUniqueness(uniqueName: string) {
-    const res = await this.authRepository.isUserNameUnique(uniqueName);
+  async checkNameUniqueness(data: NameUniquenessRequestDto) {
+    const res = await this.authRepository.isUserNameUnique(data.uniqueName);
     if (res !== null) {
       return { isNameUnique: false };
     }
     return { isNameUnique: true };
   }
 
-  async updateUniqueUserName(userId: number, uniqueName: string) {
+  async updateUniqueUserName(userId: number, data: NameUniquenessRequestDto) {
     let user;
-    const res = await this.authRepository.isUserNameUnique(uniqueName);
+    const res = await this.authRepository.isUserNameUnique(data.uniqueName);
     if (res !== null) {
       throw new NotFoundException('Uniqu user name already exist!');
     } else {
-      user = await this.authRepository.updateUserNameUnique(userId, uniqueName);
+      user = await this.authRepository.updateUserNameUnique(
+        userId,
+        data.uniqueName
+      );
       if (!user)
         throw new HttpException(
           'Error while updating unique user name',
@@ -99,57 +130,57 @@ export class AuthService {
     return { uniqueName: user.uniqueName };
   }
 
-  async updateUser(userId: number, updateUser: UpdateUserDto) {
-    let avatarUrl;
-    let coverUrl;
+  // async updateUser(userId: number, updateUser: UpdateUserDto) {
+  //   let avatarUrl;
+  //   let coverUrl;
 
-    updateUser.id = userId;
-    if (updateUser.avatar) {
-      const res = await this.mediaRepository.uploadImage(
-        updateUser.avatar,
-        userId,
-        MediaDirectory.Private
-      );
-      avatarUrl = res.url;
-      updateUser.avatar = avatarUrl;
-    }
-    if (updateUser.cover) {
-      const res = await this.mediaRepository.uploadImage(
-        updateUser.cover,
-        userId,
-        MediaDirectory.Private
-      );
-      coverUrl = res.url;
-      updateUser.cover = coverUrl;
-    }
+  //   updateUser.id = userId;
+  //   if (updateUser.avatar) {
+  //     const res = await this.mediaRepository.uploadImage(
+  //       updateUser.avatar,
+  //       userId,
+  //       MediaDirectory.Private
+  //     );
+  //     avatarUrl = res.url;
+  //     updateUser.avatar = avatarUrl;
+  //   }
+  //   if (updateUser.cover) {
+  //     const res = await this.mediaRepository.uploadImage(
+  //       updateUser.cover,
+  //       userId,
+  //       MediaDirectory.Private
+  //     );
+  //     coverUrl = res.url;
+  //     updateUser.cover = coverUrl;
+  //   }
 
-    const user = await this.authRepository.updateUser(updateUser);
-    delete user.password;
-    return { user };
-  }
+  //   const user = await this.authRepository.updateUser(updateUser);
+  //   delete user.password;
+  //   return { user };
+  // }
 
-  async getPublicUser(publicUserId: number, userId?: number) {
-    let followingStatus;
-    if (publicUserId === userId) {
-      throw new NotFoundException(
-        'Can not acces to specific user as authenticated same user'
-      );
-    }
-    const user = await this.authRepository.findUserById(publicUserId);
-    if (!user) throw new NotFoundException('User does not exist');
-    delete user.password;
-    delete user.email;
-    const socialStats = await this.authRepository.getSocialStats(publicUserId);
+  // async getPublicUser(publicUserId: number, userId?: number) {
+  //   let followingStatus;
+  //   if (publicUserId === userId) {
+  //     throw new NotFoundException(
+  //       'Can not acces to specific user as authenticated same user'
+  //     );
+  //   }
+  //   const user = await this.authRepository.findUserById(publicUserId);
+  //   if (!user) throw new NotFoundException('User does not exist');
+  //   delete user.password;
+  //   delete user.email;
+  //   const socialStats = await this.authRepository.getSocialStats(publicUserId);
 
-    if (!socialStats) throw new NotFoundException('Social status do not exist');
-    if (userId) {
-      followingStatus = await this.authRepository.getFollowingStatus(
-        publicUserId,
-        userId
-      );
-    }
-    return { user, socialStats, followingStatus };
-  }
+  //   if (!socialStats) throw new NotFoundException('Social status do not exist');
+  //   if (userId) {
+  //     followingStatus = await this.authRepository.getFollowingStatus(
+  //       publicUserId,
+  //       userId
+  //     );
+  //   }
+  //   return { user, socialStats, followingStatus };
+  // }
 
   async followUser(userId: number, userIdToFollow: number) {
     const res = await this.authRepository.followUser(userId, userIdToFollow);
