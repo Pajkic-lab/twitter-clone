@@ -188,7 +188,6 @@ export const authSlice = createSlice({
             payload,
           }: PayloadAction<RejectedWithValueActionFromAsyncThunk<AnyAsyncThunk>>
         ) => {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
           state.errorMessage = payload.message;
         }
       )

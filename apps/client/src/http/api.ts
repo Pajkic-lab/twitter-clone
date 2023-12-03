@@ -8,6 +8,7 @@ import {
   AuthenticationResponseDto,
   SignInEmailResponseDto,
   NameUniquenessRequestDto,
+  NameUniquenessResponseDto,
 } from '@tw/data';
 
 export const http = {
@@ -48,6 +49,7 @@ export const http = {
     },
   },
   user: {
+    // add DTO response for following api calls
     checkNameUniqueness(data: NameUniquenessRequestDto) {
       return httpClient.post('auth/name-uniqueness', data);
     },

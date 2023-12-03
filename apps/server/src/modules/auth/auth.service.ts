@@ -25,6 +25,7 @@ import {
   AuthenticationResponseDto,
   CreatableGoogleUser,
   NameUniquenessRequestDto,
+  NameUniquenessResponseDto,
 } from '@tw/data';
 import { plainToClass } from 'class-transformer';
 
@@ -103,7 +104,9 @@ export class AuthService {
     return;
   }
 
-  async checkNameUniqueness(data: NameUniquenessRequestDto) {
+  async checkNameUniqueness(
+    data: NameUniquenessRequestDto
+  ): Promise<NameUniquenessResponseDto> {
     const res = await this.authRepository.isUserNameUnique(data.uniqueName);
     if (res !== null) {
       return { isNameUnique: false };

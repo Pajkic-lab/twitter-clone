@@ -19,7 +19,11 @@ import { IsGuestGuard } from './is-guest.guard';
 import { LocalAuthGuard } from './local-strategy/local-auth.guard';
 import { HttpService } from '../http/http.service';
 import { Request, Response } from 'express';
-import { ReqUserContaining, NameUniquenessRequestDto } from '@tw/data';
+import {
+  ReqUserContaining,
+  NameUniquenessRequestDto,
+  NameUniquenessResponseDto,
+} from '@tw/data';
 
 @Controller('auth')
 export class AuthController {
@@ -30,43 +34,48 @@ export class AuthController {
 
   @Get('google/login')
   @UseGuards(IsGuestGuard, GoogleAuthGuard)
-  handleGooleLogin() {
+  handleGooleLogin(): void {
     return;
   }
 
   @Get('google/redirect')
   @UseGuards(GoogleAuthGuard)
-  handleGoogleRedirect(@Res() response: Response) {
+  handleGoogleRedirect(@Res() response: Response): void {
     response.redirect(this.httpService.baseUrlClient('/'));
   }
 
   @Post('register')
   @UseGuards(IsGuestGuard, LocalAuthGuard)
-  handleLocalRegister() {
+  handleLocalRegister(): void {
     return;
   }
 
   @Post('login')
   @UseGuards(IsGuestGuard, LocalAuthGuard)
   handleLocalLogin(@Req() request: ReqUserContaining) {
+    // socail status does not have DTO type
     return this.authService.authUser(request.user.id);
   }
 
   @Get('user')
   @UseGuards(IsAuthGuard)
   handleAuthUser(@Req() request: ReqUserContaining) {
+    // socail status does not have DTO type
     return this.authService.authUser(request.user.id);
   }
 
   @Get('logout')
   @UseGuards(IsAuthGuard)
-  handlelogout(@Req() request: Request) {
+  handleLogOut(@Req() request: Request): Promise<void> {
     return this.authService.logOut(request);
   }
 
   @Post('name-uniqueness')
   @UseGuards(IsAuthGuard)
-  handleNameUniqueness(@Body() body: NameUniquenessRequestDto) {
+  // research should controller have response type declaration?
+  handleNameUniqueness(
+    @Body() body: NameUniquenessRequestDto
+  ): Promise<NameUniquenessResponseDto> {
     return this.authService.checkNameUniqueness(body);
   }
 
