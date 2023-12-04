@@ -39,6 +39,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@tippyjs/react": "^4.2.6",
     "@ts-rest/core": "^3.30.5",
+    "@ts-rest/nest": "^3.30.5",
     "@types/jest": "^29.4.0",
     "@types/js-cookie": "^3.0.2",
     "@types/node": "18.7.1",

@@ -50,6 +50,7 @@ export const http = {
   },
   user: {
     // add DTO response for following api calls
+    // try to resolve this by adding ts-rest library
     checkNameUniqueness(data: NameUniquenessRequestDto) {
       return httpClient.post('auth/name-uniqueness', data);
     },
