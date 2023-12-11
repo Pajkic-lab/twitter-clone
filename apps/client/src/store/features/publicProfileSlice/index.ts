@@ -2,7 +2,8 @@ import { followUserThunk, unFollowUserThunk } from '../authSlice/thunk';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getPublicProfile } from './thunk';
 import { AxiosResponse } from 'axios';
-import { PublicUser, SocialStats, User } from 'apps/client/src/types';
+import { PublicUser, User } from 'apps/client/src/types';
+import { SocialStatsResponseDto } from '@tw/data';
 
 interface PublicProfileState extends Omit<User, 'email'> {
   isLoading: boolean;
@@ -55,7 +56,7 @@ export const publicProfileSlice = createSlice({
             | AxiosResponse<
                 {
                   user: PublicUser;
-                  socialStats: SocialStats;
+                  socialStats: SocialStatsResponseDto;
                   followingStatus: boolean;
                 },
                 any

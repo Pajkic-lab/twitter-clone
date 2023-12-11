@@ -12,6 +12,7 @@ import { LocalStrategy } from './local-strategy/local-strategy';
 import { SessionSerializer } from './serializer';
 import { HelperService } from '../helper/helper.service';
 import { HttpService } from '../http/http.service';
+import { UserProfile } from './user.profile';
 // import { DataAccessModule } from '@tw/data-access';
 
 @Module({
@@ -29,6 +30,7 @@ import { HttpService } from '../http/http.service';
     IsAuthGuard,
     GoogleAuthGuard,
     AuthMediaRepository,
+    UserProfile,
   ],
   imports: [],
 })

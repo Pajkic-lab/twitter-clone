@@ -12,11 +12,6 @@ export interface User {
   followingStatus?: boolean;
 }
 
-export interface SocialStats {
-  followingCount: number;
-  followersCount: number;
-}
-
 export type UpdateUser = Partial<
   Pick<User, 'name' | 'bio' | 'location' | 'website' | 'cover' | 'avatar'>
 >;

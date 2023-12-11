@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
-import { httpClient } from './client';
-import { SocialStats, UpdateUser } from '../types';
+import { contractClient, httpClient } from './client';
+import { UpdateUser } from '../types';
 import {
   SignUpEmailRequestDto,
   SignUpEmailResponseDto,
@@ -9,20 +9,24 @@ import {
   SignInEmailResponseDto,
   NameUniquenessRequestDto,
   NameUniquenessResponseDto,
+  HttpResponse,
+  SocialStatsResponseDto,
 } from '@tw/data';
 
 export const http = {
   auth: {
     signUp(
       user: SignUpEmailRequestDto
-    ): Promise<AxiosResponse<SignUpEmailResponseDto>> {
-      return httpClient.post('auth/register', user);
+    ): Promise<AxiosResponse<HttpResponse<SignUpEmailResponseDto>>> {
+      return httpClient.post('auth/sign-up', user);
     },
     signIn({
       email,
       password,
-    }: SignInEmailRequestDto): Promise<AxiosResponse<SignInEmailResponseDto>> {
-      return httpClient.post('auth/login', {
+    }: SignInEmailRequestDto): Promise<
+      AxiosResponse<HttpResponse<SignInEmailResponseDto>>
+    > {
+      return httpClient.post('auth/sign-in', {
         username: 'placeholder',
         email,
         password,
@@ -31,15 +35,12 @@ export const http = {
     googleAuthenticate() {
       return httpClient.get('auth/google/login');
     },
-    // this request must be split to few requests
     authUser(): Promise<
       AxiosResponse<
-        {
+        HttpResponse<{
           user: AuthenticationResponseDto;
-          socialStats: SocialStats;
-          followingStatus?: boolean;
-        },
-        any
+          socialStats: SocialStatsResponseDto;
+        }>
       >
     > {
       return httpClient.get('auth/user');
@@ -125,6 +126,16 @@ export const http = {
       return httpClient.get(
         `utile/pp/following/${userId}/${PPfollowingOffset}/${PPfollowingLimit}`
       );
+    },
+  },
+  experimental: {
+    test() {
+      return contractClient.createPost({
+        body: {
+          title: 'Post Title',
+          body: 'Post Body',
+        },
+      });
     },
   },
 };

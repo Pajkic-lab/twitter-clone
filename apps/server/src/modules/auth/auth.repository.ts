@@ -3,18 +3,18 @@ import { PrismaService } from 'libs/data-access/src/lib/prisma/prisma.service';
 import {
   CreatableGoogleUser,
   CreatableUser,
-  CreateUserDto,
-  CreatGoogleUserDto,
   SignUpEmailResponseDto,
+  SocialStatsResponseDto,
   UpdateUserDto,
+  // User,
 } from '@tw/data';
-import { Prisma } from '@prisma/client';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class AuthRepository {
   constructor(private prisma: PrismaService) {}
 
-  async findUserByEmail(email: string): Promise<Prisma.UserCreateInput | null> {
+  async findUserByEmail(email: string): Promise<User | null> {
     try {
       return await this.prisma.user.findUnique({
         where: {
@@ -29,11 +29,7 @@ export class AuthRepository {
     }
   }
 
-  async createUser({
-    name,
-    email,
-    password,
-  }: CreatableUser): Promise<Prisma.UserCreateInput> {
+  async createUser({ name, email, password }: CreatableUser): Promise<User> {
     try {
       return await this.prisma.user.create({
         data: {
@@ -50,10 +46,7 @@ export class AuthRepository {
     }
   }
 
-  async createGoogleUser({
-    name,
-    email,
-  }: CreatableGoogleUser): Promise<Prisma.UserCreateInput> {
+  async createGoogleUser({ name, email }: CreatableGoogleUser): Promise<User> {
     try {
       return await this.prisma.user.create({
         data: {
@@ -69,7 +62,7 @@ export class AuthRepository {
     }
   }
 
-  async findUserById(userId: number): Promise<Prisma.UserCreateInput | null> {
+  async findUserById(userId: number): Promise<User | null> {
     try {
       return await this.prisma.user.findUnique({
         where: {
@@ -84,9 +77,7 @@ export class AuthRepository {
     }
   }
 
-  async isUserNameUnique(
-    uniqueName: string
-  ): Promise<Prisma.UserCreateInput | null> {
+  async isUserNameUnique(uniqueName: string): Promise<User | null> {
     try {
       return await this.prisma.user.findUnique({
         where: {
@@ -101,10 +92,7 @@ export class AuthRepository {
     }
   }
 
-  async updateUserNameUnique(
-    id: number,
-    uniqueName: string
-  ): Promise<Prisma.UserCreateInput> {
+  async updateUserNameUnique(id: number, uniqueName: string): Promise<User> {
     try {
       return await this.prisma.user.update({
         where: {
@@ -153,7 +141,7 @@ export class AuthRepository {
     }
   }
 
-  async getSocialStats(userId: number) {
+  async getSocialStats(userId: number): Promise<SocialStatsResponseDto> {
     try {
       const followingCount = await this.prisma.social.count({
         where: { userId },

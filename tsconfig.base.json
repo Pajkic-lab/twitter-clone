@@ -23,11 +23,8 @@
     "strictNullChecks": true,
     "noImplicitAny": true,
     "strict": true,
-
-    // should this be added?
-    // "noImplicitReturns": true,
-
     "paths": {
+      "@tw/contract": ["libs/contract/src/index.ts"],
       "@tw/data": ["libs/data/src/index.ts"],
       "@tw/data-access": ["libs/data-access/src/index.ts"]
     }

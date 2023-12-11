@@ -16,8 +16,8 @@ import {
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AxiosResponse } from 'axios';
 import Cookies from 'js-cookie';
-import { SocialStats, User } from 'apps/client/src/types';
-import { AuthenticationResponseDto } from '@tw/data';
+import { User } from 'apps/client/src/types';
+import { AuthenticationResponseDto, SocialStatsResponseDto } from '@tw/data';
 
 interface AuthState {
   id: number | null;
@@ -30,6 +30,8 @@ interface AuthState {
   location: string;
   website: string;
   createdAt: string;
+  // What is followingStatus for where is it being used???
+  // This should probably be refactored, because in Public Profile followingStatus is being used and do to bad code, states between these two have to be 1:1
   followingStatus?: boolean;
   isLoading: boolean;
   isAuth: boolean;
@@ -77,6 +79,7 @@ export const authSlice = createSlice({
 
       // Sign up logic
       .addCase(signUpThunk.fulfilled, (state, payload) => {
+        // console.log(111, payload);
         // isAuth set to true should probably be done in auth request, should research where this flag is being used...
         state.isAuth = true;
       })
@@ -96,6 +99,7 @@ export const authSlice = createSlice({
       // Sign in logic
       .addCase(signInThunk.fulfilled, (state, payload) => {
         // isAuth set to true should probably be done in auth request, should research where this flag is being used...
+        // console.log(payload.payload?.data.payload.email);
         state.isAuth = true;
       })
       .addCase(
@@ -115,40 +119,26 @@ export const authSlice = createSlice({
       .addCase(authUserThunk.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(
-        authUserThunk.fulfilled,
-        (
-          state,
-          {
-            payload,
-          }: PayloadAction<
-            | AxiosResponse<
-                { user: AuthenticationResponseDto; socialStats: SocialStats },
-                any
-              >
-            | undefined
-          >
-        ) => {
-          if (payload && payload.data) {
-            // console.log(payload);
-            state.id = payload.data.user.id as number;
-            state.name = payload.data.user.name;
-            state.email = payload.data.user.email;
-            // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-            state.uniqueName = payload.data.user.uniqueName as string;
-            state.avatar = payload.data.user.avatar;
-            state.cover = payload.data.user.cover;
-            state.bio = payload.data.user.bio;
-            state.location = payload.data.user.location;
-            state.website = payload.data.user.website;
-            // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-            state.createdAt = payload.data.user.createdAt as string;
-            state.followingCount = payload.data.socialStats.followingCount;
-            state.followersCount = payload.data.socialStats.followersCount;
-          }
-          state.isLoading = false;
-        }
-      )
+      .addCase(authUserThunk.fulfilled, (state, payload) => {
+        const userData = payload.payload?.data?.payload?.user;
+        const socialStats = payload.payload?.data?.payload?.socialStats;
+
+        state.id = userData?.id ?? state.id;
+        state.name = userData?.name ?? state.name;
+        state.email = userData?.email ?? state.email;
+        state.uniqueName = userData?.uniqueName ?? state.uniqueName;
+        state.avatar = userData?.avatar ?? state.avatar;
+        state.cover = userData?.cover ?? state.cover;
+        state.bio = userData?.bio ?? state.bio;
+        state.location = userData?.location ?? state.location;
+        state.website = userData?.website ?? state.website;
+        state.createdAt = userData?.createdAt ?? state.createdAt;
+        state.followingCount =
+          socialStats?.followingCount ?? state.followingCount;
+        state.followersCount =
+          socialStats?.followersCount ?? state.followersCount;
+        state.isLoading = false;
+      })
       .addCase(authUserThunk.rejected, (state) => {
         state.errorMessage = '';
         state.isLoading = false;

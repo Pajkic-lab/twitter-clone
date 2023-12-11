@@ -5,6 +5,7 @@ import { Strategy } from 'passport-local';
 import { AuthService } from '../auth.service';
 import { DtoValidation } from './dto-validation';
 import { SignInEmailRequestDto, SignUpEmailRequestDto } from '@tw/data';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
@@ -17,14 +18,14 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(request: Request) {
+  async validate(request: Request): Promise<User> {
     const requestUser = request.body;
 
     const shapeDeterminate = async <
       T extends SignUpEmailRequestDto | SignInEmailRequestDto
     >(
       requestUser: T
-    ) => {
+    ): Promise<User> => {
       if ('confirmPassword' in requestUser) {
         try {
           await this.dtoValidation.validateSignUpEmailRequestDto(requestUser);
@@ -32,9 +33,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
           throw error;
         }
 
-        let payload;
-        payload = await this.authService.registerUser(requestUser);
-        return payload;
+        return await this.authService.signUpUser(requestUser);
       } else {
         try {
           await this.dtoValidation.validateSignInEmailRequestDto(requestUser);
@@ -42,14 +41,10 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
           throw error;
         }
 
-        let payload;
-        payload = await this.authService.loginUser(requestUser);
-        return payload;
+        return await this.authService.signInUser(requestUser);
       }
     };
 
-    const user = await shapeDeterminate(requestUser);
-
-    return user;
+    return await shapeDeterminate(requestUser);
   }
 }

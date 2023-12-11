@@ -12,10 +12,6 @@ import { AuthMediaRepository } from './auth.media-repository';
 import { AuthRepository } from './auth.repository';
 import { Request } from 'express';
 import {
-  ConfirmUserDto,
-  CreatGoogleUserDto,
-  CreateUserDto,
-  UpdateUserDto,
   MediaDirectory,
   SignUpEmailRequestDto,
   CreatableUser,
@@ -26,22 +22,30 @@ import {
   CreatableGoogleUser,
   NameUniquenessRequestDto,
   NameUniquenessResponseDto,
+  HttpResponse,
+  UserBase,
+  SocialStatsResponseDto,
 } from '@tw/data';
 import { plainToClass } from 'class-transformer';
+import { createResponse } from '../../common/http/create-response';
+import { Mapper } from '@automapper/core';
+import { InjectMapper } from '../../common/decorators/inject-mapper.decorator';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class AuthService {
   constructor(
     private authRepository: AuthRepository,
-    private mediaRepository: AuthMediaRepository
+    private mediaRepository: AuthMediaRepository,
+    @InjectMapper() private readonly mapper: Mapper
   ) {}
 
-  async registerUser(
-    createUser: SignUpEmailRequestDto
-  ): Promise<SignUpEmailResponseDto> {
+  // invoked from strategy
+  async signUpUser(createUser: SignUpEmailRequestDto): Promise<User> {
     const salt = 10;
 
     const user = await this.authRepository.findUserByEmail(createUser.email);
+
     if (user) throw new NotFoundException('User already exist');
 
     const hashedPassword = await bcrypt.hash(createUser.password, salt);
@@ -52,44 +56,74 @@ export class AuthService {
       password: hashedPassword,
     };
 
-    const createdUser = await this.authRepository.createUser(creatableUser);
-
-    const responseDto = plainToClass(SignUpEmailResponseDto, createdUser);
-
-    return responseDto;
+    return await this.authRepository.createUser(creatableUser);
   }
 
-  async loginUser(signInUser: SignInEmailRequestDto) {
+  // invoked from strategy
+  async signInUser(signInUser: SignInEmailRequestDto): Promise<User> {
     const user = await this.authRepository.findUserByEmail(signInUser.email);
 
     if (!user) throw new NotFoundException('User does not exist');
-    if (await bcrypt.compare(signInUser.password, user?.password!)) {
-      const responseDto = plainToClass(SignInEmailResponseDto, user);
-      return responseDto;
-    }
+
+    if (await bcrypt.compare(signInUser.password, user?.password!)) return user;
+
     throw new NotFoundException('Invalid credentials');
   }
 
-  async authUser(userId: number) {
-    let user;
-    user = await this.authRepository.findUserById(userId);
+  async signInGetUser(
+    userId: number
+  ): Promise<HttpResponse<SignInEmailResponseDto>> {
+    const user = await this.authRepository.findUserById(userId);
+
     if (!user) throw new NotFoundException('User does not exist');
-    user = plainToClass(AuthenticationResponseDto, user);
+
+    const payload = this.mapper.map(user, UserBase, SignInEmailResponseDto);
+
+    return createResponse({ payload, message: 'users.signInSuccess' });
+  }
+
+  async sigUpGetUser(
+    userId: number
+  ): Promise<HttpResponse<SignUpEmailResponseDto>> {
+    const user = await this.authRepository.findUserById(userId);
+
+    if (!user) throw new NotFoundException('User does not exist');
+
+    const payload = this.mapper.map(user, UserBase, SignUpEmailResponseDto);
+
+    return createResponse({ payload, message: 'users.signUpSuccess' });
+  }
+
+  async authUser(userId: number): Promise<
+    HttpResponse<{
+      user: AuthenticationResponseDto;
+      socialStats: SocialStatsResponseDto;
+    }>
+  > {
+    const user = await this.authRepository.findUserById(userId);
+
+    if (!user) throw new NotFoundException('User does not exist');
+
+    const authUser = this.mapper.map(user, UserBase, AuthenticationResponseDto);
 
     // this should be separate request
     const socialStats = await this.authRepository.getSocialStats(userId);
+
     if (!socialStats) throw new NotFoundException('Social stats do not exist');
 
-    // user should be renamed to response DTO
-    return { user, socialStats };
+    // return { user: authUser, socialStats };
+    return createResponse({
+      payload: { user: authUser, socialStats },
+      message: 'users.authSuccess',
+    });
   }
 
-  async validateGoogleUser(createUser: CreatableGoogleUser) {
+  async validateGoogleUser(createUser: CreatableGoogleUser): Promise<User> {
     const user = await this.authRepository.findUserByEmail(createUser.email);
+
     if (user) return user;
 
-    const newUser = await this.authRepository.createGoogleUser(createUser);
-    return newUser;
+    return await this.authRepository.createGoogleUser(createUser);
   }
 
   async findUser(userId: number) {

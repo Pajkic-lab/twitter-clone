@@ -1,48 +1,33 @@
-import { IsEmail, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { AutoMap } from '@automapper/classes';
 
 export class AuthenticationResponseDto {
-  @IsNotEmpty()
-  @IsNumber()
+  @AutoMap()
   id: number;
 
-  @IsNotEmpty()
-  @IsString()
+  @AutoMap()
   name: string;
 
-  @IsNotEmpty()
-  @IsString()
-  @IsEmail()
+  @AutoMap()
   email: string;
 
-  @IsNotEmpty()
-  @IsString()
-  password: string;
-
-  @IsNotEmpty()
-  @IsString()
+  @AutoMap()
   avatar: string;
 
-  @IsNotEmpty()
-  @IsString()
+  @AutoMap()
   cover: string;
 
-  @IsNotEmpty()
-  @IsString()
+  @AutoMap()
   uniqueName: string;
 
-  @IsNotEmpty()
-  @IsString()
+  @AutoMap()
   bio: string;
 
-  @IsNotEmpty()
-  @IsString()
+  @AutoMap()
   location: string;
 
-  @IsNotEmpty()
-  @IsString()
+  @AutoMap()
   website: string;
 
-  @IsNotEmpty()
-  @IsString()
+  @AutoMap()
   createdAt: string;
 }

@@ -4,6 +4,7 @@ import { Profile, Strategy } from 'passport-google-oauth20';
 import { AuthService } from '../auth.service';
 import { HttpService } from '../../http/http.service';
 import { ConfigurationService } from '../../configuration/configuration.service';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy) {
@@ -23,7 +24,11 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
     this.authService = authService;
   }
 
-  async validate(accessToken: string, refreshToken: string, profile: Profile) {
+  async validate(
+    accessToken: string,
+    refreshToken: string,
+    profile: Profile
+  ): Promise<User> {
     if (!profile.emails?.[0]?.value) {
       throw new Error('Missing email address');
     }
@@ -32,6 +37,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
       email: profile.emails?.[0]?.value,
       name: profile.displayName,
     });
-    return user || null;
+
+    return user;
   }
 }

@@ -20,9 +20,14 @@ import { LocalAuthGuard } from './local-strategy/local-auth.guard';
 import { HttpService } from '../http/http.service';
 import { Request, Response } from 'express';
 import {
-  ReqUserContaining,
+  RequestContainingUserId,
   NameUniquenessRequestDto,
   NameUniquenessResponseDto,
+  HttpResponse,
+  AuthenticationResponseDto,
+  SignInEmailResponseDto,
+  SignUpEmailResponseDto,
+  SocialStatsResponseDto,
 } from '@tw/data';
 
 @Controller('auth')
@@ -34,7 +39,7 @@ export class AuthController {
 
   @Get('google/login')
   @UseGuards(IsGuestGuard, GoogleAuthGuard)
-  handleGooleLogin(): void {
+  handleGoogleLogin() {
     return;
   }
 
@@ -44,23 +49,30 @@ export class AuthController {
     response.redirect(this.httpService.baseUrlClient('/'));
   }
 
-  @Post('register')
+  @Post('sign-up')
   @UseGuards(IsGuestGuard, LocalAuthGuard)
-  handleLocalRegister(): void {
-    return;
+  handleLocalRegister(
+    @Req() request: RequestContainingUserId
+  ): Promise<HttpResponse<SignUpEmailResponseDto>> {
+    return this.authService.sigUpGetUser(request.user.id);
   }
 
-  @Post('login')
+  @Post('sign-in')
   @UseGuards(IsGuestGuard, LocalAuthGuard)
-  handleLocalLogin(@Req() request: ReqUserContaining) {
-    // socail status does not have DTO type
-    return this.authService.authUser(request.user.id);
+  handleLocalLogin(
+    @Req() request: RequestContainingUserId
+  ): Promise<HttpResponse<SignInEmailResponseDto>> {
+    return this.authService.signInGetUser(request.user.id);
   }
 
   @Get('user')
   @UseGuards(IsAuthGuard)
-  handleAuthUser(@Req() request: ReqUserContaining) {
-    // socail status does not have DTO type
+  handleAuthUser(@Req() request: RequestContainingUserId): Promise<
+    HttpResponse<{
+      user: AuthenticationResponseDto;
+      socialStats: SocialStatsResponseDto;
+    }>
+  > {
     return this.authService.authUser(request.user.id);
   }
 
@@ -72,7 +84,6 @@ export class AuthController {
 
   @Post('name-uniqueness')
   @UseGuards(IsAuthGuard)
-  // research should controller have response type declaration?
   handleNameUniqueness(
     @Body() body: NameUniquenessRequestDto
   ): Promise<NameUniquenessResponseDto> {
@@ -82,7 +93,7 @@ export class AuthController {
   @Post('create-unique-name')
   @UseGuards(IsAuthGuard)
   handleUpdateUserUniqueName(
-    @Req() request: ReqUserContaining,
+    @Req() request: RequestContainingUserId,
     @Body() body: NameUniquenessRequestDto
   ) {
     return this.authService.updateUniqueUserName(request.user.id, body);

@@ -9,7 +9,7 @@ import { signUpThunk } from '../../store/features/authSlice/thunk';
 import { Colors } from '../../ui/styles';
 import { BaseInput } from '../../ui/Input';
 import { JumboButton } from '../../ui/Button';
-import { CreateUserDto, SignUpEmailRequestDto } from '@tw/data';
+import { SignUpEmailRequestDto } from '@tw/data';
 
 interface Props {
   signUpModalIsOpen: boolean;
