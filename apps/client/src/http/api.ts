@@ -7,10 +7,22 @@ import {
   SignInEmailRequestDto,
   AuthenticationResponseDto,
   SignInEmailResponseDto,
-  NameUniquenessRequestDto,
-  NameUniquenessResponseDto,
+  NameUniqueRequestDto,
   HttpResponse,
   SocialStatsResponseDto,
+  NameUniqueResponseDto,
+  NameUniqueUpdateResponseDto,
+  UpdateUserRequestDto,
+  UpdateUserResponseDto,
+  PublicUserResponseDto,
+  MostPopularUsersResponseDto,
+  FollowUserRequestDto,
+  FollowUserResponseDto,
+  UnFollowUserRequestDto,
+  SearchUserRequestDto,
+  SearchUsersResponseDto,
+  FollowerListRequestDto,
+  FollowerListResponseDto,
 } from '@tw/data';
 
 export const http = {
@@ -50,42 +62,65 @@ export const http = {
     },
   },
   user: {
-    // add DTO response for following api calls
-    // try to resolve this by adding ts-rest library
-    checkNameUniqueness(data: NameUniquenessRequestDto) {
-      return httpClient.post('auth/name-uniqueness', data);
+    // refactor this to use GET method
+    checkNameUniqueness(
+      data: NameUniqueRequestDto
+    ): Promise<AxiosResponse<HttpResponse<NameUniqueResponseDto>>> {
+      return httpClient.post('auth/name-unique', data);
     },
-    updateUserUniqueName(data: NameUniquenessRequestDto) {
-      return httpClient.post('auth/create-unique-name', data);
+    updateUserUniqueName(
+      data: NameUniqueRequestDto
+    ): Promise<AxiosResponse<HttpResponse<NameUniqueUpdateResponseDto>>> {
+      return httpClient.patch('auth/name-unique', data);
     },
-    //
-    updateUser(updateUser: UpdateUser) {
-      return httpClient.patch('auth/update/user', { updateUser });
+    updateUser(
+      updateUser: UpdateUserRequestDto
+    ): Promise<AxiosResponse<HttpResponse<UpdateUserResponseDto>>> {
+      return httpClient.patch('auth/update/user', updateUser);
     },
-    getPublicUser(id: number) {
+    getPublicUser(id: number): Promise<
+      AxiosResponse<
+        HttpResponse<{
+          user: PublicUserResponseDto;
+          socialStats: SocialStatsResponseDto;
+          followingStatus: boolean;
+        }>
+      >
+    > {
       return httpClient.get(`auth/public/user/${id}`);
     },
-    followUser(userId: number) {
-      return httpClient.post('auth/follow/user', { userId });
-    },
-    unFollowUser(userId: number) {
-      return httpClient.delete(`auth/unfollow/user/${userId}`);
+
+    getMostPopularUsers(): Promise<
+      AxiosResponse<HttpResponse<MostPopularUsersResponseDto[]>>
+    > {
+      return httpClient.get('utile/most/popular/users');
     },
   },
   social: {
-    getMostPopularUsers() {
-      return httpClient.get('utile/most/popular/users');
+    followUser(
+      userId: FollowUserRequestDto
+    ): Promise<AxiosResponse<HttpResponse<FollowUserResponseDto>>> {
+      return httpClient.post('auth/follow/user', userId);
     },
-    getSearchTerm(searchData: string) {
+    // this route is not refactored completely, do not know what is prisma returning, do get users first
+    unFollowUser(unFollowUser: UnFollowUserRequestDto) {
+      return httpClient.delete(`auth/un-follow/user/${unFollowUser.userId}`);
+    },
+    // route is hitting Utile controller
+    getSearchTerm({
+      searchData,
+    }: SearchUserRequestDto): Promise<
+      AxiosResponse<HttpResponse<SearchUsersResponseDto[]>>
+    > {
       return httpClient.get(`utile/search/${searchData}`);
     },
+    // work in progress, reducer should be finished
     getFollowers({
       followerOffset,
       followerLimit,
-    }: {
-      followerOffset: number;
-      followerLimit: number;
-    }) {
+    }: FollowerListRequestDto): Promise<
+      AxiosResponse<HttpResponse<FollowerListResponseDto[]>>
+    > {
       return httpClient.get(
         `utile/followers/${followerOffset}/${followerLimit}`
       );

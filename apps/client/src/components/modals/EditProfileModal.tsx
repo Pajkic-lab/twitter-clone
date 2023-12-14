@@ -11,6 +11,7 @@ import { ImageInput } from '../../ui/ImageInput';
 import { Colors } from '../../ui/styles';
 import { SecondaryButton } from '../../ui/Button';
 import { BaseInput } from '../../ui/Input';
+import { UpdateUserRequestDto } from '@tw/data';
 
 interface Props {
   editProfileModalIsOpen: boolean;
@@ -30,8 +31,26 @@ export const EditProfileModal: React.FC<Props> = ({
     setEditProfileModalIsOpen(false);
   };
 
-  const onSubmit = async (values: any, actions: FormikHelpers<any>) => {
-    await dispatch(updateUser({ ...values, cover, avatar } as UpdateUser));
+  const onSubmit = async (
+    values: { name: string; bio: string; location: string; website: string },
+    actions: FormikHelpers<{
+      name: string;
+      bio: string;
+      location: string;
+      website: string;
+    }>
+  ) => {
+    const { name, bio, location, website } = values;
+    const updatedValues: UpdateUserRequestDto = {
+      name,
+      bio,
+      location,
+      website,
+      cover,
+      avatar,
+    };
+
+    await dispatch(updateUser(updatedValues));
     setEditProfileModalIsOpen(false);
     actions.resetForm();
   };

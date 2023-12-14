@@ -13,7 +13,6 @@ import { SessionSerializer } from './serializer';
 import { HelperService } from '../helper/helper.service';
 import { HttpService } from '../http/http.service';
 import { UserProfile } from './user.profile';
-// import { DataAccessModule } from '@tw/data-access';
 
 @Module({
   controllers: [AuthController],

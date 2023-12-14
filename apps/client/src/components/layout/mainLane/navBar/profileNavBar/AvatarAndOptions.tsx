@@ -25,12 +25,12 @@ export const AvatarAndOptions: React.FC<{
 
   const followUserHelper = () => {
     if (params.id) {
-      void dispatch(followUserThunk(parseInt(params.id)));
+      // void dispatch(followUserThunk(parseInt(params.id)));
     }
   };
   const unFollowUserHelper = () => {
     if (params.id) {
-      void dispatch(unFollowUserThunk(parseInt(params.id)));
+      // void dispatch(unFollowUserThunk(parseInt(params.id)));
     }
   };
 

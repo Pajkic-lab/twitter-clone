@@ -11,13 +11,14 @@ import { SecondaryButton } from 'apps/client/src/ui/Button';
 export const WhoToFollow = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { mostPopularUsers, mostPupularUsersIsLoading } = useAppSelector(
-    (state) => state.utile
-  );
+  const {
+    mostPopularUsers,
+    mostPopularUsersIsLoading: mostPupularUsersIsLoading,
+  } = useAppSelector((state) => state.utile);
   const { followIsSubmitting } = useAppSelector((state) => state.publicProfile);
 
   const followUserHelper = (userId: number) => {
-    void dispatch(followUserThunk(userId));
+    void dispatch(followUserThunk({ userId }));
   };
 
   useEffect(() => {

@@ -1,6 +1,3 @@
-import { IsBoolean } from 'class-validator';
-
-export class NameUniquenessResponseDto {
-  @IsBoolean()
+export class NameUniqueResponseDto {
   isNameUnique: boolean;
 }

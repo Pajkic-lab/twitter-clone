@@ -1,12 +1,14 @@
 import { HttpException, HttpStatus } from '@nestjs/common';
 import { Injectable } from '@nestjs/common/decorators';
+import { User } from '@prisma/client';
+import { UserWithFollowingStatus } from '@tw/data';
 import { PrismaService } from 'libs/data-access/src/lib/prisma/prisma.service';
 
 @Injectable()
 export class UtileRepository {
   constructor(private prisma: PrismaService) {}
 
-  async getMostPopularUsers(userId: number) {
+  async getMostPopularUsers(userId: number): Promise<User[]> {
     try {
       return await this.prisma.user.findMany({
         where: {
@@ -14,12 +16,12 @@ export class UtileRepository {
             id: userId,
           },
         },
-        select: {
-          id: true,
-          name: true,
-          uniqueName: true,
-          avatar: true,
-        },
+        // select: {
+        //   id: true,
+        //   name: true,
+        //   uniqueName: true,
+        //   avatar: true,
+        // },
         orderBy: {
           followers: {
             _count: 'desc',
@@ -35,7 +37,7 @@ export class UtileRepository {
     }
   }
 
-  async getSearchData(searchData: string, userId?: number) {
+  async getSearchData(searchData: string, userId?: number): Promise<User[]> {
     try {
       const normalizedSearchData = searchData.toLowerCase();
       return await this.prisma.user.findMany({
@@ -80,6 +82,7 @@ export class UtileRepository {
   }
 
   async getFollowers(userId: number, offset: number, limit: number) {
+    // refactor this to use raw query or what ever, just move all the logic to db
     try {
       const followers = await this.prisma.social.findMany({
         where: {

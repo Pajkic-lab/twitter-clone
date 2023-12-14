@@ -155,21 +155,11 @@ export const authSlice = createSlice({
       })
 
       // Name is unique
-      .addCase(
-        checkNameUniqueness.fulfilled,
-        (
-          state,
-          {
-            payload,
-          }: PayloadAction<
-            AxiosResponse<{ isNameUnique: boolean }, any> | undefined
-          >
-        ) => {
-          if (payload && payload.data) {
-            state.isNameUnique = payload.data.isNameUnique;
-          }
+      .addCase(checkNameUniqueness.fulfilled, (state, payload) => {
+        if (payload.payload?.data.payload) {
+          state.isNameUnique = payload.payload?.data.payload.isNameUnique;
         }
-      )
+      })
       .addCase(
         checkNameUniqueness.rejected,
         (
@@ -181,24 +171,10 @@ export const authSlice = createSlice({
           state.errorMessage = payload.message;
         }
       )
-
-      // Update unique name
-      .addCase(
-        updateUserUniqueName.fulfilled,
-        (
-          state,
-          {
-            payload,
-          }: PayloadAction<
-            AxiosResponse<{ uniqueName: string }, any> | undefined
-          >
-        ) => {
-          if (payload && payload.data) {
-            // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-            state.uniqueName = payload.data.uniqueName as string;
-          }
-        }
-      )
+      .addCase(updateUserUniqueName.fulfilled, (state, payload) => {
+        state.uniqueName =
+          payload.payload?.data.payload.uniqueName ?? state.uniqueName;
+      })
       .addCase(
         updateUserUniqueName.rejected,
         (
@@ -207,32 +183,22 @@ export const authSlice = createSlice({
             payload,
           }: PayloadAction<RejectedWithValueActionFromAsyncThunk<AnyAsyncThunk>>
         ) => {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
           state.errorMessage = payload.message;
         }
       )
 
       // Update User
-      .addCase(
-        updateUser.fulfilled,
-        (
-          state,
-          {
-            payload,
-          }: PayloadAction<AxiosResponse<{ user: User }, any> | undefined>
-        ) => {
-          if (payload && payload.data) {
-            state.name = payload.data.user.name;
-            state.avatar = payload.data.user.avatar;
-            state.cover = payload.data.user.cover;
-            state.bio = payload.data.user.bio;
-            state.location = payload.data.user.location;
-            state.website = payload.data.user.website;
-            // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-            state.createdAt = payload.data.user.createdAt as string;
-          }
-        }
-      )
+      .addCase(updateUser.fulfilled, (state, payload) => {
+        const userData = payload.payload?.data?.payload;
+
+        state.name = userData?.name ?? state.name;
+        state.avatar = userData?.avatar ?? state.avatar;
+        state.cover = userData?.cover ?? state.cover;
+        state.bio = userData?.bio ?? state.bio;
+        state.location = userData?.location ?? state.location;
+        state.website = userData?.website ?? state.website;
+        state.createdAt = userData?.createdAt ?? state.createdAt;
+      })
       .addCase(
         updateUser.rejected,
         (

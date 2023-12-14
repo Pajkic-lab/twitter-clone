@@ -21,13 +21,19 @@ import { HttpService } from '../http/http.service';
 import { Request, Response } from 'express';
 import {
   RequestContainingUserId,
-  NameUniquenessRequestDto,
-  NameUniquenessResponseDto,
+  NameUniqueRequestDto,
+  NameUniqueResponseDto,
   HttpResponse,
   AuthenticationResponseDto,
   SignInEmailResponseDto,
   SignUpEmailResponseDto,
   SocialStatsResponseDto,
+  NameUniqueUpdateResponseDto,
+  UpdateUserRequestDto,
+  UpdateUserResponseDto,
+  PublicUserResponseDto,
+  FollowUserRequestDto,
+  FollowUserResponseDto,
 } from '@tw/data';
 
 @Controller('auth')
@@ -82,51 +88,63 @@ export class AuthController {
     return this.authService.logOut(request);
   }
 
-  @Post('name-uniqueness')
+  @Post('name-unique')
   @UseGuards(IsAuthGuard)
   handleNameUniqueness(
-    @Body() body: NameUniquenessRequestDto
-  ): Promise<NameUniquenessResponseDto> {
+    @Body() body: NameUniqueRequestDto
+  ): Promise<HttpResponse<NameUniqueResponseDto>> {
     return this.authService.checkNameUniqueness(body);
   }
 
-  @Post('create-unique-name')
+  @Patch('name-unique')
   @UseGuards(IsAuthGuard)
   handleUpdateUserUniqueName(
     @Req() request: RequestContainingUserId,
-    @Body() body: NameUniquenessRequestDto
-  ) {
+    @Body() body: NameUniqueRequestDto
+  ): Promise<HttpResponse<NameUniqueUpdateResponseDto>> {
     return this.authService.updateUniqueUserName(request.user.id, body);
   }
 
-  // @Patch('update/user')
-  // @UseGuards(IsAuthGuard)
-  // handleUpdateUser(@Req() request) {
-  //   return this.authService.updateUser(
-  //     request.user.id,
-  //     request.body.updateUser
-  //   );
-  // }
+  @Patch('update/user')
+  @UseGuards(IsAuthGuard)
+  handleUpdateUser(
+    @Req() request: RequestContainingUserId,
+    @Body() body: UpdateUserRequestDto
+  ): Promise<HttpResponse<UpdateUserResponseDto>> {
+    return this.authService.updateUser(request.user.id, body);
+  }
 
-  // @Get('public/user/:id')
-  // @UsePipes(new ParseIntPipe())
-  // handleGetPublicUser(@Param('id') id: number, @Req() request) {
-  //   return this.authService.getPublicUser(id, request.user?.id);
-  // }
+  @Get('public/user/:id')
+  @UsePipes(new ParseIntPipe())
+  handleGetPublicUser(
+    @Param('id') id: number,
+    @Req() request: RequestContainingUserId
+  ): Promise<
+    HttpResponse<{
+      user: PublicUserResponseDto;
+      socialStats: SocialStatsResponseDto;
+      followingStatus: boolean;
+    }>
+  > {
+    return this.authService.getPublicUser(id, request.user.id);
+  }
 
-  // @Post('follow/user')
-  // @UseGuards(IsAuthGuard)
-  // handleFollowUser(@Req() request) {
-  //   return this.authService.followUser(request.user.id, request.body.userId);
-  // }
+  @Post('follow/user')
+  @UseGuards(IsAuthGuard)
+  handleFollowUser(
+    @Req() request: RequestContainingUserId,
+    @Body() body: FollowUserRequestDto
+  ): Promise<HttpResponse<FollowUserResponseDto>> {
+    return this.authService.followUser(request.user.id, body);
+  }
 
-  // @Delete('unfollow/user/:userIdToUnfollow')
-  // @UseGuards(IsAuthGuard)
-  // @UsePipes(new ParseIntPipe())
-  // handleUnFollowUser(
-  //   @Param('userIdToUnfollow') userIdToUnfollow: number,
-  //   @Req() request
-  // ) {
-  //   return this.authService.unFollowUser(request.user.id, userIdToUnfollow);
-  // }
+  @Delete('un-follow/user/:userIdToUnFollow')
+  @UseGuards(IsAuthGuard)
+  @UsePipes(new ParseIntPipe())
+  handleUnFollowUser(
+    @Param('userIdToUnFollow') userIdToUnFollow: number,
+    @Req() request: RequestContainingUserId
+  ) {
+    return this.authService.unFollowUser(request.user.id, userIdToUnFollow);
+  }
 }

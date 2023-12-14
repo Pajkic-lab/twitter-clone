@@ -6,7 +6,6 @@ render alternative Cyclic: https://www.cyclic.sh/
 
 
 
-
 - follow the treed and refactor integration between Frontend and Backend move everything to DTOS lib, add types to http object at front and maybe move http 
 to data-access library, redux is not part of this scope. Also follow in parallel athena pear treed. At Backend add types to controllers and compiler 
 has to be set to strict
@@ -27,7 +26,6 @@ has to be set to strict
 
 - keep same routes and refactor Backend, split auth module to auth and user modules, utile module should be refactored to something else.
 
-- should adjust routes names nameuniqness and register and others
 
 
 Frontend:

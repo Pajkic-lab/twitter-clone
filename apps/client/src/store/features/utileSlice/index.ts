@@ -10,12 +10,13 @@ import { followUserThunk, unFollowUserThunk } from '../authSlice/thunk';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AxiosResponse } from 'axios';
 import { User } from 'apps/client/src/types';
+import { MostPopularUsersResponseDto, SearchUsersResponseDto } from '@tw/data';
 // import { User } from 'types'
 
 interface UtileState {
-  mostPopularUsers: User[];
-  mostPupularUsersIsLoading: boolean;
-  searchRespons: User[];
+  mostPopularUsers: MostPopularUsersResponseDto[];
+  mostPopularUsersIsLoading: boolean;
+  searchResponse: SearchUsersResponseDto[];
   searchIsLoading: boolean;
   errorMessage: string;
   followersList: User[];
@@ -43,8 +44,8 @@ interface UtileState {
 
 const initialState: UtileState = {
   mostPopularUsers: [],
-  mostPupularUsersIsLoading: false,
-  searchRespons: [],
+  mostPopularUsersIsLoading: false,
+  searchResponse: [],
   searchIsLoading: false,
   errorMessage: '',
   followersList: [],
@@ -75,57 +76,32 @@ export const utileSlice = createSlice({
   initialState,
   reducers: {
     resetSearchRespons: (state) => {
-      state.searchRespons = [];
+      state.searchResponse = [];
     },
   },
   extraReducers: (builder) => {
     builder
 
-      // Most pupular profiles
+      // Most popular profiles
       .addCase(getMostPopularProfiles.pending, (state) => {
-        state.mostPupularUsersIsLoading = true;
+        state.mostPopularUsersIsLoading = true;
       })
-      .addCase(
-        getMostPopularProfiles.fulfilled,
-        (
-          state,
-          {
-            payload,
-          }: PayloadAction<
-            AxiosResponse<{ mostPupularUsers: [] }, any> | undefined
-          >
-        ) => {
-          if (payload && payload.data) {
-            state.mostPopularUsers = [...payload.data.mostPupularUsers];
-          }
-          state.mostPupularUsersIsLoading = false;
-        }
-      )
+      .addCase(getMostPopularProfiles.fulfilled, (state, payload) => {
+        state.mostPopularUsers = [...(payload.payload?.data.payload ?? [])];
+      })
       .addCase(getMostPopularProfiles.rejected, (state) => {
         state.errorMessage = '';
-        state.mostPupularUsersIsLoading = false;
+        state.mostPopularUsersIsLoading = false;
       })
 
       // Search response
       .addCase(searchThunk.pending, (state) => {
         state.searchIsLoading = true;
       })
-      .addCase(
-        searchThunk.fulfilled,
-        (
-          state,
-          {
-            payload,
-          }: PayloadAction<
-            AxiosResponse<{ searchRespons: [] }, any> | undefined
-          >
-        ) => {
-          if (payload && payload.data) {
-            state.searchRespons = payload.data.searchRespons;
-          }
-          state.searchIsLoading = false;
-        }
-      )
+      .addCase(searchThunk.fulfilled, (state, payload) => {
+        state.searchResponse = payload.payload?.data.payload!;
+        state.searchIsLoading = false;
+      })
       .addCase(searchThunk.rejected, (state) => {
         state.errorMessage = '';
         state.searchIsLoading = false;
@@ -135,42 +111,68 @@ export const utileSlice = createSlice({
       .addCase(getFollowersThunk.pending, (state) => {
         state.followerListIsLoading = true;
       })
-      .addCase(
-        getFollowersThunk.fulfilled,
-        (
-          state,
-          {
-            payload,
-          }: PayloadAction<
-            AxiosResponse<{ followersList: User[] }, any> | undefined
-          >
-        ) => {
-          if (payload && payload.data) {
-            if (
-              payload.data.followersList &&
-              payload.data.followersList.length
-            ) {
-              const firstUserId = payload.data.followersList[0]?.id;
-              if (firstUserId !== null && firstUserId !== undefined) {
-                const followersIds = state.followersList.map((el) => el.id);
-                const res = followersIds.includes(firstUserId);
-                if (!res) {
-                  state.followersList = [
-                    ...state.followersList,
-                    ...payload.data.followersList,
-                  ];
-                  state.followerOffset =
-                    state.followerOffset + state.followerLimit;
-                }
-              }
-            }
-            if (payload.data.followersList.length < 1) {
-              state.followerHasMore = false;
+      .addCase(getFollowersThunk.fulfilled, (state, payload) => {
+        // this code must be tested !!!!!!!!!!!
+        if (payload.payload?.data.payload && payload.payload?.data.payload) {
+          const firstUserId = payload.payload.data.payload[0]?.id;
+          if (firstUserId !== null && firstUserId !== undefined) {
+            const followersIds = state.followersList.map((el) => el.id);
+            const res = followersIds.includes(firstUserId);
+            if (!res) {
+              state.followersList = [
+                ...state.followersList,
+                ...payload.payload.data.payload,
+              ];
+              state.followerOffset = state.followerOffset + state.followerLimit;
             }
           }
-          state.followerListIsLoading = false;
         }
-      )
+        if (payload?.payload?.data?.payload?.length ?? 0 < 1) {
+          // this code must be tested !!!!!!!!!!!
+          state.followerHasMore = false;
+        }
+        // if (payload.data.followersList.length < 1) {
+        //   state.followerHasMore = false;
+        // }
+
+        state.followerListIsLoading = false;
+      })
+      // .addCase(
+      //   getFollowersThunk.fulfilled,
+      //   (
+      //     state,
+      //     {
+      //       payload,
+      //     }: PayloadAction<
+      //       AxiosResponse<{ followersList: User[] }, any> | undefined
+      //     >
+      //   ) => {
+      //     if (payload && payload.data) {
+      //       if (
+      //         payload.data.followersList &&
+      //         payload.data.followersList.length
+      //       ) {
+      //         const firstUserId = payload.data.followersList[0]?.id;
+      //         if (firstUserId !== null && firstUserId !== undefined) {
+      //           const followersIds = state.followersList.map((el) => el.id);
+      //           const res = followersIds.includes(firstUserId);
+      //           if (!res) {
+      //             state.followersList = [
+      //               ...state.followersList,
+      //               ...payload.data.followersList,
+      //             ];
+      //             state.followerOffset =
+      //               state.followerOffset + state.followerLimit;
+      //           }
+      //         }
+      //       }
+      //       if (payload.data.followersList.length < 1) {
+      //         state.followerHasMore = false;
+      //       }
+      //     }
+      //     state.followerListIsLoading = false;
+      //   }
+      // )
       .addCase(getFollowersThunk.rejected, (state) => {
         state.errorMessage = '';
         state.followerListIsLoading = false;
@@ -219,39 +221,27 @@ export const utileSlice = createSlice({
       })
 
       // Follow user
-      .addCase(
-        followUserThunk.fulfilled,
-        (
-          state,
-          {
-            payload,
-          }: PayloadAction<
-            AxiosResponse<{ userIdToFollow: number }, any> | undefined
-          >
-        ) => {
-          if (payload && payload.data) {
-            state.followersList = state.followersList.map((user) => {
-              if (user.id === payload.data.userIdToFollow) {
-                return {
-                  ...user,
-                  followingStatus: true,
-                };
-              }
-              return user;
-            });
-
-            state.followingList = state.followingList.map((user) => {
-              if (user.id === payload.data.userIdToFollow) {
-                return {
-                  ...user,
-                  followingStatus: true,
-                };
-              }
-              return user;
-            });
+      .addCase(followUserThunk.fulfilled, (state, payload) => {
+        state.followersList = state.followersList.map((user) => {
+          if (user.id === payload.payload?.data.payload.userIdToFollow) {
+            return {
+              ...user,
+              followingStatus: true,
+            };
           }
-        }
-      )
+          return user;
+        });
+
+        state.followingList = state.followingList.map((user) => {
+          if (user.id === payload.payload?.data.payload.userIdToFollow) {
+            return {
+              ...user,
+              followingStatus: true,
+            };
+          }
+          return user;
+        });
+      })
 
       // Unfollow user
       .addCase(

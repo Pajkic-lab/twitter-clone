@@ -6,9 +6,10 @@ import {
   SignUpEmailResponseDto,
   SocialStatsResponseDto,
   UpdateUserDto,
+  UpdateUserRequestDto,
   // User,
 } from '@tw/data';
-import { User } from '@prisma/client';
+import { Social, User } from '@prisma/client';
 
 @Injectable()
 export class AuthRepository {
@@ -110,19 +111,14 @@ export class AuthRepository {
     }
   }
 
-  async updateUser({
-    id,
-    name,
-    avatar,
-    cover,
-    bio,
-    website,
-    location,
-  }: UpdateUserDto) {
+  async updateUser(
+    userId: number,
+    { name, avatar, cover, bio, website, location }: UpdateUserRequestDto
+  ): Promise<User> {
     try {
       return await this.prisma.user.update({
         where: {
-          id,
+          id: userId,
         },
         data: {
           ...(name && { name }),
@@ -160,7 +156,10 @@ export class AuthRepository {
     }
   }
 
-  async getFollowingStatus(publicUserId: number, userId: number) {
+  async getFollowingStatus(
+    publicUserId: number,
+    userId: number
+  ): Promise<boolean> {
     try {
       const res = await this.prisma.social.findFirst({
         where: {
@@ -178,7 +177,7 @@ export class AuthRepository {
     }
   }
 
-  async followUser(userId: number, userIdToFollow: number) {
+  async followUser(userId: number, userIdToFollow: number): Promise<Social> {
     try {
       return await this.prisma.social.create({
         data: {

@@ -2,12 +2,13 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { isAxiosError } from 'axios';
 // import { http } from '@tw/data-access';
 import { http } from 'apps/client/src/http/api';
+import { SearchUserRequestDto } from '@tw/data';
 
 export const getMostPopularProfiles = createAsyncThunk(
   'utile/getMostPopularUsers',
   async (__, { rejectWithValue }) => {
     try {
-      return await http.social.getMostPopularUsers();
+      return await http.user.getMostPopularUsers();
     } catch (error) {
       if (error instanceof Error) {
         if (isAxiosError(error)) {
@@ -22,7 +23,7 @@ export const getMostPopularProfiles = createAsyncThunk(
 
 export const searchThunk = createAsyncThunk(
   'utile/search',
-  async (searchData: string, { rejectWithValue }) => {
+  async (searchData: SearchUserRequestDto, { rejectWithValue }) => {
     try {
       return await http.social.getSearchTerm(searchData);
     } catch (error) {

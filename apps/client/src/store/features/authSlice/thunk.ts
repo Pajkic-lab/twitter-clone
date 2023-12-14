@@ -4,7 +4,10 @@ import { isAxiosError } from 'axios';
 import {
   SignInEmailRequestDto,
   SignUpEmailRequestDto,
-  NameUniquenessRequestDto,
+  NameUniqueRequestDto,
+  UpdateUserRequestDto,
+  FollowUserRequestDto,
+  UnFollowUserRequestDto,
 } from '@tw/data';
 import { http } from 'apps/client/src/http/api';
 
@@ -83,7 +86,7 @@ export const signOutThunk = createAsyncThunk(
 
 export const checkNameUniqueness = createAsyncThunk(
   'auth/checkNameUniqueness',
-  async (data: NameUniquenessRequestDto, { rejectWithValue }) => {
+  async (data: NameUniqueRequestDto, { rejectWithValue }) => {
     try {
       return await http.user.checkNameUniqueness(data);
     } catch (error) {
@@ -96,7 +99,7 @@ export const checkNameUniqueness = createAsyncThunk(
 
 export const updateUserUniqueName = createAsyncThunk(
   'auth/updateUserUniqueName',
-  async (data: NameUniquenessRequestDto, { rejectWithValue }) => {
+  async (data: NameUniqueRequestDto, { rejectWithValue }) => {
     try {
       return await http.user.updateUserUniqueName(data);
     } catch (error) {
@@ -109,7 +112,7 @@ export const updateUserUniqueName = createAsyncThunk(
 
 export const updateUser = createAsyncThunk(
   'auth/updateUser',
-  async (updateUser: UpdateUser, { rejectWithValue }) => {
+  async (updateUser: UpdateUserRequestDto, { rejectWithValue }) => {
     try {
       return await http.user.updateUser(updateUser);
     } catch (error) {
@@ -122,9 +125,10 @@ export const updateUser = createAsyncThunk(
 
 export const followUserThunk = createAsyncThunk(
   'auth/followUser',
-  async (userId: number, { rejectWithValue }) => {
+  // rename userId to followUser or something
+  async (userId: FollowUserRequestDto, { rejectWithValue }) => {
     try {
-      return await http.user.followUser(userId);
+      return await http.social.followUser(userId);
     } catch (error) {
       if (error instanceof Error) {
         return rejectWithValue(error);
@@ -135,9 +139,10 @@ export const followUserThunk = createAsyncThunk(
 
 export const unFollowUserThunk = createAsyncThunk(
   'auth/unFollowUser',
-  async (userId: number, { rejectWithValue }) => {
+  // rename userId to unFollowUser or something
+  async (userId: UnFollowUserRequestDto, { rejectWithValue }) => {
     try {
-      return await http.user.unFollowUser(userId);
+      return await http.social.unFollowUser(userId);
     } catch (error) {
       if (error instanceof Error) {
         return rejectWithValue(error);

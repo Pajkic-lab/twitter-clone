@@ -8,7 +8,7 @@ export interface User {
   bio: string;
   location: string;
   website: string;
-  createdAt: string;
+  createdAt: string | Date;
   followingStatus?: boolean;
 }
 

@@ -1,8 +1,9 @@
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { Request } from 'express';
-import { User } from '@prisma/client';
+import { Social, User } from '@prisma/client';
 import { AutoMap } from '@automapper/classes';
 
+// This entire dir has to be refactored!!!
 export class UserBase implements User {
   @AutoMap()
   id: number;
@@ -41,6 +42,22 @@ export class UserBase implements User {
   updatedAt: Date;
 }
 
+export class UserWithFollowingStatus extends UserBase {
+  @AutoMap()
+  followingStatus: boolean;
+}
+
+export class SocialBase implements Social {
+  @AutoMap()
+  id: number;
+
+  @AutoMap()
+  userId: number;
+
+  @AutoMap()
+  followingId: number;
+}
+
 class UserIdProperty {
   @IsNotEmpty()
   @IsNumber()
@@ -60,4 +77,10 @@ export class CreatableUser {
 export class CreatableGoogleUser {
   email: string;
   name: string;
+}
+
+// should be renamed
+export enum MediaDirectory {
+  Private = 'private',
+  Public = 'public',
 }

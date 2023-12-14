@@ -3,6 +3,13 @@ import { Get, Param, Req, Res, UseGuards } from '@nestjs/common/decorators';
 import { UtileService } from './utile.service';
 import { IsAuthGuard } from '../auth/is-auth.guard';
 import { Response } from 'express';
+import {
+  FollowerListResponseDto,
+  HttpResponse,
+  MostPopularUsersResponseDto,
+  RequestContainingUserId,
+  SearchUsersResponseDto,
+} from '@tw/data';
 
 @Controller('utile')
 export class UtileController {
@@ -10,31 +17,37 @@ export class UtileController {
 
   @Get('li')
   @UseGuards(IsAuthGuard)
+  // exclude passwords!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   async handleGetUserList(@Res() response: Response) {
     const res = await this.utileService.handleGetUserList();
     response.json(res);
   }
 
-  // @Get('most/popular/users')
-  // @UseGuards(IsAuthGuard)
-  // handleGetMostPopularUsers(@Req() request) {
-  //   return this.utileService.getMostPupularUsers(request.user.id);
-  // }
+  @Get('most/popular/users')
+  @UseGuards(IsAuthGuard)
+  handleGetMostPopularUsers(
+    @Req() request: RequestContainingUserId
+  ): Promise<HttpResponse<MostPopularUsersResponseDto[]>> {
+    return this.utileService.getMostPopularUsers(request.user.id);
+  }
 
-  // @Get('search/:searchData')
-  // handleGetSearchData(@Param('searchData') searchData: string, @Req() request) {
-  //   return this.utileService.getSearchData(searchData, request?.user?.id);
-  // }
+  @Get('search/:searchData')
+  handleGetSearchData(
+    @Param('searchData') searchData: string,
+    @Req() request: RequestContainingUserId
+  ): Promise<HttpResponse<SearchUsersResponseDto[]>> {
+    return this.utileService.getSearchData(searchData, request.user.id);
+  }
 
-  // @Get('followers/:offset/:limit')
-  // @UseGuards(IsAuthGuard)
-  // handleGetFollowers(
-  //   @Param('offset') offset: number,
-  //   @Param('limit') limit: number,
-  //   @Req() request
-  // ) {
-  //   return this.utileService.handleFollowers(request.user.id, offset, limit);
-  // }
+  @Get('followers/:offset/:limit')
+  @UseGuards(IsAuthGuard)
+  handleGetFollowers(
+    @Param('offset') offset: number,
+    @Param('limit') limit: number,
+    @Req() request: RequestContainingUserId
+  ): Promise<HttpResponse<FollowerListResponseDto[]>> {
+    return this.utileService.handleFollowers(request.user.id, offset, limit);
+  }
 
   // @Get('following/:offset/:limit')
   // @UseGuards(IsAuthGuard)
