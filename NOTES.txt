@@ -4,7 +4,7 @@ npx nx generate lib <name>
 render alternative Cyclic: https://www.cyclic.sh/
 
 
-
+- run seeder and test out limit and offset
 
 - test app, there is a problem with follow, test it out. And resolve follow button on pp page
     
