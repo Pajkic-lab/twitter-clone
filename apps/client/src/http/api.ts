@@ -23,6 +23,11 @@ import {
   SearchUsersResponseDto,
   FollowerListRequestDto,
   FollowerListResponseDto,
+  FollowingListRequestDto,
+  FollowingListResponseDto,
+  PublicProfileFollowerListRequestDto,
+  PublicProfileFollowingListRequestDto,
+  UnFollowUserResponseDto,
 } from '@tw/data';
 
 export const http = {
@@ -102,11 +107,11 @@ export const http = {
     ): Promise<AxiosResponse<HttpResponse<FollowUserResponseDto>>> {
       return httpClient.post('auth/follow/user', userId);
     },
-    // this route is not refactored completely, do not know what is prisma returning, do get users first
-    unFollowUser(unFollowUser: UnFollowUserRequestDto) {
+    unFollowUser(
+      unFollowUser: UnFollowUserRequestDto
+    ): Promise<AxiosResponse<HttpResponse<UnFollowUserResponseDto>>> {
       return httpClient.delete(`auth/un-follow/user/${unFollowUser.userId}`);
     },
-    // route is hitting Utile controller
     getSearchTerm({
       searchData,
     }: SearchUserRequestDto): Promise<
@@ -114,7 +119,6 @@ export const http = {
     > {
       return httpClient.get(`utile/search/${searchData}`);
     },
-    // work in progress, reducer should be finished
     getFollowers({
       followerOffset,
       followerLimit,
@@ -128,10 +132,9 @@ export const http = {
     getFollowingUsers({
       followingOffset,
       followingLimit,
-    }: {
-      followingOffset: number;
-      followingLimit: number;
-    }) {
+    }: FollowingListRequestDto): Promise<
+      AxiosResponse<HttpResponse<FollowingListResponseDto[]>>
+    > {
       return httpClient.get(
         `utile/following/${followingOffset}/${followingLimit}`
       );
@@ -140,11 +143,9 @@ export const http = {
       PPfollowerOffset,
       PPfollowerLimit,
       userId,
-    }: {
-      PPfollowerOffset: number;
-      PPfollowerLimit: number;
-      userId: number;
-    }) {
+    }: PublicProfileFollowerListRequestDto): Promise<
+      AxiosResponse<HttpResponse<FollowerListResponseDto[]>>
+    > {
       return httpClient.get(
         `utile/pp/followers/${userId}/${PPfollowerOffset}/${PPfollowerLimit}`
       );
@@ -153,11 +154,9 @@ export const http = {
       userId,
       PPfollowingOffset,
       PPfollowingLimit,
-    }: {
-      userId: number;
-      PPfollowingOffset: number;
-      PPfollowingLimit: number;
-    }) {
+    }: PublicProfileFollowingListRequestDto): Promise<
+      AxiosResponse<HttpResponse<FollowingListResponseDto[]>>
+    > {
       return httpClient.get(
         `utile/pp/following/${userId}/${PPfollowingOffset}/${PPfollowingLimit}`
       );

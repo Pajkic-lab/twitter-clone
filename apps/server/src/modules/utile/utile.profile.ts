@@ -4,6 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectMapper } from '../../common/decorators/inject-mapper.decorator';
 import {
   FollowerListResponseDto,
+  FollowingListResponseDto,
   MostPopularUsersResponseDto,
   SearchUsersResponseDto,
   UserBase,
@@ -22,6 +23,7 @@ export class UtileProfile extends AutomapperProfile {
       createMap(mapper, UserBase, SearchUsersResponseDto);
       createMap(mapper, UserBase, FollowerListResponseDto);
       createMap(mapper, UserWithFollowingStatus, FollowerListResponseDto);
+      createMap(mapper, UserWithFollowingStatus, FollowingListResponseDto);
     };
   }
 }

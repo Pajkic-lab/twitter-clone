@@ -6,10 +6,7 @@ render alternative Cyclic: https://www.cyclic.sh/
 
 
 
-- follow the treed and refactor integration between Frontend and Backend move everything to DTOS lib, add types to http object at front and maybe move http 
-to data-access library, redux is not part of this scope. Also follow in parallel athena pear treed. At Backend add types to controllers and compiler 
-has to be set to strict
-    - first treed to follow conventional register, login, logout, social login
+- test app, there is a problem with follow, test it out. And resolve follow button on pp page
     
 - services and repository will be refactored according to Athena
 

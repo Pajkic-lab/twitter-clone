@@ -11,6 +11,7 @@ import {
   SearchUsersResponseDto,
   UserWithFollowingStatus,
   UserBase,
+  FollowingListResponseDto,
 } from '@tw/data';
 import { createResponse } from '../../common/http/create-response';
 
@@ -105,21 +106,35 @@ export class UtileService {
       payload: followerList,
       message: 'users. follower list',
     });
-    // return { followersList };
   }
 
-  async handleFollowing(userId: number, offset: number, limit: number) {
-    const followingList = await this.utileRepository.getFollowingUsers(
+  async handleFollowing(
+    userId: number,
+    offset: number,
+    limit: number
+  ): Promise<HttpResponse<FollowingListResponseDto[]>> {
+    const userList = await this.utileRepository.getFollowingUsers(
       userId,
       offset,
       limit
     );
-    if (!followingList) {
+
+    if (!userList) {
       throw new HttpException(
         'Error while finding following users',
         HttpStatus.INTERNAL_SERVER_ERROR
       );
     }
-    return { followingList };
+
+    const followingList = this.mapper.mapArray(
+      userList,
+      UserWithFollowingStatus,
+      FollowingListResponseDto
+    );
+
+    return createResponse({
+      payload: followingList,
+      message: 'users. following list',
+    });
   }
 }

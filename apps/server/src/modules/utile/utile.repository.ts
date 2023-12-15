@@ -126,6 +126,7 @@ export class UtileRepository {
   }
 
   async getFollowingUsers(userId: number, offset: number, limit: number) {
+    // refactor this to use raw query or what ever, just move all the logic to db
     try {
       const followingUsers = await this.prisma.social.findMany({
         where: {

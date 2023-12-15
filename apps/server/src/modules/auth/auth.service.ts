@@ -32,6 +32,7 @@ import {
   FollowUserRequestDto,
   SocialBase,
   FollowUserResponseDto,
+  UnFollowUserResponseDto,
 } from '@tw/data';
 import { createResponse } from '../../common/http/create-response';
 import { Mapper } from '@automapper/core';
@@ -292,17 +293,24 @@ export class AuthService {
     });
   }
 
-  async unFollowUser(userId: number, userIdToUnFollow: number) {
-    const res = await this.authRepository.unFollowUser(
+  async unFollowUser(
+    userId: number,
+    userIdToUnFollow: number
+  ): Promise<HttpResponse<UnFollowUserResponseDto>> {
+    const { count } = await this.authRepository.unFollowUser(
       userId,
       userIdToUnFollow
     );
-    console.log(11111, res);
-    if (!res)
+    console.log(11222, count);
+    if (!count)
       throw new HttpException(
         'Error while unFollowing user',
         HttpStatus.INTERNAL_SERVER_ERROR
       );
-    return { userIdToUnFollow };
+
+    return createResponse({
+      payload: { userIdToUnFollow },
+      message: 'users. un-follow',
+    });
   }
 }

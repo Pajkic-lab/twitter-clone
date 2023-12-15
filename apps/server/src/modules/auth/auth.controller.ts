@@ -34,6 +34,7 @@ import {
   PublicUserResponseDto,
   FollowUserRequestDto,
   FollowUserResponseDto,
+  UnFollowUserResponseDto,
 } from '@tw/data';
 
 @Controller('auth')
@@ -144,7 +145,7 @@ export class AuthController {
   handleUnFollowUser(
     @Param('userIdToUnFollow') userIdToUnFollow: number,
     @Req() request: RequestContainingUserId
-  ) {
+  ): Promise<HttpResponse<UnFollowUserResponseDto>> {
     return this.authService.unFollowUser(request.user.id, userIdToUnFollow);
   }
 }

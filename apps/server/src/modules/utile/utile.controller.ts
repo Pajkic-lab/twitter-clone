@@ -5,6 +5,7 @@ import { IsAuthGuard } from '../auth/is-auth.guard';
 import { Response } from 'express';
 import {
   FollowerListResponseDto,
+  FollowingListResponseDto,
   HttpResponse,
   MostPopularUsersResponseDto,
   RequestContainingUserId,
@@ -49,22 +50,22 @@ export class UtileController {
     return this.utileService.handleFollowers(request.user.id, offset, limit);
   }
 
-  // @Get('following/:offset/:limit')
-  // @UseGuards(IsAuthGuard)
-  // handleGetFollowing(
-  //   @Param('offset') offset: number,
-  //   @Param('limit') limit: number,
-  //   @Req() request
-  // ) {
-  //   return this.utileService.handleFollowing(request.user.id, offset, limit);
-  // }
+  @Get('following/:offset/:limit')
+  @UseGuards(IsAuthGuard)
+  handleGetFollowing(
+    @Param('offset') offset: number,
+    @Param('limit') limit: number,
+    @Req() request: RequestContainingUserId
+  ): Promise<HttpResponse<FollowingListResponseDto[]>> {
+    return this.utileService.handleFollowing(request.user.id, offset, limit);
+  }
 
   @Get('pp/followers/:userId/:offset/:limit')
   handleGetPPFollowers(
     @Param('userId') userId: number,
     @Param('offset') offset: number,
     @Param('limit') limit: number
-  ) {
+  ): Promise<HttpResponse<FollowerListResponseDto[]>> {
     return this.utileService.handleFollowers(userId, offset, limit);
   }
 
@@ -73,7 +74,7 @@ export class UtileController {
     @Param('userId') userId: number,
     @Param('offset') offset: number,
     @Param('limit') limit: number
-  ) {
+  ): Promise<HttpResponse<FollowingListResponseDto[]>> {
     return this.utileService.handleFollowing(userId, offset, limit);
   }
 }
