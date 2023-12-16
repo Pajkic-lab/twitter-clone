@@ -100,21 +100,21 @@ export class UtileRepository {
         take: limit,
       });
 
-      const followersWithStatus = await Promise.all(
-        followers.map(async (follower) => {
-          const res = await this.prisma.social.findFirst({
-            where: {
-              userId,
-              followingId: follower.user.id,
-            },
-          });
+      const followersWithStatus = [];
 
-          return {
-            ...follower.user,
-            followingStatus: Boolean(res),
-          };
-        })
-      );
+      for (const follower of followers) {
+        const res = await this.prisma.social.findFirst({
+          where: {
+            userId,
+            followingId: follower.user.id,
+          },
+        });
+
+        followersWithStatus.push({
+          ...follower.user,
+          followingStatus: Boolean(res),
+        });
+      }
 
       return followersWithStatus;
     } catch (error) {
@@ -154,19 +154,20 @@ export class UtileRepository {
         take: limit,
       });
 
-      const followingUserWithStatus = await Promise.all(
-        followingUsers.map(async (followingUser) => {
-          return {
-            ...followingUser.following,
-            followingStatus: true,
-          };
-        })
-      );
+      const followingUserWithStatus = [];
+
+      for (const followingUser of followingUsers) {
+        const userWithStatus = {
+          ...followingUser.following,
+          followingStatus: true,
+        };
+        followingUserWithStatus.push(userWithStatus);
+      }
 
       return followingUserWithStatus;
     } catch (error) {
       throw new HttpException(
-        'Error while getting followers',
+        'Error while getting following users',
         HttpStatus.INTERNAL_SERVER_ERROR
       );
     }

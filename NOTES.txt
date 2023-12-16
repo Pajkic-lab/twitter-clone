@@ -4,13 +4,10 @@ npx nx generate lib <name>
 render alternative Cyclic: https://www.cyclic.sh/
 
 
-- run seeder and test out limit and offset
-
-- test app, there is a problem with follow, test it out. And resolve follow button on pp page
+- https://www.youtube.com/watch?v=eJXVEju3XLM
     
 - services and repository will be refactored according to Athena
 
-- https://www.youtube.com/watch?v=eJXVEju3XLM
 
 - Research in depth common dir nested in server athena project
 

@@ -1,6 +1,5 @@
 import { AxiosResponse } from 'axios';
 import { contractClient, httpClient } from './client';
-import { UpdateUser } from '../types';
 import {
   SignUpEmailRequestDto,
   SignUpEmailResponseDto,

@@ -15,8 +15,8 @@
     "db:gui": "prisma studio --schema=./libs/data-access/src/lib/prisma/schema.prisma",
     "db:migrate": "prisma migrate dev --schema=./libs/data-access/src/lib/prisma/schema.prisma",
     "db:reset": "prisma migrate reset --force && pnpm run db:migrate",
-    "sort-package-json": "sort-package-json",
-    "seed:user": "ts-node seeds/user.seed.ts"
+    "seed:user": "ts-node libs/data-access/src/lib/prisma/seeds/user.seed.ts",
+    "sort-package-json": "sort-package-json"
   },
   "dependencies": {
     "@automapper/classes": "^8.7.7",

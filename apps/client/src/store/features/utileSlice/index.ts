@@ -7,11 +7,9 @@ import {
   searchThunk,
 } from './thunk';
 import { followUserThunk, unFollowUserThunk } from '../authSlice/thunk';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AxiosResponse } from 'axios';
+import { createSlice } from '@reduxjs/toolkit';
 import { User } from 'apps/client/src/types';
 import { MostPopularUsersResponseDto, SearchUsersResponseDto } from '@tw/data';
-// import { User } from 'types'
 
 interface UtileState {
   mostPopularUsers: MostPopularUsersResponseDto[];
@@ -112,8 +110,6 @@ export const utileSlice = createSlice({
         state.followerListIsLoading = true;
       })
       .addCase(getFollowersThunk.fulfilled, (state, payload) => {
-        // this code must be tested !!!!!!!!!!!
-        // console.log(payload.payload?.data.payload);
         if (payload.payload?.data.payload && payload.payload?.data.payload) {
           const firstUserId = payload.payload.data.payload[0]?.id;
           if (firstUserId !== null && firstUserId !== undefined) {
@@ -132,48 +128,9 @@ export const utileSlice = createSlice({
           // this code must be tested !!!!!!!!!!!
           state.followerHasMore = false;
         }
-        // if (payload.data.followersList.length < 1) {
-        //   state.followerHasMore = false;
-        // }
 
         state.followerListIsLoading = false;
       })
-      // .addCase(
-      //   getFollowersThunk.fulfilled,
-      //   (
-      //     state,
-      //     {
-      //       payload,
-      //     }: PayloadAction<
-      //       AxiosResponse<{ followersList: User[] }, any> | undefined
-      //     >
-      //   ) => {
-      //     if (payload && payload.data) {
-      //       if (
-      //         payload.data.followersList &&
-      //         payload.data.followersList.length
-      //       ) {
-      //         const firstUserId = payload.data.followersList[0]?.id;
-      //         if (firstUserId !== null && firstUserId !== undefined) {
-      //           const followersIds = state.followersList.map((el) => el.id);
-      //           const res = followersIds.includes(firstUserId);
-      //           if (!res) {
-      //             state.followersList = [
-      //               ...state.followersList,
-      //               ...payload.data.followersList,
-      //             ];
-      //             state.followerOffset =
-      //               state.followerOffset + state.followerLimit;
-      //           }
-      //         }
-      //       }
-      //       if (payload.data.followersList.length < 1) {
-      //         state.followerHasMore = false;
-      //       }
-      //     }
-      //     state.followerListIsLoading = false;
-      //   }
-      // )
       .addCase(getFollowersThunk.rejected, (state) => {
         state.errorMessage = '';
         state.followerListIsLoading = false;
@@ -203,45 +160,9 @@ export const utileSlice = createSlice({
           // this code must be tested !!!!!!!!!!!
           state.followingHasMore = false;
         }
-        // if (payload.data.followingList.length < 1) {
-        //   state.followingHasMore = false;
-        // }
 
         state.followingListIsLoading = false;
       })
-      // .addCase(
-      //   getFollowingUsersThunk.fulfilled,
-      //   (
-      //     state,
-      //     {
-      //       payload,
-      //     }: PayloadAction<
-      //       AxiosResponse<{ followingList: User[] }, any> | undefined
-      //     >
-      //   ) => {
-      //     if (payload && payload.data) {
-      //       if (payload.data.followingList.length) {
-      //         const firstUserId = payload.data.followingList[0]?.id;
-      //         if (firstUserId !== null && firstUserId !== undefined) {
-      //           const followingIds = state.followingList.map((el) => el.id);
-      //           const res = followingIds.includes(firstUserId);
-      //           if (!res) {
-      //             state.followingList = [
-      //               ...state.followingList,
-      //               ...payload.data.followingList,
-      //             ];
-      //             state.followingOffset =
-      //               state.followingOffset + state.followingLimit;
-      //           }
-      //         }
-      //       }
-      //       if (payload.data.followingList.length < 1) {
-      //         state.followingHasMore = false;
-      //       }
-      //     }
-      //     state.followingListIsLoading = false;
-      //   }
-      // )
       .addCase(getFollowingUsersThunk.rejected, (state) => {
         state.errorMessage = '';
         state.followingListIsLoading = false;
@@ -292,39 +213,6 @@ export const utileSlice = createSlice({
           return user;
         });
       })
-      // .addCase(
-      //   unFollowUserThunk.fulfilled,
-      //   (
-      //     state,
-      //     {
-      //       payload,
-      //     }: PayloadAction<
-      //       AxiosResponse<{ userIdToUnFollow: number }, any> | undefined
-      //     >
-      //   ) => {
-      //     if (payload && payload.data) {
-      //       state.followersList = state.followersList.map((user) => {
-      //         if (user.id === payload.data.userIdToUnFollow) {
-      //           return {
-      //             ...user,
-      //             followingStatus: false,
-      //           };
-      //         }
-      //         return user;
-      //       });
-
-      //       state.followingList = state.followingList.map((user) => {
-      //         if (user.id === payload.data.userIdToUnFollow) {
-      //           return {
-      //             ...user,
-      //             followingStatus: false,
-      //           };
-      //         }
-      //         return user;
-      //       });
-      //     }
-      //   }
-      // )
 
       // Get PP followers
       .addCase(getPPFollowersThunk.pending, (state) => {
@@ -347,48 +235,11 @@ export const utileSlice = createSlice({
           }
         }
         if (payload?.payload?.data?.payload?.length ?? 0 < 1) {
-          // this code must be tested !!!!!!!!!!!
           state.PPfollowerHasMore = false;
         }
-        // if (payload.data.followersList.length < 1) {
-        //   state.PPfollowerHasMore = false;
-        // }
 
         state.PPfollowerListIsLoading = false;
       })
-      // .addCase(
-      //   getPPFollowersThunk.fulfilled,
-      //   (
-      //     state,
-      //     {
-      //       payload,
-      //     }: PayloadAction<
-      //       AxiosResponse<{ followersList: User[] }, any> | undefined
-      //     >
-      //   ) => {
-      //     if (payload && payload.data) {
-      //       if (payload.data.followersList.length) {
-      //         const firstUserId = payload.data.followersList[0]?.id;
-      //         if (firstUserId !== null && firstUserId !== undefined) {
-      //           const followersIds = state.PPfollowersList.map((el) => el.id);
-      //           const res = followersIds.includes(firstUserId);
-      //           if (!res) {
-      //             state.PPfollowersList = [
-      //               ...state.PPfollowersList,
-      //               ...payload.data.followersList,
-      //             ];
-      //             state.PPfollowerOffset =
-      //               state.PPfollowerOffset + state.PPfollowerLimit;
-      //           }
-      //         }
-      //       }
-      //       if (payload.data.followersList.length < 1) {
-      //         state.PPfollowerHasMore = false;
-      //       }
-      //     }
-      //     state.PPfollowerListIsLoading = false;
-      //   }
-      // )
       .addCase(getPPFollowersThunk.rejected, (state) => {
         state.errorMessage = '';
         state.PPfollowerListIsLoading = false;
@@ -418,45 +269,9 @@ export const utileSlice = createSlice({
           // this code must be tested !!!!!!!!!!!
           state.PPfollowerHasMore = false;
         }
-        // if (payload.data.followingList.length < 1) {
-        //   state.PPfollowingHasMore = false;
-        // }
 
         state.PPfollowingListIsLoading = false;
       })
-      // .addCase(
-      //   getPPFollowingUsersThunk.fulfilled,
-      //   (
-      //     state,
-      //     {
-      //       payload,
-      //     }: PayloadAction<
-      //       AxiosResponse<{ followingList: User[] }, any> | undefined
-      //     >
-      //   ) => {
-      //     if (payload && payload.data) {
-      //       if (payload.data.followingList.length) {
-      //         const firstUserId = payload.data.followingList[0]?.id;
-      //         if (firstUserId !== null && firstUserId !== undefined) {
-      //           const followingIds = state.PPfollowingList.map((el) => el.id);
-      //           const res = followingIds.includes(firstUserId);
-      //           if (!res) {
-      //             state.PPfollowingList = [
-      //               ...state.PPfollowingList,
-      //               ...payload.data.followingList,
-      //             ];
-      //             state.PPfollowingOffset =
-      //               state.PPfollowingOffset + state.PPfollowingLimit;
-      //           }
-      //         }
-      //       }
-      //       if (payload.data.followingList.length < 1) {
-      //         state.PPfollowingHasMore = false;
-      //       }
-      //     }
-      //     state.PPfollowingListIsLoading = false;
-      //   }
-      // )
       .addCase(getPPFollowingUsersThunk.rejected, (state) => {
         state.errorMessage = '';
         state.PPfollowingListIsLoading = false;

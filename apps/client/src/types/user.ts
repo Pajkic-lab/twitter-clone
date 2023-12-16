@@ -1,3 +1,4 @@
+// Should be completely replace by shared types for Data lib
 export interface User {
   id: number | null;
   name: string;
