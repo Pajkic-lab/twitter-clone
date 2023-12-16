@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import React from 'react';
 import { Colors } from 'apps/client/src/ui/styles';
 
 export const SocialStats = ({

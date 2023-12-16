@@ -16,12 +16,15 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "baseUrl": ".",
-    // "strict": true,
     "strictPropertyInitialization": false,
     "useUnknownInCatchVariables": true,
     "noUncheckedIndexedAccess": true,
-
+    "noUnusedLocals": false,
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "strict": true,
     "paths": {
+      "@tw/contract": ["libs/contract/src/index.ts"],
       "@tw/data": ["libs/data/src/index.ts"],
       "@tw/data-access": ["libs/data-access/src/index.ts"]
     }

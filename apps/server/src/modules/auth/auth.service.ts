@@ -3,6 +3,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+
 import { Req } from '@nestjs/common/decorators';
 import { HttpStatus } from '@nestjs/common/enums';
 import { HttpException } from '@nestjs/common/exceptions';
@@ -11,56 +12,124 @@ import { AuthMediaRepository } from './auth.media-repository';
 import { AuthRepository } from './auth.repository';
 import { Request } from 'express';
 import {
-  ConfirmUserDto,
-  CreatGoogleUserDto,
-  CreateUserDto,
-  UpdateUserDto,
   MediaDirectory,
+  SignUpEmailRequestDto,
+  CreatableUser,
+  SignUpEmailResponseDto,
+  SignInEmailRequestDto,
+  SignInEmailResponseDto,
+  AuthenticationResponseDto,
+  CreatableGoogleUser,
+  NameUniqueRequestDto,
+  NameUniqueResponseDto,
+  HttpResponse,
+  UserBase,
+  SocialStatsResponseDto,
+  NameUniqueUpdateResponseDto,
+  UpdateUserRequestDto,
+  UpdateUserResponseDto,
+  PublicUserResponseDto,
+  FollowUserRequestDto,
+  SocialBase,
+  FollowUserResponseDto,
+  UnFollowUserResponseDto,
 } from '@tw/data';
+import { createResponse } from '../../common/http/create-response';
+import { Mapper } from '@automapper/core';
+import { InjectMapper } from '../../common/decorators/inject-mapper.decorator';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class AuthService {
   constructor(
     private authRepository: AuthRepository,
-    private mediaRepository: AuthMediaRepository
+    private mediaRepository: AuthMediaRepository,
+    @InjectMapper() private readonly mapper: Mapper
   ) {}
 
-  async registerUser(createUser: CreateUserDto) {
+  // invoked from strategy
+  async signUpUser(createUser: SignUpEmailRequestDto): Promise<User> {
     const salt = 10;
 
     const user = await this.authRepository.findUserByEmail(createUser.email);
+
     if (user) throw new NotFoundException('User already exist');
 
-    createUser.password = await bcrypt.hash(createUser.password, salt);
-    delete createUser.confirmPassword;
+    const hashedPassword = await bcrypt.hash(createUser.password, salt);
 
-    const newUser = await this.authRepository.createUser(createUser);
-    return newUser;
+    const creatableUser: CreatableUser = {
+      name: createUser.username,
+      email: createUser.email,
+      password: hashedPassword,
+    };
+
+    return await this.authRepository.createUser(creatableUser);
   }
 
-  async loginUser(confirmUser: ConfirmUserDto) {
-    const user = await this.authRepository.findUserByEmail(confirmUser.email);
+  // invoked from strategy
+  async signInUser(signInUser: SignInEmailRequestDto): Promise<User> {
+    const user = await this.authRepository.findUserByEmail(signInUser.email);
 
     if (!user) throw new NotFoundException('User does not exist');
-    if (await bcrypt.compare(confirmUser.password, user.password)) return user;
+
+    if (await bcrypt.compare(signInUser.password, user?.password!)) return user;
+
     throw new NotFoundException('Invalid credentials');
   }
 
-  async authUser(userId: number) {
+  async signInGetUser(
+    userId: number
+  ): Promise<HttpResponse<SignInEmailResponseDto>> {
     const user = await this.authRepository.findUserById(userId);
+
     if (!user) throw new NotFoundException('User does not exist');
-    delete user.password;
-    const socialStats = await this.authRepository.getSocialStats(userId);
-    if (!socialStats) throw new NotFoundException('Social stats do not exist');
-    return { user, socialStats };
+
+    const payload = this.mapper.map(user, UserBase, SignInEmailResponseDto);
+
+    return createResponse({ payload, message: 'users.signInSuccess' });
   }
 
-  async validateGoogleUser(createUser: CreatGoogleUserDto) {
+  async sigUpGetUser(
+    userId: number
+  ): Promise<HttpResponse<SignUpEmailResponseDto>> {
+    const user = await this.authRepository.findUserById(userId);
+
+    if (!user) throw new NotFoundException('User does not exist');
+
+    const payload = this.mapper.map(user, UserBase, SignUpEmailResponseDto);
+
+    return createResponse({ payload, message: 'users.signUpSuccess' });
+  }
+
+  async authUser(userId: number): Promise<
+    HttpResponse<{
+      user: AuthenticationResponseDto;
+      socialStats: SocialStatsResponseDto;
+    }>
+  > {
+    const user = await this.authRepository.findUserById(userId);
+
+    if (!user) throw new NotFoundException('User does not exist');
+
+    const authUser = this.mapper.map(user, UserBase, AuthenticationResponseDto);
+
+    // this should be separate request
+    const socialStats = await this.authRepository.getSocialStats(userId);
+
+    if (!socialStats) throw new NotFoundException('Social stats do not exist');
+
+    return createResponse({
+      payload: { user: authUser, socialStats },
+      message: 'users.authSuccess',
+    });
+  }
+
+  async validateGoogleUser(createUser: CreatableGoogleUser): Promise<User> {
     const user = await this.authRepository.findUserByEmail(createUser.email);
+
     if (user) return user;
 
-    const newUser = await this.authRepository.createGoogleUser(createUser);
-    return newUser;
+    return await this.authRepository.createGoogleUser(createUser);
   }
 
   async findUser(userId: number) {
@@ -75,70 +144,113 @@ export class AuthService {
     return;
   }
 
-  async checkNameUniqueness(uniqueName: string) {
-    const res = await this.authRepository.isUserNameUnique(uniqueName);
+  async checkNameUniqueness(
+    data: NameUniqueRequestDto
+  ): Promise<HttpResponse<NameUniqueResponseDto>> {
+    const res = await this.authRepository.isUserNameUnique(data.uniqueName);
+
+    let isNameUnique;
+
     if (res !== null) {
-      return { isNameUnique: false };
+      isNameUnique = false;
+    } else {
+      isNameUnique = true;
     }
-    return { isNameUnique: true };
+
+    return createResponse({
+      payload: { isNameUnique },
+      message: 'users.name is unique',
+    });
   }
 
-  async updateUniqueUserName(userId: number, uniqueName: string) {
+  async updateUniqueUserName(
+    userId: number,
+    data: NameUniqueRequestDto
+  ): Promise<HttpResponse<NameUniqueUpdateResponseDto>> {
     let user;
-    const res = await this.authRepository.isUserNameUnique(uniqueName);
-    if (res !== null) {
+    user = await this.authRepository.isUserNameUnique(data.uniqueName);
+    if (user !== null) {
       throw new NotFoundException('Uniqu user name already exist!');
     } else {
-      user = await this.authRepository.updateUserNameUnique(userId, uniqueName);
-      if (!user)
-        throw new HttpException(
-          'Error while updating unique user name',
-          HttpStatus.INTERNAL_SERVER_ERROR
-        );
+      user = await this.authRepository.updateUserNameUnique(
+        userId,
+        data.uniqueName
+      );
     }
-    return { uniqueName: user.uniqueName };
+
+    const uniqueName = this.mapper.map(
+      user,
+      UserBase,
+      NameUniqueUpdateResponseDto
+    );
+
+    return createResponse({
+      payload: uniqueName,
+      message: 'users.name is unique',
+    });
   }
 
-  async updateUser(userId: number, updateUser: UpdateUserDto) {
-    let avatarUrl;
-    let coverUrl;
+  async updateUser(
+    userId: number,
+    updateUser: UpdateUserRequestDto
+  ): Promise<HttpResponse<UpdateUserResponseDto>> {
+    let avatarUrl: string = '';
+    let coverUrl: string = '';
 
-    updateUser.id = userId;
     if (updateUser.avatar) {
-      const res = await this.mediaRepository.uploadImage(
+      const { url } = await this.mediaRepository.uploadImage(
         updateUser.avatar,
         userId,
         MediaDirectory.Private
       );
-      avatarUrl = res.url;
-      updateUser.avatar = avatarUrl;
+      avatarUrl = url;
     }
     if (updateUser.cover) {
-      const res = await this.mediaRepository.uploadImage(
+      const { url } = await this.mediaRepository.uploadImage(
         updateUser.cover,
         userId,
         MediaDirectory.Private
       );
-      coverUrl = res.url;
-      updateUser.cover = coverUrl;
+      coverUrl = url;
     }
 
-    const user = await this.authRepository.updateUser(updateUser);
-    delete user.password;
-    return { user };
+    updateUser.avatar = avatarUrl;
+    updateUser.cover = coverUrl;
+
+    const user = await this.authRepository.updateUser(userId, updateUser);
+
+    const updatedUser = this.mapper.map(user, UserBase, UpdateUserResponseDto);
+
+    return createResponse({
+      payload: updatedUser,
+      message: 'users.is updated',
+    });
   }
 
-  async getPublicUser(publicUserId: number, userId?: number) {
+  async getPublicUser(
+    publicUserId: number,
+    userId?: number
+  ): Promise<
+    HttpResponse<{
+      user: PublicUserResponseDto;
+      socialStats: SocialStatsResponseDto;
+      followingStatus: boolean;
+    }>
+  > {
     let followingStatus;
+
     if (publicUserId === userId) {
       throw new NotFoundException(
-        'Can not acces to specific user as authenticated same user'
+        'Can not access to specific user as authenticated same user'
       );
     }
+
     const user = await this.authRepository.findUserById(publicUserId);
+
     if (!user) throw new NotFoundException('User does not exist');
-    delete user.password;
-    delete user.email;
+
+    const publicUser = this.mapper.map(user, UserBase, PublicUserResponseDto);
+
     const socialStats = await this.authRepository.getSocialStats(publicUserId);
 
     if (!socialStats) throw new NotFoundException('Social status do not exist');
@@ -148,29 +260,57 @@ export class AuthService {
         userId
       );
     }
-    return { user, socialStats, followingStatus };
+
+    return createResponse({
+      payload: { user: publicUser, socialStats, followingStatus },
+      message: 'users.authSuccess',
+    });
   }
 
-  async followUser(userId: number, userIdToFollow: number) {
-    const res = await this.authRepository.followUser(userId, userIdToFollow);
-    if (!res)
+  async followUser(
+    userId: number,
+    followUser: FollowUserRequestDto
+  ): Promise<HttpResponse<FollowUserResponseDto>> {
+    const social = await this.authRepository.followUser(
+      userId,
+      followUser.userId
+    );
+    if (!social)
       throw new HttpException(
         'Error while following user',
         HttpStatus.INTERNAL_SERVER_ERROR
       );
-    return { userIdToFollow };
+
+    const userToFollow = this.mapper.map(
+      social,
+      SocialBase,
+      FollowUserResponseDto
+    );
+
+    return createResponse({
+      payload: userToFollow,
+      message: 'users. to follow',
+    });
   }
 
-  async unFollowUser(userId: number, userIdToUnFollow: number) {
-    const res = await this.authRepository.unFollowUser(
+  async unFollowUser(
+    userId: number,
+    userIdToUnFollow: number
+  ): Promise<HttpResponse<UnFollowUserResponseDto>> {
+    const { count } = await this.authRepository.unFollowUser(
       userId,
       userIdToUnFollow
     );
-    if (!res)
+    console.log(11222, count);
+    if (!count)
       throw new HttpException(
         'Error while unFollowing user',
         HttpStatus.INTERNAL_SERVER_ERROR
       );
-    return { userIdToUnFollow };
+
+    return createResponse({
+      payload: { userIdToUnFollow },
+      message: 'users. un-follow',
+    });
   }
 }

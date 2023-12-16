@@ -1,12 +1,19 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { UpdateUser } from 'apps/client/src/types';
 import { isAxiosError } from 'axios';
-import http from 'apps/client/src/http/api';
-import { CreateUserDto, ConfirmUserDto } from '@tw/data';
+import {
+  SignInEmailRequestDto,
+  SignUpEmailRequestDto,
+  NameUniqueRequestDto,
+  UpdateUserRequestDto,
+  FollowUserRequestDto,
+  UnFollowUserRequestDto,
+} from '@tw/data';
+import { http } from 'apps/client/src/http/api';
 
 export const signUpThunk = createAsyncThunk(
   'auth/signUp',
-  async (user: CreateUserDto, { rejectWithValue }) => {
+  async (user: SignUpEmailRequestDto, { rejectWithValue }) => {
     try {
       return await http.auth.signUp(user);
     } catch (error) {
@@ -23,7 +30,7 @@ export const signUpThunk = createAsyncThunk(
 
 export const signInThunk = createAsyncThunk(
   'auth/signIn',
-  async (user: ConfirmUserDto, { rejectWithValue }) => {
+  async (user: SignInEmailRequestDto, { rejectWithValue }) => {
     try {
       return await http.auth.signIn(user);
     } catch (error) {
@@ -79,9 +86,9 @@ export const signOutThunk = createAsyncThunk(
 
 export const checkNameUniqueness = createAsyncThunk(
   'auth/checkNameUniqueness',
-  async (uniqueName: string, { rejectWithValue }) => {
+  async (data: NameUniqueRequestDto, { rejectWithValue }) => {
     try {
-      return await http.auth.checkNameUniqueness(uniqueName);
+      return await http.user.checkNameUniqueness(data);
     } catch (error) {
       if (error instanceof Error) {
         return rejectWithValue(error);
@@ -92,9 +99,9 @@ export const checkNameUniqueness = createAsyncThunk(
 
 export const updateUserUniqueName = createAsyncThunk(
   'auth/updateUserUniqueName',
-  async (uniqueName: string, { rejectWithValue }) => {
+  async (data: NameUniqueRequestDto, { rejectWithValue }) => {
     try {
-      return await http.auth.updateUserUniqueName(uniqueName);
+      return await http.user.updateUserUniqueName(data);
     } catch (error) {
       if (error instanceof Error) {
         return rejectWithValue(error);
@@ -105,9 +112,9 @@ export const updateUserUniqueName = createAsyncThunk(
 
 export const updateUser = createAsyncThunk(
   'auth/updateUser',
-  async (updateUser: UpdateUser, { rejectWithValue }) => {
+  async (updateUser: UpdateUserRequestDto, { rejectWithValue }) => {
     try {
-      return await http.auth.updateUser(updateUser);
+      return await http.user.updateUser(updateUser);
     } catch (error) {
       if (error instanceof Error) {
         return rejectWithValue(error);
@@ -118,9 +125,10 @@ export const updateUser = createAsyncThunk(
 
 export const followUserThunk = createAsyncThunk(
   'auth/followUser',
-  async (userId: number, { rejectWithValue }) => {
+  // rename userId to followUser or something
+  async (userId: FollowUserRequestDto, { rejectWithValue }) => {
     try {
-      return await http.auth.followUser(userId);
+      return await http.social.followUser(userId);
     } catch (error) {
       if (error instanceof Error) {
         return rejectWithValue(error);
@@ -131,9 +139,10 @@ export const followUserThunk = createAsyncThunk(
 
 export const unFollowUserThunk = createAsyncThunk(
   'auth/unFollowUser',
-  async (userId: number, { rejectWithValue }) => {
+  // rename userId to unFollowUser or something
+  async (userId: UnFollowUserRequestDto, { rejectWithValue }) => {
     try {
-      return await http.auth.unFollowUser(userId);
+      return await http.social.unFollowUser(userId);
     } catch (error) {
       if (error instanceof Error) {
         return rejectWithValue(error);

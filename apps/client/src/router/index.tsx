@@ -68,30 +68,30 @@ export const Router: React.FC = () => {
   );
 };
 
-const routesData = [
-  {
-    path: '/',
-    authType: AuthType.Guest,
-    component: <LandingPage />,
-  },
-  {
-    path: '/home',
-    authType: AuthType.Protected,
-    component: <Home />,
-  },
-  {
-    path: '/porfilie',
-    authType: AuthType.Protected,
-    component: <Profile />,
-  },
-  {
-    path: '/porfilie/option?:option',
-    authType: AuthType.Protected,
-    component: <ContactList />,
-  },
-  // {
-  //   path: '/porfilie',
-  //   authType: AuthType.Protected,
-  //   component: <ContactList />,
-  // },
-];
+// const routesData = [
+//   {
+//     path: '/',
+//     authType: AuthType.Guest,
+//     component: <LandingPage />,
+//   },
+//   {
+//     path: '/home',
+//     authType: AuthType.Protected,
+//     component: <Home />,
+//   },
+//   {
+//     path: '/porfilie',
+//     authType: AuthType.Protected,
+//     component: <Profile />,
+//   },
+//   {
+//     path: '/porfilie/option?:option',
+//     authType: AuthType.Protected,
+//     component: <ContactList />,
+//   },
+//   // {
+//   //   path: '/porfilie',
+//   //   authType: AuthType.Protected,
+//   //   component: <ContactList />,
+//   // },
+// ];

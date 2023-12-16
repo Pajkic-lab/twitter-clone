@@ -1,12 +1,21 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from 'libs/data-access/src/lib/prisma/prisma.service';
-import { CreateUserDto, CreatGoogleUserDto, UpdateUserDto } from '@tw/data';
+import {
+  CreatableGoogleUser,
+  CreatableUser,
+  SignUpEmailResponseDto,
+  SocialStatsResponseDto,
+  UpdateUserDto,
+  UpdateUserRequestDto,
+  // User,
+} from '@tw/data';
+import { Social, User } from '@prisma/client';
 
 @Injectable()
 export class AuthRepository {
   constructor(private prisma: PrismaService) {}
 
-  async findUserByEmail(email: string) {
+  async findUserByEmail(email: string): Promise<User | null> {
     try {
       return await this.prisma.user.findUnique({
         where: {
@@ -21,7 +30,7 @@ export class AuthRepository {
     }
   }
 
-  async createUser({ name, email, password }: CreateUserDto) {
+  async createUser({ name, email, password }: CreatableUser): Promise<User> {
     try {
       return await this.prisma.user.create({
         data: {
@@ -38,7 +47,7 @@ export class AuthRepository {
     }
   }
 
-  async createGoogleUser({ name, email }: CreatGoogleUserDto) {
+  async createGoogleUser({ name, email }: CreatableGoogleUser): Promise<User> {
     try {
       return await this.prisma.user.create({
         data: {
@@ -54,7 +63,7 @@ export class AuthRepository {
     }
   }
 
-  async findUserById(userId: number) {
+  async findUserById(userId: number): Promise<User | null> {
     try {
       return await this.prisma.user.findUnique({
         where: {
@@ -69,7 +78,7 @@ export class AuthRepository {
     }
   }
 
-  async isUserNameUnique(uniqueName: string) {
+  async isUserNameUnique(uniqueName: string): Promise<User | null> {
     try {
       return await this.prisma.user.findUnique({
         where: {
@@ -84,7 +93,7 @@ export class AuthRepository {
     }
   }
 
-  async updateUserNameUnique(id: number, uniqueName: string) {
+  async updateUserNameUnique(id: number, uniqueName: string): Promise<User> {
     try {
       return await this.prisma.user.update({
         where: {
@@ -102,19 +111,14 @@ export class AuthRepository {
     }
   }
 
-  async updateUser({
-    id,
-    name,
-    avatar,
-    cover,
-    bio,
-    website,
-    location,
-  }: UpdateUserDto) {
+  async updateUser(
+    userId: number,
+    { name, avatar, cover, bio, website, location }: UpdateUserRequestDto
+  ): Promise<User> {
     try {
       return await this.prisma.user.update({
         where: {
-          id,
+          id: userId,
         },
         data: {
           ...(name && { name }),
@@ -133,7 +137,7 @@ export class AuthRepository {
     }
   }
 
-  async getSocialStats(userId: number) {
+  async getSocialStats(userId: number): Promise<SocialStatsResponseDto> {
     try {
       const followingCount = await this.prisma.social.count({
         where: { userId },
@@ -152,7 +156,10 @@ export class AuthRepository {
     }
   }
 
-  async getFollowingStatus(publicUserId: number, userId: number) {
+  async getFollowingStatus(
+    publicUserId: number,
+    userId: number
+  ): Promise<boolean> {
     try {
       const res = await this.prisma.social.findFirst({
         where: {
@@ -170,7 +177,7 @@ export class AuthRepository {
     }
   }
 
-  async followUser(userId: number, userIdToFollow: number) {
+  async followUser(userId: number, userIdToFollow: number): Promise<Social> {
     try {
       return await this.prisma.social.create({
         data: {

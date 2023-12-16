@@ -1,3 +1,4 @@
+// Should be completely replace by shared types for Data lib
 export interface User {
   id: number | null;
   name: string;
@@ -8,13 +9,8 @@ export interface User {
   bio: string;
   location: string;
   website: string;
-  createdAt: string;
+  createdAt: string | Date;
   followingStatus?: boolean;
-}
-
-export interface SocialStats {
-  followingCount: number;
-  followersCount: number;
 }
 
 export type UpdateUser = Partial<

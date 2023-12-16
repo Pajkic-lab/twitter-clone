@@ -9,7 +9,7 @@ import { signUpThunk } from '../../store/features/authSlice/thunk';
 import { Colors } from '../../ui/styles';
 import { BaseInput } from '../../ui/Input';
 import { JumboButton } from '../../ui/Button';
-import { CreateUserDto } from '@tw/data';
+import { SignUpEmailRequestDto } from '@tw/data';
 
 interface Props {
   signUpModalIsOpen: boolean;
@@ -29,14 +29,14 @@ export const SignUpModal: React.FC<Props> = ({
   };
 
   const onSubmit = async (
-    values: CreateUserDto,
-    actions: FormikHelpers<CreateUserDto>
+    values: SignUpEmailRequestDto,
+    actions: FormikHelpers<SignUpEmailRequestDto>
   ) => {
     await dispatch(signUpThunk(values));
   };
 
   const validationSchema = yup.object().shape({
-    name: yup
+    username: yup
       .string()
       .required('Name is required!')
       .max(8, 'Name can not be longer then 8 characters'),
@@ -70,7 +70,7 @@ export const SignUpModal: React.FC<Props> = ({
     values,
   } = useFormik({
     initialValues: {
-      name: '',
+      username: '',
       email: '',
       password: '',
       confirmPassword: '',
@@ -82,7 +82,7 @@ export const SignUpModal: React.FC<Props> = ({
   useEffect(() => {
     if (errorMessage) {
       setErrors({
-        name: errorMessage,
+        username: errorMessage,
         email: errorMessage,
         password: errorMessage,
         confirmPassword: errorMessage,
@@ -98,12 +98,12 @@ export const SignUpModal: React.FC<Props> = ({
           <H1>Create your account</H1>
           <Form onSubmit={handleSubmit}>
             <Input
-              id={'name'}
-              type={'name'}
-              name={'Name'}
-              value={values.name}
-              error={errors.name}
-              touched={touched.name}
+              id={'username'}
+              type={'username'}
+              name={'Username'}
+              value={values.username}
+              error={errors.username}
+              touched={touched.username}
               onBlure={handleBlur}
               handleChange={handleChange}
             />

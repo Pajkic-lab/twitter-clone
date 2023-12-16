@@ -1,5 +1,5 @@
 import { Colors } from 'apps/client/src/ui/styles';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 
 export const HomeNavBar = () => {

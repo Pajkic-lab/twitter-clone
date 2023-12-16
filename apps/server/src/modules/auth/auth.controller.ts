@@ -19,6 +19,23 @@ import { IsGuestGuard } from './is-guest.guard';
 import { LocalAuthGuard } from './local-strategy/local-auth.guard';
 import { HttpService } from '../http/http.service';
 import { Request, Response } from 'express';
+import {
+  RequestContainingUserId,
+  NameUniqueRequestDto,
+  NameUniqueResponseDto,
+  HttpResponse,
+  AuthenticationResponseDto,
+  SignInEmailResponseDto,
+  SignUpEmailResponseDto,
+  SocialStatsResponseDto,
+  NameUniqueUpdateResponseDto,
+  UpdateUserRequestDto,
+  UpdateUserResponseDto,
+  PublicUserResponseDto,
+  FollowUserRequestDto,
+  FollowUserResponseDto,
+  UnFollowUserResponseDto,
+} from '@tw/data';
 
 @Controller('auth')
 export class AuthController {
@@ -29,83 +46,106 @@ export class AuthController {
 
   @Get('google/login')
   @UseGuards(IsGuestGuard, GoogleAuthGuard)
-  handleGooleLogin() {
+  handleGoogleLogin() {
     return;
   }
 
   @Get('google/redirect')
   @UseGuards(GoogleAuthGuard)
-  handleGoogleRedirect(@Res() response: Response) {
+  handleGoogleRedirect(@Res() response: Response): void {
     response.redirect(this.httpService.baseUrlClient('/'));
   }
 
-  @Post('register')
+  @Post('sign-up')
   @UseGuards(IsGuestGuard, LocalAuthGuard)
-  handleLocalRegister() {
-    return;
+  handleLocalRegister(
+    @Req() request: RequestContainingUserId
+  ): Promise<HttpResponse<SignUpEmailResponseDto>> {
+    return this.authService.sigUpGetUser(request.user.id);
   }
 
-  @Post('login')
+  @Post('sign-in')
   @UseGuards(IsGuestGuard, LocalAuthGuard)
-  handleLocalLogin() {
-    return;
+  handleLocalLogin(
+    @Req() request: RequestContainingUserId
+  ): Promise<HttpResponse<SignInEmailResponseDto>> {
+    return this.authService.signInGetUser(request.user.id);
   }
 
   @Get('user')
   @UseGuards(IsAuthGuard)
-  handleAuthUser(@Req() request) {
+  handleAuthUser(@Req() request: RequestContainingUserId): Promise<
+    HttpResponse<{
+      user: AuthenticationResponseDto;
+      socialStats: SocialStatsResponseDto;
+    }>
+  > {
     return this.authService.authUser(request.user.id);
   }
 
   @Get('logout')
   @UseGuards(IsAuthGuard)
-  handlelogout(@Req() request: Request) {
+  handleLogOut(@Req() request: Request): Promise<void> {
     return this.authService.logOut(request);
   }
 
-  @Post('nameuniqueness')
+  @Post('name-unique')
   @UseGuards(IsAuthGuard)
-  handleNameuniqueness(@Body() body) {
-    return this.authService.checkNameUniqueness(body.uniqueName);
+  handleNameUniqueness(
+    @Body() body: NameUniqueRequestDto
+  ): Promise<HttpResponse<NameUniqueResponseDto>> {
+    return this.authService.checkNameUniqueness(body);
   }
 
-  @Post('createuniquename')
+  @Patch('name-unique')
   @UseGuards(IsAuthGuard)
-  handleUpdateUserUniqueName(@Req() request) {
-    return this.authService.updateUniqueUserName(
-      request.user.id,
-      request.body.uniqueName
-    );
+  handleUpdateUserUniqueName(
+    @Req() request: RequestContainingUserId,
+    @Body() body: NameUniqueRequestDto
+  ): Promise<HttpResponse<NameUniqueUpdateResponseDto>> {
+    return this.authService.updateUniqueUserName(request.user.id, body);
   }
 
   @Patch('update/user')
   @UseGuards(IsAuthGuard)
-  handleUpdateUser(@Req() request) {
-    return this.authService.updateUser(
-      request.user.id,
-      request.body.updateUser
-    );
+  handleUpdateUser(
+    @Req() request: RequestContainingUserId,
+    @Body() body: UpdateUserRequestDto
+  ): Promise<HttpResponse<UpdateUserResponseDto>> {
+    return this.authService.updateUser(request.user.id, body);
   }
 
   @Get('public/user/:id')
   @UsePipes(new ParseIntPipe())
-  handleGetPublicUser(@Param('id') id: number, @Req() request) {
-    return this.authService.getPublicUser(id, request.user?.id);
+  handleGetPublicUser(
+    @Param('id') id: number,
+    @Req() request: RequestContainingUserId
+  ): Promise<
+    HttpResponse<{
+      user: PublicUserResponseDto;
+      socialStats: SocialStatsResponseDto;
+      followingStatus: boolean;
+    }>
+  > {
+    return this.authService.getPublicUser(id, request.user.id);
   }
 
   @Post('follow/user')
   @UseGuards(IsAuthGuard)
-  handleFollowUser(@Req() request) {
-    return this.authService.followUser(request.user.id, request.body.userId);
+  handleFollowUser(
+    @Req() request: RequestContainingUserId,
+    @Body() body: FollowUserRequestDto
+  ): Promise<HttpResponse<FollowUserResponseDto>> {
+    return this.authService.followUser(request.user.id, body);
   }
 
-  @Delete('unfollow/user/:userIdToUnfollow')
+  @Delete('un-follow/user/:userIdToUnFollow')
   @UseGuards(IsAuthGuard)
   @UsePipes(new ParseIntPipe())
   handleUnFollowUser(
-    @Param('userIdToUnfollow') userIdToUnfollow: number,
-    @Req() request
-  ) {
-    return this.authService.unFollowUser(request.user.id, userIdToUnfollow);
+    @Param('userIdToUnFollow') userIdToUnFollow: number,
+    @Req() request: RequestContainingUserId
+  ): Promise<HttpResponse<UnFollowUserResponseDto>> {
+    return this.authService.unFollowUser(request.user.id, userIdToUnFollow);
   }
 }

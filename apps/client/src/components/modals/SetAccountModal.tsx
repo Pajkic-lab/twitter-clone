@@ -20,7 +20,7 @@ export const SetAccountModal: React.FC = () => {
 
   const onSubmit = async () => {
     if (isNameUnique && !errors.uniqueName) {
-      await dispatch(updateUserUniqueName(values.uniqueName));
+      await dispatch(updateUserUniqueName(values));
     }
   };
 
@@ -54,7 +54,7 @@ export const SetAccountModal: React.FC = () => {
   useEffect(() => {
     if (values.uniqueName) {
       touched.uniqueName = true;
-      void dispatch(checkNameUniqueness(values.uniqueName));
+      void dispatch(checkNameUniqueness(values));
     }
     if (!isNameUnique) {
       setErrors({ uniqueName: 'Name is already taken' });
