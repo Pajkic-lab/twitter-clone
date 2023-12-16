@@ -9,8 +9,12 @@ export class ConfigurationService {
   constructor(private config: ConfigService<EnvironmentVariables>) {}
 
   static validate(config: Record<string, unknown>) {
-    const validatedConfig = plainToInstance(EnvironmentVariables, config, { enableImplicitConversion: true });
-    const errors = validateSync(validatedConfig, { skipMissingProperties: false });
+    const validatedConfig = plainToInstance(EnvironmentVariables, config, {
+      enableImplicitConversion: true,
+    });
+    const errors = validateSync(validatedConfig, {
+      skipMissingProperties: false,
+    });
 
     if (errors.length > 0) {
       throw new Error(errors.toString());
@@ -18,8 +22,16 @@ export class ConfigurationService {
     return validatedConfig;
   }
 
+  // private get(key: keyof EnvironmentVariables): string {
+  //   return this.config.get(key);
+  // }
+
   private get(key: keyof EnvironmentVariables): string {
-    return this.config.get(key);
+    const value = this.config.get(key);
+    if (value === undefined) {
+      throw new Error(`Config key '${key}' is undefined.`);
+    }
+    return value;
   }
 
   get databaseUrl(): string {

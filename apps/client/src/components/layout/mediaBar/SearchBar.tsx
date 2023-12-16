@@ -12,7 +12,7 @@ export const SearchBar: React.FC<{ InputId: string }> = ({ InputId }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { searchRespons, searchIsLoading } = useAppSelector(
+  const { searchResponse: searchRespons, searchIsLoading } = useAppSelector(
     (state) => state.utile
   );
 
@@ -22,7 +22,7 @@ export const SearchBar: React.FC<{ InputId: string }> = ({ InputId }) => {
   const handleInputChange = (searchData: string) => {
     setInputValue(searchData);
     if (searchData) {
-      void dispatch(searchThunk(searchData));
+      void dispatch(searchThunk({ searchData }));
     } else {
       dispatch(resetSearchRespons());
     }

@@ -1,12 +1,14 @@
 import { HttpException, HttpStatus } from '@nestjs/common';
 import { Injectable } from '@nestjs/common/decorators';
+import { User } from '@prisma/client';
+import { UserWithFollowingStatus } from '@tw/data';
 import { PrismaService } from 'libs/data-access/src/lib/prisma/prisma.service';
 
 @Injectable()
 export class UtileRepository {
   constructor(private prisma: PrismaService) {}
 
-  async getMostPopularUsers(userId: number) {
+  async getMostPopularUsers(userId: number): Promise<User[]> {
     try {
       return await this.prisma.user.findMany({
         where: {
@@ -14,12 +16,12 @@ export class UtileRepository {
             id: userId,
           },
         },
-        select: {
-          id: true,
-          name: true,
-          uniqueName: true,
-          avatar: true,
-        },
+        // select: {
+        //   id: true,
+        //   name: true,
+        //   uniqueName: true,
+        //   avatar: true,
+        // },
         orderBy: {
           followers: {
             _count: 'desc',
@@ -35,7 +37,7 @@ export class UtileRepository {
     }
   }
 
-  async getSearchData(searchData: string, userId?: number) {
+  async getSearchData(searchData: string, userId?: number): Promise<User[]> {
     try {
       const normalizedSearchData = searchData.toLowerCase();
       return await this.prisma.user.findMany({
@@ -80,6 +82,7 @@ export class UtileRepository {
   }
 
   async getFollowers(userId: number, offset: number, limit: number) {
+    // refactor this to use raw query or what ever, just move all the logic to db
     try {
       const followers = await this.prisma.social.findMany({
         where: {
@@ -97,21 +100,21 @@ export class UtileRepository {
         take: limit,
       });
 
-      const followersWithStatus = await Promise.all(
-        followers.map(async (follower) => {
-          const res = await this.prisma.social.findFirst({
-            where: {
-              userId,
-              followingId: follower.user.id,
-            },
-          });
+      const followersWithStatus = [];
 
-          return {
-            ...follower.user,
-            followingStatus: Boolean(res),
-          };
-        })
-      );
+      for (const follower of followers) {
+        const res = await this.prisma.social.findFirst({
+          where: {
+            userId,
+            followingId: follower.user.id,
+          },
+        });
+
+        followersWithStatus.push({
+          ...follower.user,
+          followingStatus: Boolean(res),
+        });
+      }
 
       return followersWithStatus;
     } catch (error) {
@@ -123,6 +126,7 @@ export class UtileRepository {
   }
 
   async getFollowingUsers(userId: number, offset: number, limit: number) {
+    // refactor this to use raw query or what ever, just move all the logic to db
     try {
       const followingUsers = await this.prisma.social.findMany({
         where: {
@@ -150,19 +154,20 @@ export class UtileRepository {
         take: limit,
       });
 
-      const followingUserWithStatus = await Promise.all(
-        followingUsers.map(async (followingUser) => {
-          return {
-            ...followingUser.following,
-            followingStatus: true,
-          };
-        })
-      );
+      const followingUserWithStatus = [];
+
+      for (const followingUser of followingUsers) {
+        const userWithStatus = {
+          ...followingUser.following,
+          followingStatus: true,
+        };
+        followingUserWithStatus.push(userWithStatus);
+      }
 
       return followingUserWithStatus;
     } catch (error) {
       throw new HttpException(
-        'Error while getting followers',
+        'Error while getting following users',
         HttpStatus.INTERNAL_SERVER_ERROR
       );
     }

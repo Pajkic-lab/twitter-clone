@@ -1,0 +1,32 @@
+new way of doing social login
+
+https://www.youtube.com/watch?v=XjOEKbHkAeo&ab_channel=TechHarvestingwithNas
+https://www.npmjs.com/package/@react-oauth/google
+https://www.npmjs.com/package/google-auth-library
+
+
+- using passport -
+
+request lands on controller-specific route 
+it triggers guard 
+which is going to trigger specific Strategy
+which is going to call validate method
+validate returns user to controller in (*1) request object "request.user" 
+
+(*1) step in between, probably is this the place where you call serializeUser
+
+serializer is puting user in cokie
+deserializer is retriving user from cokie and attach user to request
+
+conclusion so far. passport is doing stuff beneath the hood, it is using request.login() and request.isAutehnticated(), request.logOut()
+I don't think is possible to fully grasp whats going on...
+
+serializer and deserializer are not meant to be guards/middlewares they are just putting user to cookie and extracting it
+you must use protection on every route specific
+
+request.logOut() changes value of cookie so it makes it unusabel, but it remains in browser as it should
+
+*** local strategy important!!! request coming has to be exectly like following code. request.username and request.password it must be
+accesable from req and username can not be user-name or userName it must be username
+
+*** 401 unautorize error it means that probably request is badly formed, read text above

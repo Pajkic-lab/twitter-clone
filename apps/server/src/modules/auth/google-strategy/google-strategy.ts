@@ -1,11 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Profile, Strategy } from 'passport-google-oauth20';
-// import { ConfigurationService } from 'src/modules/configuration/configuration.service';
-// import { HttpService } from 'src/modules/http/http.service';
 import { AuthService } from '../auth.service';
 import { HttpService } from '../../http/http.service';
 import { ConfigurationService } from '../../configuration/configuration.service';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy) {
@@ -14,7 +13,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
   constructor(
     authService: AuthService,
     httpService: HttpService,
-    private confService: ConfigurationService
+    confService: ConfigurationService
   ) {
     super({
       clientID: confService.googleClientId,
@@ -25,11 +24,20 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
     this.authService = authService;
   }
 
-  async validate(accesToken: string, refreshToken: string, profile: Profile) {
+  async validate(
+    accessToken: string,
+    refreshToken: string,
+    profile: Profile
+  ): Promise<User> {
+    if (!profile.emails?.[0]?.value) {
+      throw new Error('Missing email address');
+    }
+
     const user = await this.authService.validateGoogleUser({
-      email: profile.emails[0].value,
+      email: profile.emails?.[0]?.value,
       name: profile.displayName,
     });
-    return user || null;
+
+    return user;
   }
 }

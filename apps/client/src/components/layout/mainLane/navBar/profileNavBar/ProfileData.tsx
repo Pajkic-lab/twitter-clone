@@ -12,7 +12,7 @@ interface Props {
   bio: string;
   location: string;
   website: string;
-  createdAt: string;
+  createdAt: string | Date;
 }
 
 export const ProfileData: React.FC<Props> = ({

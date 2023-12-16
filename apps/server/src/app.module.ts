@@ -11,6 +11,8 @@ import { HelperModule } from './modules/helper/helper.module';
 import { HttpModule } from './modules/http/http.module';
 import { UtileModule } from './modules/utile/utile.module';
 import { DataAccessModule } from '@tw/data-access';
+import { ContractTestModule } from './modules/contract-test/contract-test.module';
+import { AutoMapperModule } from './modules/automapper/automapper.module';
 
 const coreModules = [
   ConfigurationModule,
@@ -22,6 +24,7 @@ const coreModules = [
     session: true,
   }),
   ScheduleModule.forRoot(),
+  AutoMapperModule,
 ];
 
 const applicationModules = [
@@ -31,6 +34,7 @@ const applicationModules = [
   HttpModule,
   CloudinaryModule,
   UtileModule,
+  ContractTestModule,
 ];
 
 @Module({

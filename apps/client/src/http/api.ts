@@ -1,20 +1,48 @@
 import { AxiosResponse } from 'axios';
-import { httpClient } from './client';
-import { User, SocialStats, UpdateUser } from '../types';
-import { CreateUserDto, ConfirmUserDto } from '@tw/data';
+import { contractClient, httpClient } from './client';
+import {
+  SignUpEmailRequestDto,
+  SignUpEmailResponseDto,
+  SignInEmailRequestDto,
+  AuthenticationResponseDto,
+  SignInEmailResponseDto,
+  NameUniqueRequestDto,
+  HttpResponse,
+  SocialStatsResponseDto,
+  NameUniqueResponseDto,
+  NameUniqueUpdateResponseDto,
+  UpdateUserRequestDto,
+  UpdateUserResponseDto,
+  PublicUserResponseDto,
+  MostPopularUsersResponseDto,
+  FollowUserRequestDto,
+  FollowUserResponseDto,
+  UnFollowUserRequestDto,
+  SearchUserRequestDto,
+  SearchUsersResponseDto,
+  FollowerListRequestDto,
+  FollowerListResponseDto,
+  FollowingListRequestDto,
+  FollowingListResponseDto,
+  PublicProfileFollowerListRequestDto,
+  PublicProfileFollowingListRequestDto,
+  UnFollowUserResponseDto,
+} from '@tw/data';
 
-export default {
+export const http = {
   auth: {
-    signUp({ name, email, password, confirmPassword }: CreateUserDto) {
-      return httpClient.post('auth/register', {
-        username: name,
-        email,
-        password,
-        confirmPassword,
-      });
+    signUp(
+      user: SignUpEmailRequestDto
+    ): Promise<AxiosResponse<HttpResponse<SignUpEmailResponseDto>>> {
+      return httpClient.post('auth/sign-up', user);
     },
-    signIn({ email, password }: ConfirmUserDto) {
-      return httpClient.post('auth/login', {
+    signIn({
+      email,
+      password,
+    }: SignInEmailRequestDto): Promise<
+      AxiosResponse<HttpResponse<SignInEmailResponseDto>>
+    > {
+      return httpClient.post('auth/sign-in', {
         username: 'placeholder',
         email,
         password,
@@ -25,8 +53,10 @@ export default {
     },
     authUser(): Promise<
       AxiosResponse<
-        { user: User; socialStats: SocialStats; followingStatus?: boolean },
-        any
+        HttpResponse<{
+          user: AuthenticationResponseDto;
+          socialStats: SocialStatsResponseDto;
+        }>
       >
     > {
       return httpClient.get('auth/user');
@@ -34,39 +64,66 @@ export default {
     signOut() {
       return httpClient.get('auth/logout');
     },
-    checkNameUniqueness(uniqueName: string) {
-      return httpClient.post('auth/nameuniqueness', { uniqueName });
+  },
+  user: {
+    // refactor this to use GET method
+    checkNameUniqueness(
+      data: NameUniqueRequestDto
+    ): Promise<AxiosResponse<HttpResponse<NameUniqueResponseDto>>> {
+      return httpClient.post('auth/name-unique', data);
     },
-    updateUserUniqueName(uniqueName: string) {
-      return httpClient.post('auth/createuniquename', { uniqueName });
+    updateUserUniqueName(
+      data: NameUniqueRequestDto
+    ): Promise<AxiosResponse<HttpResponse<NameUniqueUpdateResponseDto>>> {
+      return httpClient.patch('auth/name-unique', data);
     },
-    updateUser(updateUser: UpdateUser) {
-      return httpClient.patch('auth/update/user', { updateUser });
+    updateUser(
+      updateUser: UpdateUserRequestDto
+    ): Promise<AxiosResponse<HttpResponse<UpdateUserResponseDto>>> {
+      return httpClient.patch('auth/update/user', updateUser);
     },
-    getPublicUser(id: number) {
+    getPublicUser(id: number): Promise<
+      AxiosResponse<
+        HttpResponse<{
+          user: PublicUserResponseDto;
+          socialStats: SocialStatsResponseDto;
+          followingStatus: boolean;
+        }>
+      >
+    > {
       return httpClient.get(`auth/public/user/${id}`);
     },
-    followUser(userId: number) {
-      return httpClient.post('auth/follow/user', { userId });
-    },
-    unFollowUser(userId: number) {
-      return httpClient.delete(`auth/unfollow/user/${userId}`);
-    },
-  },
-  utile: {
-    getMostPopularUsers() {
+
+    getMostPopularUsers(): Promise<
+      AxiosResponse<HttpResponse<MostPopularUsersResponseDto[]>>
+    > {
       return httpClient.get('utile/most/popular/users');
     },
-    getSearchTerm(searchData: string) {
+  },
+  social: {
+    followUser(
+      userId: FollowUserRequestDto
+    ): Promise<AxiosResponse<HttpResponse<FollowUserResponseDto>>> {
+      return httpClient.post('auth/follow/user', userId);
+    },
+    unFollowUser(
+      unFollowUser: UnFollowUserRequestDto
+    ): Promise<AxiosResponse<HttpResponse<UnFollowUserResponseDto>>> {
+      return httpClient.delete(`auth/un-follow/user/${unFollowUser.userId}`);
+    },
+    getSearchTerm({
+      searchData,
+    }: SearchUserRequestDto): Promise<
+      AxiosResponse<HttpResponse<SearchUsersResponseDto[]>>
+    > {
       return httpClient.get(`utile/search/${searchData}`);
     },
     getFollowers({
       followerOffset,
       followerLimit,
-    }: {
-      followerOffset: number;
-      followerLimit: number;
-    }) {
+    }: FollowerListRequestDto): Promise<
+      AxiosResponse<HttpResponse<FollowerListResponseDto[]>>
+    > {
       return httpClient.get(
         `utile/followers/${followerOffset}/${followerLimit}`
       );
@@ -74,10 +131,9 @@ export default {
     getFollowingUsers({
       followingOffset,
       followingLimit,
-    }: {
-      followingOffset: number;
-      followingLimit: number;
-    }) {
+    }: FollowingListRequestDto): Promise<
+      AxiosResponse<HttpResponse<FollowingListResponseDto[]>>
+    > {
       return httpClient.get(
         `utile/following/${followingOffset}/${followingLimit}`
       );
@@ -86,11 +142,9 @@ export default {
       PPfollowerOffset,
       PPfollowerLimit,
       userId,
-    }: {
-      PPfollowerOffset: number;
-      PPfollowerLimit: number;
-      userId: number;
-    }) {
+    }: PublicProfileFollowerListRequestDto): Promise<
+      AxiosResponse<HttpResponse<FollowerListResponseDto[]>>
+    > {
       return httpClient.get(
         `utile/pp/followers/${userId}/${PPfollowerOffset}/${PPfollowerLimit}`
       );
@@ -99,14 +153,22 @@ export default {
       userId,
       PPfollowingOffset,
       PPfollowingLimit,
-    }: {
-      userId: number;
-      PPfollowingOffset: number;
-      PPfollowingLimit: number;
-    }) {
+    }: PublicProfileFollowingListRequestDto): Promise<
+      AxiosResponse<HttpResponse<FollowingListResponseDto[]>>
+    > {
       return httpClient.get(
         `utile/pp/following/${userId}/${PPfollowingOffset}/${PPfollowingLimit}`
       );
+    },
+  },
+  experimental: {
+    test() {
+      return contractClient.createPost({
+        body: {
+          title: 'Post Title',
+          body: 'Post Body',
+        },
+      });
     },
   },
 };

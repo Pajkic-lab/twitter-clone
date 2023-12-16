@@ -2,7 +2,8 @@ import { followUserThunk, unFollowUserThunk } from '../authSlice/thunk';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getPublicProfile } from './thunk';
 import { AxiosResponse } from 'axios';
-import { PublicUser, SocialStats, User } from 'apps/client/src/types';
+import { PublicUser, User } from 'apps/client/src/types';
+import { SocialStatsResponseDto } from '@tw/data';
 
 interface PublicProfileState extends Omit<User, 'email'> {
   isLoading: boolean;
@@ -45,43 +46,23 @@ export const publicProfileSlice = createSlice({
       .addCase(getPublicProfile.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(
-        getPublicProfile.fulfilled,
-        (
-          state,
-          {
-            payload,
-          }: PayloadAction<
-            | AxiosResponse<
-                {
-                  user: PublicUser;
-                  socialStats: SocialStats;
-                  followingStatus: boolean;
-                },
-                any
-              >
-            | undefined
-          >
-        ) => {
-          if (payload && payload.data) {
-            state.id = payload.data.user.id as number;
-            state.name = payload.data.user.name;
-            // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-            state.uniqueName = payload.data.user.uniqueName as string;
-            state.avatar = payload.data.user.avatar;
-            state.cover = payload.data.user.cover;
-            state.bio = payload.data.user.bio;
-            state.location = payload.data.user.location;
-            state.website = payload.data.user.website;
-            // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-            state.createdAt = payload.data.user.createdAt as string;
-            state.followingCount = payload.data.socialStats.followingCount;
-            state.followersCount = payload.data.socialStats.followersCount;
-            state.followingStatus = payload.data.followingStatus;
-          }
-          state.isLoading = false;
-        }
-      )
+      .addCase(getPublicProfile.fulfilled, (state, payload) => {
+        state.id = payload.payload?.data.payload.user.id!;
+        state.name = payload.payload?.data.payload.user.name!;
+        state.uniqueName = payload.payload?.data.payload.user.uniqueName!;
+        state.avatar = payload.payload?.data.payload.user.avatar!;
+        state.cover = payload.payload?.data.payload.user.cover!;
+        state.bio = payload.payload?.data.payload.user.bio!;
+        state.location = payload.payload?.data.payload.user.location!;
+        state.website = payload.payload?.data.payload.user.website!;
+        state.createdAt = payload.payload?.data.payload.user.createdAt!;
+        state.followingCount =
+          payload.payload?.data.payload.socialStats.followingCount!;
+        state.followersCount =
+          payload.payload?.data.payload.socialStats.followersCount!;
+        state.followingStatus = payload.payload?.data.payload.followingStatus!;
+        state.isLoading = false;
+      })
       .addCase(getPublicProfile.rejected, (state) => {
         state.errorMessage = 'no existing user'; // refactor logic for this operation
         state.isLoading = false;

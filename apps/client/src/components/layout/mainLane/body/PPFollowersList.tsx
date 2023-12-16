@@ -35,11 +35,11 @@ export const PPFollowersList: React.FC<{ userId: number }> = ({ userId }) => {
   const { id } = useAppSelector((state) => state.auth);
 
   const followUserHelper = (userId: number) => {
-    void dispatch(followUserThunk(userId));
+    void dispatch(followUserThunk({ userId }));
   };
 
   const unFollowUserHelper = (userId: number) => {
-    void dispatch(unFollowUserThunk(userId));
+    void dispatch(unFollowUserThunk({ userId }));
   };
 
   const navigateToProfile = (userId: number, uniqueName: string) => {

@@ -2,7 +2,6 @@ import { ModalProvider } from 'styled-react-modal';
 import { ThemeProvider } from 'styled-components';
 import styled from 'styled-components';
 import { Router } from './router';
-import React from 'react';
 import { AuthTrigger } from './customHooks/AuthTrigger';
 import { useAppSelector } from './store/hooks';
 import { GlobalStyle } from './GlobalStyle';

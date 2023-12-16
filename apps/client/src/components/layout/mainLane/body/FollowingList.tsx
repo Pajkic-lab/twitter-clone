@@ -27,11 +27,11 @@ export const FollowingList: React.FC = () => {
   const { followIsSubmitting } = useAppSelector((state) => state.publicProfile);
 
   const followUserHelper = (userId: number) => {
-    void dispatch(followUserThunk(userId));
+    void dispatch(followUserThunk({ userId }));
   };
 
   const unFollowUserHelper = (userId: number) => {
-    void dispatch(unFollowUserThunk(userId));
+    void dispatch(unFollowUserThunk({ userId }));
   };
 
   const navigateToProfile = (userId: number, uniqueName: string) => {

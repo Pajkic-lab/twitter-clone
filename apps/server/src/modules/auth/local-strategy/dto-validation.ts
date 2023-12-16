@@ -1,28 +1,18 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { validate, ValidationError } from 'class-validator';
-import { CreateUserDto, ConfirmUserDto } from '@tw/data';
+import { SignUpEmailRequestDto, SignInEmailRequestDto } from '@tw/data';
 
 @Injectable()
 export class DtoValidation {
-  validateCreateUserDto = async (
-    username: string,
-    email: string,
-    password: string,
-    confirmPassword: string
-  ) => {
-    const createUserDto = new CreateUserDto({
-      name: username,
-      email,
-      password,
-      confirmPassword,
-    });
+  validateSignUpEmailRequestDto = async (dto: SignUpEmailRequestDto) => {
+    const createUserDto = new SignUpEmailRequestDto(dto);
 
     const errors = await validate(createUserDto);
 
     if (errors.length > 0) {
       const validationErrors = errors.map((error: ValidationError) => {
-        const property = Object.keys(error.constraints)[0];
-        return error.constraints[property];
+        const property = Object.keys(error.constraints!)[0];
+        return error?.constraints![property!];
       });
 
       throw new HttpException(
@@ -34,18 +24,15 @@ export class DtoValidation {
     }
   };
 
-  validateConfirmUserDto = async (email: string, password: string) => {
-    const createUserDto = new ConfirmUserDto({
-      email,
-      password,
-    });
+  validateSignInEmailRequestDto = async (dto: SignInEmailRequestDto) => {
+    const createUserDto = new SignInEmailRequestDto(dto);
 
     const errors = await validate(createUserDto);
 
     if (errors.length > 0) {
       const validationErrors = errors.map((error: ValidationError) => {
-        const property = Object.keys(error.constraints)[0];
-        return error.constraints[property];
+        const property = Object.keys(error.constraints!)[0];
+        return error?.constraints![property!];
       });
 
       throw new HttpException(

@@ -4,7 +4,8 @@ import { Request } from 'express';
 import { Strategy } from 'passport-local';
 import { AuthService } from '../auth.service';
 import { DtoValidation } from './dto-validation';
-import { ConfirmUserDto, CreateUserDto } from '@tw/data';
+import { SignInEmailRequestDto, SignUpEmailRequestDto } from '@tw/data';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
@@ -17,44 +18,33 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(request: Request) {
-    const { username, email, password, confirmPassword } = request.body;
-    let user: CreateUserDto | ConfirmUserDto;
+  async validate(request: Request): Promise<User> {
+    const requestUser = request.body;
 
-    if (confirmPassword) {
-      try {
-        /**
-         * validation is conducted in validate function because guard runs before validation pipe in controller.
-         */
+    const shapeDeterminate = async <
+      T extends SignUpEmailRequestDto | SignInEmailRequestDto
+    >(
+      requestUser: T
+    ): Promise<User> => {
+      if ('confirmPassword' in requestUser) {
+        try {
+          await this.dtoValidation.validateSignUpEmailRequestDto(requestUser);
+        } catch (error) {
+          throw error;
+        }
 
-        await this.dtoValidation.validateCreateUserDto(
-          username,
-          email,
-          password,
-          confirmPassword
-        );
-      } catch (error) {
-        throw error;
+        return await this.authService.signUpUser(requestUser);
+      } else {
+        try {
+          await this.dtoValidation.validateSignInEmailRequestDto(requestUser);
+        } catch (error) {
+          throw error;
+        }
+
+        return await this.authService.signInUser(requestUser);
       }
+    };
 
-      user = await this.authService.registerUser({
-        name: username,
-        email,
-        password,
-        confirmPassword,
-      });
-    } else {
-      try {
-        await this.dtoValidation.validateConfirmUserDto(email, password);
-      } catch (error) {
-        throw error;
-      }
-
-      user = await this.authService.loginUser({
-        email,
-        password,
-      });
-    }
-    return user || null;
+    return await shapeDeterminate(requestUser);
   }
 }
