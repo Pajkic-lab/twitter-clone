@@ -25,7 +25,7 @@ export const searchThunk = createAsyncThunk(
   'utile/search',
   async (searchData: SearchUserRequestDto, { rejectWithValue }) => {
     try {
-      return await http.social.getSearchTerm(searchData);
+      return await http.user.getSearchedUser(searchData);
     } catch (error) {
       if (error instanceof Error) {
         if (isAxiosError(error)) {

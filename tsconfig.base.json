@@ -1,28 +1,29 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "target": "es2022",
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "module": "esnext",
     "rootDir": ".",
     "sourceMap": true,
     "declaration": false,
-    "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es2015",
-    "module": "esnext",
     "lib": ["es2020", "dom"],
-    "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
     "baseUrl": ".",
     "strictPropertyInitialization": false,
     "useUnknownInCatchVariables": true,
-    "noUncheckedIndexedAccess": true,
     "noUnusedLocals": false,
     "strictNullChecks": true,
     "noImplicitAny": true,
-    "strict": true,
     "paths": {
       "@tw/contract": ["libs/contract/src/index.ts"],
       "@tw/data": ["libs/data/src/index.ts"],
@@ -31,3 +32,9 @@
   },
   "exclude": ["node_modules", "tmp"]
 }
+
+/*
+ * should probably be added... research following flags
+ * "verbatimModuleSyntax": true,
+ * "moduleDetection": "force",
+ */
