@@ -73,4 +73,13 @@ export class SocialController {
   ): Promise<HttpResponse<FollowerListResponseDto[]>> {
     return this.socialService.handleFollowers(userId, offset, limit);
   }
+
+  @Get('pp/following/:userId/:offset/:limit')
+  handleGetPPFollowing(
+    @Param('userId') userId: number,
+    @Param('offset') offset: number,
+    @Param('limit') limit: number
+  ): Promise<HttpResponse<FollowingListResponseDto[]>> {
+    return this.socialService.handleFollowing(userId, offset, limit);
+  }
 }

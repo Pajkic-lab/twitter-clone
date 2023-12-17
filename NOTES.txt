@@ -5,7 +5,7 @@ render alternative Cyclic: https://www.cyclic.sh/
 
 
     
-- services and repository will be refactored according to Athena, create new modules social or what ever you decide, adjust routes and api at front 
+- services and repository will be refactored according to Athena
 
 - refactor data types dir
 
