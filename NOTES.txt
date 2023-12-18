@@ -4,6 +4,11 @@ npx nx generate lib <name>
 render alternative Cyclic: https://www.cyclic.sh/
 
 
+- refactor messages in create response
+
+- refactor PP start with api file
+
+- Research API versioning
     
 - services and repository will be refactored according to Athena
 
