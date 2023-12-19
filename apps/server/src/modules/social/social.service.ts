@@ -44,7 +44,7 @@ export class SocialService {
 
     return createResponse({
       payload: userToFollow,
-      message: 'users. to follow',
+      message: 'follow user success',
     });
   }
 
@@ -65,7 +65,7 @@ export class SocialService {
 
     return createResponse({
       payload: { userIdToUnFollow },
-      message: 'users. un-follow',
+      message: 'un follow user success',
     });
   }
 
@@ -94,7 +94,7 @@ export class SocialService {
 
     return createResponse({
       payload: followerList,
-      message: 'users. follower list',
+      message: 'follower list success',
     });
   }
 
@@ -124,7 +124,7 @@ export class SocialService {
 
     return createResponse({
       payload: followingList,
-      message: 'users. following list',
+      message: 'following list success',
     });
   }
 }

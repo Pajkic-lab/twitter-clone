@@ -141,7 +141,7 @@ export const http = {
         `social/following/${followingOffset}/${followingLimit}`
       );
     },
-    getPPFollowers({
+    getPublicProfileFollowers({
       PPfollowerOffset,
       PPfollowerLimit,
       userId,
@@ -149,10 +149,10 @@ export const http = {
       AxiosResponse<HttpResponse<FollowerListResponseDto[]>>
     > {
       return httpClient.get(
-        `social/pp/followers/${userId}/${PPfollowerOffset}/${PPfollowerLimit}`
+        `social/public-profile/followers/${userId}/${PPfollowerOffset}/${PPfollowerLimit}`
       );
     },
-    getPPFollowingUsers({
+    getPublicProfileFollowingUsers({
       userId,
       PPfollowingOffset,
       PPfollowingLimit,
@@ -160,7 +160,7 @@ export const http = {
       AxiosResponse<HttpResponse<FollowingListResponseDto[]>>
     > {
       return httpClient.get(
-        `social/pp/following/${userId}/${PPfollowingOffset}/${PPfollowingLimit}`
+        `social/public-profile/following/${userId}/${PPfollowingOffset}/${PPfollowingLimit}`
       );
     },
   },

@@ -20,13 +20,13 @@ export const LandingPage: React.FC = () => {
   const [signInModalIsOpen, setSignInModalIsOpen] = useState(false);
 
   /**
-   * Google auth is being triggerd this way because it does not make issue at backend when redirecting back to front,
-   * Axios instance that is being used in rest of the app has credentials flagg set to true,
+   * Google auth is being triggered this way because it does not make issue at backend when redirecting back to front,
+   * Axios instance that is being used in rest of the app has credentials flag set to true,
    */
   const googleLogin = () => {
     process.env.NODE_ENV == 'production'
-      ? window.open('/auth/google/login', '_self')
-      : window.open('http://localhost:5000/auth/google/login', '_self');
+      ? window.open('/auth/google/sign-in', '_self')
+      : window.open('http://localhost:5000/auth/google/sign-in', '_self');
   };
 
   const appleLogin = () => {

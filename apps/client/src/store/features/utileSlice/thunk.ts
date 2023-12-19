@@ -98,7 +98,7 @@ export const getPPFollowersThunk = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      return await http.social.getPPFollowers({
+      return await http.social.getPublicProfileFollowers({
         userId,
         PPfollowerOffset,
         PPfollowerLimit,
@@ -126,7 +126,7 @@ export const getPPFollowingUsersThunk = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      return await http.social.getPPFollowingUsers({
+      return await http.social.getPublicProfileFollowingUsers({
         userId,
         PPfollowingOffset,
         PPfollowingLimit,

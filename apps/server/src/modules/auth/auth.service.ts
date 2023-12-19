@@ -3,10 +3,8 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-
 import { Req } from '@nestjs/common/decorators';
 import bcrypt from 'bcryptjs';
-import { AuthMediaRepository } from './auth.media-repository';
 import { AuthRepository } from './auth.repository';
 import { Request } from 'express';
 import {
@@ -72,7 +70,7 @@ export class AuthService {
 
     const payload = this.mapper.map(user, UserBase, SignInEmailResponseDto);
 
-    return createResponse({ payload, message: 'users.signInSuccess' });
+    return createResponse({ payload, message: 'sign in success' });
   }
 
   async sigUpGetUser(
@@ -84,7 +82,7 @@ export class AuthService {
 
     const payload = this.mapper.map(user, UserBase, SignUpEmailResponseDto);
 
-    return createResponse({ payload, message: 'users.signUpSuccess' });
+    return createResponse({ payload, message: 'sign up success' });
   }
 
   async authUser(userId: number): Promise<
@@ -106,7 +104,7 @@ export class AuthService {
 
     return createResponse({
       payload: { user: authUser, socialStats },
-      message: 'users.authSuccess',
+      message: 'authentication success',
     });
   }
 

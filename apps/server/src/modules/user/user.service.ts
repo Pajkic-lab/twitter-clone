@@ -47,7 +47,7 @@ export class UserService {
 
     return createResponse({
       payload: { isNameUnique },
-      message: 'users.name is unique',
+      message: 'unique name is unique',
     });
   }
 
@@ -74,7 +74,7 @@ export class UserService {
 
     return createResponse({
       payload: uniqueName,
-      message: 'users.name is unique',
+      message: 'unique name updated',
     });
   }
 
@@ -111,7 +111,7 @@ export class UserService {
 
     return createResponse({
       payload: updatedUser,
-      message: 'users.is updated',
+      message: 'update user success',
     });
   }
 
@@ -151,7 +151,7 @@ export class UserService {
 
     return createResponse({
       payload: { user: publicUser, socialStats, followingStatus },
-      message: 'users.authSuccess',
+      message: 'public user success',
     });
   }
 
@@ -176,7 +176,7 @@ export class UserService {
 
     return createResponse({
       payload: users,
-      message: 'users.most popular users',
+      message: 'most popular users',
     });
   }
 
@@ -204,7 +204,7 @@ export class UserService {
 
     return createResponse({
       payload: users,
-      message: 'users. searched users',
+      message: 'searched users retrieved',
     });
   }
 }

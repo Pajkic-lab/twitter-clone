@@ -65,8 +65,8 @@ export class SocialController {
     return this.socialService.handleFollowing(request.user.id, offset, limit);
   }
 
-  @Get('pp/followers/:userId/:offset/:limit')
-  handleGetPPFollowers(
+  @Get('public-profile/followers/:userId/:offset/:limit')
+  handleGetPublicProfileFollowers(
     @Param('userId') userId: number,
     @Param('offset') offset: number,
     @Param('limit') limit: number
@@ -74,8 +74,8 @@ export class SocialController {
     return this.socialService.handleFollowers(userId, offset, limit);
   }
 
-  @Get('pp/following/:userId/:offset/:limit')
-  handleGetPPFollowing(
+  @Get('public-profile/following/:userId/:offset/:limit')
+  handleGetPublicProfileFollowing(
     @Param('userId') userId: number,
     @Param('offset') offset: number,
     @Param('limit') limit: number
