@@ -7,48 +7,18 @@ import { PrismaSessionStore } from '@quixo3/prisma-session-store';
 import compression from 'compression';
 import { json, urlencoded } from 'express';
 import session from 'express-session';
-import helmet from 'helmet';
-import hpp from 'hpp';
 import passport from 'passport';
 import { AppModule } from './app.module';
 import { ConfigurationService } from './modules/configuration/configuration.service';
 import { CorsService } from './modules/http/cors.service';
+import { INestApplication } from '@nestjs/common';
 
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+function setupSession(app: INestApplication) {
+  const MAX_AGE = 2147483647;
+  const CHECK_PERIOD = 2 * 60 * 1000;
 
-  const port = app.get(ConfigurationService).port;
   const sessionName = app.get(ConfigurationService).sessionName;
   const sessionSecret = app.get(ConfigurationService).sessionSecret;
-  const corsService = app.get<CorsService>(CorsService);
-
-  app.use(hpp());
-  app.use(
-    helmet({
-      crossOriginEmbedderPolicy: false,
-      crossOriginResourcePolicy: false,
-      contentSecurityPolicy: {
-        directives: {
-          defaultSrc: ["'self'"],
-          scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
-          styleSrc: ["'self'", "'unsafe-inline'"],
-          fontSrc: ["'self'"],
-          imgSrc: [
-            "'self'",
-            'https://cloudinary.com/',
-            'https://res.cloudinary.com/',
-            'data:',
-          ],
-        },
-      },
-    })
-  );
-  app.enableCors({
-    origin: corsService.configCors(),
-    credentials: true,
-  });
-  app.use(json({ limit: '50mb' }));
-  app.use(urlencoded({ extended: true, limit: '50mb' }));
 
   app.use(
     session({
@@ -57,27 +27,71 @@ async function bootstrap() {
       saveUninitialized: false,
       resave: false,
       cookie: {
-        maxAge: 2147483647,
+        maxAge: MAX_AGE,
         httpOnly: false,
       },
       store: new PrismaSessionStore(new PrismaClient(), {
-        checkPeriod: 2 * 60 * 1000,
+        checkPeriod: CHECK_PERIOD,
         dbRecordIdIsSessionId: true,
         dbRecordIdFunction: undefined,
       }),
     })
   );
-  app.use(passport.initialize());
-  app.use(passport.session());
-  app.use(compression());
+}
+
+function enableCors(app: INestApplication) {
+  const corsService = app.get<CorsService>(CorsService);
+
+  app.enableCors({
+    origin: corsService.configCors(),
+    credentials: true,
+  });
+}
+
+function enableGlobalPipes(app: INestApplication) {
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
     })
   );
+}
+
+function setupSizeLimit(app: INestApplication) {
+  const LIMIT = '50mb';
+  app.use(json({ limit: LIMIT }));
+}
+
+function setupEncode(app: INestApplication) {
+  const LIMIT = '50mb';
+  app.use(urlencoded({ extended: true, limit: LIMIT }));
+}
+
+function enablePassport(app: INestApplication) {
+  app.use(passport.initialize());
+}
+
+function enablePassportSession(app: INestApplication) {
+  app.use(passport.session());
+}
+
+function enableCompression(app: INestApplication) {
+  app.use(compression());
+}
+
+(async function boot() {
+  const app = await NestFactory.create(AppModule);
+
+  const port = app.get(ConfigurationService).port;
+
+  enableCors(app);
+  setupSizeLimit(app);
+  setupEncode(app);
+  setupSession(app);
+  enablePassport(app);
+  enablePassportSession(app);
+  enableCompression(app);
+  enableGlobalPipes(app);
 
   await app.listen(port);
   console.log(`Application is running on: ${await app.getUrl()} 🚀🚀🚀`);
-}
-
-bootstrap();
+})();

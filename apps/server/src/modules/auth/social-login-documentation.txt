@@ -13,10 +13,10 @@ which is going to trigger specific Strategy
 which is going to call validate method
 validate returns user to controller in (*1) request object "request.user" 
 
-(*1) step in between, probably is this the place where you call serializeUser
+(*1) step in between, probably this is the place where you call serializeUser
 
-serializer is puting user in cokie
-deserializer is retriving user from cokie and attach user to request
+serializer is putting user in cookie
+deserializer is retrieving user from cookie and attach user to request
 
 conclusion so far. passport is doing stuff beneath the hood, it is using request.login() and request.isAutehnticated(), request.logOut()
 I don't think is possible to fully grasp whats going on...
@@ -24,9 +24,9 @@ I don't think is possible to fully grasp whats going on...
 serializer and deserializer are not meant to be guards/middlewares they are just putting user to cookie and extracting it
 you must use protection on every route specific
 
-request.logOut() changes value of cookie so it makes it unusabel, but it remains in browser as it should
+request.logOut() changes value of cookie so it makes it unusable, but it remains in browser as it should
 
-*** local strategy important!!! request coming has to be exectly like following code. request.username and request.password it must be
-accesable from req and username can not be user-name or userName it must be username
+*** local strategy important!!! request coming has to be exactly like following code. request.username and request.password it must be
+accessible from req and username can not be user-name or userName it must be username
 
-*** 401 unautorize error it means that probably request is badly formed, read text above
+*** 401 unauthorized error it means that probably request is badly formed, read text above

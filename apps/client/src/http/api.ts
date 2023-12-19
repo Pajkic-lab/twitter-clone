@@ -49,7 +49,7 @@ export const http = {
       });
     },
     googleAuthenticate() {
-      return httpClient.get('auth/google/login');
+      return httpClient.get('auth/google/sign-in');
     },
     authUser(): Promise<
       AxiosResponse<
@@ -70,18 +70,20 @@ export const http = {
     checkNameUniqueness(
       data: NameUniqueRequestDto
     ): Promise<AxiosResponse<HttpResponse<NameUniqueResponseDto>>> {
-      return httpClient.post('auth/name-unique', data);
+      return httpClient.post('user/name-unique', data);
     },
     updateUserUniqueName(
       data: NameUniqueRequestDto
     ): Promise<AxiosResponse<HttpResponse<NameUniqueUpdateResponseDto>>> {
-      return httpClient.patch('auth/name-unique', data);
+      return httpClient.patch('user/name-unique', data);
     },
+    // exclude user from url string
     updateUser(
       updateUser: UpdateUserRequestDto
     ): Promise<AxiosResponse<HttpResponse<UpdateUserResponseDto>>> {
-      return httpClient.patch('auth/update/user', updateUser);
+      return httpClient.patch('user/update', updateUser);
     },
+    // replace user with id from url string
     getPublicUser(id: number): Promise<
       AxiosResponse<
         HttpResponse<{
@@ -91,33 +93,34 @@ export const http = {
         }>
       >
     > {
-      return httpClient.get(`auth/public/user/${id}`);
+      return httpClient.get(`user/public/${id}`);
     },
-
+    // exclude user from url string
     getMostPopularUsers(): Promise<
       AxiosResponse<HttpResponse<MostPopularUsersResponseDto[]>>
     > {
-      return httpClient.get('utile/most/popular/users');
+      return httpClient.get('user/most/popular');
+    },
+    getSearchedUser({
+      searchData,
+    }: SearchUserRequestDto): Promise<
+      AxiosResponse<HttpResponse<SearchUsersResponseDto[]>>
+    > {
+      return httpClient.get(`user/search/${searchData}`);
     },
   },
   social: {
     followUser(
       userId: FollowUserRequestDto
     ): Promise<AxiosResponse<HttpResponse<FollowUserResponseDto>>> {
-      return httpClient.post('auth/follow/user', userId);
+      return httpClient.post('social/follow/user', userId);
     },
     unFollowUser(
       unFollowUser: UnFollowUserRequestDto
     ): Promise<AxiosResponse<HttpResponse<UnFollowUserResponseDto>>> {
-      return httpClient.delete(`auth/un-follow/user/${unFollowUser.userId}`);
+      return httpClient.delete(`social/un-follow/user/${unFollowUser.userId}`);
     },
-    getSearchTerm({
-      searchData,
-    }: SearchUserRequestDto): Promise<
-      AxiosResponse<HttpResponse<SearchUsersResponseDto[]>>
-    > {
-      return httpClient.get(`utile/search/${searchData}`);
-    },
+
     getFollowers({
       followerOffset,
       followerLimit,
@@ -125,7 +128,7 @@ export const http = {
       AxiosResponse<HttpResponse<FollowerListResponseDto[]>>
     > {
       return httpClient.get(
-        `utile/followers/${followerOffset}/${followerLimit}`
+        `social/followers/${followerOffset}/${followerLimit}`
       );
     },
     getFollowingUsers({
@@ -135,10 +138,10 @@ export const http = {
       AxiosResponse<HttpResponse<FollowingListResponseDto[]>>
     > {
       return httpClient.get(
-        `utile/following/${followingOffset}/${followingLimit}`
+        `social/following/${followingOffset}/${followingLimit}`
       );
     },
-    getPPFollowers({
+    getPublicProfileFollowers({
       PPfollowerOffset,
       PPfollowerLimit,
       userId,
@@ -146,10 +149,10 @@ export const http = {
       AxiosResponse<HttpResponse<FollowerListResponseDto[]>>
     > {
       return httpClient.get(
-        `utile/pp/followers/${userId}/${PPfollowerOffset}/${PPfollowerLimit}`
+        `social/public-profile/followers/${userId}/${PPfollowerOffset}/${PPfollowerLimit}`
       );
     },
-    getPPFollowingUsers({
+    getPublicProfileFollowingUsers({
       userId,
       PPfollowingOffset,
       PPfollowingLimit,
@@ -157,7 +160,7 @@ export const http = {
       AxiosResponse<HttpResponse<FollowingListResponseDto[]>>
     > {
       return httpClient.get(
-        `utile/pp/following/${userId}/${PPfollowingOffset}/${PPfollowingLimit}`
+        `social/public-profile/following/${userId}/${PPfollowingOffset}/${PPfollowingLimit}`
       );
     },
   },

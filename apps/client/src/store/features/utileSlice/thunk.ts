@@ -25,7 +25,7 @@ export const searchThunk = createAsyncThunk(
   'utile/search',
   async (searchData: SearchUserRequestDto, { rejectWithValue }) => {
     try {
-      return await http.social.getSearchTerm(searchData);
+      return await http.user.getSearchedUser(searchData);
     } catch (error) {
       if (error instanceof Error) {
         if (isAxiosError(error)) {
@@ -98,7 +98,7 @@ export const getPPFollowersThunk = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      return await http.social.getPPFollowers({
+      return await http.social.getPublicProfileFollowers({
         userId,
         PPfollowerOffset,
         PPfollowerLimit,
@@ -126,7 +126,7 @@ export const getPPFollowingUsersThunk = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      return await http.social.getPPFollowingUsers({
+      return await http.social.getPublicProfileFollowingUsers({
         userId,
         PPfollowingOffset,
         PPfollowingLimit,
