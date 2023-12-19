@@ -4,10 +4,9 @@ npx nx generate lib <name>
 render alternative Cyclic: https://www.cyclic.sh/
 
 
-- https://www.youtube.com/watch?v=eJXVEju3XLM
+
     
 - services and repository will be refactored according to Athena
-
 
 - Research in depth common dir nested in server athena project
 

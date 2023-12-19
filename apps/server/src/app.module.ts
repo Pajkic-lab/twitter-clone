@@ -13,6 +13,8 @@ import { UtileModule } from './modules/utile/utile.module';
 import { DataAccessModule } from '@tw/data-access';
 import { ContractTestModule } from './modules/contract-test/contract-test.module';
 import { AutoMapperModule } from './modules/automapper/automapper.module';
+import { UserModule } from './modules/user/user.module';
+import { SocialModule } from './modules/social/social.module';
 
 const coreModules = [
   ConfigurationModule,
@@ -28,7 +30,9 @@ const coreModules = [
 ];
 
 const applicationModules = [
+  UserModule,
   AuthModule,
+  SocialModule,
   CronJobModule,
   HelperModule,
   HttpModule,

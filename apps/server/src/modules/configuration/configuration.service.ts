@@ -22,10 +22,6 @@ export class ConfigurationService {
     return validatedConfig;
   }
 
-  // private get(key: keyof EnvironmentVariables): string {
-  //   return this.config.get(key);
-  // }
-
   private get(key: keyof EnvironmentVariables): string {
     const value = this.config.get(key);
     if (value === undefined) {
