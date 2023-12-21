@@ -7,7 +7,6 @@ import {
 } from '@automapper/core';
 import { AutomapperProfile } from '@automapper/nestjs';
 import { Injectable } from '@nestjs/common';
-import { InjectMapper } from '../../common/decorators/inject-mapper.decorator';
 import {
   FollowUserResponseDto,
   FollowerListResponseDto,
@@ -15,6 +14,7 @@ import {
   SocialBase,
   UserWithFollowingStatus,
 } from '@tw/data';
+import { InjectMapper } from '../../common/decorators/inject-mapper.decorator';
 
 @Injectable()
 export class SocialProfile extends AutomapperProfile {

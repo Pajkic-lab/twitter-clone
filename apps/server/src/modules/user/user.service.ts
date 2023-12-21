@@ -1,3 +1,4 @@
+import { Mapper } from '@automapper/core';
 import {
   HttpException,
   HttpStatus,
@@ -18,17 +19,16 @@ import {
   UpdateUserResponseDto,
   UserBase,
 } from '@tw/data';
-import { createResponse } from '../../common/http/create-response';
-import { UserRepository } from './user.repository';
-import { Mapper } from '@automapper/core';
 import { InjectMapper } from '../../common/decorators/inject-mapper.decorator';
-import { AuthMediaRepository } from '../auth/auth.media-repository';
+import { createResponse } from '../../common/http/create-response';
+import { CloudinaryService } from '../cloudinary/cloudinary.service';
+import { UserRepository } from './user.repository';
 
 @Injectable()
 export class UserService {
   constructor(
     private userRepository: UserRepository,
-    private mediaRepository: AuthMediaRepository,
+    private cloudinaryService: CloudinaryService,
     @InjectMapper() private readonly mapper: Mapper
   ) {}
 
@@ -58,7 +58,7 @@ export class UserService {
     let user;
     user = await this.userRepository.isUserNameUnique(data.uniqueName);
     if (user !== null) {
-      throw new NotFoundException('Uniqu user name already exist!');
+      throw new NotFoundException('Unique user name already exist!');
     } else {
       user = await this.userRepository.updateUserNameUnique(
         userId,
@@ -86,7 +86,7 @@ export class UserService {
     let coverUrl: string = '';
 
     if (updateUser.avatar) {
-      const { url } = await this.mediaRepository.uploadImage(
+      const { url } = await this.cloudinaryService.uploadImage(
         updateUser.avatar,
         userId,
         MediaDirectory.Private
@@ -94,7 +94,7 @@ export class UserService {
       avatarUrl = url;
     }
     if (updateUser.cover) {
-      const { url } = await this.mediaRepository.uploadImage(
+      const { url } = await this.cloudinaryService.uploadImage(
         updateUser.cover,
         userId,
         MediaDirectory.Private

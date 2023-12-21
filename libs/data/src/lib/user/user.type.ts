@@ -3,7 +3,6 @@ import { Request } from 'express';
 import { Social, User } from '@prisma/client';
 import { AutoMap } from '@automapper/classes';
 
-// This entire dir has to be refactored!!!
 export class UserBase implements User {
   @AutoMap()
   id: number;
@@ -79,7 +78,7 @@ export class CreatableGoogleUser {
   name: string;
 }
 
-// should be renamed
+// should be renamed moved to separate dir and refactored, don't know yet how to organize this
 export enum MediaDirectory {
   Private = 'private',
   Public = 'public',

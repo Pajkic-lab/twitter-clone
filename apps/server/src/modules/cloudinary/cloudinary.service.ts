@@ -1,25 +1,22 @@
-import { Injectable } from '@nestjs/common';
-import { v2 as cloudinary } from 'cloudinary';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { MediaDirectory } from '@tw/data';
-import { ConfigurationService } from '../configuration/configuration.service';
+import { v2 as cloudinary } from 'cloudinary';
+import { CloudinaryBase } from './cloudinary-base.service';
 
 @Injectable()
-export class CloudinaryService {
-  constructor(private confService: ConfigurationService) {
-    cloudinary.config({
-      cloud_name: this.confService.cloudinaryCloudName,
-      api_key: this.confService.cloudinaryApiKey,
-      api_secret: this.confService.cloudinarySecret,
-    });
-  }
+export class CloudinaryService extends CloudinaryBase {
+  // write method to check does image already exist
 
-  async uploadImage(
-    image: string,
-    userId: number,
-    dir: MediaDirectory.Private
-  ) {
-    return await cloudinary.uploader.upload(image, {
-      folder: `twitter-clone/user_${userId}/${dir}`,
-    });
+  async uploadImage(image: string, userId: number, dir: MediaDirectory) {
+    try {
+      return await cloudinary.uploader.upload(image, {
+        folder: `twitter-clone/user_${userId}/${dir}`,
+      });
+    } catch (error) {
+      throw new HttpException(
+        `Error while uploading img, user: ${userId}, dir: ${dir}`,
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+    }
   }
 }
