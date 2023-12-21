@@ -1,19 +1,19 @@
 import { Controller, Get, Post, Req, Res, UseGuards } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { GoogleAuthGuard } from './google-strategy/google-auth.guard';
-import { IsAuthGuard } from './is-auth.guard';
-import { IsGuestGuard } from './is-guest.guard';
-import { LocalAuthGuard } from './local-strategy/local-auth.guard';
-import { HttpService } from '../http/http.service';
-import { Request, Response } from 'express';
 import {
-  RequestContainingUserId,
-  HttpResponse,
   AuthenticationResponseDto,
+  HttpResponse,
+  RequestContainingUserId,
   SignInEmailResponseDto,
   SignUpEmailResponseDto,
   SocialStatsResponseDto,
 } from '@tw/data';
+import { Request, Response } from 'express';
+import { IsAuthGuard } from '../../common/guards/is-auth.guard';
+import { IsGuestGuard } from '../../common/guards/is-guest.guard';
+import { HttpService } from '../http/http.service';
+import { AuthService } from './auth.service';
+import { GoogleAuthGuard } from './google-strategy/google-auth.guard';
+import { LocalAuthGuard } from './local-strategy/local-auth.guard';
 
 @Controller('auth')
 export class AuthController {

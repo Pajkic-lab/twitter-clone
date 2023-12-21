@@ -1,8 +1,8 @@
 import { Controller } from '@nestjs/common';
 import { Get, Res, UseGuards } from '@nestjs/common/decorators';
-import { UtileService } from './utile.service';
-import { IsAuthGuard } from '../auth/is-auth.guard';
 import { Response } from 'express';
+import { IsAuthGuard } from '../../common/guards/is-auth.guard';
+import { UtileService } from './utile.service';
 
 @Controller('utile')
 export class UtileController {

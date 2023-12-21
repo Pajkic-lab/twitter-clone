@@ -1,13 +1,20 @@
 import { Module } from '@nestjs/common';
+import { IsAuthGuard } from '../../common/guards/is-auth.guard';
+import { CloudinaryService } from '../cloudinary/cloudinary.service';
 import { UserController } from './user.controller';
-import { UserService } from './user.service';
-import { UserRepository } from './user.repository';
 import { UserProfile } from './user.profile';
-import { AuthMediaRepository } from '../auth/auth.media-repository';
+import { UserRepository } from './user.repository';
+import { UserService } from './user.service';
 
 @Module({
   imports: [],
-  providers: [UserService, UserRepository, AuthMediaRepository, UserProfile],
+  providers: [
+    UserService,
+    UserRepository,
+    IsAuthGuard,
+    UserProfile,
+    CloudinaryService,
+  ],
   controllers: [UserController],
 })
 export class UserModule {}
