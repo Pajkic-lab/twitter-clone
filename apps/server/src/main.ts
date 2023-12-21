@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 
+import { INestApplication } from '@nestjs/common';
 import { ValidationPipe } from '@nestjs/common/pipes';
 import { NestFactory } from '@nestjs/core';
 import { PrismaClient } from '@prisma/client';
@@ -11,7 +12,6 @@ import passport from 'passport';
 import { AppModule } from './app.module';
 import { ConfigurationService } from './modules/configuration/configuration.service';
 import { CorsService } from './modules/http/cors.service';
-import { INestApplication } from '@nestjs/common';
 
 function setupSession(app: INestApplication) {
   const MAX_AGE = 2147483647;

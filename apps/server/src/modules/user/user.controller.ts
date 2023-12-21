@@ -10,7 +10,6 @@ import {
   UseGuards,
   UsePipes,
 } from '@nestjs/common';
-import { IsAuthGuard } from '../auth/is-auth.guard';
 import {
   HttpResponse,
   MostPopularUsersResponseDto,
@@ -24,6 +23,7 @@ import {
   UpdateUserRequestDto,
   UpdateUserResponseDto,
 } from '@tw/data';
+import { IsAuthGuard } from '../../common/guards/is-auth.guard';
 import { UserService } from './user.service';
 
 @Controller('user')
@@ -31,7 +31,6 @@ export class UserController {
   constructor(private userService: UserService) {}
 
   @Post('name-unique')
-  //   maybe IsAuthGuard should be moved to shared dir
   @UseGuards(IsAuthGuard)
   handleNameUniqueness(
     @Body() body: NameUniqueRequestDto

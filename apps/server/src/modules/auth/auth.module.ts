@@ -1,18 +1,17 @@
 import { Module } from '@nestjs/common';
+import { IsAuthGuard } from '../../common/guards/is-auth.guard';
+import { IsGuestGuard } from '../../common/guards/is-guest.guard';
+import { HelperService } from '../helper/helper.service';
+import { HttpService } from '../http/http.service';
 import { AuthController } from './auth.controller';
-import { AuthMediaRepository } from './auth.media-repository';
+import { AuthProfile } from './auth.profile';
 import { AuthRepository } from './auth.repository';
 import { AuthService } from './auth.service';
 import { GoogleAuthGuard } from './google-strategy/google-auth.guard';
 import { GoogleStrategy } from './google-strategy/google-strategy';
-import { IsAuthGuard } from './is-auth.guard';
-import { IsGuestGuard } from './is-guest.guard';
 import { DtoValidation } from './local-strategy/dto-validation';
 import { LocalStrategy } from './local-strategy/local-strategy';
 import { SessionSerializer } from './serializer';
-import { HelperService } from '../helper/helper.service';
-import { HttpService } from '../http/http.service';
-import { AuthProfile } from './auth.profile';
 
 @Module({
   controllers: [AuthController],
@@ -28,7 +27,6 @@ import { AuthProfile } from './auth.profile';
     IsGuestGuard,
     IsAuthGuard,
     GoogleAuthGuard,
-    AuthMediaRepository,
     AuthProfile,
   ],
   imports: [],

@@ -1,3 +1,4 @@
+import { Mapper } from '@automapper/core';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import {
   FollowUserRequestDto,
@@ -9,10 +10,9 @@ import {
   UnFollowUserResponseDto,
   UserWithFollowingStatus,
 } from '@tw/data';
-import { SocialRepository } from './social.repository';
 import { InjectMapper } from '../../common/decorators/inject-mapper.decorator';
-import { Mapper } from '@automapper/core';
 import { createResponse } from '../../common/http/create-response';
+import { SocialRepository } from './social.repository';
 
 @Injectable()
 export class SocialService {

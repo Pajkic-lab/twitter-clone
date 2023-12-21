@@ -1,13 +1,13 @@
 import { Mapper, MappingProfile, createMap } from '@automapper/core';
 import { AutomapperProfile } from '@automapper/nestjs';
 import { Injectable } from '@nestjs/common';
-import { InjectMapper } from '../../common/decorators/inject-mapper.decorator';
 import {
   AuthenticationResponseDto,
   SignInEmailResponseDto,
   SignUpEmailResponseDto,
   UserBase,
 } from '@tw/data';
+import { InjectMapper } from '../../common/decorators/inject-mapper.decorator';
 
 @Injectable()
 export class AuthProfile extends AutomapperProfile {

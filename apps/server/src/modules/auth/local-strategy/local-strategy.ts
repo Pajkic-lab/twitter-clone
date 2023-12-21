@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
+import { User } from '@prisma/client';
+import { SignInEmailRequestDto, SignUpEmailRequestDto } from '@tw/data';
 import { Request } from 'express';
 import { Strategy } from 'passport-local';
 import { AuthService } from '../auth.service';
 import { DtoValidation } from './dto-validation';
-import { SignInEmailRequestDto, SignUpEmailRequestDto } from '@tw/data';
-import { User } from '@prisma/client';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {

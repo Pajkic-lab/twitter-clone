@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { validate, ValidationError } from 'class-validator';
-import { SignUpEmailRequestDto, SignInEmailRequestDto } from '@tw/data';
+import { SignInEmailRequestDto, SignUpEmailRequestDto } from '@tw/data';
+import { ValidationError, validate } from 'class-validator';
 
 @Injectable()
 export class DtoValidation {

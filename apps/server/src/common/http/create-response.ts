@@ -1,18 +1,5 @@
-import { Except } from 'type-fest';
 import { HttpResponse } from '@tw/data';
-
-// export enum HttpResponseType {
-//   STANDARD = 'STANDARD',
-//   BACKGROUND = 'BACKGROUND',
-// }
-
-// export type HttpResponse<T = unknown> = {
-//   isSuccessful: boolean;
-//   payload: T;
-//   code: number;
-//   message: string;
-//   type: `${HttpResponseType}`;
-// };
+import { Except } from 'type-fest';
 
 export class HttpResponseInner {
   constructor(data: Partial<HttpResponse> = {}) {

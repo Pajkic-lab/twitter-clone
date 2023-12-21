@@ -4,21 +4,7 @@ npx nx generate lib <name>
 render alternative Cyclic: https://www.cyclic.sh/
 
 
-
-    
-- services and repository will be refactored according to Athena
-
-- Research in depth common dir nested in server athena project
-
 - eslint plugins: unicorn, prettier, unused-imports, typescript-eslint,        Backend: nest-js, Frontend: react, 
-
-- prettier add dep for auto import sort: prettier-plugin-organize-imports, som options: prettier-plugin-typescript, prettier-plugin-nest-js, prettier-plugin-react
-
-
-
-
-- keep same routes and refactor Backend, split auth module to auth and user modules, utile module should be refactored to something else.
-
 
 
 Frontend:

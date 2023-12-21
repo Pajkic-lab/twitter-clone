@@ -10,8 +10,6 @@ import {
   UseGuards,
   UsePipes,
 } from '@nestjs/common';
-import { SocialService } from './social.service';
-import { IsAuthGuard } from '../auth/is-auth.guard';
 import {
   FollowUserRequestDto,
   FollowUserResponseDto,
@@ -21,6 +19,8 @@ import {
   RequestContainingUserId,
   UnFollowUserResponseDto,
 } from '@tw/data';
+import { IsAuthGuard } from '../../common/guards/is-auth.guard';
+import { SocialService } from './social.service';
 
 @Controller('social')
 export class SocialController {
