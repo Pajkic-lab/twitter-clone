@@ -1,12 +1,15 @@
-import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
-import styled from 'styled-components';
-import { useAppDispatch, useAppSelector } from 'apps/client/src/store/hooks';
-import { followUserThunk } from 'apps/client/src/store/features/authSlice/thunk';
-import { getMostPopularProfiles } from 'apps/client/src/store/features/utileSlice/thunk';
+import {
+  followUserThunk,
+  getMostPopularProfiles,
+  useAppDispatch,
+  useAppSelector,
+} from '@tw/ui/data-access';
+import { SecondaryButton } from 'apps/client/src/ui/Button';
 import { Loader } from 'apps/client/src/ui/Loader';
 import { Colors } from 'apps/client/src/ui/styles';
-import { SecondaryButton } from 'apps/client/src/ui/Button';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
 export const WhoToFollow = () => {
   const navigate = useNavigate();

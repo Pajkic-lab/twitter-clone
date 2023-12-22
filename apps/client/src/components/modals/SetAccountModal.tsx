@@ -1,17 +1,18 @@
 import { SocialTwitter } from '@styled-icons/foundation/SocialTwitter';
-import React, { useEffect } from 'react';
-import styled from 'styled-components';
-import Modal from 'styled-react-modal';
-import { useFormik } from 'formik';
-import * as yup from 'yup';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
   checkNameUniqueness,
   updateUserUniqueName,
-} from '../../store/features/authSlice/thunk';
-import { Colors } from '../../ui/styles';
-import { BaseInput } from '../../ui/Input';
+  useAppDispatch,
+  useAppSelector,
+} from '@tw/ui/data-access';
+import { useFormik } from 'formik';
+import React, { useEffect } from 'react';
+import styled from 'styled-components';
+import Modal from 'styled-react-modal';
+import * as yup from 'yup';
 import { JumboButton } from '../../ui/Button';
+import { BaseInput } from '../../ui/Input';
+import { Colors } from '../../ui/styles';
 
 export const SetAccountModal: React.FC = () => {
   const dispatch = useAppDispatch();

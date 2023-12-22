@@ -1,16 +1,16 @@
-import { NavigationBar } from './navBar/profileNavBar/NavigationBar';
+import { useAppSelector } from '@tw/ui/data-access';
+import { Colors } from 'apps/client/src/ui/styles';
+import React from 'react';
 import { useLocation, useParams } from 'react-router-dom';
+import styled from 'styled-components';
+import { WhoToFollow } from './WhoToFollow';
+import { FollowersList } from './body/FollowersList';
+import { FollowingList } from './body/FollowingList';
 import { PPFollowersList } from './body/PPFollowersList';
 import { PPFollowingList } from './body/PPFollowingList';
-import { ProfileNavBar } from './navBar/profileNavBar';
-import { FollowingList } from './body/FollowingList';
-import { FollowersList } from './body/FollowersList';
 import { HomeNavBar } from './navBar/HomeNavBar';
-import { WhoToFollow } from './WhoToFollow';
-import styled from 'styled-components';
-import React from 'react';
-import { useAppSelector } from 'apps/client/src/store/hooks';
-import { Colors } from 'apps/client/src/ui/styles';
+import { ProfileNavBar } from './navBar/profileNavBar';
+import { NavigationBar } from './navBar/profileNavBar/NavigationBar';
 
 export const MainLane: React.FC = () => {
   const location = useLocation();

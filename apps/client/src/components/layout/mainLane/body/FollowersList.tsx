@@ -1,16 +1,17 @@
+import {
+  followUserThunk,
+  getFollowersThunk,
+  unFollowUserThunk,
+  useAppDispatch,
+  useAppSelector,
+} from '@tw/ui/data-access';
+import { SecondaryButton } from 'apps/client/src/ui/Button';
+import { Loader } from 'apps/client/src/ui/Loader';
+import { Colors } from 'apps/client/src/ui/styles';
+import React from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import React from 'react';
-import {
-  followUserThunk,
-  unFollowUserThunk,
-} from 'apps/client/src/store/features/authSlice/thunk';
-import { getFollowersThunk } from 'apps/client/src/store/features/utileSlice/thunk';
-import { useAppDispatch, useAppSelector } from 'apps/client/src/store/hooks';
-import { Loader } from 'apps/client/src/ui/Loader';
-import { Colors } from 'apps/client/src/ui/styles';
-import { SecondaryButton } from 'apps/client/src/ui/Button';
 
 export const FollowersList: React.FC = () => {
   const navigate = useNavigate();

@@ -1,12 +1,15 @@
-import { ReactComponent as magnifyingGlass } from '../../../assets/svg/magnifyingGlass.svg';
-import { useNavigate } from 'react-router-dom';
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { useAppDispatch, useAppSelector } from 'apps/client/src/store/hooks';
-import { searchThunk } from 'apps/client/src/store/features/utileSlice/thunk';
-import { resetSearchRespons } from 'apps/client/src/store/features/utileSlice';
+import {
+  resetSearchRespons,
+  searchThunk,
+  useAppDispatch,
+  useAppSelector,
+} from '@tw/ui/data-access';
 import { Loader } from 'apps/client/src/ui/Loader';
 import { Colors } from 'apps/client/src/ui/styles';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import { ReactComponent as magnifyingGlass } from '../../../assets/svg/magnifyingGlass.svg';
 
 export const SearchBar: React.FC<{ InputId: string }> = ({ InputId }) => {
   const dispatch = useAppDispatch();

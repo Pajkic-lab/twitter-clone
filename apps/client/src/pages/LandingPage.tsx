@@ -1,19 +1,18 @@
-import googleSocialSignInLogo from '../assets/googl-socil-signIn-logo.png';
 import { SocialTwitter } from '@styled-icons/foundation/SocialTwitter';
-import appleSocilSignInlogo from '../assets/apple-socil-signIn-logo.png';
-import backgroundImage from '../assets/landing-page-backgrount.png';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { SignUpModal } from '../components/modals/SignUpModal';
-import { SignInModal } from '../components/modals/SignInModal';
+import appleSocilSignInlogo from '../assets/apple-socil-signIn-logo.png';
+import googleSocialSignInLogo from '../assets/googl-socil-signIn-logo.png';
+import backgroundImage from '../assets/landing-page-backgrount.png';
 import { Footer } from '../components/Footer';
-import { Colors } from '../ui/styles';
+import { SignInModal } from '../components/modals/SignInModal';
+import { SignUpModal } from '../components/modals/SignUpModal';
 import {
   PrimaryButton,
   SecondaryButton,
   SocialSignInButton,
 } from '../ui/Button';
-import { http } from '../http/api';
+import { Colors } from '../ui/styles';
 
 export const LandingPage: React.FC = () => {
   const [signUpModalIsOpen, setSignUpModalIsOpen] = useState(false);

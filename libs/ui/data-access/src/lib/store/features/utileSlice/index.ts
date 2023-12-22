@@ -1,3 +1,7 @@
+import { createSlice } from '@reduxjs/toolkit';
+import { MostPopularUsersResponseDto, SearchUsersResponseDto } from '@tw/data';
+import { User } from 'apps/client/src/types';
+import { followUserThunk, unFollowUserThunk } from '../authSlice/thunk';
 import {
   getFollowersThunk,
   getFollowingUsersThunk,
@@ -6,10 +10,6 @@ import {
   getPPFollowingUsersThunk,
   searchThunk,
 } from './thunk';
-import { followUserThunk, unFollowUserThunk } from '../authSlice/thunk';
-import { createSlice } from '@reduxjs/toolkit';
-import { User } from 'apps/client/src/types';
-import { MostPopularUsersResponseDto, SearchUsersResponseDto } from '@tw/data';
 
 interface UtileState {
   mostPopularUsers: MostPopularUsersResponseDto[];

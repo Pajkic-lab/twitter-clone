@@ -1,8 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { isAxiosError } from 'axios';
-// import { http } from '@tw/data-access';
-import { http } from 'apps/client/src/http/api';
 import { SearchUserRequestDto } from '@tw/data';
+import { http } from '@tw/ui/data-access';
+import { isAxiosError } from 'axios';
 
 export const getMostPopularProfiles = createAsyncThunk(
   'utile/getMostPopularUsers',

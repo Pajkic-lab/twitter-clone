@@ -12,3 +12,6 @@ Frontend:
 check out this package: https://redux-toolkit.js.org/rtk-query/overview
 
 
+- where to store colors, assets?
+- sort out colors
+- sort out font according to athena

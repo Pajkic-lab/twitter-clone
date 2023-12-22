@@ -1,8 +1,11 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import {
+  getPublicProfile,
+  resetState,
+  useAppDispatch,
+  useAppSelector,
+} from '@tw/ui/data-access';
 import React, { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../store/hooks';
-import { resetState } from '../store/features/publicProfileSlice';
-import { getPublicProfile } from '../store/features/publicProfileSlice/thunk';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export const PublicProfileTrigger: React.FC = () => {
   const params = useParams();

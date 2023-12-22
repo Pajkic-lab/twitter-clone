@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { http } from '@tw/ui/data-access';
 import { isAxiosError } from 'axios';
-import { http } from 'apps/client/src/http/api';
 
 export const getPublicProfile = createAsyncThunk(
   'publicProfile/getUser',

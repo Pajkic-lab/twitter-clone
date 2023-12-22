@@ -1,9 +1,7 @@
+import { createSlice } from '@reduxjs/toolkit';
+import { User } from 'apps/client/src/types';
 import { followUserThunk, unFollowUserThunk } from '../authSlice/thunk';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getPublicProfile } from './thunk';
-import { AxiosResponse } from 'axios';
-import { PublicUser, User } from 'apps/client/src/types';
-import { SocialStatsResponseDto } from '@tw/data';
 
 interface PublicProfileState extends Omit<User, 'email'> {
   isLoading: boolean;

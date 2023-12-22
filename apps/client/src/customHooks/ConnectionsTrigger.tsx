@@ -1,9 +1,10 @@
-import { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../store/hooks';
 import {
   getFollowersThunk,
   getFollowingUsersThunk,
-} from '../store/features/utileSlice/thunk';
+  useAppDispatch,
+  useAppSelector,
+} from '@tw/ui/data-access';
+import { useEffect } from 'react';
 
 export const ConnectionsTrigger = () => {
   const dispatch = useAppDispatch();

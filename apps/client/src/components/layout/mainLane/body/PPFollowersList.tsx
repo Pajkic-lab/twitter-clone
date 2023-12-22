@@ -7,16 +7,17 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 // import { Loader } from 'ui/Loader'
 // import { Colors } from 'ui/styles'
-import React from 'react';
-import { useAppDispatch, useAppSelector } from 'apps/client/src/store/hooks';
 import {
   followUserThunk,
+  getPPFollowersThunk,
   unFollowUserThunk,
-} from 'apps/client/src/store/features/authSlice/thunk';
-import { getPPFollowersThunk } from 'apps/client/src/store/features/utileSlice/thunk';
+  useAppDispatch,
+  useAppSelector,
+} from '@tw/ui/data-access';
+import { SecondaryButton } from 'apps/client/src/ui/Button';
 import { Loader } from 'apps/client/src/ui/Loader';
 import { Colors } from 'apps/client/src/ui/styles';
-import { SecondaryButton } from 'apps/client/src/ui/Button';
+import React from 'react';
 
 export const PPFollowersList: React.FC<{ userId: number }> = ({ userId }) => {
   const navigate = useNavigate();

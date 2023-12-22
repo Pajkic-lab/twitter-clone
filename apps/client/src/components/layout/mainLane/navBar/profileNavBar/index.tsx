@@ -1,14 +1,14 @@
-import { TweetsNavigation } from './TweetsNavigation';
-import { AvatarAndOptions } from './AvatarAndOptions';
-import { NavigationBar } from './NavigationBar';
+import { useAppSelector } from '@tw/ui/data-access';
+import { Colors } from 'apps/client/src/ui/styles';
+import React from 'react';
 import { useLocation } from 'react-router-dom';
+import styled from 'styled-components';
+import { AvatarAndOptions } from './AvatarAndOptions';
+import { Cover } from './Cover';
+import { NavigationBar } from './NavigationBar';
 import { ProfileData } from './ProfileData';
 import { SocialStats } from './SocialStats';
-import styled from 'styled-components';
-import { Cover } from './Cover';
-import React from 'react';
-import { useAppSelector } from 'apps/client/src/store/hooks';
-import { Colors } from 'apps/client/src/ui/styles';
+import { TweetsNavigation } from './TweetsNavigation';
 
 export const ProfileNavBar: React.FC = () => {
   const { pathname } = useLocation();

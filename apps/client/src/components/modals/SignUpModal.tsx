@@ -1,15 +1,18 @@
 import { Cross } from '@styled-icons/entypo/Cross';
-import { useFormik, FormikHelpers } from 'formik';
-import React, { useEffect } from 'react';
-import Modal from 'styled-react-modal';
-import styled from 'styled-components';
-import * as yup from 'yup';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { signUpThunk } from '../../store/features/authSlice/thunk';
-import { Colors } from '../../ui/styles';
-import { BaseInput } from '../../ui/Input';
-import { JumboButton } from '../../ui/Button';
 import { SignUpEmailRequestDto } from '@tw/data';
+import {
+  signUpThunk,
+  useAppDispatch,
+  useAppSelector,
+} from '@tw/ui/data-access';
+import { FormikHelpers, useFormik } from 'formik';
+import React, { useEffect } from 'react';
+import styled from 'styled-components';
+import Modal from 'styled-react-modal';
+import * as yup from 'yup';
+import { JumboButton } from '../../ui/Button';
+import { BaseInput } from '../../ui/Input';
+import { Colors } from '../../ui/styles';
 
 interface Props {
   signUpModalIsOpen: boolean;

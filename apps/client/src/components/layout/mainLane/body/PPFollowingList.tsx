@@ -1,9 +1,10 @@
 import {
   followUserThunk,
+  getPPFollowingUsersThunk,
   unFollowUserThunk,
-} from 'apps/client/src/store/features/authSlice/thunk';
-import { getPPFollowingUsersThunk } from 'apps/client/src/store/features/utileSlice/thunk';
-import { useAppDispatch, useAppSelector } from 'apps/client/src/store/hooks';
+  useAppDispatch,
+  useAppSelector,
+} from '@tw/ui/data-access';
 import { SecondaryButton } from 'apps/client/src/ui/Button';
 import { Loader } from 'apps/client/src/ui/Loader';
 import { Colors } from 'apps/client/src/ui/styles';

@@ -1,10 +1,11 @@
-import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../store/hooks';
 import {
   getPPFollowersThunk,
   getPPFollowingUsersThunk,
-} from '../store/features/utileSlice/thunk';
+  useAppDispatch,
+  useAppSelector,
+} from '@tw/ui/data-access';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 export const PublicProfileConnectiosTrigger = () => {
   const dispatch = useAppDispatch();

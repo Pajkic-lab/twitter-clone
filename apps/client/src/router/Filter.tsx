@@ -1,7 +1,7 @@
-import { Navigate } from 'react-router-dom';
+import { useAppSelector } from '@tw/ui/data-access';
 import React from 'react';
+import { Navigate } from 'react-router-dom';
 import { AuthType } from '../types';
-import { useAppSelector } from '../store/hooks';
 import { Loader } from '../ui/Loader';
 
 export const Filter: React.FC<{

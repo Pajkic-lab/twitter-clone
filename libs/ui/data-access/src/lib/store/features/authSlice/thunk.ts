@@ -1,15 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { UpdateUser } from 'apps/client/src/types';
-import { isAxiosError } from 'axios';
 import {
+  FollowUserRequestDto,
+  NameUniqueRequestDto,
   SignInEmailRequestDto,
   SignUpEmailRequestDto,
-  NameUniqueRequestDto,
-  UpdateUserRequestDto,
-  FollowUserRequestDto,
   UnFollowUserRequestDto,
+  UpdateUserRequestDto,
 } from '@tw/data';
-import { http } from 'apps/client/src/http/api';
+import { http } from '@tw/ui/data-access';
+import { isAxiosError } from 'axios';
 
 export const signUpThunk = createAsyncThunk(
   'auth/signUp',

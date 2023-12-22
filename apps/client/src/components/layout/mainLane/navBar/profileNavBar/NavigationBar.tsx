@@ -1,10 +1,9 @@
-import { ReactComponent as ArrowLeft } from '../../../../../assets/svg/arrowLeft.svg';
+import { resetState, useAppDispatch } from '@tw/ui/data-access';
+import { Colors } from 'apps/client/src/ui/styles';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import React from 'react';
-import { useAppDispatch } from 'apps/client/src/store/hooks';
-import { resetState } from 'apps/client/src/store/features/publicProfileSlice';
-import { Colors } from 'apps/client/src/ui/styles';
+import { ReactComponent as ArrowLeft } from '../../../../../assets/svg/arrowLeft.svg';
 
 export const NavigationBar: React.FC<{ name: string }> = ({ name }) => {
   const dispatch = useAppDispatch();

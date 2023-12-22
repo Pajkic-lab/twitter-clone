@@ -1,10 +1,9 @@
+import { useAppSelector } from '@tw/ui/data-access';
+import styled, { ThemeProvider } from 'styled-components';
 import { ModalProvider } from 'styled-react-modal';
-import { ThemeProvider } from 'styled-components';
-import styled from 'styled-components';
-import { Router } from './router';
-import { AuthTrigger } from './customHooks/AuthTrigger';
-import { useAppSelector } from './store/hooks';
 import { GlobalStyle } from './GlobalStyle';
+import { AuthTrigger } from './customHooks/AuthTrigger';
+import { Router } from './router';
 import { Colors } from './ui/styles';
 
 export const App = () => {

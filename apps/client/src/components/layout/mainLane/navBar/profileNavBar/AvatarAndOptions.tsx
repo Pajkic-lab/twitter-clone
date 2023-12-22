@@ -1,14 +1,15 @@
-import { useParams } from 'react-router-dom';
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { useAppDispatch, useAppSelector } from 'apps/client/src/store/hooks';
 import {
   followUserThunk,
   unFollowUserThunk,
-} from 'apps/client/src/store/features/authSlice/thunk';
+  useAppDispatch,
+  useAppSelector,
+} from '@tw/ui/data-access';
 import { EditProfileModal } from 'apps/client/src/components/modals/EditProfileModal';
-import { Colors } from 'apps/client/src/ui/styles';
 import { SecondaryButton } from 'apps/client/src/ui/Button';
+import { Colors } from 'apps/client/src/ui/styles';
+import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import styled from 'styled-components';
 
 export const AvatarAndOptions: React.FC<{
   avatar: string;
