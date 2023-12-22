@@ -45,7 +45,7 @@
     "@ts-rest/nest": "^3.30.5",
     "@types/jest": "^29.4.0",
     "@types/js-cookie": "^3.0.2",
-    "@types/node": "18.7.1",
+    "@types/node": "18.14.2",
     "@types/passport-google-oauth20": "^2.0.11",
     "@types/passport-local": "^1.0.35",
     "axios": "^1.5.0",

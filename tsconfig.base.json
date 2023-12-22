@@ -27,14 +27,10 @@
     "paths": {
       "@tw/contract": ["libs/contract/src/index.ts"],
       "@tw/data": ["libs/data/src/index.ts"],
-      "@tw/data-access": ["libs/data-access/src/index.ts"]
+      "@tw/data-access": ["libs/data-access/src/index.ts"],
+      "@tw/ui/assets": ["libs/ui/assets/src/index.ts"],
+      "@tw/ui/components": ["libs/ui/components/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
 }
-
-/*
- * should probably be added... research following flags
- * "verbatimModuleSyntax": true,
- * "moduleDetection": "force",
- */
