@@ -1,3 +1,4 @@
+import { Colors } from '@tw/ui/assets';
 import {
   followUserThunk,
   getMostPopularProfiles,
@@ -6,7 +7,6 @@ import {
 } from '@tw/ui/data-access';
 import { SecondaryButton } from 'apps/client/src/ui/Button';
 import { Loader } from 'apps/client/src/ui/Loader';
-import { Colors } from 'apps/client/src/ui/styles';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -81,7 +81,7 @@ const TittleWrapper = styled.div`
 const H2 = styled.h2`
   margin: 0;
   font-weight: 700;
-  color: ${Colors.textGray};
+  color: ${Colors.grayPrimary};
 `;
 
 const ProfileButtonWrapper = styled.div`
@@ -104,7 +104,7 @@ const ProfileImage = styled.div<{ $backgroundImage: string }>`
   border-radius: 100%;
   width: 3.2rem;
   height: 3.2rem;
-  background-color: ${Colors.primary};
+  background-color: ${Colors.bluePrimary};
 
   ${(props) =>
     props.$backgroundImage &&
@@ -122,14 +122,14 @@ const TextWrapper = styled.div``;
 const H3 = styled.h3`
   margin: 0;
   padding-left: 0.8rem;
-  color: ${Colors.textGray};
+  color: ${Colors.grayPrimary};
   font-weight: 700;
 `;
 
 const Span = styled.span`
   margin: 0;
   padding-left: 0.8rem;
-  color: ${Colors.darkGray};
+  color: ${Colors.graySecondary};
   font-weight: 500;
 `;
 

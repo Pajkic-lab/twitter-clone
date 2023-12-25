@@ -1,4 +1,5 @@
 import Tippy from '@tippyjs/react';
+import { Colors } from '@tw/ui/assets';
 import {
   signOutThunk,
   useAppDispatch,
@@ -25,7 +26,6 @@ import { ReactComponent as profile } from '../../assets/svg/profile.svg';
 import { ReactComponent as profileActive } from '../../assets/svg/profileActive.svg';
 import { ReactComponent as twitterLogo } from '../../assets/svg/twitterLogo.svg';
 import { PrimaryButton } from '../../ui/Button';
-import { Colors } from '../../ui/styles';
 
 type SideBarLogoProps = {
   component: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
@@ -128,7 +128,7 @@ const IconWrapper = styled.div`
 `;
 
 const TwitterLogo = styled(twitterLogo)`
-  fill: ${Colors.textGray};
+  fill: ${Colors.grayPrimary};
   width: 2rem;
   height: 2rem;
   cursor: pointer;
@@ -146,7 +146,7 @@ const LinkWrapper = styled.div`
   cursor: pointer;
 
   &:hover {
-    background-color: ${Colors.blackActive};
+    background-color: ${Colors.grayDarkActive};
   }
 `;
 
@@ -158,7 +158,7 @@ const SVGWrapper = styled.div`
 
 const SideBarLogo: React.FC<SideBarLogoProps> = ({
   component: Component,
-  fill = Colors.textGray,
+  fill = Colors.grayPrimary,
   width = '2rem',
   height = '2rem',
 }) => {
@@ -166,7 +166,7 @@ const SideBarLogo: React.FC<SideBarLogoProps> = ({
 };
 
 const H2 = styled.h2<{ isActive: boolean }>`
-  color: ${Colors.textGray};
+  color: ${Colors.grayPrimary};
   padding-left: 0.6rem;
   margin: 0.9rem;
   font-weight: 500;
@@ -197,7 +197,7 @@ const ProfileButtonWrapper = styled.div`
   cursor: pointer;
 
   &:hover {
-    background-color: ${Colors.blackActive};
+    background-color: ${Colors.grayDarkActive};
   }
 `;
 
@@ -212,7 +212,7 @@ const ProfileImage = styled.div<{ $backgroundImage: string }>`
   border-radius: 100%;
   width: 2.8rem;
   height: 2.8rem;
-  background-color: ${Colors.primary};
+  background-color: ${Colors.bluePrimary};
 
   ${(props) =>
     props.$backgroundImage &&
@@ -230,19 +230,19 @@ const TextWrapper = styled.div``;
 const H3 = styled.h3`
   margin: 0;
   padding-left: 0.8rem;
-  color: ${Colors.textGray};
+  color: ${Colors.grayPrimary};
   font-weight: 700;
 `;
 
 const Span = styled.span`
   margin: 0;
   padding-left: 0.8rem;
-  color: ${Colors.darkGray};
+  color: ${Colors.graySecondary};
   font-weight: 500;
 `;
 
 const Options = styled(options)`
-  fill: ${Colors.textGray};
+  fill: ${Colors.grayPrimary};
   width: 2rem;
   height: 2rem;
 `;
@@ -256,7 +256,7 @@ const BallonWrapper = styled.div`
 `;
 
 const SpanText = styled.span`
-  color: ${Colors.textGray};
+  color: ${Colors.grayPrimary};
   font-weight: 700;
 `;
 

@@ -1,7 +1,6 @@
-import styled, { keyframes } from 'styled-components';
+import { Colors } from '@tw/ui/assets';
 import { FunctionComponent } from 'react';
-import { Colors } from './styles';
-
+import styled, { keyframes } from 'styled-components';
 interface Props {
   fullScreen?: boolean;
 }
@@ -41,7 +40,7 @@ const Element = styled.div`
   font-size: 10px;
   position: relative;
   border: 4px solid transparent;
-  border-left-color: ${Colors.primary};
+  border-left-color: ${Colors.bluePrimary};
   transform: translateZ(0);
   animation: ${loaderKeyframe} 1.1s infinite linear;
 

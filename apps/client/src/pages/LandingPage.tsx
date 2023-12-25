@@ -1,4 +1,5 @@
 import { SocialTwitter } from '@styled-icons/foundation/SocialTwitter';
+import { Colors } from '@tw/ui/assets';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import appleSocilSignInlogo from '../assets/apple-socil-signIn-logo.png';
@@ -12,7 +13,6 @@ import {
   SecondaryButton,
   SocialSignInButton,
 } from '../ui/Button';
-import { Colors } from '../ui/styles';
 
 export const LandingPage: React.FC = () => {
   const [signUpModalIsOpen, setSignUpModalIsOpen] = useState(false);
@@ -157,7 +157,7 @@ const Icon = styled(SocialTwitter)`
   margin-left: -5px;
   width: 56px;
   height: 56px;
-  color: ${Colors.textGray};
+  color: ${Colors.grayPrimary};
 `;
 
 const H1 = styled.h1`
@@ -170,7 +170,7 @@ const H1 = styled.h1`
   transform: scaleY(1.8);
   transform: scalex(1.3);
   letter-spacing: -3px;
-  color: ${Colors.lighterGray};
+  color: ${Colors.grayLight};
 `;
 
 const H3 = styled.h3`
@@ -182,25 +182,25 @@ const H3 = styled.h3`
   transform: scalex(1.4);
   transform-origin: 0 0;
   letter-spacing: -1px;
-  color: ${Colors.lighterGray};
+  color: ${Colors.grayLight};
 `;
 
 const H4 = styled.h4`
   margin-bottom: 18px;
   font-weight: 600;
   font-size: 18px;
-  color: ${Colors.lighterGray};
+  color: ${Colors.grayLight};
 `;
 
 const H5 = styled.h5`
   font-weight: 500;
   font-size: medium;
-  color: ${Colors.lighterGray};
+  color: ${Colors.grayLight};
   padding: 7px;
 `;
 
 const SpanText = styled.span`
-  color: ${Colors.primary};
+  color: ${Colors.bluePrimary};
 `;
 
 const DividerWrapper = styled.div`
@@ -215,13 +215,13 @@ const DividerWrapper = styled.div`
 const DividerLine = styled.div`
   width: 100%;
   height: 0.2px;
-  background-color: ${Colors.darkerGrey};
+  background-color: ${Colors.grayDark};
 `;
 
 const PolicyTextWrapper = styled.div`
   width: 300px;
   margin-bottom: 35px;
-  color: ${Colors.darkGray};
+  color: ${Colors.graySecondary};
   font-size: 11px;
 `;
 

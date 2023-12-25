@@ -1,6 +1,6 @@
+import { Colors } from '@tw/ui/assets';
 import { ButtonHTMLAttributes, forwardRef } from 'react';
 import styled from 'styled-components';
-import { Colors } from './styles';
 import { Loader } from './Loader';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -52,8 +52,8 @@ export const ButtonBase = styled(ButtonComponent)`
 
   &[disabled] {
     pointer-events: none;
-    background-color: ${Colors.secondaryActive};
-    color: ${Colors.textGray};
+    background-color: ${Colors.grayLight};
+    color: ${Colors.grayPrimary};
     border: 0;
   }
 
@@ -67,7 +67,7 @@ const ButtonLoader = styled(Loader)`
   height: 1.2rem;
   margin: auto;
   border: 3px solid rgba(255, 255, 255, 0.6);
-  border-left-color: ${Colors.primary};
+  border-left-color: ${Colors.bluePrimary};
 
   ::after {
     width: 1.5rem;
@@ -77,33 +77,33 @@ const ButtonLoader = styled(Loader)`
 `;
 
 export const PrimaryButton = styled(ButtonBase)`
-  background-color: ${Colors.primary};
+  background-color: ${Colors.bluePrimary};
   color: ${Colors.white};
   font-weight: 600;
 
   &:hover {
-    background-color: ${Colors.primaryHover};
+    background-color: ${Colors.bluePrimaryHover};
   }
 `;
 
 export const SecondaryButton = styled(ButtonBase)`
   background-color: ${Colors.black};
-  color: ${Colors.primary};
+  color: ${Colors.bluePrimary};
   font-weight: 600;
-  border: 1px solid ${Colors.textGray};
+  border: 1px solid ${Colors.grayPrimary};
 
   &:hover {
-    background-color: ${Colors.blackActive};
+    background-color: ${Colors.grayDarkActive};
   }
 `;
 
 export const SocialSignInButton = styled(ButtonBase)`
   background-color: ${Colors.white};
-  color: ${Colors.darkerGrey};
+  color: ${Colors.grayDark};
   font-weight: 600;
 
   &:hover {
-    background-color: ${Colors.lighterGray};
+    background-color: ${Colors.grayLight};
   }
 `;
 
@@ -111,7 +111,7 @@ export const JumboButton = styled(ButtonBase)`
   width: 30rem;
   height: 3.7rem;
   color: ${Colors.black};
-  background-color: ${Colors.darkGray};
+  background-color: ${Colors.graySecondary};
   font-size: medium;
   font-weight: 700;
 

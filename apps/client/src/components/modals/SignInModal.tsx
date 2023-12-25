@@ -1,5 +1,6 @@
 import { Cross } from '@styled-icons/entypo/Cross';
 import { SignInEmailRequestDto } from '@tw/data';
+import { Colors } from '@tw/ui/assets';
 import {
   signInThunk,
   useAppDispatch,
@@ -12,7 +13,6 @@ import Modal from 'styled-react-modal';
 import * as yup from 'yup';
 import { JumboButton } from '../../ui/Button';
 import { BaseInput } from '../../ui/Input';
-import { Colors } from '../../ui/styles';
 
 interface Props {
   signInModalIsOpen: boolean;
@@ -117,7 +117,7 @@ const ModalSection = styled.div`
   border-radius: 1rem;
   padding: 48px 75px 25px 75px;
   background-color: ${Colors.black};
-  color: ${Colors.primary};
+  color: ${Colors.bluePrimary};
 `;
 
 const Icon = styled(Cross)`
@@ -126,14 +126,14 @@ const Icon = styled(Cross)`
   left: 12px;
   width: 36px;
   height: 30px;
-  color: ${Colors.lighterGray};
+  color: ${Colors.grayLight};
   cursor: pointer;
 `;
 
 const H1 = styled.h1`
   font-size: 32px;
   font-weight: 600;
-  color: ${Colors.lighterGray};
+  color: ${Colors.grayLight};
 `;
 
 const Form = styled.form``;

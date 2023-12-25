@@ -1,4 +1,5 @@
 import { UpdateUserRequestDto } from '@tw/data';
+import { Colors } from '@tw/ui/assets';
 import { updateUser, useAppDispatch } from '@tw/ui/data-access';
 import { FormikHelpers, useFormik } from 'formik';
 import React, { useState } from 'react';
@@ -9,7 +10,6 @@ import { ReactComponent as Cross } from '../../assets/svg/cross.svg';
 import { SecondaryButton } from '../../ui/Button';
 import { ImageInput } from '../../ui/ImageInput';
 import { BaseInput } from '../../ui/Input';
-import { Colors } from '../../ui/styles';
 
 interface Props {
   editProfileModalIsOpen: boolean;
@@ -205,7 +205,7 @@ const ExitSvgWrapper = styled.div`
   cursor: pointer;
 
   &:hover {
-    background-color: ${Colors.blackActive};
+    background-color: ${Colors.grayDarkActive};
   }
 `;
 
@@ -222,7 +222,7 @@ const H2Tittle = styled.h2`
 `;
 
 const SaveModalButton = styled(SecondaryButton)`
-  color: ${Colors.textGray};
+  color: ${Colors.grayPrimary};
   padding-left: 0;
   padding-right: 0;
 `;
@@ -252,7 +252,7 @@ const AvatarWrapper = styled.div<{ $backgroundImage: string }>`
   height: 8rem;
   border-radius: 50%;
   margin-right: 1rem;
-  background-color: ${Colors.textColor};
+  background-color: ${Colors.grayModalBackgroundShadow};
   margin-bottom: 1rem;
   ${(props) =>
     props.$backgroundImage &&

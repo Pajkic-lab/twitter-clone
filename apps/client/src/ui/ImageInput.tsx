@@ -1,7 +1,7 @@
-import { ReactComponent as Image } from '../assets/svg/image.svg';
+import { Colors } from '@tw/ui/assets';
 import React, { forwardRef, useRef } from 'react';
 import styled from 'styled-components';
-import { Colors } from './styles';
+import { ReactComponent as Image } from '../assets/svg/image.svg';
 
 interface Props {
   name: string;
@@ -57,12 +57,12 @@ const SVGWrapper = styled.div`
   cursor: pointer;
 
   &:hover {
-    background-color: ${Colors.blackActive};
+    background-color: ${Colors.grayDarkActive};
   }
 `;
 
 const ImageSVG = styled(Image)`
-  fill: ${Colors.textGray};
+  fill: ${Colors.grayPrimary};
   width: 1.5rem;
   height: 1.5rem;
 `;

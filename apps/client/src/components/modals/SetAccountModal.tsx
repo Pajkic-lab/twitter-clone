@@ -1,4 +1,5 @@
 import { SocialTwitter } from '@styled-icons/foundation/SocialTwitter';
+import { Colors } from '@tw/ui/assets';
 import {
   checkNameUniqueness,
   updateUserUniqueName,
@@ -12,7 +13,6 @@ import Modal from 'styled-react-modal';
 import * as yup from 'yup';
 import { JumboButton } from '../../ui/Button';
 import { BaseInput } from '../../ui/Input';
-import { Colors } from '../../ui/styles';
 
 export const SetAccountModal: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -110,7 +110,7 @@ const LogoWrapper = styled.div`
 const LogoSvg = styled(SocialTwitter)`
   width: 40px;
   height: 40px;
-  color: ${Colors.textGray};
+  color: ${Colors.grayPrimary};
 `;
 
 const H1 = styled.h1`
@@ -121,7 +121,7 @@ const H1 = styled.h1`
 `;
 
 const H5 = styled.h4`
-  color: ${Colors.darkGray};
+  color: ${Colors.graySecondary};
   margin-top: 0.4rem;
   margin-bottom: 2.4rem;
 `;

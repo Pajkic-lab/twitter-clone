@@ -1,25 +1,25 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Colors } from './styles'
+import { Colors } from '@tw/ui/assets';
+import React from 'react';
+import styled from 'styled-components';
 
 interface Props {
-  svg: React.SVGProps<SVGSVGElement>
-  width?: number
-  height?: number
-  color?: string
+  svg: React.SVGProps<SVGSVGElement>;
+  width?: number;
+  height?: number;
+  color?: string;
 }
 
-const SvgComponent: React.FC<Props> = props => {
-  return <IconSvg {...props} />
-}
+const SvgComponent: React.FC<Props> = (props) => {
+  return <IconSvg {...props} />;
+};
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 export const IconSvg = styled(SvgComponent)<{
-  height?: number
-  width?: number
+  height?: number;
+  width?: number;
 }>`
   margin-left: -5px;
-  width: ${props => (props.width ? `${props.width}px` : '60px')};
-  height: ${props => (props.height ? `${props.height}px` : '60px')};
-  color: ${Colors.textGray};
-`
+  width: ${(props) => (props.width ? `${props.width}px` : '60px')};
+  height: ${(props) => (props.height ? `${props.height}px` : '60px')};
+  color: ${Colors.grayPrimary};
+`;

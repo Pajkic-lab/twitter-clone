@@ -1,4 +1,4 @@
-import { Colors } from 'apps/client/src/ui/styles';
+import { Colors } from '@tw/ui/assets';
 import { useState } from 'react';
 import styled from 'styled-components';
 
@@ -79,20 +79,20 @@ const Navigation = styled.div`
   cursor: pointer;
 
   &:hover {
-    background-color: ${Colors.blackActive};
+    background-color: ${Colors.grayDarkActive};
   }
 `;
 
 const Span = styled.div<{ $active: boolean }>`
   padding: 0.8rem 0;
-  color: ${Colors.darkGray};
+  color: ${Colors.graySecondary};
   font-weight: 600;
 
   ${(props) =>
     props.$active &&
     `
-    border-bottom: 5px solid ${Colors.primary};
-    color: ${Colors.textGray};
+    border-bottom: 5px solid ${Colors.bluePrimary};
+    color: ${Colors.grayPrimary};
     font-weight: 800;
   `}
 `;

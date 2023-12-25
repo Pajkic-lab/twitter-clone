@@ -1,3 +1,4 @@
+import { Colors } from '@tw/ui/assets';
 import {
   followUserThunk,
   unFollowUserThunk,
@@ -6,7 +7,6 @@ import {
 } from '@tw/ui/data-access';
 import { EditProfileModal } from 'apps/client/src/components/modals/EditProfileModal';
 import { SecondaryButton } from 'apps/client/src/ui/Button';
-import { Colors } from 'apps/client/src/ui/styles';
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
@@ -93,7 +93,7 @@ const ImageWrapper = styled.div<{ $backgroundImage: string }>`
   height: 10rem;
   border: 4px solid ${Colors.black};
   border-radius: 50%;
-  background-color: ${Colors.darkerGrey};
+  background-color: ${Colors.grayDark};
   ${(props) =>
     props.$backgroundImage &&
     `
@@ -105,7 +105,7 @@ const ImageWrapper = styled.div<{ $backgroundImage: string }>`
 `;
 
 const EditProfileButton = styled(SecondaryButton)`
-  color: ${Colors.textGray};
+  color: ${Colors.grayPrimary};
   padding-left: 0;
   padding-right: 0;
 `;
@@ -121,7 +121,7 @@ const FolloweButton = styled(SecondaryButton)`
   }
 `;
 const UnFolloweButton = styled(SecondaryButton)`
-  color: ${Colors.textGray};
+  color: ${Colors.grayPrimary};
   padding-left: 0;
   padding-right: 0;
 

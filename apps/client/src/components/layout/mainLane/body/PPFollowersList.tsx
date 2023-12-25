@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 // import { Loader } from 'ui/Loader'
 // import { Colors } from 'ui/styles'
+import { Colors } from '@tw/ui/assets';
 import {
   followUserThunk,
   getPPFollowersThunk,
@@ -16,7 +17,6 @@ import {
 } from '@tw/ui/data-access';
 import { SecondaryButton } from 'apps/client/src/ui/Button';
 import { Loader } from 'apps/client/src/ui/Loader';
-import { Colors } from 'apps/client/src/ui/styles';
 import React from 'react';
 
 export const PPFollowersList: React.FC<{ userId: number }> = ({ userId }) => {
@@ -143,7 +143,7 @@ const ProfileImage = styled.div<{ $backgroundImage: string }>`
   border-radius: 100%;
   width: 3.2rem;
   height: 3.2rem;
-  background-color: ${Colors.primary};
+  background-color: ${Colors.bluePrimary};
 
   ${(props) =>
     props.$backgroundImage &&
@@ -161,14 +161,14 @@ const TextWrapper = styled.div``;
 const H3 = styled.h3`
   margin: 0;
   padding-left: 0.8rem;
-  color: ${Colors.textGray};
+  color: ${Colors.grayPrimary};
   font-weight: 700;
 `;
 
 const Span = styled.span`
   margin: 0;
   padding-left: 0.8rem;
-  color: ${Colors.darkGray};
+  color: ${Colors.graySecondary};
   font-weight: 500;
 `;
 
@@ -183,7 +183,7 @@ const FolloweButton = styled(SecondaryButton)`
   }
 `;
 const UnFolloweButton = styled(SecondaryButton)`
-  color: ${Colors.textGray};
+  color: ${Colors.grayPrimary};
   padding-left: 0;
   padding-right: 0;
 

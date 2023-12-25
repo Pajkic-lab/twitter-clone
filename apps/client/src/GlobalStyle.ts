@@ -1,7 +1,7 @@
+import { Colors } from '@tw/ui/assets';
 import { createGlobalStyle } from 'styled-components';
 import chipBold from './fonts/chip-bold.woff';
 import chipRegular from './fonts/chip-regular.woff';
-import { Colors } from './ui/styles';
 
 export const GlobalStyle = createGlobalStyle<{ theme: any; customCss: string }>`
 
@@ -31,10 +31,10 @@ export const GlobalStyle = createGlobalStyle<{ theme: any; customCss: string }>`
   html, body {
     margin: 0;
     padding: 0;
-    color: ${Colors.textColor};
+    color: ${Colors.grayDark};
     font-size: 14px;
     font-family: 'chip-regular', Verdana, "Segoe UI", Arial, sans-serif, Helvetica;
-    background-color: ${Colors.background};
+    background-color: ${Colors.black};
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;  
     text-rendering: optimizeLegibility;
@@ -52,7 +52,7 @@ export const GlobalStyle = createGlobalStyle<{ theme: any; customCss: string }>`
 
   a {
     text-decoration: none;
-    color: ${Colors.primary};
+    color: ${Colors.bluePrimary};
   }
   
   input, textarea {
@@ -62,13 +62,13 @@ export const GlobalStyle = createGlobalStyle<{ theme: any; customCss: string }>`
   table.table {
     width: 100%;
     border-collapse: collapse;
-    border: 1px solid ${Colors.borderColor};
+    border: 1px solid ${Colors.grayPrimary};
 
     th,
     td {
       margin: 0;
       padding: 0;
-      border-bottom: 1px solid ${Colors.borderColor};
+      border-bottom: 1px solid ${Colors.grayPrimary};
     }
 
     input,
@@ -79,12 +79,12 @@ export const GlobalStyle = createGlobalStyle<{ theme: any; customCss: string }>`
       box-shadow: none;
     }
     [data-element='dropdown'] {
-      border-left: 1px solid ${Colors.borderColor};
+      border-left: 1px solid ${Colors.grayPrimary};
     }
   }
   
   .table thead {
-    background: ${Colors.chartTitleBackground};
+    background: ${Colors.grayLight};
     th {
       padding: 1rem;
       font-size: 14px;
@@ -107,8 +107,8 @@ export const GlobalStyle = createGlobalStyle<{ theme: any; customCss: string }>`
         height: 20px;
         width: 20px;
         display: inline-flex;
-        color: ${Colors.lightGray};
-        background: ${Colors.backgroundShadow};
+        color: ${Colors.grayPrimary};
+        background: ${Colors.grayModalBackgroundShadow};
         border-radius: 50%;
         cursor: pointer;
         user-select: none;

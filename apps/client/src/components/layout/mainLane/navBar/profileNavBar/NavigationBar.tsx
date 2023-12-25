@@ -1,5 +1,5 @@
+import { Colors } from '@tw/ui/assets';
 import { resetState, useAppDispatch } from '@tw/ui/data-access';
-import { Colors } from 'apps/client/src/ui/styles';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -42,12 +42,12 @@ const SVGWrapper = styled.div`
   cursor: pointer;
 
   &:hover {
-    background-color: ${Colors.blackActive};
+    background-color: ${Colors.grayDarkActive};
   }
 `;
 
 const ArrowLogo = styled(ArrowLeft)`
-  fill: ${Colors.textGray};
+  fill: ${Colors.grayPrimary};
   width: 1.5rem;
   height: 1.5rem;
 `;
@@ -59,9 +59,9 @@ const TittleWrapper = styled.div`
 const H3 = styled.h3`
   margin: 0;
   font-weight: 700;
-  color: ${Colors.textGray};
+  color: ${Colors.grayPrimary};
 `;
 
 const SpanHeader = styled.span`
-  color: ${Colors.darkGray};
+  color: ${Colors.graySecondary};
 `;

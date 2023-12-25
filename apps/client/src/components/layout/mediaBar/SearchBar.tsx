@@ -1,3 +1,4 @@
+import { Colors } from '@tw/ui/assets';
 import {
   resetSearchRespons,
   searchThunk,
@@ -5,7 +6,6 @@ import {
   useAppSelector,
 } from '@tw/ui/data-access';
 import { Loader } from 'apps/client/src/ui/Loader';
-import { Colors } from 'apps/client/src/ui/styles';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -95,8 +95,8 @@ const Input = styled.input`
   width: 330px;
   height: 3rem;
   outline: none;
-  background-color: ${Colors.mediaBackground};
-  border: 2px solid ${Colors.mediaBackground};
+  background-color: ${Colors.graySearchInputBackground};
+  border: 2px solid ${Colors.graySearchInputBackground};
   border-radius: 5rem;
   font-size: 1rem;
   color: ${Colors.white};
@@ -107,7 +107,7 @@ const Input = styled.input`
   }
 
   &:focus {
-    border: 2px solid ${Colors.primary};
+    border: 2px solid ${Colors.bluePrimary};
     background-color: ${Colors.black};
   }
 `;
@@ -120,14 +120,14 @@ const Label = styled.label`
 `;
 
 const Svg = styled(magnifyingGlass)<{ $isFocused: boolean }>`
-  fill: ${Colors.darkGray};
+  fill: ${Colors.graySecondary};
   width: 1.5rem;
   height: 1.5rem;
 
   ${(props) =>
     props.$isFocused &&
     `
-    fill: ${Colors.primary};
+    fill: ${Colors.bluePrimary};
   `}
 `;
 
@@ -155,7 +155,7 @@ const ProfileButtonWrapper = styled.div`
   cursor: pointer;
 
   &:hover {
-    background-color: ${Colors.blackActive};
+    background-color: ${Colors.grayDarkActive};
   }
 `;
 
@@ -170,7 +170,7 @@ const ProfileImage = styled.div<{ $backgroundImage: string }>`
   border-radius: 100%;
   width: 3.2rem;
   height: 3.2rem;
-  background-color: ${Colors.primary};
+  background-color: ${Colors.bluePrimary};
 
   ${(props) =>
     props.$backgroundImage &&
@@ -188,14 +188,14 @@ const TextWrapper = styled.div``;
 const H3 = styled.h3`
   margin: 0;
   padding-left: 0.8rem;
-  color: ${Colors.textGray};
+  color: ${Colors.grayPrimary};
   font-weight: 700;
 `;
 
 const Span = styled.span`
   margin: 0;
   padding-left: 0.8rem;
-  color: ${Colors.darkGray};
+  color: ${Colors.graySecondary};
   font-weight: 500;
 `;
 

@@ -1,20 +1,22 @@
-import React, { forwardRef } from 'react'
-import styled from 'styled-components'
-import { Colors } from './styles'
-
+import { Colors } from '@tw/ui/assets';
+import React, { forwardRef } from 'react';
+import styled from 'styled-components';
 interface Props {
-  name: string
-  value?: string
-  error?: string
-  type: string
-  id: string
-  touched?: boolean
-  handleChange: { (e: React.ChangeEvent<any>): void }
-  onBlure: { (e: React.FocusEvent<any, Element>): void }
+  name: string;
+  value?: string;
+  error?: string;
+  type: string;
+  id: string;
+  touched?: boolean;
+  handleChange: { (e: React.ChangeEvent<any>): void };
+  onBlure: { (e: React.FocusEvent<any, Element>): void };
 }
 
 export const BaseInput = forwardRef<HTMLInputElement, Props>(
-  ({ name, value, error, type, id, touched, handleChange, onBlure, ...props }, ref) => {
+  (
+    { name, value, error, type, id, touched, handleChange, onBlure, ...props },
+    ref
+  ) => {
     return (
       <Wrapper>
         <Input
@@ -33,18 +35,18 @@ export const BaseInput = forwardRef<HTMLInputElement, Props>(
         </Label>
         {error && touched && <ErrorMessage>{error}</ErrorMessage>}
       </Wrapper>
-    )
-  },
-)
+    );
+  }
+);
 
 const Wrapper = styled.div`
   position: relative;
-`
+`;
 
 const Input = styled.input<{
-  error?: string
-  touched?: boolean
-  value?: string
+  error?: string;
+  touched?: boolean;
+  value?: string;
 }>`
   margin: 0 0 25px 0;
   padding-left: 10px;
@@ -52,36 +54,36 @@ const Input = styled.input<{
   height: 4rem;
   background-color: ${Colors.black};
   outline: none;
-  border: 2px solid ${Colors.darkerGrey};
+  border: 2px solid ${Colors.grayDark};
   border-radius: 4px;
   font-size: 1.2rem;
   color: ${Colors.white};
   cursor: pointer;
 
   &:focus {
-    border: 2px solid ${Colors.primary};
+    border: 2px solid ${Colors.bluePrimary};
   }
 
-  ${props =>
+  ${(props) =>
     props.error &&
     props.touched &&
     `
     border: 2px solid ${Colors.red};
     margin-bottom: 0px;
   `}
-`
+`;
 
 const Label = styled.label<{
-  error?: string
-  touched?: boolean
-  value?: string
+  error?: string;
+  touched?: boolean;
+  value?: string;
 }>`
   position: absolute;
   top: 1rem;
   left: 10px;
   padding: 0 7px;
   border-radius: 4px;
-  color: ${Colors.darkerGrey};
+  color: ${Colors.grayDark};
   font-size: large;
   transition: 0.1s;
   transition: transform 0.1s;
@@ -89,27 +91,27 @@ const Label = styled.label<{
   cursor: pointer;
 
   ${Input}:focus ~ & {
-    color: ${Colors.primary};
+    color: ${Colors.bluePrimary};
     transform: translateY(-2rem);
   }
 
-  ${props =>
+  ${(props) =>
     props.value &&
     `
     transform: translateY(-2rem);
   `}
 
-  ${props =>
+  ${(props) =>
     props.error &&
     props.touched &&
     `
     color: ${Colors.red};
     transform: translateY(-2rem);
   `}
-`
+`;
 
 const ErrorMessage = styled.h4`
   margin: 5px 0 15px 0;
   padding-left: 18px;
   color: ${Colors.red};
-`
+`;

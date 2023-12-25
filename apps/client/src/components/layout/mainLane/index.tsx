@@ -1,5 +1,5 @@
+import { Colors } from '@tw/ui/assets';
 import { useAppSelector } from '@tw/ui/data-access';
-import { Colors } from 'apps/client/src/ui/styles';
 import React from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import styled from 'styled-components';
@@ -53,6 +53,6 @@ const Wrapper = styled.div`
   width: 600px;
   min-width: 600px;
   min-height: 100vh;
-  border-left: 2px solid ${Colors.darkerGrey};
-  border-right: 2px solid ${Colors.darkerGrey};
+  border-left: 2px solid ${Colors.grayDark};
+  border-right: 2px solid ${Colors.grayDark};
 `;

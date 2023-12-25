@@ -1,10 +1,10 @@
-import { ReactComponent as Location } from '../../../../../assets/svg/location.svg';
-import { ReactComponent as Calender } from '../../../../../assets/svg/calender.svg';
-import { ReactComponent as WebLink } from '../../../../../assets/svg/webLink.svg';
-import styled from 'styled-components';
+import { Colors } from '@tw/ui/assets';
 import moment from 'moment';
 import React from 'react';
-import { Colors } from 'apps/client/src/ui/styles';
+import styled from 'styled-components';
+import { ReactComponent as Calender } from '../../../../../assets/svg/calender.svg';
+import { ReactComponent as Location } from '../../../../../assets/svg/location.svg';
+import { ReactComponent as WebLink } from '../../../../../assets/svg/webLink.svg';
 
 interface Props {
   name: string;
@@ -60,12 +60,12 @@ const TextWrapper = styled.div`
 
 const H2Bio = styled.h2`
   margin: 0;
-  color: ${Colors.textGray};
+  color: ${Colors.grayPrimary};
   font-weight: 700;
 `;
 
 const SpanBio = styled.span`
-  color: ${Colors.darkGray};
+  color: ${Colors.graySecondary};
   font-weight: 500;
 `;
 
@@ -89,14 +89,14 @@ const LocationAndWebsiteWrapper = styled.div`
 `;
 
 const LocationLogo = styled(Location)`
-  fill: ${Colors.darkGray};
+  fill: ${Colors.graySecondary};
   width: 1.5rem;
   height: 1.5rem;
   margin-right: 0.3rem;
 `;
 
 const WebLinkLogo = styled(WebLink)`
-  fill: ${Colors.darkGray};
+  fill: ${Colors.graySecondary};
   width: 1.5rem;
   height: 1.5rem;
   margin-left: 1rem;
@@ -104,7 +104,7 @@ const WebLinkLogo = styled(WebLink)`
 `;
 
 const WebLinkSpan = styled.a`
-  color: ${Colors.primary};
+  color: ${Colors.bluePrimary};
   font-weight: 500;
   overflow-wrap: break-word;
   cursor: pointer;
@@ -117,7 +117,7 @@ const DateWrapper = styled.div`
 `;
 
 const CanlenderLogo = styled(Calender)`
-  fill: ${Colors.darkGray};
+  fill: ${Colors.graySecondary};
   width: 1.5rem;
   height: 1.5rem;
   margin-right: 0.3rem;

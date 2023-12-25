@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import { Colors } from '@tw/ui/assets';
 import React from 'react';
-import { Colors } from 'apps/client/src/ui/styles';
+import styled from 'styled-components';
 
 export const Cover: React.FC<{ cover: string }> = ({ cover }) => {
   return <CoverWrapper $backgroundImage={cover} />;
@@ -9,7 +9,7 @@ export const Cover: React.FC<{ cover: string }> = ({ cover }) => {
 const CoverWrapper = styled.div<{ $backgroundImage: string }>`
   width: 100%;
   height: 200px;
-  background-color: ${Colors.darkerGrey};
+  background-color: ${Colors.grayDark};
   ${(props) =>
     props.$backgroundImage &&
     `

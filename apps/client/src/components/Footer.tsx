@@ -1,5 +1,5 @@
+import { Colors } from '@tw/ui/assets';
 import styled from 'styled-components';
-import { Colors } from '../ui/styles';
 
 export const Footer = () => {
   const buttonsDate = [
@@ -75,6 +75,6 @@ const Wraper = styled.div`
 const A = styled.a`
   padding: 2px 8px;
   font-size: small;
-  color: ${Colors.darkGray};
+  color: ${Colors.graySecondary};
   white-space: nowrap;
 `;

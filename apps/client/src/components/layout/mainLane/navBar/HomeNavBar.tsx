@@ -1,4 +1,4 @@
-import { Colors } from 'apps/client/src/ui/styles';
+import { Colors } from '@tw/ui/assets';
 import { useState } from 'react';
 import styled from 'styled-components';
 
@@ -30,7 +30,7 @@ export const HomeNavBar = () => {
 
 const Wrapper = styled.div`
   position: sticky;
-  border-bottom: 2px solid ${Colors.darkerGrey};
+  border-bottom: 2px solid ${Colors.grayDark};
   backdrop-filter: blur(10px);
 `;
 
@@ -38,7 +38,7 @@ const H2 = styled.h2`
   margin: 0;
   padding: 0.8rem 1rem 0.8rem 1rem;
   font-weight: 700;
-  color: ${Colors.textGray};
+  color: ${Colors.grayPrimary};
 `;
 
 const NavigationWrapper = styled.div`
@@ -55,20 +55,20 @@ const Navigation = styled.div`
   cursor: pointer;
 
   &:hover {
-    background-color: ${Colors.blackActive};
+    background-color: ${Colors.grayDarkActive};
   }
 `;
 
 const Span = styled.div<{ $active: boolean }>`
   padding: 0.8rem 0;
-  color: ${Colors.darkGray};
+  color: ${Colors.graySecondary};
   font-weight: 600;
 
   ${(props) =>
     props.$active &&
     `
-    border-bottom: 5px solid ${Colors.primary};
-    color: ${Colors.textGray};
+    border-bottom: 5px solid ${Colors.bluePrimary};
+    color: ${Colors.grayPrimary};
     font-weight: 800;
   `}
 `;
