@@ -8,6 +8,7 @@ import styled from 'styled-components';
 // import { Loader } from 'ui/Loader'
 // import { Colors } from 'ui/styles'
 import { Colors } from '@tw/ui/assets';
+import { Loader, SecondaryButton } from '@tw/ui/components';
 import {
   followUserThunk,
   getPPFollowersThunk,
@@ -15,8 +16,6 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '@tw/ui/data-access';
-import { SecondaryButton } from 'apps/client/src/ui/Button';
-import { Loader } from 'apps/client/src/ui/Loader';
 import React from 'react';
 
 export const PPFollowersList: React.FC<{ userId: number }> = ({ userId }) => {

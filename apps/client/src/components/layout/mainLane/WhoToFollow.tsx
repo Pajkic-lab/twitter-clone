@@ -1,12 +1,11 @@
 import { Colors } from '@tw/ui/assets';
+import { Loader, SecondaryButton } from '@tw/ui/components';
 import {
   followUserThunk,
   getMostPopularProfiles,
   useAppDispatch,
   useAppSelector,
 } from '@tw/ui/data-access';
-import { SecondaryButton } from 'apps/client/src/ui/Button';
-import { Loader } from 'apps/client/src/ui/Loader';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';

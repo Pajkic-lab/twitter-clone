@@ -1,4 +1,5 @@
 import { Colors } from '@tw/ui/assets';
+import { Loader, SecondaryButton } from '@tw/ui/components';
 import {
   followUserThunk,
   getFollowingUsersThunk,
@@ -6,8 +7,6 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '@tw/ui/data-access';
-import { SecondaryButton } from 'apps/client/src/ui/Button';
-import { Loader } from 'apps/client/src/ui/Loader';
 import React from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useNavigate } from 'react-router-dom';

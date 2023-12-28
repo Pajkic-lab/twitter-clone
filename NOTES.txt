@@ -12,8 +12,11 @@ Frontend:
 check out this package: https://redux-toolkit.js.org/rtk-query/overview
 
 
-- where to store colors, assets?
-- sort out colors
 
-
-- got thru app see where do u use button all places and what changes do u make at that place and weather it can be refactored as it exist now or it should be written again
+- button refactor
+- input refactor
+- form refactor
+- router refactor
+- page refactor
+- research when to trigger api and how to switch pages
+- start refactoring components

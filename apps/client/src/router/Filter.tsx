@@ -1,8 +1,8 @@
+import { Loader } from '@tw/ui/components';
 import { useAppSelector } from '@tw/ui/data-access';
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { AuthType } from '../types';
-import { Loader } from '../ui/Loader';
 
 export const Filter: React.FC<{
   authType: AuthType;

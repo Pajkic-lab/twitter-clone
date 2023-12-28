@@ -1,5 +1,6 @@
 import Tippy from '@tippyjs/react';
 import { Colors } from '@tw/ui/assets';
+import { PrimaryButton } from '@tw/ui/components';
 import {
   signOutThunk,
   useAppDispatch,
@@ -25,7 +26,6 @@ import { ReactComponent as options } from '../../assets/svg/options.svg';
 import { ReactComponent as profile } from '../../assets/svg/profile.svg';
 import { ReactComponent as profileActive } from '../../assets/svg/profileActive.svg';
 import { ReactComponent as twitterLogo } from '../../assets/svg/twitterLogo.svg';
-import { PrimaryButton } from '../../ui/Button';
 
 type SideBarLogoProps = {
   component: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;

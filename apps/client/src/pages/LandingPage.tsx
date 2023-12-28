@@ -1,5 +1,10 @@
 import { SocialTwitter } from '@styled-icons/foundation/SocialTwitter';
 import { Colors } from '@tw/ui/assets';
+import {
+  PrimaryButton,
+  SecondaryButton,
+  SocialSignInButton,
+} from '@tw/ui/components';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import appleSocilSignInlogo from '../assets/apple-socil-signIn-logo.png';
@@ -8,11 +13,6 @@ import backgroundImage from '../assets/landing-page-backgrount.png';
 import { Footer } from '../components/Footer';
 import { SignInModal } from '../components/modals/SignInModal';
 import { SignUpModal } from '../components/modals/SignUpModal';
-import {
-  PrimaryButton,
-  SecondaryButton,
-  SocialSignInButton,
-} from '../ui/Button';
 
 export const LandingPage: React.FC = () => {
   const [signUpModalIsOpen, setSignUpModalIsOpen] = useState(false);
@@ -47,15 +47,13 @@ export const LandingPage: React.FC = () => {
               <H3>Join Twitter today.</H3>
               <SocialButton
                 onClick={googleLogin}
-                image={googleSocialSignInLogo}
-                $wide={true}
+                leftIcon={googleSocialSignInLogo}
               >
                 Sign up with Google
               </SocialButton>
               <SocialButton
                 onClick={appleLogin}
-                image={appleSocilSignInlogo}
-                $wide={true}
+                leftIcon={appleSocilSignInlogo}
               >
                 Sign up with Apple
               </SocialButton>
@@ -65,7 +63,6 @@ export const LandingPage: React.FC = () => {
                 <DividerLine />
               </DividerWrapper>
               <SignUpButton
-                $wide={true}
                 onClick={() => setSignUpModalIsOpen(!signUpModalIsOpen)}
               >
                 Sign up with email
@@ -82,7 +79,6 @@ export const LandingPage: React.FC = () => {
               </PolicyTextWrapper>
               <H4>Already have an account?</H4>
               <SignInButton
-                $wide={true}
                 onClick={() => setSignInModalIsOpen(!signInModalIsOpen)}
               >
                 Sign in

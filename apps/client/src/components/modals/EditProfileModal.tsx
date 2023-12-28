@@ -1,5 +1,6 @@
 import { UpdateUserRequestDto } from '@tw/data';
 import { Colors } from '@tw/ui/assets';
+import { SecondaryButton } from '@tw/ui/components';
 import { updateUser, useAppDispatch } from '@tw/ui/data-access';
 import { FormikHelpers, useFormik } from 'formik';
 import React, { useState } from 'react';
@@ -7,7 +8,6 @@ import styled from 'styled-components';
 import Modal from 'styled-react-modal';
 import * as yup from 'yup';
 import { ReactComponent as Cross } from '../../assets/svg/cross.svg';
-import { SecondaryButton } from '../../ui/Button';
 import { ImageInput } from '../../ui/ImageInput';
 import { BaseInput } from '../../ui/Input';
 

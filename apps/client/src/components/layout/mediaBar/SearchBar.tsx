@@ -1,11 +1,11 @@
 import { Colors } from '@tw/ui/assets';
+import { Loader } from '@tw/ui/components';
 import {
   resetSearchRespons,
   searchThunk,
   useAppDispatch,
   useAppSelector,
 } from '@tw/ui/data-access';
-import { Loader } from 'apps/client/src/ui/Loader';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';

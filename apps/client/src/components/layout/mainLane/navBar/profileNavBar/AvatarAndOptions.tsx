@@ -1,4 +1,5 @@
 import { Colors } from '@tw/ui/assets';
+import { SecondaryButton } from '@tw/ui/components';
 import {
   followUserThunk,
   unFollowUserThunk,
@@ -6,7 +7,6 @@ import {
   useAppSelector,
 } from '@tw/ui/data-access';
 import { EditProfileModal } from 'apps/client/src/components/modals/EditProfileModal';
-import { SecondaryButton } from 'apps/client/src/ui/Button';
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';

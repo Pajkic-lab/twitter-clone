@@ -11,7 +11,8 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Modal from 'styled-react-modal';
 import * as yup from 'yup';
-import { JumboButton } from '../../ui/Button';
+// import { JumboButton } from '../../ui/Button';
+import { JumboButton } from '@tw/ui/components';
 import { BaseInput } from '../../ui/Input';
 
 export const SetAccountModal: React.FC = () => {
