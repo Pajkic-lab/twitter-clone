@@ -1,67 +1,65 @@
+import { zodResolver } from '@hookform/resolvers/zod';
 import { SocialTwitter } from '@styled-icons/foundation/SocialTwitter';
 import { Colors } from '@tw/ui/assets';
+import { FormInput, InputComponent, JumboButton } from '@tw/ui/components';
 import {
   checkNameUniqueness,
   updateUserUniqueName,
   useAppDispatch,
   useAppSelector,
 } from '@tw/ui/data-access';
-import { useFormik } from 'formik';
 import React, { useEffect } from 'react';
+import { useForm, useWatch } from 'react-hook-form';
 import styled from 'styled-components';
 import Modal from 'styled-react-modal';
-import * as yup from 'yup';
-// import { JumboButton } from '../../ui/Button';
-import { JumboButton } from '@tw/ui/components';
-import { BaseInput } from '../../ui/Input';
+import { v4 as uuid } from 'uuid';
+import { z } from 'zod';
+
+const uniqueNameSchema = z.object({
+  uniqueName: z.string().startsWith('@').min(3).max(8),
+});
+
+export type UniqueNameFormData = z.infer<typeof uniqueNameSchema>;
 
 export const SetAccountModal: React.FC = () => {
   const dispatch = useAppDispatch();
 
-  const { isNameUnique, uniqueName } = useAppSelector((state) => state.auth);
+  const { isNameUnique, uniqueName, uniqueNameIsSubmitting } = useAppSelector(
+    (state) => state.auth
+  );
 
-  const onSubmit = async () => {
+  const { handleSubmit, control, formState, setError } =
+    useForm<UniqueNameFormData>({
+      resolver: zodResolver(uniqueNameSchema),
+      criteriaMode: 'all',
+      mode: 'onChange',
+      defaultValues: {
+        uniqueName: '',
+      },
+    });
+
+  const formData = useWatch({ control });
+
+  const { errors, isDirty } = formState;
+
+  const onSubmit = async (uniqueName: UniqueNameFormData) => {
     if (isNameUnique && !errors.uniqueName) {
-      await dispatch(updateUserUniqueName(values));
+      await dispatch(updateUserUniqueName(uniqueName));
     }
   };
 
-  const validationSchema = yup.object().shape({
-    uniqueName: yup
-      .string()
-      .matches(/^@/, 'Unique Name must start with @ symbol')
-      .required('Unique Name is required')
-      .min(4, 'minimum 4 characters')
-      .max(8, 'Name can not be longer then 8 characters')
-      .matches(/^[^@]*@[^@]*$/, 'String should contain only one @ symbol'),
-  });
-
-  const {
-    handleSubmit,
-    handleBlur,
-    handleChange,
-    setErrors,
-    isSubmitting,
-    errors,
-    touched,
-    values,
-  } = useFormik({
-    initialValues: {
-      uniqueName: '',
-    },
-    validationSchema,
-    onSubmit,
-  });
-
   useEffect(() => {
-    if (values.uniqueName) {
-      touched.uniqueName = true;
-      void dispatch(checkNameUniqueness(values));
+    if (formData.uniqueName) {
+      void dispatch(checkNameUniqueness({ uniqueName: formData.uniqueName }));
     }
-    if (!isNameUnique) {
-      setErrors({ uniqueName: 'Name is already taken' });
+    if (!isNameUnique && isDirty) {
+      // error is not being displayed for some reason when there is error, why idk...
+      setError('uniqueName', {
+        type: 'server',
+        message: 'Name is already taken',
+      });
     }
-  }, [values, isNameUnique]);
+  }, [formData, isNameUnique, isDirty]);
 
   return (
     <Modal isOpen={!uniqueName}>
@@ -71,20 +69,17 @@ export const SetAccountModal: React.FC = () => {
         </LogoWrapper>
         <H1>What should we call you?</H1>
         <H5>Your @username is unique. You can always change it later.</H5>
-        <Form onSubmit={handleSubmit}>
-          <Input
-            id={'uniqueName'}
-            type={'uniqueName'}
-            name={'Unique name'}
-            value={values.uniqueName}
-            error={errors.uniqueName}
-            touched={touched.uniqueName}
-            onBlure={handleBlur}
-            handleChange={handleChange}
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <FormInput
+            control={control}
+            name="uniqueName"
+            id={uuid()}
+            type="text"
+            required
           />
           <Button
             type="submit"
-            loading={isSubmitting}
+            loading={uniqueNameIsSubmitting}
             disabled={isNameUnique && !errors.uniqueName ? false : true}
           >
             Join us
@@ -129,7 +124,7 @@ const H5 = styled.h4`
 
 const Form = styled.form``;
 
-const Input = styled(BaseInput)``;
+const Input = styled(InputComponent)``;
 
 const Button = styled(JumboButton)`
   margin-top: 1.5rem;

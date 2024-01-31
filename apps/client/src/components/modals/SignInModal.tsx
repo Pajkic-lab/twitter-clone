@@ -1,19 +1,25 @@
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Cross } from '@styled-icons/entypo/Cross';
-import { SignInEmailRequestDto } from '@tw/data';
 import { Colors } from '@tw/ui/assets';
+import { FormInput, InputComponent, JumboButton } from '@tw/ui/components';
 import {
   signInThunk,
   useAppDispatch,
   useAppSelector,
 } from '@tw/ui/data-access';
-import { FormikHelpers, useFormik } from 'formik';
 import React, { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import Modal from 'styled-react-modal';
-import * as yup from 'yup';
-// import { JumboButton } from '../../ui/Button';
-import { JumboButton } from '@tw/ui/components';
-import { BaseInput } from '../../ui/Input';
+import { v4 as uuid } from 'uuid';
+import { z } from 'zod';
+
+const signInSchema = z.object({
+  email: z.string().email(),
+  password: z.string().max(20),
+});
+
+export type SignInFormData = z.infer<typeof signInSchema>;
 
 interface Props {
   signInModalIsOpen: boolean;
@@ -25,54 +31,34 @@ export const SignInModal: React.FC<Props> = ({
   setSignInModalIsOpen,
 }) => {
   const dispatch = useAppDispatch();
-  const { errorMessage } = useAppSelector((state) => state.auth);
+  const { errorMessage, userIsSubmittingAuthData } = useAppSelector(
+    (state) => state.auth
+  );
+
+  const { handleSubmit, control, formState, setError } =
+    useForm<SignInFormData>({
+      resolver: zodResolver(signInSchema),
+      criteriaMode: 'all',
+      mode: 'onBlur',
+      defaultValues: {
+        email: '',
+        password: '',
+      },
+    });
 
   const closeModal = () => {
     setSignInModalIsOpen(false);
     // on close modal reset global error message
   };
 
-  const onSubmit = async (
-    values: SignInEmailRequestDto,
-    actions: FormikHelpers<SignInEmailRequestDto>
-  ) => {
-    await dispatch(signInThunk(values));
+  const onSubmit = async (signInformData: SignInFormData) => {
+    await dispatch(signInThunk(signInformData));
   };
-
-  const validationSchema = yup.object().shape({
-    email: yup
-      .string()
-      .required('Email is required!')
-      .email('Please enter a valid email!'),
-    password: yup.string().required('Password is required!'),
-    // .matches(/[a-z]/, 'global.errors.mustHaveLowerCaseLetter')
-    // .matches(/[A-Z]/, 'global.errors.mustHaveUpperCaseLetter')
-    // .matches(/[0-9]/, 'global.errors.mustHaveNumber')
-    // .matches(/[!#@$%^&*)(+=._-]/, 'global.errors.mustHaveSpecialCharacter')
-    // .min(8, 'global.errors.minLenValidator'),
-  });
-
-  const {
-    handleSubmit,
-    handleBlur,
-    handleChange,
-    setErrors,
-    isSubmitting,
-    errors,
-    touched,
-    values,
-  } = useFormik({
-    initialValues: {
-      email: '',
-      password: '',
-    },
-    onSubmit,
-    validationSchema,
-  });
 
   useEffect(() => {
     if (errorMessage) {
-      setErrors({ email: errorMessage, password: errorMessage });
+      setError('email', { type: 'server', message: errorMessage });
+      setError('password', { type: 'server', message: errorMessage });
     }
   }, [errorMessage]);
 
@@ -82,28 +68,22 @@ export const SignInModal: React.FC<Props> = ({
         <ModalSection>
           <Icon onClick={closeModal} />
           <H1>Sign in</H1>
-          <Form onSubmit={handleSubmit}>
-            <Input
-              id={'email'}
-              type={'email'}
-              name={'Email'}
-              value={values.email}
-              error={errors.email}
-              touched={touched.email}
-              onBlure={handleBlur}
-              handleChange={handleChange}
+          <Form onSubmit={handleSubmit(onSubmit)}>
+            <FormInput
+              control={control}
+              name="email"
+              id={uuid()}
+              type="text"
+              required
             />
-            <Input
-              id={'password'}
-              type={'password'}
-              name={'Password'}
-              value={values.password}
-              error={errors.password}
-              touched={touched.password}
-              onBlure={handleBlur}
-              handleChange={handleChange}
+            <FormInput
+              control={control}
+              name="password"
+              id={uuid()}
+              type="password"
+              required
             />
-            <SignInButton loading={isSubmitting} type="submit">
+            <SignInButton loading={userIsSubmittingAuthData} type="submit">
               Sign In
             </SignInButton>
           </Form>
@@ -139,7 +119,7 @@ const H1 = styled.h1`
 
 const Form = styled.form``;
 
-const Input = styled(BaseInput)``;
+const Input = styled(InputComponent)``;
 
 const SignInButton = styled(JumboButton)`
   margin-top: 1.5rem;

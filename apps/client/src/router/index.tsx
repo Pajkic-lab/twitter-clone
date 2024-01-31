@@ -1,18 +1,26 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { Filter } from './Filter';
-import React from 'react';
-import { AuthType } from '../types';
-import { LandingPage } from '../pages/LandingPage';
-import { Home } from '../pages/Home';
-import { Profile } from '../pages/Profile';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { ContactList } from '../pages/ContactList';
+import { Home } from '../pages/Home';
+import { LandingPage } from '../pages/LandingPage';
+import { Profile } from '../pages/Profile';
 import { PublicProfile } from '../pages/PublicProfile';
 import { PublicProfileContactList } from '../pages/PublicProfileContactList';
+import { TestingPage } from '../pages/Testing';
+import { AuthType } from '../types';
+import { Filter } from './Filter';
 
 export const Router: React.FC = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route
+          path="/test"
+          element={
+            <Filter authType={AuthType.Public}>
+              <TestingPage />
+            </Filter>
+          }
+        />
         <Route
           path="/"
           element={
@@ -67,31 +75,3 @@ export const Router: React.FC = () => {
     </BrowserRouter>
   );
 };
-
-// const routesData = [
-//   {
-//     path: '/',
-//     authType: AuthType.Guest,
-//     component: <LandingPage />,
-//   },
-//   {
-//     path: '/home',
-//     authType: AuthType.Protected,
-//     component: <Home />,
-//   },
-//   {
-//     path: '/porfilie',
-//     authType: AuthType.Protected,
-//     component: <Profile />,
-//   },
-//   {
-//     path: '/porfilie/option?:option',
-//     authType: AuthType.Protected,
-//     component: <ContactList />,
-//   },
-//   // {
-//   //   path: '/porfilie',
-//   //   authType: AuthType.Protected,
-//   //   component: <ContactList />,
-//   // },
-// ];

@@ -1,15 +1,25 @@
-import { UpdateUserRequestDto } from '@tw/data';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Colors } from '@tw/ui/assets';
-import { SecondaryButton } from '@tw/ui/components';
+import { FormInput, InputComponent, SecondaryButton } from '@tw/ui/components';
 import { updateUser, useAppDispatch } from '@tw/ui/data-access';
-import { FormikHelpers, useFormik } from 'formik';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import Modal from 'styled-react-modal';
-import * as yup from 'yup';
+import { v4 as uuid } from 'uuid';
+import { z } from 'zod';
 import { ReactComponent as Cross } from '../../assets/svg/cross.svg';
 import { ImageInput } from '../../ui/ImageInput';
-import { BaseInput } from '../../ui/Input';
+
+// have to add validation on backend, at front can not add validation to be optional and to have min max...
+const updateUserSchema = z.object({
+  name: z.optional(z.string()),
+  bio: z.optional(z.string()),
+  location: z.optional(z.string()),
+  website: z.optional(z.string()),
+});
+
+export type UpdateUserFormData = z.infer<typeof updateUserSchema>;
 
 interface Props {
   editProfileModalIsOpen: boolean;
@@ -25,74 +35,42 @@ export const EditProfileModal: React.FC<Props> = ({
   const [cover, setCoverData] = useState('');
   const [avatar, setAvatarData] = useState('');
 
+  const { handleSubmit, control, formState, setError } =
+    useForm<UpdateUserFormData>({
+      resolver: zodResolver(updateUserSchema),
+      criteriaMode: 'all',
+      mode: 'onBlur',
+      defaultValues: {
+        name: '',
+        bio: '',
+        location: '',
+        website: '',
+      },
+    });
+
+  const { errors } = formState;
+
+  useEffect(() => {
+    // Error handling is missing, should be added subsequently because validation does not work, it must be done at backend...
+    // console.log(111, errors);
+  }, [errors]);
+
   const closeModal = () => {
     setEditProfileModalIsOpen(false);
   };
 
-  const onSubmit = async (
-    values: { name: string; bio: string; location: string; website: string },
-    actions: FormikHelpers<{
-      name: string;
-      bio: string;
-      location: string;
-      website: string;
-    }>
-  ) => {
-    const { name, bio, location, website } = values;
-    const updatedValues: UpdateUserRequestDto = {
-      name,
-      bio,
-      location,
-      website,
-      cover,
-      avatar,
-    };
-
+  const onSubmit = async (updatedValues: any) => {
+    console.log(1111, updatedValues);
+    //  should probably add avatar and cover to request
     await dispatch(updateUser(updatedValues));
-    setEditProfileModalIsOpen(false);
-    actions.resetForm();
+    //   setEditProfileModalIsOpen(false);
   };
-
-  const validationSchema = yup.object().shape({
-    name: yup
-      .string()
-      .max(12, 'Name can not be longer then 8 characters')
-      .min(3, 'Name has to be minimum 3 character'),
-    bio: yup.string().max(160, 'Bio can not be longer then 160 characters'),
-    location: yup
-      .string()
-      .max(15, 'Location can not be longer then 15 characters'),
-    website: yup
-      .string()
-      .url()
-      .max(50, 'Website can not be longer then 50 characters'),
-  });
-
-  const {
-    handleSubmit,
-    handleBlur,
-    handleChange,
-    // setErrors,
-    isSubmitting,
-    errors,
-    touched,
-    values,
-  } = useFormik({
-    initialValues: {
-      name: '',
-      bio: '',
-      location: '',
-      website: '',
-    },
-    onSubmit,
-    validationSchema,
-  });
 
   return (
     <>
       <Modal isOpen={editProfileModalIsOpen} onBackgroundClick={closeModal}>
         <ModalSection>
-          <Form onSubmit={handleSubmit}>
+          <Form onSubmit={handleSubmit(onSubmit)}>
             <TittleWrapper>
               <SVGTittleWrapper>
                 <ExitSvgWrapper onClick={closeModal}>
@@ -100,9 +78,7 @@ export const EditProfileModal: React.FC<Props> = ({
                 </ExitSvgWrapper>
                 <H2Tittle>Eddit profile</H2Tittle>
               </SVGTittleWrapper>
-              <SaveModalButton type="submit" loading={isSubmitting}>
-                Save
-              </SaveModalButton>
+              <SaveModalButton type="submit">Save</SaveModalButton>
             </TittleWrapper>
 
             <CoverWeapper $backgroundImage={cover}>
@@ -123,45 +99,19 @@ export const EditProfileModal: React.FC<Props> = ({
               />
             </AvatarWrapper>
 
-            <Input
-              id={'name'}
-              type={'name'}
-              name={'Name'}
-              value={values.name}
-              error={errors.name}
-              touched={touched.name}
-              onBlure={handleBlur}
-              handleChange={handleChange}
+            <FormInput control={control} name="name" id={uuid()} type="text" />
+            <FormInput control={control} name="bio" id={uuid()} type="text" />
+            <FormInput
+              control={control}
+              name="location"
+              id={uuid()}
+              type="text"
             />
-            <Input
-              id={'bio'}
-              type={'text'}
-              name={'Bio'}
-              value={values.bio}
-              error={errors.bio}
-              touched={touched.bio}
-              onBlure={handleBlur}
-              handleChange={handleChange}
-            />
-            <Input
-              id={'location'}
-              type={'text'}
-              name={'Location'}
-              value={values.location}
-              error={errors.location}
-              touched={touched.location}
-              onBlure={handleBlur}
-              handleChange={handleChange}
-            />
-            <Input
-              id={'website'}
-              type={'text'}
-              name={'Website'}
-              value={values.website}
-              error={errors.website}
-              touched={touched.website}
-              onBlure={handleBlur}
-              handleChange={handleChange}
+            <FormInput
+              control={control}
+              name="website"
+              id={uuid()}
+              type="text"
             />
           </Form>
         </ModalSection>
@@ -267,6 +217,6 @@ const AvatarWrapper = styled.div<{ $backgroundImage: string }>`
 
 const Form = styled.form``;
 
-const Input = styled(BaseInput)`
+const Input = styled(InputComponent)`
   width: 35rem;
 `;

@@ -29,6 +29,7 @@ export const signUpThunk = createAsyncThunk(
 
 export const signInThunk = createAsyncThunk(
   'auth/signIn',
+  // rename user to something more meaningful
   async (user: SignInEmailRequestDto, { rejectWithValue }) => {
     try {
       return await http.auth.signIn(user);

@@ -7,7 +7,7 @@ export const Colors = {
   // blue
   bluePrimary: '#1d9bf0',
   bluePrimaryHover: '#0088cc',
-  linkColor: '#4B85BA',
+  blueLinkColor: '#4B85BA',
 
   // gray
   grayPrimary: '#d6d9db', // used often as color for primary title and primary elements

@@ -4,17 +4,12 @@ import styled from 'styled-components';
 import { Loader } from './Loader';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  width?: number;
-  height?: number;
   children: React.ReactNode;
   leftIcon?: string;
   rightIcon?: string;
-  iconsize?: number;
   loading?: boolean;
   disabled?: boolean;
 }
-
-// replace old button with new one
 
 const ButtonComponent = forwardRef<HTMLButtonElement, ButtonProps>(
   (
@@ -37,9 +32,9 @@ const ButtonComponent = forwardRef<HTMLButtonElement, ButtonProps>(
 );
 
 export const ButtonBase = styled(ButtonComponent)<{
-  width?: number;
-  height?: number;
-  iconsize?: number;
+  $width?: number;
+  $height?: number;
+  $iconsize?: number;
 }>`
   width: 100%;
   height: 40px;
@@ -50,12 +45,11 @@ export const ButtonBase = styled(ButtonComponent)<{
   justify-content: center;
   border-radius: 5rem;
   font-size: 1rem;
-  /* line-height: 1.1; */
   font-weight: 600;
   cursor: pointer;
 
-  width: ${({ width }) => width}rem;
-  height: ${({ height }) => height}rem;
+  width: ${({ $width }) => $width}rem;
+  height: ${({ $height }) => $height}rem;
 
   &[disabled] {
     pointer-events: none;
@@ -70,8 +64,8 @@ export const ButtonBase = styled(ButtonComponent)<{
     width: 1.1rem;
     height: 1.1rem;
 
-    width: ${({ iconsize }) => iconsize}rem;
-    height: ${({ iconsize }) => iconsize}rem;
+    width: ${({ $iconsize }) => $iconsize}rem;
+    height: ${({ $iconsize }) => $iconsize}rem;
   }
 
   &:focus {

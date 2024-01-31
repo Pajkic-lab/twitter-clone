@@ -13,10 +13,23 @@ check out this package: https://redux-toolkit.js.org/rtk-query/overview
 
 
 
-- button refactor
-- input refactor
-- form refactor
+
+
+- research what is a tooltip component
+
+- what is difference between input and input area?
+
 - router refactor
-- page refactor
+
 - research when to trigger api and how to switch pages
+
+- research Athena when they use useEffect and what is cleanup function inside it, 
+- research all the other hooks and when they are used,
+
+- page refactor
 - start refactoring components
+
+
+- should definitely research generics
+    make-form-component-props.type.ts
+    http response at back

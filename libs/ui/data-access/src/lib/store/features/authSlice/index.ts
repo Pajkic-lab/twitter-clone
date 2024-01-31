@@ -1,23 +1,20 @@
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import {
   AnyAsyncThunk,
   RejectedWithValueActionFromAsyncThunk,
 } from '@reduxjs/toolkit/dist/matchers';
+import Cookies from 'js-cookie';
 import {
   authUserThunk,
-  signUpThunk,
+  checkNameUniqueness,
+  followUserThunk,
   signInThunk,
   signOutThunk,
-  checkNameUniqueness,
-  updateUserUniqueName,
-  updateUser,
-  followUserThunk,
+  signUpThunk,
   unFollowUserThunk,
+  updateUser,
+  updateUserUniqueName,
 } from './thunk';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AxiosResponse } from 'axios';
-import Cookies from 'js-cookie';
-import { User } from 'apps/client/src/types';
-import { AuthenticationResponseDto, SocialStatsResponseDto } from '@tw/data';
 
 interface AuthState {
   id: number | null;
@@ -34,6 +31,10 @@ interface AuthState {
   // This should probably be refactored, because in Public Profile followingStatus is being used and do to bad code, states between these two have to be 1:1
   followingStatus?: boolean;
   isLoading: boolean;
+  // this whole slice should be split, probably to auth and user,
+  userIsSubmittingAuthData: boolean;
+  // this is flag when checking does unique name already exist
+  uniqueNameIsSubmitting: boolean;
   isAuth: boolean;
   errorMessage: string;
   isNameUnique: boolean | undefined;
@@ -54,9 +55,11 @@ const initialState: AuthState = {
   website: '',
   createdAt: '',
   isLoading: false,
+  userIsSubmittingAuthData: false, // should be refactored there is not
   isAuth: Cookies.get('twitter-clone-auth-session') ? true : false,
   errorMessage: '',
   isNameUnique: undefined,
+  uniqueNameIsSubmitting: false, // this was added subsequently, should be probably refactored
   followingCount: 0,
   followersCount: 0,
   followIsSubmitting: false,
@@ -78,10 +81,13 @@ export const authSlice = createSlice({
     builder
 
       // Sign up logic
+      .addCase(signUpThunk.pending, (state) => {
+        state.userIsSubmittingAuthData = true;
+      })
       .addCase(signUpThunk.fulfilled, (state, payload) => {
-        // console.log(111, payload);
         // isAuth set to true should probably be done in auth request, should research where this flag is being used...
         state.isAuth = true;
+        state.userIsSubmittingAuthData = false;
       })
       .addCase(
         signUpThunk.rejected,
@@ -93,14 +99,18 @@ export const authSlice = createSlice({
         ) => {
           // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
           state.errorMessage = payload.message;
+          state.userIsSubmittingAuthData = false;
         }
       )
 
       // Sign in logic
+      .addCase(signInThunk.pending, (state) => {
+        state.userIsSubmittingAuthData = true;
+      })
       .addCase(signInThunk.fulfilled, (state, payload) => {
         // isAuth set to true should probably be done in auth request, should research where this flag is being used...
-        // console.log(payload.payload?.data.payload.email);
         state.isAuth = true;
+        state.userIsSubmittingAuthData = false;
       })
       .addCase(
         signInThunk.rejected,
@@ -110,8 +120,8 @@ export const authSlice = createSlice({
             payload,
           }: PayloadAction<RejectedWithValueActionFromAsyncThunk<AnyAsyncThunk>>
         ) => {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
           state.errorMessage = payload.message;
+          state.userIsSubmittingAuthData = false;
         }
       )
 
@@ -155,10 +165,14 @@ export const authSlice = createSlice({
       })
 
       // Name is unique
+      .addCase(checkNameUniqueness.pending, (state) => {
+        state.uniqueNameIsSubmitting = true;
+      })
       .addCase(checkNameUniqueness.fulfilled, (state, payload) => {
         if (payload.payload?.data.payload) {
           state.isNameUnique = payload.payload?.data.payload.isNameUnique;
         }
+        state.uniqueNameIsSubmitting = false;
       })
       .addCase(
         checkNameUniqueness.rejected,
@@ -169,11 +183,18 @@ export const authSlice = createSlice({
           }: PayloadAction<RejectedWithValueActionFromAsyncThunk<AnyAsyncThunk>>
         ) => {
           state.errorMessage = payload.message;
+          state.uniqueNameIsSubmitting = false;
         }
       )
+
+      // do not know what is this for, was not marked
+      .addCase(updateUserUniqueName.pending, (state) => {
+        state.uniqueNameIsSubmitting = true;
+      })
       .addCase(updateUserUniqueName.fulfilled, (state, payload) => {
         state.uniqueName =
           payload.payload?.data.payload.uniqueName ?? state.uniqueName;
+        state.uniqueNameIsSubmitting = false;
       })
       .addCase(
         updateUserUniqueName.rejected,
@@ -184,6 +205,7 @@ export const authSlice = createSlice({
           }: PayloadAction<RejectedWithValueActionFromAsyncThunk<AnyAsyncThunk>>
         ) => {
           state.errorMessage = payload.message;
+          state.uniqueNameIsSubmitting = false;
         }
       )
 

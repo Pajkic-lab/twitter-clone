@@ -1,19 +1,32 @@
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Cross } from '@styled-icons/entypo/Cross';
-import { SignUpEmailRequestDto } from '@tw/data';
 import { Colors } from '@tw/ui/assets';
+import { FormInput, InputComponent, JumboButton } from '@tw/ui/components';
 import {
   signUpThunk,
   useAppDispatch,
   useAppSelector,
 } from '@tw/ui/data-access';
-import { FormikHelpers, useFormik } from 'formik';
 import React, { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import Modal from 'styled-react-modal';
-import * as yup from 'yup';
-// import { JumboButton } from '../../ui/Button';
-import { JumboButton } from '@tw/ui/components';
-import { BaseInput } from '../../ui/Input';
+import { v4 as uuid } from 'uuid';
+import { z } from 'zod';
+
+const signUpSchema = z
+  .object({
+    username: z.string().max(20),
+    email: z.string().email(),
+    password: z.string().max(20),
+    confirmPassword: z.string().max(20),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    path: ['confirmPassword'],
+    message: 'Passwords does not match',
+  });
+
+export type SignUpFormData = z.infer<typeof signUpSchema>;
 
 interface Props {
   signUpModalIsOpen: boolean;
@@ -25,72 +38,38 @@ export const SignUpModal: React.FC<Props> = ({
   setSignUpModalIsOpen,
 }) => {
   const dispatch = useAppDispatch();
-  const { errorMessage } = useAppSelector((state) => state.auth);
+  const { errorMessage, userIsSubmittingAuthData } = useAppSelector(
+    (state) => state.auth
+  );
+
+  const { handleSubmit, control, formState, setError } =
+    useForm<SignUpFormData>({
+      resolver: zodResolver(signUpSchema),
+      criteriaMode: 'all',
+      mode: 'onBlur',
+      defaultValues: {
+        username: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+      },
+    });
 
   const closeModal = () => {
     setSignUpModalIsOpen(false);
     // on close modal reset global error message
   };
 
-  const onSubmit = async (
-    values: SignUpEmailRequestDto,
-    actions: FormikHelpers<SignUpEmailRequestDto>
-  ) => {
-    await dispatch(signUpThunk(values));
+  const onSubmit = async (signUpformData: SignUpFormData) => {
+    await dispatch(signUpThunk(signUpformData));
   };
-
-  const validationSchema = yup.object().shape({
-    username: yup
-      .string()
-      .required('Name is required!')
-      .max(8, 'Name can not be longer then 8 characters'),
-    email: yup
-      .string()
-      .required('Email is required!')
-      .email('Please enter a valid email!'),
-    password: yup.string().required('Password is required!'),
-    // .matches(/[a-z]/, 'global.errors.mustHaveLowerCaseLetter')
-    // .matches(/[A-Z]/, 'global.errors.mustHaveUpperCaseLetter')
-    // .matches(/[0-9]/, 'global.errors.mustHaveNumber')
-    // .matches(/[!#@$%^&*)(+=._-]/, 'global.errors.mustHaveSpecialCharacter')
-    // .min(8, 'global.errors.minLenValidator'),
-    confirmPassword: yup
-      .string()
-      .required('Confirm password is required')
-      .oneOf(
-        [yup.ref('password'), null],
-        'Confirm password and password are not eaqual!'
-      ),
-  });
-
-  const {
-    handleSubmit,
-    handleBlur,
-    handleChange,
-    setErrors,
-    isSubmitting,
-    errors,
-    touched,
-    values,
-  } = useFormik({
-    initialValues: {
-      username: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-    },
-    onSubmit,
-    validationSchema,
-  });
 
   useEffect(() => {
     if (errorMessage) {
-      setErrors({
-        username: errorMessage,
-        email: errorMessage,
-        password: errorMessage,
-        confirmPassword: errorMessage,
-      });
+      setError('username', { type: 'server', message: errorMessage });
+      setError('email', { type: 'server', message: errorMessage });
+      setError('password', { type: 'server', message: errorMessage });
+      setError('confirmPassword', { type: 'server', message: errorMessage });
     }
   }, [errorMessage]);
 
@@ -100,48 +79,36 @@ export const SignUpModal: React.FC<Props> = ({
         <ModalSection>
           <Icon onClick={closeModal} />
           <H1>Create your account</H1>
-          <Form onSubmit={handleSubmit}>
-            <Input
-              id={'username'}
-              type={'username'}
-              name={'Username'}
-              value={values.username}
-              error={errors.username}
-              touched={touched.username}
-              onBlure={handleBlur}
-              handleChange={handleChange}
+          <Form onSubmit={handleSubmit(onSubmit)}>
+            <FormInput
+              control={control}
+              name="username"
+              id={uuid()}
+              type="text"
+              required
             />
-            <Input
-              id={'email'}
-              type={'email'}
-              name={'Email'}
-              value={values.email}
-              error={errors.email}
-              touched={touched.email}
-              onBlure={handleBlur}
-              handleChange={handleChange}
+            <FormInput
+              control={control}
+              name="email"
+              id={uuid()}
+              type="text"
+              required
             />
-            <Input
-              id={'password'}
-              type={'password'}
-              name={'Password'}
-              value={values.password}
-              error={errors.password}
-              touched={touched.password}
-              onBlure={handleBlur}
-              handleChange={handleChange}
+            <FormInput
+              control={control}
+              name="password"
+              id={uuid()}
+              type="password"
+              required
             />
-            <Input
-              id={'confirmPassword'}
-              type={'password'}
-              name={'Confirm Password'}
-              value={values.confirmPassword}
-              error={errors.confirmPassword}
-              touched={touched.confirmPassword}
-              onBlure={handleBlur}
-              handleChange={handleChange}
+            <FormInput
+              control={control}
+              name="confirmPassword"
+              id={uuid()}
+              type="password"
+              required
             />
-            <SignUpButton type="submit" loading={isSubmitting}>
+            <SignUpButton loading={userIsSubmittingAuthData} type="submit">
               Sign Up
             </SignUpButton>
           </Form>
@@ -177,7 +144,7 @@ const H1 = styled.h1`
 
 const Form = styled.form``;
 
-const Input = styled(BaseInput)``;
+const Input = styled(InputComponent)``;
 
 const SignUpButton = styled(JumboButton)`
   margin-top: 1.5rem;
