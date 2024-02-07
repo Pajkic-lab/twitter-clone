@@ -1,6 +1,6 @@
-import axios from 'axios';
 import { initClient } from '@ts-rest/core';
 import { contract } from '@tw/contract';
+import axios from 'axios';
 
 // replace hardcoded values with env vars!!!
 const serverLookupTable: { [key: string]: string } = {

@@ -76,7 +76,6 @@ export const Router = () => {
     <BrowserRouter>
       <Routes>
         {routes.map((route, index) => (
-          // route.accessType === 'Private' ?
           <Route key={index} path={route.path} element={route.element} />
         ))}
       </Routes>

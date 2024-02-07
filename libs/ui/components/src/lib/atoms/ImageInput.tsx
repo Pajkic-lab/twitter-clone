@@ -1,4 +1,4 @@
-import { Colors, Image } from '@tw/ui/assets';
+import { Camera, Colors } from '@tw/ui/assets';
 import React, { forwardRef, useCallback, useRef, useState } from 'react';
 import Resizer from 'react-image-file-resizer';
 import styled from 'styled-components';
@@ -121,7 +121,7 @@ const SVGWrapper = styled.div`
   }
 `;
 
-const ImageSVG = styled(Image)`
+const ImageSVG = styled(Camera)`
   fill: ${Colors.grayPrimary};
   width: 1.5rem;
   height: 1.5rem;

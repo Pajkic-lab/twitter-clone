@@ -16,6 +16,10 @@ check out this package: https://redux-toolkit.js.org/rtk-query/overview
 -- it is so entertwind that it makes rely difficult to start refactoring one by one thing, new idea is to start from landing page go thru all components and 
    while doing that to refactor router and way api is triggered and store as well and also to implement RTKQ
 
+
+- rethink Modals and how to operate them, research Athena
+
+- research Athena how are modals handled
 - research when to trigger api and how to switch pages 
 - router refactor
 - should probably switch to RTQ, change should be gradual, they work together just fine.

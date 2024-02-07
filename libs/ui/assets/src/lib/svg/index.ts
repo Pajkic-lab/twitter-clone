@@ -1,1 +1,2 @@
-export { ReactComponent as Image } from './image.svg';
+export { ReactComponent as Camera } from './image.svg';
+export { ReactComponent as TwitterLogo } from './twitterLogo.svg';

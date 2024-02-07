@@ -4,6 +4,9 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { AccessType } from '../types';
 
+// this component should be completely refactored and overthinked, when should render page and when should render page loader?
+// it should be fearly simple unlike now which is completely unreadable and confusing.
+
 export const LayoutWrapper: React.FC<{
   accessType: AccessType;
   children: JSX.Element;

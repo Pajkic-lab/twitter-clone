@@ -9,7 +9,7 @@
     "allowJs": true,
     "resolveJsonModule": true,
     "moduleResolution": "node",
-    "module": "esnext",
+    "module": "ESNext",
     "rootDir": ".",
     "sourceMap": true,
     "declaration": false,
