@@ -2,12 +2,12 @@ import { Loader } from '@tw/ui/components';
 import { useAppSelector } from '@tw/ui/data-access';
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { AuthType } from '../types';
+import { AccessType } from '../types';
 
-export const Filter: React.FC<{
-  authType: AuthType;
+export const LayoutWrapper: React.FC<{
+  accessType: AccessType;
   children: JSX.Element;
-}> = ({ authType, children }) => {
+}> = ({ accessType, children }) => {
   const { isAuth, isLoading } = useAppSelector((state) => state.auth);
   const publicProfileIsLoading = useAppSelector(
     (state) => state.publicProfile.isLoading
@@ -15,9 +15,9 @@ export const Filter: React.FC<{
 
   const pageIsLoading = isLoading || publicProfileIsLoading;
 
-  return (authType === 'protected' && !isAuth) ||
-    (authType === 'guest' && isAuth) ? (
-    <Navigate to={authType === 'protected' ? '/' : '/home'} replace />
+  return (accessType === 'private' && !isAuth) ||
+    (accessType === 'guest' && isAuth) ? (
+    <Navigate to={accessType === 'private' ? '/' : '/home'} replace />
   ) : pageIsLoading ? (
     <Loader fullScreen={true} />
   ) : (

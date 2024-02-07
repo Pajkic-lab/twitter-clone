@@ -179,6 +179,9 @@ dependencies:
   react-icons:
     specifier: ^4.7.1
     version: 4.11.0(react@18.2.0)
+  react-image-file-resizer:
+    specifier: ^0.4.8
+    version: 0.4.8
   react-infinite-scroll-component:
     specifier: ^6.1.0
     version: 6.1.0(react@18.2.0)
@@ -10077,6 +10080,10 @@ packages:
       react: '*'
     dependencies:
       react: 18.2.0
+    dev: false
+
+  /react-image-file-resizer@0.4.8:
+    resolution: {integrity: sha512-Ue7CfKnSlsfJ//SKzxNMz8avDgDSpWQDOnTKOp/GNRFJv4dO9L5YGHNEnj40peWkXXAK2OK0eRIoXhOYpUzUTQ==}
     dev: false
 
   /react-infinite-scroll-component@6.1.0(react@18.2.0):

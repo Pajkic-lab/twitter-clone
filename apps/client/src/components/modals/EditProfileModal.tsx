@@ -1,6 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Colors } from '@tw/ui/assets';
-import { FormInput, InputComponent, SecondaryButton } from '@tw/ui/components';
+import {
+  FormInput,
+  ImageInput,
+  InputComponent,
+  SecondaryButton,
+} from '@tw/ui/components';
 import { updateUser, useAppDispatch } from '@tw/ui/data-access';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -9,7 +14,6 @@ import Modal from 'styled-react-modal';
 import { v4 as uuid } from 'uuid';
 import { z } from 'zod';
 import { ReactComponent as Cross } from '../../assets/svg/cross.svg';
-import { ImageInput } from '../../ui/ImageInput';
 
 // have to add validation on backend, at front can not add validation to be optional and to have min max...
 const updateUserSchema = z.object({
@@ -32,8 +36,8 @@ export const EditProfileModal: React.FC<Props> = ({
 }) => {
   const dispatch = useAppDispatch();
 
-  const [cover, setCoverData] = useState('');
-  const [avatar, setAvatarData] = useState('');
+  const [cover, setCoverData] = useState<string>('');
+  const [avatar, setAvatarData] = useState<string>('');
 
   const { handleSubmit, control, formState, setError } =
     useForm<UpdateUserFormData>({

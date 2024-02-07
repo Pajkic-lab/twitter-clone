@@ -6,71 +6,79 @@ import { Profile } from '../pages/Profile';
 import { PublicProfile } from '../pages/PublicProfile';
 import { PublicProfileContactList } from '../pages/PublicProfileContactList';
 import { TestingPage } from '../pages/Testing';
-import { AuthType } from '../types';
-import { Filter } from './Filter';
+import { AccessType } from '../types';
+import { LayoutWrapper } from './LayoutWrapper';
 
-export const Router: React.FC = () => {
+const routes = [
+  {
+    path: '/test',
+    element: (
+      <LayoutWrapper
+        accessType={AccessType.Public}
+        children={<TestingPage />}
+      />
+    ),
+  },
+  {
+    path: '/',
+    element: (
+      <LayoutWrapper accessType={AccessType.Guest} children={<LandingPage />} />
+    ),
+  },
+  {
+    path: '/home',
+    element: (
+      <LayoutWrapper accessType={AccessType.Private} children={<Home />} />
+    ),
+  },
+  {
+    path: '/profile',
+    element: (
+      <LayoutWrapper accessType={AccessType.Private} children={<Profile />} />
+    ),
+  },
+  {
+    path: '/profile/social/:option',
+    element: (
+      <LayoutWrapper
+        accessType={AccessType.Private}
+        children={<ContactList />}
+      />
+    ),
+  },
+  {
+    path: '/user/:id/unique-name/:name',
+    accessType: AccessType.Public,
+    element: (
+      <LayoutWrapper
+        accessType={AccessType.Public}
+        children={<PublicProfile />}
+      />
+    ),
+  },
+  {
+    path: '/user/:id/social/:option',
+    element: (
+      <LayoutWrapper
+        accessType={AccessType.Public}
+        children={<PublicProfileContactList />}
+      />
+    ),
+  },
+  {
+    path: '/*',
+    element: <Navigate to="/home" replace />,
+  },
+];
+
+export const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-          path="/test"
-          element={
-            <Filter authType={AuthType.Public}>
-              <TestingPage />
-            </Filter>
-          }
-        />
-        <Route
-          path="/"
-          element={
-            <Filter authType={AuthType.Guest}>
-              <LandingPage />
-            </Filter>
-          }
-        />
-        <Route
-          path="/home"
-          element={
-            <Filter authType={AuthType.Protected}>
-              <Home />
-            </Filter>
-          }
-        />
-        <Route
-          path="/profile"
-          element={
-            <Filter authType={AuthType.Protected}>
-              <Profile />
-            </Filter>
-          }
-        />
-        <Route
-          path="/profile/social/:option"
-          element={
-            <Filter authType={AuthType.Protected}>
-              <ContactList />
-            </Filter>
-          }
-        />
-        <Route
-          path="/user/:id/unique-name/:name"
-          element={
-            // http://localhost:3000/user/2/unique-name/marko
-            <Filter authType={AuthType.Public}>
-              <PublicProfile />
-            </Filter>
-          }
-        />
-        <Route
-          path="/user/:id/social/:option"
-          element={
-            <Filter authType={AuthType.Public}>
-              <PublicProfileContactList />
-            </Filter>
-          }
-        />
-        <Route path="/*" element={<Navigate to="/home" replace />} />
+        {routes.map((route, index) => (
+          // route.accessType === 'Private' ?
+          <Route key={index} path={route.path} element={route.element} />
+        ))}
       </Routes>
     </BrowserRouter>
   );

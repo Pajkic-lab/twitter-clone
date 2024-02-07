@@ -1,11 +1,10 @@
-import React from 'react';
 import styled from 'styled-components';
 import { SideBar } from '../components/layout/SideBar';
 import { MainLane } from '../components/layout/mainLane';
 import { MediaBar } from '../components/layout/mediaBar';
 import { SetAccountModal } from '../components/modals/SetAccountModal';
 
-export const Home: React.FC = () => {
+export const Home = () => {
   return (
     <Wrapper>
       <SetAccountModal />

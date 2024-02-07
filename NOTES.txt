@@ -13,15 +13,13 @@ check out this package: https://redux-toolkit.js.org/rtk-query/overview
 
 
 
+-- it is so entertwind that it makes rely difficult to start refactoring one by one thing, new idea is to start from landing page go thru all components and 
+   while doing that to refactor router and way api is triggered and store as well and also to implement RTKQ
 
-
-- research what is a tooltip component
-
-- what is difference between input and input area?
-
+- research when to trigger api and how to switch pages 
 - router refactor
+- should probably switch to RTQ, change should be gradual, they work together just fine.
 
-- research when to trigger api and how to switch pages
 
 - research Athena when they use useEffect and what is cleanup function inside it, 
 - research all the other hooks and when they are used,
@@ -33,3 +31,9 @@ check out this package: https://redux-toolkit.js.org/rtk-query/overview
 - should definitely research generics
     make-form-component-props.type.ts
     http response at back
+
+- should research Pagination Athena component
+
+- research what is a tooltip component
+
+- what is difference between input and input area?

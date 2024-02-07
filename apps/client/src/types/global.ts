@@ -1,5 +1,5 @@
-export enum AuthType {
-  Protected = 'protected',
+export enum AccessType {
+  Private = 'private',
   Guest = 'guest',
   Public = 'public',
 }
