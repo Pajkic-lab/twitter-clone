@@ -17,9 +17,13 @@ check out this package: https://redux-toolkit.js.org/rtk-query/overview
    while doing that to refactor router and way api is triggered and store as well and also to implement RTKQ
 
 
-- rethink Modals and how to operate them, research Athena
 
 - research Athena how are modals handled
+- research Athena actions passed as props
+- research Athena, where is logic residing in Atomic structure ???
+- How to design Modal........
+- should restore yup as validation, should research this, zod ux is not that great...
+
 - research when to trigger api and how to switch pages 
 - router refactor
 - should probably switch to RTQ, change should be gradual, they work together just fine.

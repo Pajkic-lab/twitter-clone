@@ -11,5 +11,6 @@ export * from './lib/molecules/footer/Footer';
 export * from './lib/molecules/footer/footer-landing-page-data';
 
 // organisms
-export * from './lib/organisms/landing-page/landing-page-background/LandingPageBackground';
-export * from './lib/organisms/landing-page/landing-page-form/LandingPageForm';
+export * from './lib/organisms/landing-page/LandingPageBackground';
+export * from './lib/organisms/landing-page/LandingPageForm';
+export * from './lib/organisms/modal/ModalBase';

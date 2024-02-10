@@ -35,7 +35,7 @@
     "@nrwl/react": "^17.0.3",
     "@prisma/client": "^5.5.2",
     "@quixo3/prisma-session-store": "^3.1.10",
-    "@reduxjs/toolkit": "^1.8.6",
+    "@reduxjs/toolkit": "^1.9.7",
     "@styled-icons/boxicons-logos": "^10.46.0",
     "@styled-icons/entypo": "^10.46.0",
     "@styled-icons/foundation": "^10.46.0",

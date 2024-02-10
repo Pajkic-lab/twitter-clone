@@ -1,12 +1,12 @@
 import { Colors } from '@tw/ui/assets';
 import styled from 'styled-components';
 
-type FooterData = {
+type FooterProps = {
   buttonText: string;
   link: string;
 }[];
 
-export const Footer = ({ footerData }: { footerData: FooterData }) => {
+export const Footer = ({ footerData }: { footerData: FooterProps }) => {
   return (
     <Wrapper>
       {footerData.map((el, index) => {

@@ -1,11 +1,14 @@
 import { Colors, TwitterLogo, appleLogo, googleLogo } from '@tw/ui/assets';
+import { useState } from 'react';
 import styled from 'styled-components';
 import {
   PrimaryButton,
   SecondaryButton,
   SocialSignInButton,
-} from '../../../atoms/Button';
-import { Divider } from '../../../atoms/Divider';
+} from '../../atoms/Button';
+import { Divider } from '../../atoms/Divider';
+import { ModalBase } from '../modal/ModalBase';
+import { SignUpModalContent } from '../modal/signUpModal/SIgnUpModal';
 
 /**
  * Google auth is being triggered this way because it does not make issue at backend when redirecting back to front,
@@ -22,6 +25,8 @@ const appleLogin = () => {
 };
 
 export const LandingPageForm = () => {
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+
   return (
     <ContentWrapper>
       <ContentSection>
@@ -42,14 +47,16 @@ export const LandingPageForm = () => {
 
           <Divider text={'or'} />
 
-          <SignUpButton /*onClick={() => setSignUpModalIsOpen(!signUpModalIsOpen)}*/
-          >
+          <SignUpButton onClick={() => setModalIsOpen(!modalIsOpen)}>
             Sign up with email
           </SignUpButton>
-          {/* <SignUpModal
-          signUpModalIsOpen={signUpModalIsOpen}
-          setSignUpModalIsOpen={setSignUpModalIsOpen}
-        /> */}
+          <ModalBase
+            description={'Sign up Modal'}
+            modalIsOpen={modalIsOpen}
+            setModalIsOpen={setModalIsOpen}
+            children={<SignUpModalContent setModalIsOpen={setModalIsOpen} />}
+          />
+
           <PolicyTextWrapper>
             By signing up, you agree to the
             <SpanText>Terms of Service </SpanText>
