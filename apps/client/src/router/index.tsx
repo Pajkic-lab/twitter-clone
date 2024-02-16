@@ -6,7 +6,7 @@ import { Profile } from '../pages/Profile';
 import { PublicProfile } from '../pages/PublicProfile';
 import { PublicProfileContactList } from '../pages/PublicProfileContactList';
 import { TestingPage } from '../pages/Testing';
-import { LayoutWrapper } from './LayoutWrapper';
+import { PageWrapper } from './PageWrapper';
 
 // maybe this should be function that recives isLoading from navigate, useNavigate hook should be used to switch between pages and to use
 // following object as source of thru for hardcode routes and to inject in them isPage being loaded...
@@ -15,31 +15,31 @@ import { LayoutWrapper } from './LayoutWrapper';
 export const routes = [
   {
     path: '/test',
-    element: <LayoutWrapper children={<TestingPage />} />,
+    element: <PageWrapper children={<TestingPage />} />,
   },
   {
     path: '/',
-    element: <LayoutWrapper children={<LandingPage />} />,
+    element: <PageWrapper children={<LandingPage />} />,
   },
   {
     path: '/home',
-    element: <LayoutWrapper children={<Home />} />,
+    element: <PageWrapper children={<Home />} />,
   },
   {
     path: '/profile',
-    element: <LayoutWrapper children={<Profile />} />,
+    element: <PageWrapper children={<Profile />} />,
   },
   {
     path: '/profile/social/:option',
-    element: <LayoutWrapper children={<ContactList />} />,
+    element: <PageWrapper children={<ContactList />} />,
   },
   {
     path: '/user/:id/unique-name/:name',
-    element: <LayoutWrapper children={<PublicProfile />} />,
+    element: <PageWrapper children={<PublicProfile />} />,
   },
   {
     path: '/user/:id/social/:option',
-    element: <LayoutWrapper children={<PublicProfileContactList />} />,
+    element: <PageWrapper children={<PublicProfileContactList />} />,
   },
   {
     path: '/*',

@@ -8,7 +8,7 @@ type LayoutWrapperProps = {
 };
 
 // this should be refactored idk how but this is bad code... should be redesign
-export const LayoutWrapper = ({ children }: LayoutWrapperProps) => {
+export const PageWrapper = ({ children }: LayoutWrapperProps) => {
   const auth = useAuthQuery();
 
   if (auth.isPending) {
