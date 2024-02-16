@@ -2,6 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Colors, Cross } from '@tw/ui/assets';
 import { useSignInMutation } from '@tw/ui/data-access';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
 import { z } from 'zod';
@@ -20,6 +21,7 @@ type SingInModalProps = {
 };
 
 export const SignInModalContent = (props: SingInModalProps) => {
+  const navigate = useNavigate();
   const signInMutation = useSignInMutation();
 
   const { handleSubmit, control, formState, setError } =
@@ -35,6 +37,7 @@ export const SignInModalContent = (props: SingInModalProps) => {
 
   const onSubmit = (signInFormData: SignInFormData) => {
     signInMutation.mutate(signInFormData);
+    // navigate();
   };
 
   return (

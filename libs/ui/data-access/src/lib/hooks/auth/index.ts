@@ -6,6 +6,7 @@ import { queryClient } from '../core';
 export const useAuthQuery = () => {
   return useQuery({
     queryKey: [http.auth.authUser],
+    retry: false,
     queryFn: async () => {
       return await http.auth.authUser();
     },

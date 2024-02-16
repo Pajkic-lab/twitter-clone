@@ -6,64 +6,40 @@ import { Profile } from '../pages/Profile';
 import { PublicProfile } from '../pages/PublicProfile';
 import { PublicProfileContactList } from '../pages/PublicProfileContactList';
 import { TestingPage } from '../pages/Testing';
-import { AccessType } from '../types';
 import { LayoutWrapper } from './LayoutWrapper';
 
-const routes = [
+// maybe this should be function that recives isLoading from navigate, useNavigate hook should be used to switch between pages and to use
+// following object as source of thru for hardcode routes and to inject in them isPage being loaded...
+// should not swithc pages automaticly when auth, because that is just one case, App needs more comperhansive solution
+// it would be ideal to use useNavigate hook to toggle betwen pages and to inject in it loading opitions,
+export const routes = [
   {
     path: '/test',
-    element: (
-      <LayoutWrapper
-        accessType={AccessType.Public}
-        children={<TestingPage />}
-      />
-    ),
+    element: <LayoutWrapper children={<TestingPage />} />,
   },
   {
     path: '/',
-    element: (
-      <LayoutWrapper accessType={AccessType.Guest} children={<LandingPage />} />
-    ),
+    element: <LayoutWrapper children={<LandingPage />} />,
   },
   {
     path: '/home',
-    element: (
-      <LayoutWrapper accessType={AccessType.Private} children={<Home />} />
-    ),
+    element: <LayoutWrapper children={<Home />} />,
   },
   {
     path: '/profile',
-    element: (
-      <LayoutWrapper accessType={AccessType.Private} children={<Profile />} />
-    ),
+    element: <LayoutWrapper children={<Profile />} />,
   },
   {
     path: '/profile/social/:option',
-    element: (
-      <LayoutWrapper
-        accessType={AccessType.Private}
-        children={<ContactList />}
-      />
-    ),
+    element: <LayoutWrapper children={<ContactList />} />,
   },
   {
     path: '/user/:id/unique-name/:name',
-    accessType: AccessType.Public,
-    element: (
-      <LayoutWrapper
-        accessType={AccessType.Public}
-        children={<PublicProfile />}
-      />
-    ),
+    element: <LayoutWrapper children={<PublicProfile />} />,
   },
   {
     path: '/user/:id/social/:option',
-    element: (
-      <LayoutWrapper
-        accessType={AccessType.Public}
-        children={<PublicProfileContactList />}
-      />
-    ),
+    element: <LayoutWrapper children={<PublicProfileContactList />} />,
   },
   {
     path: '/*',
@@ -75,8 +51,8 @@ export const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        {routes.map((route, index) => (
-          <Route key={index} path={route.path} element={route.element} />
+        {routes.map((route, i) => (
+          <Route key={i} path={route.path} element={route.element} />
         ))}
       </Routes>
     </BrowserRouter>
