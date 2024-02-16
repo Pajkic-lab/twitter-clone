@@ -1,5 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Colors, Cross } from '@tw/ui/assets';
+import { useSignInMutation } from '@tw/ui/data-access';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
@@ -18,10 +19,9 @@ type SingInModalProps = {
   setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-// This modal is writeen in hurry so i dont know how effective is going to be or it may contain bugs,
-// Should be connected with api and shoulod be researched how to design it with rect query, should reserach library consecutivly.
+export const SignInModalContent = (props: SingInModalProps) => {
+  const signInMutation = useSignInMutation();
 
-export const SingInModal = (props: SingInModalProps) => {
   const { handleSubmit, control, formState, setError } =
     useForm<SignInFormData>({
       resolver: zodResolver(signInSchema),
@@ -33,6 +33,10 @@ export const SingInModal = (props: SingInModalProps) => {
       },
     });
 
+  const onSubmit = (signInFormData: SignInFormData) => {
+    signInMutation.mutate(signInFormData);
+  };
+
   return (
     <>
       <IconWrapper>
@@ -41,7 +45,7 @@ export const SingInModal = (props: SingInModalProps) => {
 
       <ContentWrapper>
         <H1>Create your account</H1>
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <FormInput
             control={control}
             name="email"
@@ -56,8 +60,7 @@ export const SingInModal = (props: SingInModalProps) => {
             type="password"
             required
           />
-          {/* loading should be tested can i somehow utilize react hook form, in order to prevent defining isLoading in store... */}
-          <JumboButton /*loading={userIsSubmittingAuthData}*/ type="submit">
+          <JumboButton loading={signInMutation.isPending} type="submit">
             Sign In
           </JumboButton>
         </form>

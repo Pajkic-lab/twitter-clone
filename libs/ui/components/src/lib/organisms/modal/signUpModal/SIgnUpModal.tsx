@@ -1,5 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Colors, Cross } from '@tw/ui/assets';
+import { useSignUpMutation } from '@tw/ui/data-access';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
@@ -26,6 +27,8 @@ type SignUpModalProps = {
 };
 
 export const SignUpModalContent = (props: SignUpModalProps) => {
+  const signUpMutation = useSignUpMutation();
+
   const { handleSubmit, control, formState, setError } =
     useForm<SignUpFormData>({
       resolver: zodResolver(signUpSchema),
@@ -39,6 +42,10 @@ export const SignUpModalContent = (props: SignUpModalProps) => {
       },
     });
 
+  const onSubmit = (signUpFormData: SignUpFormData) => {
+    signUpMutation.mutate(signUpFormData);
+  };
+
   return (
     <>
       <IconWrapper>
@@ -46,7 +53,7 @@ export const SignUpModalContent = (props: SignUpModalProps) => {
       </IconWrapper>
       <ContentWrapper>
         <H1>Create your account</H1>
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <FormInput
             control={control}
             name="username"
@@ -75,8 +82,7 @@ export const SignUpModalContent = (props: SignUpModalProps) => {
             type="password"
             required
           />
-          {/* loading should be tested can i somehow utilize react hook form, in order to prevent defining isLoading in store... */}
-          <JumboButton /*loading={userIsSubmittingAuthData}*/ type="submit">
+          <JumboButton loading={signUpMutation.isPending} type="submit">
             Sign Up
           </JumboButton>
         </form>

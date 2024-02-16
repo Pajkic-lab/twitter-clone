@@ -1,4 +1,6 @@
-import { store } from '@tw/ui/data-access';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { queryClient, store } from '@tw/ui/data-access';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
@@ -9,8 +11,13 @@ const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    {/* react query, new approach */}
+    <QueryClientProvider client={queryClient}>
+      {/* redux, legacy */}
+      <Provider store={store}>
+        <App />
+        <ReactQueryDevtools />
+      </Provider>
+    </QueryClientProvider>
   </React.StrictMode>
 );

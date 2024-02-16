@@ -3,9 +3,9 @@ import { contract } from '@tw/contract';
 import axios from 'axios';
 
 // replace hardcoded values with env vars!!!
-const serverLookupTable: { [key: string]: string } = {
+export const serverLookupTable: { [key: string]: string } = {
   development: 'http://localhost:5000',
-  test: '',
+  staging: '',
   production: 'https://twitter-clone-j82h.onrender.com',
 };
 

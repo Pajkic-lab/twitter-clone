@@ -1,33 +1,33 @@
-import { AxiosResponse } from 'axios';
-import { contractClient, httpClient } from './client';
 import {
-  SignUpEmailRequestDto,
-  SignUpEmailResponseDto,
-  SignInEmailRequestDto,
   AuthenticationResponseDto,
-  SignInEmailResponseDto,
-  NameUniqueRequestDto,
-  HttpResponse,
-  SocialStatsResponseDto,
-  NameUniqueResponseDto,
-  NameUniqueUpdateResponseDto,
-  UpdateUserRequestDto,
-  UpdateUserResponseDto,
-  PublicUserResponseDto,
-  MostPopularUsersResponseDto,
   FollowUserRequestDto,
   FollowUserResponseDto,
-  UnFollowUserRequestDto,
-  SearchUserRequestDto,
-  SearchUsersResponseDto,
   FollowerListRequestDto,
   FollowerListResponseDto,
   FollowingListRequestDto,
   FollowingListResponseDto,
+  HttpResponse,
+  MostPopularUsersResponseDto,
+  NameUniqueRequestDto,
+  NameUniqueResponseDto,
+  NameUniqueUpdateResponseDto,
   PublicProfileFollowerListRequestDto,
   PublicProfileFollowingListRequestDto,
+  PublicUserResponseDto,
+  SearchUserRequestDto,
+  SearchUsersResponseDto,
+  SignInEmailRequestDto,
+  SignInEmailResponseDto,
+  SignUpEmailRequestDto,
+  SignUpEmailResponseDto,
+  SocialStatsResponseDto,
+  UnFollowUserRequestDto,
   UnFollowUserResponseDto,
+  UpdateUserRequestDto,
+  UpdateUserResponseDto,
 } from '@tw/data';
+import { AxiosResponse } from 'axios';
+import { contractClient, httpClient } from './client';
 
 export const http = {
   auth: {
@@ -51,6 +51,7 @@ export const http = {
     googleAuthenticate() {
       return httpClient.get('auth/google/sign-in');
     },
+    // this should be split to two different requests, should retriv user separately
     authUser(): Promise<
       AxiosResponse<
         HttpResponse<{

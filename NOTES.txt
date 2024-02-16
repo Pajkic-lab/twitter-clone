@@ -17,7 +17,9 @@ check out this package: https://redux-toolkit.js.org/rtk-query/overview
    while doing that to refactor router and way api is triggered and store as well and also to implement RTKQ
 
 
-
+- research react query...
+- research Athena for what is used jotai and for what react context...
+- research Athena react query, how to organize it...
 - research Athena how are modals handled
 - research Athena actions passed as props
 - research Athena, where is logic residing in Atomic structure ???

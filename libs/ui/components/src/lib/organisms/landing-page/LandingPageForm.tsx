@@ -8,12 +8,12 @@ import {
 } from '../../atoms/Button';
 import { Divider } from '../../atoms/Divider';
 import { ModalBase } from '../modal/ModalBase';
+import { SignInModalContent } from '../modal/signInModal/SingInModal';
 import { SignUpModalContent } from '../modal/signUpModal/SIgnUpModal';
 
 /**
  * Google auth is being triggered this way because it does not make issue at backend when redirecting back to front,
  */
-
 const googleLogin = () => {
   process.env.NODE_ENV == 'production'
     ? window.open('/auth/google/sign-in', '_self')
@@ -25,7 +25,8 @@ const appleLogin = () => {
 };
 
 export const LandingPageForm = () => {
-  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+  const [signUpModalIsOpen, setSignUpModalIsOpen] = useState<boolean>(false);
+  const [signInModalIsOpen, setSignInModalIsOpen] = useState<boolean>(false);
 
   return (
     <ContentWrapper>
@@ -47,14 +48,18 @@ export const LandingPageForm = () => {
 
           <Divider text={'or'} />
 
-          <SignUpButton onClick={() => setModalIsOpen(!modalIsOpen)}>
+          <SignUpButton
+            onClick={() => setSignUpModalIsOpen(!signUpModalIsOpen)}
+          >
             Sign up with email
           </SignUpButton>
           <ModalBase
             description={'Sign up Modal'}
-            modalIsOpen={modalIsOpen}
-            setModalIsOpen={setModalIsOpen}
-            children={<SignUpModalContent setModalIsOpen={setModalIsOpen} />}
+            modalIsOpen={signUpModalIsOpen}
+            setModalIsOpen={setSignUpModalIsOpen}
+            children={
+              <SignUpModalContent setModalIsOpen={setSignUpModalIsOpen} />
+            }
           />
 
           <PolicyTextWrapper>
@@ -64,15 +69,21 @@ export const LandingPageForm = () => {
             <SpanText> Cookie Use</SpanText>.
           </PolicyTextWrapper>
           <H4>Already have an account?</H4>
-          <SignInButton /* onClick={() => setSignInModalIsOpen(!signInModalIsOpen)} */
+
+          <SignInButton
+            onClick={() => setSignInModalIsOpen(!signInModalIsOpen)}
           >
             Sign in
           </SignInButton>
+          <ModalBase
+            description={'Sign in Modal'}
+            modalIsOpen={signInModalIsOpen}
+            setModalIsOpen={setSignInModalIsOpen}
+            children={
+              <SignInModalContent setModalIsOpen={setSignUpModalIsOpen} />
+            }
+          />
         </FormWrapper>
-        {/* <SignInModal
-          signInModalIsOpen={signInModalIsOpen}
-          setSignInModalIsOpen={setSignInModalIsOpen}
-        /> */}
       </ContentSection>
     </ContentWrapper>
   );
