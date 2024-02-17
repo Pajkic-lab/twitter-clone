@@ -1,23 +1,28 @@
 import { Loader } from '@tw/ui/components';
 import { useAuthQuery } from '@tw/ui/data-access';
-import { AccessType } from '../types';
+import { Navigate } from 'react-router-dom';
+import { AccessType } from './access.type';
 
-type LayoutWrapperProps = {
-  accessType?: AccessType;
+type PageWrapperProps = {
+  accessType: AccessType;
   children: JSX.Element;
 };
 
-// this should be refactored idk how but this is bad code... should be redesign
-export const PageWrapper = ({ children }: LayoutWrapperProps) => {
-  const auth = useAuthQuery();
+export const PageWrapper = ({ children, accessType }: PageWrapperProps) => {
+  const { data, isFetching } = useAuthQuery();
 
-  if (auth.isPending) {
-    return <Loader fullScreen />;
+  const privateAccess = accessType === AccessType.Private;
+  const publicAccess = accessType === AccessType.Public;
+  const isAuth = Boolean(data?.data.payload.user.id);
+
+  const PageComponent = () => (isFetching ? <Loader fullScreen /> : children);
+
+  if (!isAuth) {
+    if (publicAccess) return <PageComponent />;
+    if (privateAccess) return <Navigate to={'/'} />;
   }
-
-  // if (!auth.data) {
-  //   return <Navigate to="/" />;
-  // }
-
-  return children;
+  if (isAuth) {
+    if (privateAccess) return <PageComponent />;
+    if (publicAccess) return <Navigate to={'/home'} />;
+  }
 };

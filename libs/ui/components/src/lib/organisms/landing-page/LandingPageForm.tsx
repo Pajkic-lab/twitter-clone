@@ -80,7 +80,7 @@ export const LandingPageForm = () => {
             modalIsOpen={signInModalIsOpen}
             setModalIsOpen={setSignInModalIsOpen}
             children={
-              <SignInModalContent setModalIsOpen={setSignUpModalIsOpen} />
+              <SignInModalContent setModalIsOpen={setSignInModalIsOpen} />
             }
           />
         </FormWrapper>

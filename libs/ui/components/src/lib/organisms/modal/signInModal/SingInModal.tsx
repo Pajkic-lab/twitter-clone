@@ -37,7 +37,6 @@ export const SignInModalContent = (props: SingInModalProps) => {
 
   const onSubmit = (signInFormData: SignInFormData) => {
     signInMutation.mutate(signInFormData);
-    // navigate();
   };
 
   return (
@@ -60,7 +59,7 @@ export const SignInModalContent = (props: SingInModalProps) => {
             control={control}
             name="password"
             id={uuid()}
-            type="password"
+            type="text"
             required
           />
           <JumboButton loading={signInMutation.isPending} type="submit">

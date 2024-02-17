@@ -1,5 +1,5 @@
-import styled from 'styled-components';
 import React from 'react';
+import styled from 'styled-components';
 import { SideBar } from '../components/layout/SideBar';
 import { MainLane } from '../components/layout/mainLane';
 import { MediaBar } from '../components/layout/mediaBar';

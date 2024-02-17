@@ -79,7 +79,7 @@ export const SignUpModalContent = (props: SignUpModalProps) => {
             control={control}
             name="confirmPassword"
             id={uuid()}
-            type="password"
+            type="text"
             required
           />
           <JumboButton loading={signUpMutation.isPending} type="submit">
