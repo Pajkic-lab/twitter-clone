@@ -1,11 +1,12 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { ContactList } from '../pages/ContactList';
 import { Home } from '../pages/Home';
-import { LandingPage } from '../pages/LandingPage';
 import { Profile } from '../pages/Profile';
 import { PublicProfile } from '../pages/PublicProfile';
 import { PublicProfileContactList } from '../pages/PublicProfileContactList';
 import { TestingPage } from '../pages/Testing';
+import { HomePage } from '../pages/new/HomePage';
+import { LandingPage } from '../pages/new/LandingPage';
 import { PageWrapper } from './PageWrapper';
 import { AccessType } from './access.type';
 
@@ -22,12 +23,20 @@ export const routes = [
       <PageWrapper accessType={AccessType.Public} children={<LandingPage />} />
     ),
   },
+  ////////////////////////////////////////
   {
     path: '/home',
     element: (
       <PageWrapper accessType={AccessType.Private} children={<Home />} />
     ),
   },
+  {
+    path: '/home-page',
+    element: (
+      <PageWrapper accessType={AccessType.Private} children={<HomePage />} />
+    ),
+  },
+  /////////////////////////////////////////////////////
   {
     path: '/profile',
     element: (
@@ -68,8 +77,8 @@ export const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        {routes.map((route, index) => (
-          <Route key={index} path={route.path} element={route.element} />
+        {routes.map((route, i) => (
+          <Route key={i} path={route.path} element={route.element} />
         ))}
       </Routes>
     </BrowserRouter>

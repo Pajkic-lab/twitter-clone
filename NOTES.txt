@@ -3,11 +3,12 @@ npx nx generate lib <name>
 
 render alternative Cyclic: https://www.cyclic.sh/
 
-Frontend:
 
-check out this package: https://redux-toolkit.js.org/rtk-query/overview
+    /*
+    * RESEARCH
+    */
 
-
+- https://sentry.io/welcome/ research for analytics, do i need this???
 
 
 
@@ -20,11 +21,11 @@ check out this package: https://redux-toolkit.js.org/rtk-query/overview
 
 
 
-
-
     /*
     * TODO
     */
+
+- refactor router according to Athena pages.ts and routes files
 
 - should restore yup as validation, should research this, zod ux is not that great...
 
@@ -45,6 +46,9 @@ check out this package: https://redux-toolkit.js.org/rtk-query/overview
 - research what is a tooltip component
 
 - what is difference between input and input area?
+
+- WHEN UI IS REFACTORED REPLACE CURRENT API WITH CONTRACTS, research how much work would it be and how much would it change current code, if it is to expensive 
+    it may be better to leave everything the way it is...
 
 
 
