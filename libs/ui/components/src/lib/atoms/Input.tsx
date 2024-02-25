@@ -46,7 +46,7 @@ export const InputComponent = forwardRef<HTMLInputElement, InputProps>(
 
 const Wrapper = styled.div`
   position: relative;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 `;
 
 const Input = styled.input<{

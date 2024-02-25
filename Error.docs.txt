@@ -1,2 +1,0 @@
-nx Error: ENOSPC: System limit for number of file watchers reached
-when this happen remove node_modules dist and nx/cache, can try also npx nx restart, is should work

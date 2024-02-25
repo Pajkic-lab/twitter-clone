@@ -1,19 +1,21 @@
 import { Loader } from '@tw/ui/components';
 import { useAuthQuery } from '@tw/ui/data-access';
 import { Navigate } from 'react-router-dom';
-import { AccessType } from './access.type';
+import { AccessRole } from './accessRole.type';
 
-type PageWrapperProps = {
-  accessType: AccessType;
+type PageManagerProps = {
+  accessRole: AccessRole;
   children: JSX.Element;
 };
 
-export const PageWrapper = ({ children, accessType }: PageWrapperProps) => {
+export const PageManager = (props: PageManagerProps) => {
+  const { children, accessRole } = props;
+
   const { data, isFetching } = useAuthQuery();
 
-  const privateAccess = accessType === AccessType.Private;
-  const publicAccess = accessType === AccessType.Public;
-  const isAuth = Boolean(data?.data.payload.user.id);
+  const isAuth = !!data?.data.payload.user.id;
+  const publicAccess = accessRole === AccessRole.Public;
+  const privateAccess = accessRole === AccessRole.Private;
 
   const PageComponent = () => (isFetching ? <Loader fullScreen /> : children);
 

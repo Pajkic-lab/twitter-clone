@@ -7,10 +7,10 @@ export * from './lib/atoms/Loader';
 
 // molecules
 export * from './lib/molecules/FormInput';
-export * from './lib/molecules/footer/Footer';
-export * from './lib/molecules/footer/footer-landing-page-data';
+export * from './lib/molecules/Modal';
+export * from './lib/molecules/SignInForm';
+export * from './lib/molecules/SignUpForm';
 
 // organisms
-export * from './lib/organisms/landing-page/LandingPageBackground';
-export * from './lib/organisms/landing-page/LandingPageForm';
-export * from './lib/organisms/modal/ModalBase';
+export * from './lib/organisms/footer/Footer';
+export * from './lib/organisms/footer/footer-landing-page-data';

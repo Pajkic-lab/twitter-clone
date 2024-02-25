@@ -1,86 +1,26 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import { ContactList } from '../pages/ContactList';
-import { Home } from '../pages/Home';
-import { Profile } from '../pages/Profile';
-import { PublicProfile } from '../pages/PublicProfile';
-import { PublicProfileContactList } from '../pages/PublicProfileContactList';
-import { TestingPage } from '../pages/Testing';
-import { HomePage } from '../pages/new/HomePage';
-import { LandingPage } from '../pages/new/LandingPage';
-import { PageWrapper } from './PageWrapper';
-import { AccessType } from './access.type';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { PageManager } from './PageManager';
+import { Page, pages } from './pages';
 
-export const routes = [
+const pagesArray: Page[] = Object.values(pages);
+
+const createPageElement = (page: Page) => {
+  return (
+    <PageManager accessRole={page.accessRole}>
+      <page.Component />
+    </PageManager>
+  );
+};
+
+const router = createBrowserRouter([
   {
-    path: '/test',
-    element: (
-      <PageWrapper accessType={AccessType.Private} children={<TestingPage />} />
-    ),
+    children: pagesArray.map((page) => ({
+      element: createPageElement(page),
+      path: page.path,
+    })),
   },
-  {
-    path: '/',
-    element: (
-      <PageWrapper accessType={AccessType.Public} children={<LandingPage />} />
-    ),
-  },
-  ////////////////////////////////////////
-  {
-    path: '/home',
-    element: (
-      <PageWrapper accessType={AccessType.Private} children={<Home />} />
-    ),
-  },
-  {
-    path: '/home-page',
-    element: (
-      <PageWrapper accessType={AccessType.Private} children={<HomePage />} />
-    ),
-  },
-  /////////////////////////////////////////////////////
-  {
-    path: '/profile',
-    element: (
-      <PageWrapper accessType={AccessType.Private} children={<Profile />} />
-    ),
-  },
-  {
-    path: '/profile/social/:option',
-    element: (
-      <PageWrapper accessType={AccessType.Private} children={<ContactList />} />
-    ),
-  },
-  {
-    path: '/user/:id/unique-name/:name',
-    element: (
-      <PageWrapper
-        accessType={AccessType.Private}
-        children={<PublicProfile />}
-      />
-    ),
-  },
-  {
-    path: '/user/:id/social/:option',
-    element: (
-      <PageWrapper
-        accessType={AccessType.Private}
-        children={<PublicProfileContactList />}
-      />
-    ),
-  },
-  {
-    path: '/*',
-    element: <Navigate to="/home" replace />,
-  },
-];
+]);
 
 export const Router = () => {
-  return (
-    <BrowserRouter>
-      <Routes>
-        {routes.map((route, i) => (
-          <Route key={i} path={route.path} element={route.element} />
-        ))}
-      </Routes>
-    </BrowserRouter>
-  );
+  return <RouterProvider router={router} />;
 };

@@ -5,19 +5,31 @@ render alternative Cyclic: https://www.cyclic.sh/
 
 
     /*
-    * RESEARCH
-    */
-
-- https://sentry.io/welcome/ research for analytics, do i need this???
-
-
-
-    /*
     * BUGS
     */
 
 - input type switched from password to text, label for some reason drops down when type is password
+- switch from moment.js to day.js
+- replace hardcoded values at front with env vars, this should be done last because it will require changes in production envs (
+    \twitter-clone\libs\ui\data-access\src\lib\http\client.ts
+    \twitter-clone\libs\ui\data-access\src\lib\hooks\auth\index.ts
+    ) 
+- thru all app switch userId from number to uuid, same goes for prisma schema
 
+
+
+    /*
+    * RESEARCH
+    */
+
+- datePicker, copy from Athena and see how it works, emphasis is on Generic
+- do the same for Pagination
+- maybe same for phone input, maybe???
+- molecule Table maybe as well there are some generics and might be benefitial 
+- Athena, research tables, how are they organized, ...rest in this regard
+- after all this is done you should do research everyday of patterns from following resources:
+    https://refactoring.guru/
+- and after that you should be doing coding challenges daily / or find open source project and contribute to it...
 
 
 
@@ -25,30 +37,16 @@ render alternative Cyclic: https://www.cyclic.sh/
     * TODO
     */
 
-- refactor router according to Athena pages.ts and routes files
+- refactor setAccountModal component
+- Edit profile page modal should be replaced with new one and new form should be created for it, and sticky property should be tested.
+- delete old modal dir
+- button is probably to high, see to it
 
 - should restore yup as validation, should research this, zod ux is not that great...
 
-
-- research Athena when they use useEffect and what is cleanup function inside it, 
-- research all the other hooks and when they are used,
-
-- page refactor
-- start refactoring components
-
-
-- should definitely research generics
-    make-form-component-props.type.ts
-    http response at back
-
-- should research Pagination Athena component
-
-- research what is a tooltip component
-
 - what is difference between input and input area?
 
-- WHEN UI IS REFACTORED REPLACE CURRENT API WITH CONTRACTS, research how much work would it be and how much would it change current code, if it is to expensive 
-    it may be better to leave everything the way it is...
+
 
 
 
