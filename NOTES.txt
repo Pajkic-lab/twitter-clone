@@ -39,8 +39,6 @@ render alternative Cyclic: https://www.cyclic.sh/
 
 - separate request, current auth to three or two req, lookup API file comment
 - rename querys and the way you use them, lookup Athena
-- Edit profile page modal should be replaced with new one and new form should be created for it, and sticky property should be tested.
-- delete old modal dir
 - button is probably to high, see to it
 
 - should restore yup as validation, should research this, zod ux is not that great...
