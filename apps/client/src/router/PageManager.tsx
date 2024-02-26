@@ -11,13 +11,15 @@ type PageManagerProps = {
 export const PageManager = (props: PageManagerProps) => {
   const { children, accessRole } = props;
 
-  const { data, isFetching } = useAuthQuery();
+  const auth = useAuthQuery();
 
-  const isAuth = !!data?.data.payload.user.id;
+  const authUser = auth.data?.data.payload.user;
+  const isAuth = !!authUser?.id;
   const publicAccess = accessRole === AccessRole.Public;
   const privateAccess = accessRole === AccessRole.Private;
 
-  const PageComponent = () => (isFetching ? <Loader fullScreen /> : children);
+  const PageComponent = () =>
+    auth.isFetching ? <Loader fullScreen /> : children;
 
   if (!isAuth) {
     if (publicAccess) return <PageComponent />;

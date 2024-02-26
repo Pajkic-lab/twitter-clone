@@ -6,18 +6,20 @@ import { http } from '../../http/api';
 import { queryClient } from '../core';
 
 /**
+ * useAuthQuery should be called only from PageManager, nowhere else, access data from jotai
+ */
+
+/**
  * When used enabled in query this query can not be invalidated in mutation
  * source https://stackoverflow.com/questions/68577988/invalidate-queries-doesnt-work-react-query
  * this is the reason for initial auth request being trigger even there is no need for it, which throws 403
- * This will probably be fixed by maintainers in future till then req will be triggered regardless of condition
  */
 
-const queryKey = 'authUser';
+export const authQueryKey = 'authQueryKey';
 
 export const useAuthQuery = () => {
   return useQuery({
-    queryKey: [queryKey],
-    // should be replaced with ENV    SESSION_NAME
+    queryKey: [authQueryKey],
     // enabled: !!Cookies.get('twitter-clone-auth-session'),
     retry: false,
     queryFn: async () => {
@@ -32,7 +34,7 @@ export const useSignUpMutation = () => {
       return await http.auth.signUp(user);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [queryKey] });
+      queryClient.invalidateQueries({ queryKey: [authQueryKey] });
     },
     onError: (error) => {
       if (isAxiosError(error)) {
@@ -48,7 +50,7 @@ export const useSignInMutation = () => {
       return await http.auth.signIn(user);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [queryKey] });
+      queryClient.invalidateQueries({ queryKey: [authQueryKey] });
     },
     onError: (error) => {
       if (isAxiosError(error)) {

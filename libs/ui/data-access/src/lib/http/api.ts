@@ -51,7 +51,12 @@ export const http = {
     googleAuthenticate() {
       return httpClient.get('auth/google/sign-in');
     },
-    // this should be split to two different requests, should retriv user separately
+    /**
+     * this should be split to three requests
+     * first to return just auth user. User id, email, most important propertys
+     * second request is to getUser and it should be moved to http.user object, auth and user should be two separate concerns for easier state manipulation
+     * this one should be researched do to needs of easier state manipulation, social status req for itself or in getUser req???
+     */
     authUser(): Promise<
       AxiosResponse<
         HttpResponse<{
@@ -78,7 +83,6 @@ export const http = {
     ): Promise<AxiosResponse<HttpResponse<NameUniqueUpdateResponseDto>>> {
       return httpClient.patch('user/name-unique', data);
     },
-    // exclude user from url string
     updateUser(
       updateUser: UpdateUserRequestDto
     ): Promise<AxiosResponse<HttpResponse<UpdateUserResponseDto>>> {
@@ -96,7 +100,6 @@ export const http = {
     > {
       return httpClient.get(`user/public/${id}`);
     },
-    // exclude user from url string
     getMostPopularUsers(): Promise<
       AxiosResponse<HttpResponse<MostPopularUsersResponseDto[]>>
     > {

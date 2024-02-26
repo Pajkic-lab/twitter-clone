@@ -1,21 +1,16 @@
-import { ContactList } from '../pages/ContactList';
-import { Home } from '../pages/Home';
-import { Profile } from '../pages/Profile';
-import { PublicProfile } from '../pages/PublicProfile';
-import { PublicProfileContactList } from '../pages/PublicProfileContactList';
+import { HomePage } from '../pages/HomePage';
+import { LandingPage } from '../pages/LandingPage';
 import { TestingPage } from '../pages/Testing';
-import { HomePage } from '../pages/new/HomePage';
-import { LandingPage } from '../pages/new/LandingPage';
+import { ContactList } from '../pages/legacy-pages/ContactList';
+// import { Home } from '../pages/legacy-pages/Home';
+import { Profile } from '../pages/legacy-pages/Profile';
+import { PublicProfile } from '../pages/legacy-pages/PublicProfile';
+import { PublicProfileContactList } from '../pages/legacy-pages/PublicProfileContactList';
 import { AccessRole } from './accessRole.type';
 
 export type Page = {
-  Component: () => JSX.Element;
-  /**
-   * Raw path to be passed to router.
-   * @example `/home`
-   * @example `/users/:userId`
-   */
   path: string;
+  Component: () => JSX.Element;
   accessRole: AccessRole;
 };
 
@@ -30,13 +25,13 @@ export const pages = {
     Component: LandingPage,
     accessRole: AccessRole.Public,
   },
-  home: {
-    path: '/home',
-    Component: Home,
-    accessRole: AccessRole.Private,
-  },
+  // home: {
+  //   path: '/home',
+  //   Component: Home,
+  //   accessRole: AccessRole.Private,
+  // },
   homePage: {
-    path: '/home-page',
+    path: '/home',
     Component: HomePage,
     accessRole: AccessRole.Private,
   },

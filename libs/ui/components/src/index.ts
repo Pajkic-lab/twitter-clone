@@ -8,6 +8,7 @@ export * from './lib/atoms/Loader';
 // molecules
 export * from './lib/molecules/FormInput';
 export * from './lib/molecules/Modal';
+export * from './lib/molecules/SetAccountForm';
 export * from './lib/molecules/SignInForm';
 export * from './lib/molecules/SignUpForm';
 
