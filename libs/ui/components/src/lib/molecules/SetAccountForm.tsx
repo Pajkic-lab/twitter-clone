@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Colors } from '@tw/ui/assets';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
@@ -17,7 +17,7 @@ type SetAccountFormProps = {
 };
 
 const uniqueNameSchema = z.object({
-  uniqueName: z.string().startsWith('@').min(3).max(8),
+  uniqueName: z.string().startsWith('@').min(4).max(8),
 });
 
 export type UniqueNameFormData = z.infer<typeof uniqueNameSchema>;
@@ -44,21 +44,32 @@ export const SetAccountForm = (props: SetAccountFormProps) => {
   const { uniqueName } = useWatch({ control });
   const { isValid } = formState;
 
+  const isLoading = useMemo(
+    () => isFormSubmitting || isUniqueNameChecking,
+    [isFormSubmitting, isUniqueNameChecking]
+  );
+  const nameNotApproved = useMemo(
+    () => !isNameUnique || !isValid || isLoading,
+    [isNameUnique, isValid, isLoading]
+  );
+
   useEffect(() => {
     if (isValid && uniqueName) onChange(uniqueName);
   }, [isValid, uniqueName]);
 
-  useEffect(() => {
-    if (!isNameUnique && uniqueName) {
-      setError('uniqueName', {
-        type: 'server',
-        message: `Name ${uniqueName} is already taken`,
-      });
-    }
-  }, [isNameUnique]);
+  /**
+   * Set error is causing problems don't have time to resolve it...
+   */
 
-  const isLoading = isFormSubmitting || isUniqueNameChecking;
-  const disabled = !isNameUnique || !isValid || isLoading;
+  // useEffect(() => {
+  //   clearErrors();
+  //   if (nameNotApproved && uniqueName) {
+  //     setError('uniqueName', {
+  //       type: 'server',
+  //       message: `Name ${uniqueName} is already taken`,
+  //     });
+  //   }
+  // }, [nameNotApproved, uniqueName]);
 
   return (
     <ModalSection>
@@ -72,7 +83,11 @@ export const SetAccountForm = (props: SetAccountFormProps) => {
           type="text"
           required
         />
-        <JumboButton type="submit" disabled={disabled} loading={isLoading}>
+        <JumboButton
+          type="submit"
+          disabled={nameNotApproved}
+          loading={isLoading}
+        >
           Join us
         </JumboButton>
       </form>

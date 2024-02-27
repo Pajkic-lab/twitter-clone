@@ -19,7 +19,7 @@ import {
   footerData,
 } from '@tw/ui/components';
 import { useSignInMutation, useSignUpMutation } from '@tw/ui/data-access';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
 
@@ -43,12 +43,19 @@ export const LandingPage = () => {
   const [signUpModalIsOpen, setSignUpModalIsOpen] = useState<boolean>(false);
   const [signInModalIsOpen, setSignInModalIsOpen] = useState<boolean>(false);
 
-  const signUpFormOnSubmit = (signUpFormData: SignUpFormData) => {
-    signUpMutation.mutate(signUpFormData);
-  };
-  const signInFormOnSubmit = (signInFormData: SignInFormData) => {
-    signInMutation.mutate(signInFormData);
-  };
+  const signUpFormOnSubmit = useCallback(
+    (signUpFormData: SignUpFormData) => {
+      signUpMutation.mutate(signUpFormData);
+    },
+    [signUpMutation]
+  );
+
+  const signInFormOnSubmit = useCallback(
+    (signInFormData: SignInFormData) => {
+      signInMutation.mutate(signInFormData);
+    },
+    [signInMutation]
+  );
 
   return (
     <PageWrapper>

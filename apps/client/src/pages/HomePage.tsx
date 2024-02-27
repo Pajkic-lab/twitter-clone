@@ -5,6 +5,7 @@ import {
   useUpdateUniqueUserNameMutation,
   useUserQuery,
 } from '@tw/ui/data-access';
+import { useCallback, useMemo } from 'react';
 import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
 
@@ -13,18 +14,29 @@ export const HomePage = () => {
   const checkUniqueUserName = useCheckUniqueUserNameMutation();
   const user = useUserQuery();
 
-  const userHasNoUniqueName =
-    !user.data?.data.payload.uniqueName && !user.isFetching;
-  const isNameUniqueServerResponse =
-    !!checkUniqueUserName.data?.data.payload.isNameUnique;
+  const onSubmitUniqueName = useCallback(
+    (uniqueNameFormData: UniqueNameFormData) => {
+      updateUniqueUserName.mutate(uniqueNameFormData);
+    },
+    [updateUniqueUserName]
+  );
 
-  const onSubmitUniqueName = (uniqueNameFormData: UniqueNameFormData) => {
-    updateUniqueUserName.mutate(uniqueNameFormData);
-  };
+  const onChangeUniqueName = useCallback(
+    (uniqueName: string) => {
+      checkUniqueUserName.mutate({ uniqueName });
+    },
+    [checkUniqueUserName]
+  );
 
-  const onChangeUniqueName = (uniqueName: string) => {
-    checkUniqueUserName.mutate({ uniqueName });
-  };
+  const userHasNoUniqueName = useMemo(
+    () => !user.data?.data.payload.uniqueName && !user.isFetching,
+    [user.data?.data.payload.uniqueName, user.isFetching]
+  );
+
+  const isNameUniqueServerResponse = useMemo(
+    () => !!checkUniqueUserName.data?.data.payload.isNameUnique,
+    [checkUniqueUserName.data?.data.payload.isNameUnique]
+  );
 
   return (
     <>
