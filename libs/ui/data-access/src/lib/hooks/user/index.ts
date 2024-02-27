@@ -10,8 +10,7 @@ export const useUserQuery = () => {
   return useQuery({
     queryKey: [userQueryKey],
     queryFn: async () => {
-      // create new api route, just for user, auth route after this one is tested should be refactored at back to return only core user date.
-      return await http.auth.authUser();
+      return await http.user.getUser();
     },
   });
 };
@@ -20,9 +19,6 @@ export const useCheckUniqueUserNameMutation = () => {
   return useMutation({
     mutationFn: async (uniqueName: NameUniqueRequestDto) => {
       return await http.user.checkNameUniqueness(uniqueName);
-    },
-    onSuccess: () => {
-      //
     },
     onError: (error) => {
       if (isAxiosError(error)) {

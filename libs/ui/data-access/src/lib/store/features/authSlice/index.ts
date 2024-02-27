@@ -130,24 +130,23 @@ export const authSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(authUserThunk.fulfilled, (state, payload) => {
-        const userData = payload.payload?.data?.payload?.user;
-        const socialStats = payload.payload?.data?.payload?.socialStats;
-
-        state.id = userData?.id ?? state.id;
-        state.name = userData?.name ?? state.name;
-        state.email = userData?.email ?? state.email;
-        state.uniqueName = userData?.uniqueName ?? state.uniqueName;
-        state.avatar = userData?.avatar ?? state.avatar;
-        state.cover = userData?.cover ?? state.cover;
-        state.bio = userData?.bio ?? state.bio;
-        state.location = userData?.location ?? state.location;
-        state.website = userData?.website ?? state.website;
-        state.createdAt = userData?.createdAt ?? state.createdAt;
-        state.followingCount =
-          socialStats?.followingCount ?? state.followingCount;
-        state.followersCount =
-          socialStats?.followersCount ?? state.followersCount;
-        state.isLoading = false;
+        // const userData = payload.payload?.data?.payload?.user;
+        // const socialStats = payload.payload?.data?.payload?.socialStats;
+        // state.id = userData?.id ?? state.id;
+        // state.name = userData?.name ?? state.name;
+        // state.email = userData?.email ?? state.email;
+        // state.uniqueName = userData?.uniqueName ?? state.uniqueName;
+        // state.avatar = userData?.avatar ?? state.avatar;
+        // state.cover = userData?.cover ?? state.cover;
+        // state.bio = userData?.bio ?? state.bio;
+        // state.location = userData?.location ?? state.location;
+        // state.website = userData?.website ?? state.website;
+        // state.createdAt = userData?.createdAt ?? state.createdAt;
+        // state.followingCount =
+        //   socialStats?.followingCount ?? state.followingCount;
+        // state.followersCount =
+        //   socialStats?.followersCount ?? state.followersCount;
+        // state.isLoading = false;
       })
       .addCase(authUserThunk.rejected, (state) => {
         state.errorMessage = '';

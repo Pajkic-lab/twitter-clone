@@ -5,7 +5,6 @@ import {
   RequestContainingUserId,
   SignInEmailResponseDto,
   SignUpEmailResponseDto,
-  SocialStatsResponseDto,
 } from '@tw/data';
 import { Request, Response } from 'express';
 import { IsAuthGuard } from '../../common/guards/is-auth.guard';
@@ -50,14 +49,11 @@ export class AuthController {
     return this.authService.signInGetUser(request.user.id);
   }
 
-  @Get('user')
+  @Get()
   @UseGuards(IsAuthGuard)
-  handleAuthUser(@Req() request: RequestContainingUserId): Promise<
-    HttpResponse<{
-      user: AuthenticationResponseDto;
-      socialStats: SocialStatsResponseDto;
-    }>
-  > {
+  handleAuthUser(
+    @Req() request: RequestContainingUserId
+  ): Promise<HttpResponse<AuthenticationResponseDto>> {
     return this.authService.authUser(request.user.id);
   }
 

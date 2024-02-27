@@ -8,6 +8,7 @@ import {
   SearchUsersResponseDto,
   UpdateUserResponseDto,
   UserBase,
+  UserResponseDto,
 } from '@tw/data';
 import { InjectMapper } from '../../common/decorators/inject-mapper.decorator';
 
@@ -24,6 +25,7 @@ export class UserProfile extends AutomapperProfile {
       createMap(mapper, UserBase, PublicUserResponseDto);
       createMap(mapper, UserBase, MostPopularUsersResponseDto);
       createMap(mapper, UserBase, SearchUsersResponseDto);
+      createMap(mapper, UserBase, UserResponseDto);
     };
   }
 }

@@ -13,8 +13,7 @@ export const PageManager = (props: PageManagerProps) => {
 
   const auth = useAuthQuery();
 
-  const authUser = auth.data?.data.payload.user;
-  const isAuth = !!authUser?.id;
+  const isAuth = !!auth.data?.data.payload?.id;
   const publicAccess = accessRole === AccessRole.Public;
   const privateAccess = accessRole === AccessRole.Private;
 

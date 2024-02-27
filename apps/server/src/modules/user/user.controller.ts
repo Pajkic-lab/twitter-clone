@@ -22,6 +22,7 @@ import {
   SocialStatsResponseDto,
   UpdateUserRequestDto,
   UpdateUserResponseDto,
+  UserResponseDto,
 } from '@tw/data';
 import { IsAuthGuard } from '../../common/guards/is-auth.guard';
 import { UserService } from './user.service';
@@ -29,6 +30,14 @@ import { UserService } from './user.service';
 @Controller('user')
 export class UserController {
   constructor(private userService: UserService) {}
+
+  @Get()
+  @UseGuards(IsAuthGuard)
+  handleGetUser(
+    @Req() request: RequestContainingUserId
+  ): Promise<HttpResponse<UserResponseDto>> {
+    return this.userService.getUser(request.user.id);
+  }
 
   @Post('name-unique')
   @UseGuards(IsAuthGuard)

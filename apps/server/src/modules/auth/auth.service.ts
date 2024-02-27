@@ -15,7 +15,6 @@ import {
   SignInEmailResponseDto,
   SignUpEmailRequestDto,
   SignUpEmailResponseDto,
-  SocialStatsResponseDto,
   UserBase,
 } from '@tw/data';
 import bcrypt from 'bcryptjs';
@@ -85,25 +84,19 @@ export class AuthService {
     return createResponse({ payload, message: 'sign up success' });
   }
 
-  async authUser(userId: number): Promise<
-    HttpResponse<{
-      user: AuthenticationResponseDto;
-      socialStats: SocialStatsResponseDto;
-    }>
-  > {
-    const user = await this.authRepository.findUserById(userId);
+  async authUser(
+    userId: number
+  ): Promise<HttpResponse<AuthenticationResponseDto>> {
+    let user;
+
+    user = await this.authRepository.findUserById(userId);
 
     if (!user) throw new NotFoundException('User does not exist');
 
-    const authUser = this.mapper.map(user, UserBase, AuthenticationResponseDto);
-
-    // this should be separate request
-    const socialStats = await this.authRepository.getSocialStats(userId);
-
-    if (!socialStats) throw new NotFoundException('Social stats do not exist');
+    user = this.mapper.map(user, UserBase, AuthenticationResponseDto);
 
     return createResponse({
-      payload: { user: authUser, socialStats },
+      payload: user,
       message: 'authentication success',
     });
   }

@@ -37,7 +37,7 @@ render alternative Cyclic: https://www.cyclic.sh/
     * TODO
     */
 
-- separate request, current auth to three or two req, lookup API file comment
+- post new unique name, but for some reason check don't detect that @mar1 exist... research why?????
 - rename querys and the way you use them, lookup Athena
 - button is probably to high, see to it
 

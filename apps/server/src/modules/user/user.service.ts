@@ -18,6 +18,7 @@ import {
   UpdateUserRequestDto,
   UpdateUserResponseDto,
   UserBase,
+  UserResponseDto,
 } from '@tw/data';
 import { InjectMapper } from '../../common/decorators/inject-mapper.decorator';
 import { createResponse } from '../../common/http/create-response';
@@ -32,9 +33,25 @@ export class UserService {
     @InjectMapper() private readonly mapper: Mapper
   ) {}
 
+  async getUser(userId: number): Promise<HttpResponse<UserResponseDto>> {
+    let user;
+
+    user = await this.userRepository.findUserById(userId);
+
+    if (!user) throw new NotFoundException('User does not exist');
+
+    user = this.mapper.map(user, UserBase, UserResponseDto);
+
+    return createResponse({
+      payload: user,
+      message: 'user returned successfully',
+    });
+  }
+
   async checkNameUniqueness(
     data: NameUniqueRequestDto
   ): Promise<HttpResponse<NameUniqueResponseDto>> {
+    // should return what data is validating
     const res = await this.userRepository.isUserNameUnique(data.uniqueName);
 
     let isNameUnique;
@@ -47,7 +64,7 @@ export class UserService {
 
     return createResponse({
       payload: { isNameUnique },
-      message: 'unique name is unique',
+      message: 'name is unique',
     });
   }
 

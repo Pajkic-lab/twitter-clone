@@ -13,3 +13,4 @@ export * from './response/public-user.res.dto';
 export * from './response/search-users.res.dto';
 export * from './response/social-stats.res.dto';
 export * from './response/update-user.res.dto';
+export * from './response/user.res.dto';

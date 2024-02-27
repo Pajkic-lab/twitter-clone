@@ -25,6 +25,7 @@ import {
   UnFollowUserResponseDto,
   UpdateUserRequestDto,
   UpdateUserResponseDto,
+  UserResponseDto,
 } from '@tw/data';
 import { AxiosResponse } from 'axios';
 import { contractClient, httpClient } from './client';
@@ -51,27 +52,19 @@ export const http = {
     googleAuthenticate() {
       return httpClient.get('auth/google/sign-in');
     },
-    /**
-     * this should be split to three requests
-     * first to return just auth user. User id, email, most important propertys
-     * second request is to getUser and it should be moved to http.user object, auth and user should be two separate concerns for easier state manipulation
-     * this one should be researched do to needs of easier state manipulation, social status req for itself or in getUser req???
-     */
     authUser(): Promise<
-      AxiosResponse<
-        HttpResponse<{
-          user: AuthenticationResponseDto;
-          socialStats: SocialStatsResponseDto;
-        }>
-      >
+      AxiosResponse<HttpResponse<AuthenticationResponseDto>>
     > {
-      return httpClient.get('auth/user');
+      return httpClient.get('auth');
     },
     signOut() {
       return httpClient.get('auth/logout');
     },
   },
   user: {
+    getUser(): Promise<AxiosResponse<HttpResponse<UserResponseDto>>> {
+      return httpClient.get('user');
+    },
     // refactor this to use GET method
     checkNameUniqueness(
       data: NameUniqueRequestDto
@@ -86,9 +79,9 @@ export const http = {
     updateUser(
       updateUser: UpdateUserRequestDto
     ): Promise<AxiosResponse<HttpResponse<UpdateUserResponseDto>>> {
+      // remove '/update/' and test it
       return httpClient.patch('user/update', updateUser);
     },
-    // replace user with id from url string
     getPublicUser(id: number): Promise<
       AxiosResponse<
         HttpResponse<{
@@ -103,6 +96,7 @@ export const http = {
     getMostPopularUsers(): Promise<
       AxiosResponse<HttpResponse<MostPopularUsersResponseDto[]>>
     > {
+      // most-popular instead of current route
       return httpClient.get('user/most/popular');
     },
     getSearchedUser({
@@ -114,6 +108,12 @@ export const http = {
     },
   },
   social: {
+    // this route has not been tested!!!
+    getSocialStats(): Promise<
+      AxiosResponse<HttpResponse<SocialStatsResponseDto>>
+    > {
+      return httpClient.get('social/stats');
+    },
     followUser(
       userId: FollowUserRequestDto
     ): Promise<AxiosResponse<HttpResponse<FollowUserResponseDto>>> {

@@ -1,5 +1,10 @@
 import { Mapper } from '@automapper/core';
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import {
   FollowUserRequestDto,
   FollowUserResponseDto,
@@ -7,19 +12,35 @@ import {
   FollowingListResponseDto,
   HttpResponse,
   SocialBase,
+  SocialStatsResponseDto,
   UnFollowUserResponseDto,
   UserWithFollowingStatus,
 } from '@tw/data';
 import { InjectMapper } from '../../common/decorators/inject-mapper.decorator';
 import { createResponse } from '../../common/http/create-response';
+import { AuthRepository } from '../auth/auth.repository';
 import { SocialRepository } from './social.repository';
 
 @Injectable()
 export class SocialService {
   constructor(
+    private authRepository: AuthRepository,
     private socialRepository: SocialRepository,
     @InjectMapper() private readonly mapper: Mapper
   ) {}
+
+  async getStats(
+    userId: number
+  ): Promise<HttpResponse<SocialStatsResponseDto>> {
+    const socialStats = await this.authRepository.getSocialStats(userId);
+
+    if (!socialStats) throw new NotFoundException('Social stats do not exist');
+
+    return createResponse({
+      payload: socialStats,
+      message: 'authentication success',
+    });
+  }
 
   async followUser(
     userId: number,

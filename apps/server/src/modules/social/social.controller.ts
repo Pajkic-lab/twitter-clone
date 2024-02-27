@@ -17,6 +17,7 @@ import {
   FollowingListResponseDto,
   HttpResponse,
   RequestContainingUserId,
+  SocialStatsResponseDto,
   UnFollowUserResponseDto,
 } from '@tw/data';
 import { IsAuthGuard } from '../../common/guards/is-auth.guard';
@@ -25,6 +26,14 @@ import { SocialService } from './social.service';
 @Controller('social')
 export class SocialController {
   constructor(private socialService: SocialService) {}
+
+  @Get('stats') // this route has not been tested!!!
+  @UseGuards(IsAuthGuard)
+  handleGetSocialStats(
+    @Req() request: RequestContainingUserId
+  ): Promise<HttpResponse<SocialStatsResponseDto>> {
+    return this.socialService.getStats(request.user.id);
+  }
 
   @Post('follow/user')
   @UseGuards(IsAuthGuard)

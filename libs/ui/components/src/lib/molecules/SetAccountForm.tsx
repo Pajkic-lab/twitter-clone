@@ -10,10 +10,10 @@ import { FormInput } from './FormInput';
 
 type SetAccountFormProps = {
   onSubmit: (uniqueNameFormData: UniqueNameFormData) => void;
-  onChange: (uniqueName: string | undefined) => void;
-  isPending: boolean;
-  disabled: boolean;
-  setIsValid: React.Dispatch<React.SetStateAction<boolean>>;
+  onChange: (uniqueName: string) => void;
+  isUniqueNameChecking: boolean;
+  isFormSubmitting: boolean;
+  isNameUnique: boolean;
 };
 
 const uniqueNameSchema = z.object({
@@ -23,13 +23,19 @@ const uniqueNameSchema = z.object({
 export type UniqueNameFormData = z.infer<typeof uniqueNameSchema>;
 
 export const SetAccountForm = (props: SetAccountFormProps) => {
-  const { onSubmit, onChange, setIsValid, isPending, disabled } = props;
+  const {
+    onSubmit,
+    onChange,
+    isFormSubmitting,
+    isNameUnique,
+    isUniqueNameChecking,
+  } = props;
 
-  const { handleSubmit, control, formState, setError } =
+  const { handleSubmit, control, formState, setError, clearErrors } =
     useForm<UniqueNameFormData>({
       resolver: zodResolver(uniqueNameSchema),
       criteriaMode: 'all',
-      mode: 'onChange',
+      mode: 'all',
       defaultValues: {
         uniqueName: '',
       },
@@ -39,12 +45,20 @@ export const SetAccountForm = (props: SetAccountFormProps) => {
   const { isValid } = formState;
 
   useEffect(() => {
-    setIsValid(isValid);
-  }, [isValid]);
+    if (isValid && uniqueName) onChange(uniqueName);
+  }, [isValid, uniqueName]);
 
   useEffect(() => {
-    onChange(uniqueName);
-  }, [uniqueName]);
+    if (!isNameUnique && uniqueName) {
+      setError('uniqueName', {
+        type: 'server',
+        message: `Name ${uniqueName} is already taken`,
+      });
+    }
+  }, [isNameUnique]);
+
+  const isLoading = isFormSubmitting || isUniqueNameChecking;
+  const disabled = !isNameUnique || !isValid || isLoading;
 
   return (
     <ModalSection>
@@ -58,7 +72,7 @@ export const SetAccountForm = (props: SetAccountFormProps) => {
           type="text"
           required
         />
-        <JumboButton type="submit" loading={isPending} disabled={disabled}>
+        <JumboButton type="submit" disabled={disabled} loading={isLoading}>
           Join us
         </JumboButton>
       </form>
