@@ -1,5 +1,5 @@
-import { SearchBar } from './SearchBar';
 import styled from 'styled-components';
+import { SearchBar } from './SearchBar';
 
 export const MediaBar = () => {
   return (
@@ -12,4 +12,5 @@ export const MediaBar = () => {
 
 const Wrapper = styled.div`
   padding: 0.5rem 2rem 0 2rem;
+  position: fixed;
 `;

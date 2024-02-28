@@ -37,13 +37,12 @@ render alternative Cyclic: https://www.cyclic.sh/
     * TODO
     */
 
-- post new unique name, but for some reason check don't detect that @mar1 exist... research why?????
-- rename querys and the way you use them, lookup Athena
-- button is probably to high, see to it
+- Add logOut function api
+- SidebarOptionsButton component, missing styled propertys of wrapping element, moved to Sidebar 
+- Sidebar handle click on logo, should probably define single source of truth routes wise
+- Sidebar post button needs work
+- Athena research, react query how to handle incoming data???
 
-- should restore yup as validation, should research this, zod ux is not that great...
-
-- what is difference between input and input area?
 
 
 

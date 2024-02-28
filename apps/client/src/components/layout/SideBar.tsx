@@ -111,9 +111,10 @@ export const SideBar: React.FC = () => {
 };
 
 const Wrapper = styled.div`
-  position: relative;
-  top: 0;
-  left: 0;
+  /*  */
+  position: fixed;
+  /*  */
+
   height: 100vh;
   padding-top: 1rem;
   margin-left: 2rem;

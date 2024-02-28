@@ -1,4 +1,4 @@
-import { Colors, Cross } from '@tw/ui/assets';
+import { Colors, CrossIcon } from '@tw/ui/assets';
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 import ModalBase from 'styled-react-modal';
@@ -88,7 +88,7 @@ const WrapperActionsContent = styled.div<{
   padding-left: 2.5rem;
 `;
 
-const CloseButton = styled(Cross)`
+const CloseButton = styled(CrossIcon)`
   width: 1.5rem;
   height: 1.5rem;
   fill: ${Colors.grayLight};

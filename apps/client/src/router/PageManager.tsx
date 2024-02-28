@@ -1,11 +1,12 @@
 import { Loader } from '@tw/ui/components';
 import { useAuthQuery } from '@tw/ui/data-access';
+import { useMemo } from 'react';
 import { Navigate } from 'react-router-dom';
 import { AccessRole } from './accessRole.type';
 
 type PageManagerProps = {
-  accessRole: AccessRole;
   children: JSX.Element;
+  accessRole: AccessRole;
 };
 
 export const PageManager = (props: PageManagerProps) => {
@@ -13,12 +14,13 @@ export const PageManager = (props: PageManagerProps) => {
 
   const auth = useAuthQuery();
 
-  const isAuth = !!auth.data?.data.payload?.id;
   const publicAccess = accessRole === AccessRole.Public;
   const privateAccess = accessRole === AccessRole.Private;
+  const isAuth = useMemo(() => !!auth.data?.data.payload?.id, [auth]);
 
-  const PageComponent = () =>
-    auth.isFetching ? <Loader fullScreen /> : children;
+  const PageComponent = () => {
+    return auth.isFetching ? <Loader fullScreen /> : children;
+  };
 
   if (!isAuth) {
     if (publicAccess) return <PageComponent />;

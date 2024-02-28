@@ -1,6 +1,6 @@
 import {
   Colors,
-  TwitterLogo,
+  TwitterIcon,
   appleLogo,
   googleLogo,
   landingPageBackground,
@@ -161,7 +161,7 @@ const LogoWrapper = styled.div`
   background-size: cover;
 `;
 
-const CoveringPageLogo = styled(TwitterLogo)`
+const CoveringPageLogo = styled(TwitterIcon)`
   fill: ${Colors.white};
   width: 470px;
   height: 470px;
@@ -172,7 +172,7 @@ const CoveringPageLogo = styled(TwitterLogo)`
   }
 `;
 
-const TwLogo = styled(TwitterLogo)`
+const TwLogo = styled(TwitterIcon)`
   fill: ${Colors.grayLight};
   width: 2.5rem;
   height: 2.5rem;
@@ -211,7 +211,7 @@ const FormWrapper = styled.div`
   }
 `;
 
-const Icon = styled(TwitterLogo)`
+const Icon = styled(TwitterIcon)`
   width: 56px;
   height: 56px;
   fill: ${Colors.grayPrimary};
