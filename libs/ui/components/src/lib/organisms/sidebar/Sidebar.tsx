@@ -55,8 +55,7 @@ export const Sidebar = (props: SidebarProps) => {
         ))}
       </ButtonsWrapper>
 
-      {/* this button need work, lookup tw original */}
-      <PrimaryButton>Post</PrimaryButton>
+      <PostButton>Post</PostButton>
 
       <Tippy
         content={<ExitFormTooltip uniqueName={uniqueName} />}
@@ -80,21 +79,19 @@ const Wrapper = styled.div`
   position: fixed;
   height: 100vh;
   padding-top: 1rem;
-  margin-left: 2rem;
-  margin-right: 2rem;
 `;
 
 const IconWrapper = styled.div`
   display: flex;
   justify-content: start;
   align-items: start;
-  padding: 0 0 1rem 1rem;
+  padding: 0 0 1rem 1.5rem;
 `;
 
 const TwLogo = styled(TwitterIcon)`
   fill: ${Colors.grayPrimary};
-  width: 2rem;
-  height: 2rem;
+  height: 2.5rem;
+  width: 2.5rem;
   cursor: pointer;
 `;
 
@@ -103,6 +100,13 @@ const ButtonsWrapper = styled.div`
   flex-direction: column;
   align-items: start;
   gap: 0.7rem;
+`;
+
+const PostButton = styled(PrimaryButton)`
+  height: 3.5rem;
+  margin-top: 1rem;
+  width: 17rem;
+  font-size: large;
 `;
 
 // all of this properties should be moved to SideBarOptionsButton wrapping div, only position should remain.

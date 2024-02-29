@@ -37,11 +37,14 @@ render alternative Cyclic: https://www.cyclic.sh/
     * TODO
     */
 
+- create new ui library common, make central object for routes
 - Add logOut function api
 - SidebarOptionsButton component, missing styled propertys of wrapping element, moved to Sidebar 
 - Sidebar handle click on logo, should probably define single source of truth routes wise
 - Sidebar post button needs work
+- Sidebar ui needs work
 - Athena research, react query how to handle incoming data???
+- Sidebar, breaking points???
 
 
 

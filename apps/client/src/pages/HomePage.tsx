@@ -74,7 +74,7 @@ export const HomePage = () => {
       </Modal>
 
       {/* left lane */}
-      <PageLane width={300}>
+      <PageLane width={270}>
         <Sidebar
           avatar={avatar}
           name={name}

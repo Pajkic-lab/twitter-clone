@@ -19,7 +19,6 @@ const Wrapper = styled.div`
   border-radius: 0.4rem;
   box-shadow: 0 0 8px hsla(0, 100%, 99.2156862745098%, 0.738);
   cursor: pointer;
-  background-color: red;
 `;
 
 const Span = styled.span`
