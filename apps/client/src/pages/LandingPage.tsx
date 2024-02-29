@@ -31,12 +31,12 @@ export const LandingPage = () => {
    * Google auth is being triggered this way because it does not make issue at backend when redirecting back to front,
    * solutions should be researched and implemented
    */
-  const googleLogin = () => {
+  const googleSignIn = () => {
     process.env.NODE_ENV == 'production'
       ? window.open('/auth/google/sign-in', '_self')
       : window.open('http://localhost:5000/auth/google/sign-in', '_self');
   };
-  const appleLogin = () => {
+  const appleSignIn = () => {
     window.open('http://shorturl.at/nDFY3', '_blank');
   };
 
@@ -72,11 +72,11 @@ export const LandingPage = () => {
             <H3>Join Twitter today.</H3>
 
             <FormWrapper>
-              <SocialSignInButton onClick={googleLogin} leftIcon={googleLogo}>
+              <SocialSignInButton onClick={googleSignIn} leftIcon={googleLogo}>
                 Sign up with Google
               </SocialSignInButton>
 
-              <SocialSignInButton onClick={appleLogin} leftIcon={appleLogo}>
+              <SocialSignInButton onClick={appleSignIn} leftIcon={appleLogo}>
                 Sign up with Apple
               </SocialSignInButton>
 
@@ -90,9 +90,9 @@ export const LandingPage = () => {
               <Modal
                 hasCloseButton
                 modalIsOpen={signUpModalIsOpen}
-                setModalIsOpen={() => setSignUpModalIsOpen(!signUpModalIsOpen)}
-                actions={[<TwLogo key={uuid()} />]}
                 actionsContentAlinement={'center'}
+                actions={[<TwLogo key={uuid()} />]}
+                setModalIsOpen={() => setSignUpModalIsOpen(!signUpModalIsOpen)}
               >
                 <SignUpForm
                   onSubmit={signUpFormOnSubmit}
@@ -117,9 +117,9 @@ export const LandingPage = () => {
               <Modal
                 hasCloseButton
                 modalIsOpen={signInModalIsOpen}
-                setModalIsOpen={() => setSignInModalIsOpen(!signInModalIsOpen)}
-                actions={[<TwLogo key={uuid()} />]}
                 actionsContentAlinement={'center'}
+                actions={[<TwLogo key={uuid()} />]}
+                setModalIsOpen={() => setSignInModalIsOpen(!signInModalIsOpen)}
               >
                 <SignInForm
                   onSubmit={signInFormOnSubmit}

@@ -8,12 +8,13 @@ type SideBarNavigationButtonProps = {
   isActive: boolean;
   text: string;
   path: string;
+  collapsed: boolean;
 };
 
 export const SideBarNavigationButton = (
   props: SideBarNavigationButtonProps
 ) => {
-  const { IconBase, IconActive, isActive, text, path } = props;
+  const { IconBase, IconActive, isActive, text, path, collapsed } = props;
 
   const navigate = useNavigate();
 
@@ -21,7 +22,7 @@ export const SideBarNavigationButton = (
     <Wrapper onClick={() => navigate(path)}>
       {isActive && <IconActiveStyled as={IconActive} />}
       {!isActive && <IconBaseStyled as={IconBase} />}
-      <Span isActive={isActive}>{text}</Span>
+      {!collapsed && <Span isActive={isActive}>{text}</Span>}
     </Wrapper>
   );
 };

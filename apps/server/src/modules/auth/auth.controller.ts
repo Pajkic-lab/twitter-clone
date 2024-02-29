@@ -57,9 +57,9 @@ export class AuthController {
     return this.authService.authUser(request.user.id);
   }
 
-  @Get('logout')
+  @Get('sign-out')
   @UseGuards(IsAuthGuard)
-  handleLogOut(@Req() request: Request): Promise<void> {
-    return this.authService.logOut(request);
+  handleSignOut(@Req() request: Request): Promise<void> {
+    return this.authService.signOut(request);
   }
 }

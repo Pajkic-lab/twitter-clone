@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { SignInEmailRequestDto, SignUpEmailRequestDto } from '@tw/data';
 import { isAxiosError } from 'axios';
-// import Cookies from 'js-cookie';
+import Cookies from 'js-cookie';
 import { http } from '../../http/api';
 import { queryClient } from '../core';
 
@@ -51,6 +51,23 @@ export const useSignInMutation = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [authQueryKey] });
+    },
+    onError: (error) => {
+      if (isAxiosError(error)) {
+        return (error.message = error.response?.data.message);
+      }
+    },
+  });
+};
+
+export const useSignOutMutation = () => {
+  return useMutation({
+    mutationFn: async () => {
+      return await http.auth.signOut();
+    },
+    onSuccess: () => {
+      Cookies.remove('twitter-clone-auth-session'); // should replace hardcoded value with env var.
+      queryClient.removeQueries({ queryKey: [authQueryKey] });
     },
     onError: (error) => {
       if (isAxiosError(error)) {

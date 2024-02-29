@@ -17,7 +17,6 @@ render alternative Cyclic: https://www.cyclic.sh/
 - thru all app switch userId from number to uuid, same goes for prisma schema
 
 
-
     /*
     * RESEARCH
     */
@@ -32,19 +31,14 @@ render alternative Cyclic: https://www.cyclic.sh/
 - and after that you should be doing coding challenges daily / or find open source project and contribute to it...
 
 
-
     /*
     * TODO
     */
 
-- create new ui library common, make central object for routes
-- Add logOut function api
-- SidebarOptionsButton component, missing styled propertys of wrapping element, moved to Sidebar 
-- Sidebar handle click on logo, should probably define single source of truth routes wise
-- Sidebar post button needs work
-- Sidebar ui needs work
-- Athena research, react query how to handle incoming data???
+
+- media bar, create place holder component and set it to sticky to mimic future media bar.
 - Sidebar, breaking points???
+- Extract globalStyle from redux...
 
 
 

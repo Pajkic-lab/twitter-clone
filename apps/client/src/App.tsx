@@ -1,9 +1,9 @@
+import { BreakingPointSetter } from '@tw/ui/common';
 import { ModalBackground } from '@tw/ui/components';
 import { useAppSelector } from '@tw/ui/data-access';
 import { ThemeProvider } from 'styled-components';
 import { ModalProvider } from 'styled-react-modal';
 import { GlobalStyle } from './GlobalStyle';
-import { AuthTrigger } from './customHooks/AuthTrigger';
 import { Router } from './router';
 
 export const App = () => {
@@ -11,8 +11,8 @@ export const App = () => {
 
   return (
     <>
-      <AuthTrigger />
       <GlobalStyle {...styleSlice} />
+      <BreakingPointSetter />
       <ThemeProvider theme={styleSlice.theme}>
         <ModalProvider backgroundComponent={ModalBackground}>
           <Router />

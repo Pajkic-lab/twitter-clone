@@ -1,6 +1,8 @@
 import Tippy from '@tippyjs/react';
 import { Colors, TwitterIcon } from '@tw/ui/assets';
+import { linksRecords } from '@tw/ui/common';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { PrimaryButton } from '../../atoms/Button';
 import { ExitFormTooltip } from '../../atoms/ExitFormTooltip';
@@ -10,30 +12,39 @@ import { sidebarData } from './sidebar-data';
 
 type SidebarProps = {
   avatar: string | undefined;
-  name: string;
-  uniqueName: string;
+  name: string | undefined;
+  uniqueName: string | undefined;
   currentPage: string;
+  collapsed: boolean;
 };
 
 /**
  * Tippy has problems.
- * What i had to do in order for it to work:
+ * What I had to do in order for it to work:
  * You can not wrap component with it, it must be div element.
  * I had to extract wrapping div element from SideBarOptionsButton and to place it in Sidebar component in order to adjust tooltip position.
  */
 
 /* WiP */
 export const Sidebar = (props: SidebarProps) => {
-  const { avatar = '', name, uniqueName, currentPage } = props;
+  const {
+    name = '',
+    uniqueName = '',
+    avatar = '',
+    currentPage,
+    collapsed,
+  } = props;
 
-  const [tooltipVisible, setTooltipVisible] = useState<boolean>(false);
+  const navigate = useNavigate();
+
+  const [sidebarOptionsOpen, setSidebarOptionsOpen] = useState<boolean>(false);
 
   const handleTooltip = () => {
-    setTooltipVisible(!tooltipVisible);
+    setSidebarOptionsOpen(!sidebarOptionsOpen);
   };
 
   const handleLogoClick = () => {
-    //
+    navigate(linksRecords.homePage);
   };
 
   return (
@@ -46,11 +57,12 @@ export const Sidebar = (props: SidebarProps) => {
         {sidebarData.map((e, i) => (
           <SideBarNavigationButton
             key={i}
-            IconActive={e.ComponentActive}
-            IconBase={e.ComponentBase}
-            isActive={e.path === currentPage}
             path={e.path}
             text={e.text}
+            IconBase={e.ComponentBase}
+            IconActive={e.ComponentActive}
+            isActive={e.path === currentPage}
+            collapsed={collapsed}
           />
         ))}
       </ButtonsWrapper>
@@ -58,16 +70,17 @@ export const Sidebar = (props: SidebarProps) => {
       <PostButton>Post</PostButton>
 
       <Tippy
-        content={<ExitFormTooltip uniqueName={uniqueName} />}
-        visible={tooltipVisible}
-        interactive={true}
+        interactive
+        visible={sidebarOptionsOpen}
         onClickOutside={handleTooltip}
+        content={<ExitFormTooltip uniqueName={uniqueName} />}
       >
-        <TIPYCONTAINER onClick={handleTooltip}>
+        <TIPYCONTAINER onClick={handleTooltip} collapsed={collapsed}>
           <SideBarOptionsButton
-            avatar={avatar}
             name={name}
+            avatar={avatar}
             uniqueName={uniqueName}
+            collapsed={collapsed}
           />
         </TIPYCONTAINER>
       </Tippy>
@@ -105,23 +118,13 @@ const ButtonsWrapper = styled.div`
 const PostButton = styled(PrimaryButton)`
   height: 3.5rem;
   margin-top: 1rem;
-  width: 17rem;
   font-size: large;
 `;
 
-// all of this properties should be moved to SideBarOptionsButton wrapping div, only position should remain.
-const TIPYCONTAINER = styled.div`
+const TIPYCONTAINER = styled.div<{
+  collapsed: boolean;
+}>`
   position: absolute;
   bottom: 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding: 0 1rem 0 1rem;
-  border-radius: 5rem;
-  cursor: pointer;
-
-  &:hover {
-    background-color: ${Colors.grayDarkActive};
-  }
+  width: ${({ collapsed }) => (collapsed ? '' : `${17}rem`)};
 `;

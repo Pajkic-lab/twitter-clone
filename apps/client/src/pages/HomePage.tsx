@@ -1,3 +1,4 @@
+import { UserResponseDto } from '@tw/data';
 import { Colors, TwitterIcon } from '@tw/ui/assets';
 import {
   Modal,
@@ -5,11 +6,11 @@ import {
   PrimaryButton,
   SetAccountForm,
   Sidebar,
-  SignUpForm,
   UniqueNameFormData,
 } from '@tw/ui/components';
 import {
   useCheckUniqueUserNameMutation,
+  useSidebarState,
   useUpdateUniqueUserNameMutation,
   useUserQuery,
 } from '@tw/ui/data-access';
@@ -17,16 +18,26 @@ import { useCallback, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
-import { SideBar as Nesto } from '../components/layout/SideBar';
+import { MediaBar } from '../components/layout/mediaBar';
 
 /* WIP */
 export const HomePage = () => {
-  // refactor the way you are recovering data from hooks.
   const location = useLocation();
+  const { collapsed } = useSidebarState();
 
-  const updateUniqueUserName = useUpdateUniqueUserNameMutation();
+  const useUser = useUserQuery();
   const checkUniqueUserName = useCheckUniqueUserNameMutation();
-  const user = useUserQuery();
+  const updateUniqueUserName = useUpdateUniqueUserNameMutation();
+
+  const user = useUser.data?.data.payload ?? ({} as UserResponseDto);
+  const { name, avatar, uniqueName } = user;
+
+  const { isNameUnique } = checkUniqueUserName.data?.data.payload ?? {};
+
+  // refactor this it looks horrendous, maybe move it to jotai?
+  const leftLaneWidth = collapsed ? 100 : 270;
+  const centralLaneWidth = 598;
+  const rightLaneWidth = 380;
 
   const onSubmitUniqueName = useCallback(
     (uniqueNameFormData: UniqueNameFormData) => {
@@ -43,21 +54,38 @@ export const HomePage = () => {
   );
 
   const userHasNoUniqueName = useMemo(
-    () => !user.data?.data.payload.uniqueName && !user.isFetching,
-    [user.data?.data.payload.uniqueName, user.isFetching]
+    () => !uniqueName && !useUser.isFetching,
+    [uniqueName, useUser.isFetching]
   );
 
   const isNameUniqueServerResponse = useMemo(
-    () => !!checkUniqueUserName.data?.data.payload.isNameUnique,
-    [checkUniqueUserName.data?.data.payload.isNameUnique]
+    () => !!isNameUnique,
+    [isNameUnique]
   );
-
-  const avatar = user.data?.data.payload.avatar;
-  const name = user.data?.data.payload.name || '';
-  const uniqueName = user.data?.data.payload.uniqueName || '';
 
   return (
     <PageWrapper>
+      {/* left lane */}
+      <PageLane width={leftLaneWidth}>
+        <Sidebar
+          name={name}
+          avatar={avatar}
+          uniqueName={uniqueName}
+          currentPage={location.pathname}
+          collapsed={collapsed}
+        />
+      </PageLane>
+
+      {/* central lane */}
+      <PageLane width={centralLaneWidth} hasBorder>
+        <Bt>nesto</Bt>
+      </PageLane>
+
+      {/* right lane */}
+      <PageLane width={rightLaneWidth}>
+        <MediaBar />
+      </PageLane>
+
       <Modal
         setModalIsOpen={() => undefined}
         modalIsOpen={userHasNoUniqueName}
@@ -72,38 +100,6 @@ export const HomePage = () => {
           isUniqueNameChecking={checkUniqueUserName.isPending}
         />
       </Modal>
-
-      {/* left lane */}
-      <PageLane width={270}>
-        <Sidebar
-          avatar={avatar}
-          name={name}
-          uniqueName={uniqueName}
-          currentPage={location.pathname}
-        />
-      </PageLane>
-
-      {/* central lane */}
-      <PageLane hasBorder width={598}>
-        <Bt>nesto</Bt>
-        <SignUpForm
-          onSubmit={function (signUpFormData: {
-            email: string;
-            password: string;
-            username: string;
-            confirmPassword: string;
-          }): void {
-            throw new Error('Function not implemented.');
-          }}
-          isPending={false}
-        />
-      </PageLane>
-
-      {/* right lane */}
-      <PageLane width={400}>
-        {/* <MediaBar /> */}
-        <Nesto />
-      </PageLane>
     </PageWrapper>
   );
 };

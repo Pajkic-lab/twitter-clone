@@ -114,7 +114,7 @@ export class AuthService {
     return user;
   }
 
-  async logOut(@Req() request: Request) {
+  async signOut(@Req() request: Request) {
     request.logOut((err) => {
       if (err) throw new BadRequestException(err.message);
     });

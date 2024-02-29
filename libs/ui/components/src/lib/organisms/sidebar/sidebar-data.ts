@@ -15,6 +15,7 @@ import {
   listActiveIcon,
   listBaseIcon,
 } from '@tw/ui/assets';
+import { linksRecords } from '@tw/ui/common';
 
 // Maybe to import path from pages.ts file, to have single source of truth ???
 export const sidebarData = [
@@ -22,48 +23,48 @@ export const sidebarData = [
     ComponentBase: HomeBaseIcon,
     ComponentActive: HomeActiveIcon,
     text: 'Home',
-    path: '/home',
+    path: linksRecords.homePage,
   },
   {
     ComponentBase: HashTagBaseIcon,
     ComponentActive: HashTagActiveIcon,
     text: 'Explore',
-    path: '/explore',
+    path: '/',
   },
   {
     ComponentBase: NotificationsBaseIcon,
     ComponentActive: NotificationsActiveIcon,
     text: 'Notifications',
-    path: '/notifications',
+    path: '/',
   },
   {
     ComponentBase: MessageBaseIcon,
     ComponentActive: MessageActiveIcon,
     text: 'Messages',
-    path: '/messages',
+    path: '/',
   },
   {
     ComponentBase: BookmarkBaseIcon,
     ComponentActive: BookmarkActiveIcon,
     text: 'Bookmarks',
-    path: '/bookmarks',
+    path: '/',
   },
   {
     ComponentBase: listBaseIcon,
     ComponentActive: listActiveIcon,
     text: 'Lists',
-    path: '/lists',
+    path: '/',
   },
   {
     ComponentBase: ProfileBaseIcon,
     ComponentActive: ProfileActiveIcon,
     text: 'Profile',
-    path: '/profile',
+    path: '/',
   },
   {
     ComponentBase: MoreBaseIcon,
     ComponentActive: MoreBaseIcon,
     text: 'More',
-    path: '/more',
+    path: '/',
   },
 ];

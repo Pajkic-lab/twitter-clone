@@ -3,6 +3,7 @@ import { LandingPage } from '../pages/LandingPage';
 import { TestingPage } from '../pages/Testing';
 import { ContactList } from '../pages/legacy-pages/ContactList';
 // import { Home } from '../pages/legacy-pages/Home';
+import { linksRecords } from '@tw/ui/common';
 import { Profile } from '../pages/legacy-pages/Profile';
 import { PublicProfile } from '../pages/legacy-pages/PublicProfile';
 import { PublicProfileContactList } from '../pages/legacy-pages/PublicProfileContactList';
@@ -16,22 +17,17 @@ export type Page = {
 
 export const pages = {
   test: {
-    path: '/test',
+    path: linksRecords.testingPage,
     Component: TestingPage,
     accessRole: AccessRole.Private,
   },
   landingPage: {
-    path: '/',
+    path: linksRecords.landingPage,
     Component: LandingPage,
     accessRole: AccessRole.Public,
   },
-  // home: {
-  //   path: '/home',
-  //   Component: Home,
-  //   accessRole: AccessRole.Private,
-  // },
   homePage: {
-    path: '/home',
+    path: linksRecords.homePage,
     Component: HomePage,
     accessRole: AccessRole.Private,
   },

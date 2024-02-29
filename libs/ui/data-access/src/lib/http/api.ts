@@ -58,7 +58,8 @@ export const http = {
       return httpClient.get('auth');
     },
     signOut() {
-      return httpClient.get('auth/logout');
+      //rename at backend to signOut
+      return httpClient.get('auth/sign-out');
     },
   },
   user: {

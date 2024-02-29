@@ -1,14 +1,21 @@
 import { Colors } from '@tw/ui/assets';
+import { linksRecords } from '@tw/ui/common';
+import { useSignOutMutation } from '@tw/ui/data-access';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const ExitFormTooltip = ({ uniqueName }: { uniqueName: string }) => {
-  const logOut = () => {
-    //
+  const navigate = useNavigate();
+  const useSingOut = useSignOutMutation();
+
+  const logOut = async () => {
+    const { status } = await useSingOut.mutateAsync();
+    if (status === 200) navigate(linksRecords.landingPage);
   };
 
   return (
     <Wrapper onClick={logOut}>
-      <Span>Log out {uniqueName}</Span>
+      <Span>Sign out {uniqueName}</Span>
     </Wrapper>
   );
 };

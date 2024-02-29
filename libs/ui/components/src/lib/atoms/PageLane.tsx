@@ -21,11 +21,12 @@ export const PageLane = (props: PageLaneProps) => {
 };
 
 /**
- * measures are on purpose in px, because I want them to be fixed
+ * Measures are on purpose in px, because they should be always fixed.
  */
 const Wrapper = styled.div<StyleProps>`
   min-height: 100vh;
   width: ${({ width }) => `${width}px`};
+  min-width: ${({ width }) => `${width}px`};
   border-left: ${({ hasBorder }) =>
     hasBorder && `2px solid ${Colors.grayDark}`};
   border-right: ${({ hasBorder }) =>

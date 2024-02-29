@@ -5,24 +5,40 @@ type SideBarOptionsButtonProps = {
   avatar: string;
   name: string;
   uniqueName: string;
+  collapsed: boolean;
 };
 
 export const SideBarOptionsButton = (props: SideBarOptionsButtonProps) => {
-  const { avatar, name, uniqueName } = props;
+  const { name, uniqueName, avatar, collapsed } = props;
 
   return (
-    <>
+    <Wrapper>
       <BioWrapper>
         <ProfileImage $backgroundImage={avatar} />
-        <div>
-          <H3>{name}</H3>
-          <Span>{uniqueName}</Span>
-        </div>
+        {!collapsed && (
+          <div>
+            <H3>{name}</H3>
+            <Span>{uniqueName}</Span>
+          </div>
+        )}
       </BioWrapper>
-      <Options />
-    </>
+      {!collapsed && <Options />}
+    </Wrapper>
   );
 };
+
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem 0 1rem;
+  border-radius: 5rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${Colors.grayDarkActive};
+  }
+`;
 
 const BioWrapper = styled.div`
   display: flex;
