@@ -1,4 +1,4 @@
-import { Colors } from '@tw/ui/assets';
+import { Colors, MagnifyingGlass } from '@tw/ui/assets';
 import { Loader } from '@tw/ui/components';
 import {
   resetSearchRespons,
@@ -9,8 +9,10 @@ import {
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { ReactComponent as magnifyingGlass } from '../../../assets/svg/magnifyingGlass.svg';
 
+/**
+ * This component needs to be revamped.
+ */
 export const SearchBar: React.FC<{ InputId: string }> = ({ InputId }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -119,7 +121,7 @@ const Label = styled.label`
   cursor: pointer;
 `;
 
-const Svg = styled(magnifyingGlass)<{ $isFocused: boolean }>`
+const Svg = styled(MagnifyingGlass)<{ $isFocused: boolean }>`
   fill: ${Colors.graySecondary};
   width: 1.5rem;
   height: 1.5rem;

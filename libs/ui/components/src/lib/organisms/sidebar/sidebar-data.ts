@@ -29,7 +29,7 @@ export const sidebarData = [
     ComponentBase: HashTagBaseIcon,
     ComponentActive: HashTagActiveIcon,
     text: 'Explore',
-    path: '/',
+    path: linksRecords.testingPage,
   },
   {
     ComponentBase: NotificationsBaseIcon,

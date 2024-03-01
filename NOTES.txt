@@ -14,6 +14,14 @@ render alternative Cyclic: https://www.cyclic.sh/
     \twitter-clone\libs\ui\data-access\src\lib\http\client.ts
     \twitter-clone\libs\ui\data-access\src\lib\hooks\auth\index.ts
     ) 
+
+
+    /*
+    * WAITING FOR PROD CHANGE
+    */
+
+- node version changed in env file to 20.11.1, change it in prod env
+- since you are doing that, there are some hardcoded values in API client and in auth query session name, inject them as envs, and ofc change prod
 - thru all app switch userId from number to uuid, same goes for prisma schema
 
 
@@ -24,7 +32,7 @@ render alternative Cyclic: https://www.cyclic.sh/
 - datePicker, copy from Athena and see how it works, emphasis is on Generic
 - do the same for Pagination
 - maybe same for phone input, maybe???
-- molecule Table maybe as well there are some generics and might be benefitial 
+- molecule Table maybe as well there are some generics and might be beneficial 
 - Athena, research tables, how are they organized, ...rest in this regard
 - after all this is done you should do research everyday of patterns from following resources:
     https://refactoring.guru/
@@ -35,10 +43,17 @@ render alternative Cyclic: https://www.cyclic.sh/
     * TODO
     */
 
-
-- media bar, create place holder component and set it to sticky to mimic future media bar.
-- Sidebar, breaking points???
 - Extract globalStyle from redux...
+- there is no need for PageLane component, extract Sidebar and Mediabar from it, just keep it for main lane, it will be removed afterwards.
+- fix Sidebar when extracted from PageLane
+- do Mediabar
+
+- research dependency-cruiser library you installed, it might be useful.
+
+- modals, position icon to center, 
+- x icon is to thin
+- margins look sketchy
+
 
 
 

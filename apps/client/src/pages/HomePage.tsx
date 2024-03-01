@@ -1,15 +1,17 @@
 import { UserResponseDto } from '@tw/data';
 import { Colors, TwitterIcon } from '@tw/ui/assets';
 import {
+  Mediabar,
   Modal,
   PageLane,
-  PrimaryButton,
   SetAccountForm,
   Sidebar,
+  Testiranje,
   UniqueNameFormData,
 } from '@tw/ui/components';
 import {
   useCheckUniqueUserNameMutation,
+  usePageLaneState,
   useSidebarState,
   useUpdateUniqueUserNameMutation,
   useUserQuery,
@@ -18,12 +20,13 @@ import { useCallback, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
-import { MediaBar } from '../components/layout/mediaBar';
 
 /* WIP */
 export const HomePage = () => {
   const location = useLocation();
   const { collapsed } = useSidebarState();
+  const { leftLaneWidth, centralLaneWidth, rightLaneWidth } =
+    usePageLaneState();
 
   const useUser = useUserQuery();
   const checkUniqueUserName = useCheckUniqueUserNameMutation();
@@ -33,11 +36,6 @@ export const HomePage = () => {
   const { name, avatar, uniqueName } = user;
 
   const { isNameUnique } = checkUniqueUserName.data?.data.payload ?? {};
-
-  // refactor this it looks horrendous, maybe move it to jotai?
-  const leftLaneWidth = collapsed ? 100 : 270;
-  const centralLaneWidth = 598;
-  const rightLaneWidth = 380;
 
   const onSubmitUniqueName = useCallback(
     (uniqueNameFormData: UniqueNameFormData) => {
@@ -78,12 +76,12 @@ export const HomePage = () => {
 
       {/* central lane */}
       <PageLane width={centralLaneWidth} hasBorder>
-        <Bt>nesto</Bt>
+        <Testiranje />
       </PageLane>
 
       {/* right lane */}
       <PageLane width={rightLaneWidth}>
-        <MediaBar />
+        <Mediabar />
       </PageLane>
 
       <Modal
@@ -103,15 +101,6 @@ export const HomePage = () => {
     </PageWrapper>
   );
 };
-
-//
-const Bt = styled(PrimaryButton)`
-  position: fixed;
-  width: 598px;
-  top: 0;
-  z-index: 10;
-`;
-//
 
 const PageWrapper = styled.div`
   display: flex;

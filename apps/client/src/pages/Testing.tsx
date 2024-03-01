@@ -1,7 +1,12 @@
+import Sticky from 'react-stickynode';
+
 export const TestingPage = () => {
   return (
-    <div style={{ backgroundColor: 'white', width: '100%', height: '100vh' }}>
-      TEST
+    <div style={{ height: '200vh', padding: '20rem' }}>
+      <Sticky enabled={true} top={50} bottomBoundary={1200}>
+        <button>test</button>
+      </Sticky>
+      ;
     </div>
   );
 };

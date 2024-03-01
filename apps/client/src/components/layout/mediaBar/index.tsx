@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { SearchBar } from './SearchBar';
+import { SearchBar } from '../../../../../../libs/ui/components/src/lib/molecules/SearchBar';
 
 export const MediaBar = () => {
   return (

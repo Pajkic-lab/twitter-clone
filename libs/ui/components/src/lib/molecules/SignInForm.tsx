@@ -50,7 +50,7 @@ export const SignInForm = (props: SingInFormProps) => {
 
   return (
     <ContentWrapper>
-      <H1>Create your account</H1>
+      <H1>Sign in to Twitter</H1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormInput
           control={control}

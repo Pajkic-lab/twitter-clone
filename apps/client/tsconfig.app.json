@@ -26,6 +26,7 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "../../libs/ui/components/src/lib/atoms/ImageInput.tsx",
-    "../../libs/ui/components/src/lib/organisms/footer/Footer.tsx"
+    "../../libs/ui/components/src/lib/organisms/footer/Footer.tsx",
+    "../../libs/ui/components/src/lib/molecules/SearchBar.tsx"
   ]
 }
