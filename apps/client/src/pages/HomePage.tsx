@@ -11,7 +11,6 @@ import {
 } from '@tw/ui/components';
 import {
   useCheckUniqueUserNameMutation,
-  usePageLaneState,
   useSidebarState,
   useUpdateUniqueUserNameMutation,
   useUserQuery,
@@ -25,17 +24,15 @@ import { v4 as uuid } from 'uuid';
 export const HomePage = () => {
   const location = useLocation();
   const { collapsed } = useSidebarState();
-  const { leftLaneWidth, centralLaneWidth, rightLaneWidth } =
-    usePageLaneState();
 
   const useUser = useUserQuery();
   const checkUniqueUserName = useCheckUniqueUserNameMutation();
   const updateUniqueUserName = useUpdateUniqueUserNameMutation();
 
-  const user = useUser.data?.data.payload ?? ({} as UserResponseDto); // refactor this directly in hook, no need to pass nested data...
+  const user = useUser.data ?? ({} as UserResponseDto);
   const { name, avatar, uniqueName } = user;
 
-  const { isNameUnique } = checkUniqueUserName.data?.data.payload ?? {};
+  const { isNameUnique } = checkUniqueUserName.data ?? {};
 
   const onSubmitUniqueName = useCallback(
     (uniqueNameFormData: UniqueNameFormData) => {
@@ -63,7 +60,6 @@ export const HomePage = () => {
 
   return (
     <PageWrapper>
-      {/* left lane */}
       <Sidebar
         name={name}
         avatar={avatar}
@@ -72,13 +68,11 @@ export const HomePage = () => {
         collapsed={collapsed}
       />
 
-      {/* central lane */}
-      <PageLane width={centralLaneWidth} hasBorder>
+      <PageLane width={598} hasBorder>
         <Testiranje />
       </PageLane>
 
-      {/* right lane */}
-      <PageLane width={rightLaneWidth}>
+      <PageLane width={380}>
         <Mediabar />
       </PageLane>
 

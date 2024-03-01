@@ -16,7 +16,7 @@ export const PageManager = (props: PageManagerProps) => {
 
   const publicAccess = accessRole === AccessRole.Public;
   const privateAccess = accessRole === AccessRole.Private;
-  const isAuth = useMemo(() => !!auth.data?.data.payload?.id, [auth]);
+  const isAuth = useMemo(() => !!auth.data?.id, [auth]);
 
   const PageComponent = () => {
     return auth.isFetching ? <Loader fullScreen /> : children;

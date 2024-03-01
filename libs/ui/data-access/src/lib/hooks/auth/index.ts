@@ -23,7 +23,8 @@ export const useAuthQuery = () => {
     // enabled: !!Cookies.get('twitter-clone-auth-session'),
     retry: false,
     queryFn: async () => {
-      return await http.auth.authUser();
+      const res = await http.auth.authUser();
+      return res.data.payload;
     },
   });
 };

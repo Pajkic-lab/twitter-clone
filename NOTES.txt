@@ -43,8 +43,6 @@ render alternative Cyclic: https://www.cyclic.sh/
     * TODO
     */
 
-- fix Sidebar when extracted from PageLane
-- Rename width coming from jotai, rethink jotai collapsed and width, could tihs be merged to one container???
 - there is no need for PageLane component, extract Sidebar and Mediabar from it, just keep it for main lane, it will be removed afterwards.
 - do Mediabar
 

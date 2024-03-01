@@ -23,14 +23,6 @@ type SidebarStyleProps = Pick<SidebarProps, 'collapsed'>;
 const SIDEBAR_WIDTH_FULL = '14.3rem';
 const SIDEBAR_WIDTH_COLLAPSED = '6rem';
 
-/**
- * Tippy has problems.
- * What I had to do in order for it to work:
- * You can not wrap component with it, it must be div element.
- * I had to extract wrapping div element from SideBarOptionsButton and to place it in Sidebar component in order to adjust tooltip position.
- */
-
-/* WiP */
 export const Sidebar = (props: SidebarProps) => {
   const {
     name = '',
@@ -54,45 +46,43 @@ export const Sidebar = (props: SidebarProps) => {
 
   return (
     <Wrapper collapsed={collapsed}>
-      <PositionWrapper collapsed={collapsed}>
-        <ButtonsWrapper collapsed={collapsed}>
-          <IconWrapper collapsed={collapsed} onClick={handleLogoClick}>
-            <TwLogo />
-          </IconWrapper>
+      <ButtonWrapper collapsed={collapsed}>
+        <IconWrapper collapsed={collapsed} onClick={handleLogoClick}>
+          <TwLogo />
+        </IconWrapper>
 
-          {sidebarData.map((e, i) => (
-            <SideBarNavigationButton
-              key={i}
-              path={e.path}
-              text={e.text}
-              IconBase={e.ComponentBase}
-              IconActive={e.ComponentActive}
-              isActive={e.path === currentPage}
+        {sidebarData.map((e, i) => (
+          <SideBarNavigationButton
+            key={i}
+            path={e.path}
+            text={e.text}
+            IconBase={e.ComponentBase}
+            IconActive={e.ComponentActive}
+            isActive={e.path === currentPage}
+            collapsed={collapsed}
+          />
+        ))}
+
+        <PostButton collapsed={JSON.stringify(collapsed)}>
+          {collapsed ? <FeatherIcon /> : 'Post'}
+        </PostButton>
+
+        <Tippy
+          interactive
+          visible={sidebarOptionsOpen}
+          onClickOutside={handleTooltip}
+          content={<ExitFormTooltip uniqueName={uniqueName} />}
+        >
+          <TIPYCONTAINER collapsed={collapsed} onClick={handleTooltip}>
+            <SideBarOptionsButton
+              name={name}
+              avatar={avatar}
+              uniqueName={uniqueName}
               collapsed={collapsed}
             />
-          ))}
-
-          <PostButton collapsed={JSON.stringify(collapsed)}>
-            {collapsed ? <FeatherIcon /> : 'Post'}
-          </PostButton>
-
-          <Tippy
-            interactive
-            visible={sidebarOptionsOpen}
-            onClickOutside={handleTooltip}
-            content={<ExitFormTooltip uniqueName={uniqueName} />}
-          >
-            <TIPYCONTAINER collapsed={collapsed} onClick={handleTooltip}>
-              <SideBarOptionsButton
-                name={name}
-                avatar={avatar}
-                uniqueName={uniqueName}
-                collapsed={collapsed}
-              />
-            </TIPYCONTAINER>
-          </Tippy>
-        </ButtonsWrapper>
-      </PositionWrapper>
+          </TIPYCONTAINER>
+        </Tippy>
+      </ButtonWrapper>
     </Wrapper>
   );
 };
@@ -110,14 +100,12 @@ const Wrapper = styled.div<SidebarStyleProps>`
 /**
  * This div is here to enable fix position nad size for containing elements
  */
-const PositionWrapper = styled.div<SidebarStyleProps>`
+const ButtonWrapper = styled.div<SidebarStyleProps>`
   width: ${({ collapsed }) =>
     collapsed ? SIDEBAR_WIDTH_COLLAPSED : SIDEBAR_WIDTH_FULL};
   position: fixed;
   height: 100vh;
-`;
 
-const ButtonsWrapper = styled.div<SidebarStyleProps>`
   display: flex;
   flex-direction: column;
   align-items: ${({ collapsed }) => (collapsed ? 'center' : 'start')};
@@ -153,9 +141,15 @@ const PostButton = styled(PrimaryButton)<{ collapsed: string }>`
   margin-top: 1rem;
 `;
 
+/**
+ * Tippy has problems.
+ * What I had to do in order for it to work:
+ * You can not wrap component with it, it must be div element.
+ * I had to extract wrapping div element from SideBarOptionsButton
+ * and to place it in Sidebar component in order to adjust tooltip position.
+ */
 const TIPYCONTAINER = styled.div<SidebarStyleProps>`
+  width: ${({ collapsed }) => (collapsed ? '4.5rem' : '100%')};
   position: absolute;
   bottom: 2rem;
-  width: 100%;
-  width: ${({ collapsed }) => (collapsed ? '4.5rem' : '100%')};
 `;

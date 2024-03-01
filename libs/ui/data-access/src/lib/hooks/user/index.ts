@@ -10,7 +10,8 @@ export const useUserQuery = () => {
   return useQuery({
     queryKey: [userQueryKey],
     queryFn: async () => {
-      return await http.user.getUser();
+      const res = await http.user.getUser();
+      return res.data.payload;
     },
   });
 };
@@ -18,7 +19,8 @@ export const useUserQuery = () => {
 export const useCheckUniqueUserNameMutation = () => {
   return useMutation({
     mutationFn: async (uniqueName: NameUniqueRequestDto) => {
-      return await http.user.checkNameUniqueness(uniqueName);
+      const res = await http.user.checkNameUniqueness(uniqueName);
+      return res.data.payload;
     },
     onError: (error) => {
       if (isAxiosError(error)) {
