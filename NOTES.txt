@@ -42,8 +42,7 @@ render alternative Cyclic: https://www.cyclic.sh/
     /*
     * TODO
     */
-
-- Extract globalStyle from redux...
+- App.ts globalStyle refactor, do i need them? and custom css?
 - there is no need for PageLane component, extract Sidebar and Mediabar from it, just keep it for main lane, it will be removed afterwards.
 - fix Sidebar when extracted from PageLane
 - do Mediabar

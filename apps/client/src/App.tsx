@@ -7,12 +7,14 @@ import { GlobalStyle } from './GlobalStyle';
 import { Router } from './router';
 
 export const App = () => {
+  // remove this part
   const styleSlice = useAppSelector((state) => state.style);
 
   return (
     <>
       <GlobalStyle {...styleSlice} />
       <BreakingPointSetter />
+      {/* what the hell is theme provider??? */}
       <ThemeProvider theme={styleSlice.theme}>
         <ModalProvider backgroundComponent={ModalBackground}>
           <Router />
