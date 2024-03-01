@@ -3,7 +3,9 @@ import { atom, useAtom } from 'jotai';
 /**
  * Number present size in px
  */
-export const leftLaneWidthAtom = atom<number>(270);
+
+// rename following vars
+export const leftLaneWidthAtom = atom<number>(230);
 export const centralLaneWidthAtom = atom<number>(598);
 export const rightLaneWidthAtom = atom<number>(380);
 

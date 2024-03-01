@@ -1,5 +1,5 @@
 import Tippy from '@tippyjs/react';
-import { Colors, TwitterIcon } from '@tw/ui/assets';
+import { Colors, FeatherIcon, TwitterIcon } from '@tw/ui/assets';
 import { linksRecords } from '@tw/ui/common';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -17,6 +17,11 @@ type SidebarProps = {
   currentPage: string;
   collapsed: boolean;
 };
+
+type SidebarStyleProps = Pick<SidebarProps, 'collapsed'>;
+
+const SIDEBAR_WIDTH_FULL = '14.3rem';
+const SIDEBAR_WIDTH_COLLAPSED = '6rem';
 
 /**
  * Tippy has problems.
@@ -48,57 +53,86 @@ export const Sidebar = (props: SidebarProps) => {
   };
 
   return (
-    <Wrapper>
-      <IconWrapper onClick={handleLogoClick}>
-        <TwLogo />
-      </IconWrapper>
+    <Wrapper collapsed={collapsed}>
+      <PositionWrapper collapsed={collapsed}>
+        <ButtonsWrapper collapsed={collapsed}>
+          <IconWrapper collapsed={collapsed} onClick={handleLogoClick}>
+            <TwLogo />
+          </IconWrapper>
 
-      <ButtonsWrapper>
-        {sidebarData.map((e, i) => (
-          <SideBarNavigationButton
-            key={i}
-            path={e.path}
-            text={e.text}
-            IconBase={e.ComponentBase}
-            IconActive={e.ComponentActive}
-            isActive={e.path === currentPage}
-            collapsed={collapsed}
-          />
-        ))}
-      </ButtonsWrapper>
+          {sidebarData.map((e, i) => (
+            <SideBarNavigationButton
+              key={i}
+              path={e.path}
+              text={e.text}
+              IconBase={e.ComponentBase}
+              IconActive={e.ComponentActive}
+              isActive={e.path === currentPage}
+              collapsed={collapsed}
+            />
+          ))}
 
-      <PostButton>Post</PostButton>
+          <PostButton collapsed={JSON.stringify(collapsed)}>
+            {collapsed ? <FeatherIcon /> : 'Post'}
+          </PostButton>
 
-      <Tippy
-        interactive
-        visible={sidebarOptionsOpen}
-        onClickOutside={handleTooltip}
-        content={<ExitFormTooltip uniqueName={uniqueName} />}
-      >
-        <TIPYCONTAINER onClick={handleTooltip} collapsed={collapsed}>
-          <SideBarOptionsButton
-            name={name}
-            avatar={avatar}
-            uniqueName={uniqueName}
-            collapsed={collapsed}
-          />
-        </TIPYCONTAINER>
-      </Tippy>
+          <Tippy
+            interactive
+            visible={sidebarOptionsOpen}
+            onClickOutside={handleTooltip}
+            content={<ExitFormTooltip uniqueName={uniqueName} />}
+          >
+            <TIPYCONTAINER collapsed={collapsed} onClick={handleTooltip}>
+              <SideBarOptionsButton
+                name={name}
+                avatar={avatar}
+                uniqueName={uniqueName}
+                collapsed={collapsed}
+              />
+            </TIPYCONTAINER>
+          </Tippy>
+        </ButtonsWrapper>
+      </PositionWrapper>
     </Wrapper>
   );
 };
 
-const Wrapper = styled.div`
-  position: fixed;
-  height: 100vh;
+/**
+ * This div is here to define position and size in reference to its parent element
+ */
+const Wrapper = styled.div<SidebarStyleProps>`
+  min-width: ${({ collapsed }) =>
+    collapsed ? SIDEBAR_WIDTH_COLLAPSED : SIDEBAR_WIDTH_FULL};
+  margin-right: ${({ collapsed }) => (collapsed ? '0' : '2rem')};
   padding-top: 1rem;
 `;
 
-const IconWrapper = styled.div`
+/**
+ * This div is here to enable fix position nad size for containing elements
+ */
+const PositionWrapper = styled.div<SidebarStyleProps>`
+  width: ${({ collapsed }) =>
+    collapsed ? SIDEBAR_WIDTH_COLLAPSED : SIDEBAR_WIDTH_FULL};
+  position: fixed;
+  height: 100vh;
+`;
+
+const ButtonsWrapper = styled.div<SidebarStyleProps>`
   display: flex;
-  justify-content: start;
-  align-items: start;
-  padding: 0 0 1rem 1.5rem;
+  flex-direction: column;
+  align-items: ${({ collapsed }) => (collapsed ? 'center' : 'start')};
+  gap: 0.7rem;
+`;
+
+const IconWrapper = styled.div<SidebarStyleProps>`
+  display: flex;
+  justify-content: ${({ collapsed }) => (collapsed ? 'center' : 'start')};
+  padding: 0.8rem;
+  border-radius: 5rem;
+
+  &:hover {
+    background-color: ${Colors.grayDarkActive};
+  }
 `;
 
 const TwLogo = styled(TwitterIcon)`
@@ -108,23 +142,20 @@ const TwLogo = styled(TwitterIcon)`
   cursor: pointer;
 `;
 
-const ButtonsWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  gap: 0.7rem;
-`;
-
-const PostButton = styled(PrimaryButton)`
+/**
+ * Had to stringify boolean value, for some reason trows error when plane boolean.
+ */
+const PostButton = styled(PrimaryButton)<{ collapsed: string }>`
+  width: ${({ collapsed }) =>
+    collapsed === 'true' ? '3.5rem' : SIDEBAR_WIDTH_FULL};
   height: 3.5rem;
-  margin-top: 1rem;
   font-size: large;
+  margin-top: 1rem;
 `;
 
-const TIPYCONTAINER = styled.div<{
-  collapsed: boolean;
-}>`
+const TIPYCONTAINER = styled.div<SidebarStyleProps>`
   position: absolute;
-  bottom: 1rem;
-  width: ${({ collapsed }) => (collapsed ? '' : `${17}rem`)};
+  bottom: 2rem;
+  width: 100%;
+  width: ${({ collapsed }) => (collapsed ? '4.5rem' : '100%')};
 `;

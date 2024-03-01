@@ -49,7 +49,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   border-radius: 5rem;
-  padding: 0.8rem 1.5rem;
+  padding: 0.8rem;
   cursor: pointer;
 
   &:hover {

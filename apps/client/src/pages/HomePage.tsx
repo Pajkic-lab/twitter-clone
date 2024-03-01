@@ -32,7 +32,7 @@ export const HomePage = () => {
   const checkUniqueUserName = useCheckUniqueUserNameMutation();
   const updateUniqueUserName = useUpdateUniqueUserNameMutation();
 
-  const user = useUser.data?.data.payload ?? ({} as UserResponseDto);
+  const user = useUser.data?.data.payload ?? ({} as UserResponseDto); // refactor this directly in hook, no need to pass nested data...
   const { name, avatar, uniqueName } = user;
 
   const { isNameUnique } = checkUniqueUserName.data?.data.payload ?? {};
@@ -64,15 +64,13 @@ export const HomePage = () => {
   return (
     <PageWrapper>
       {/* left lane */}
-      <PageLane width={leftLaneWidth}>
-        <Sidebar
-          name={name}
-          avatar={avatar}
-          uniqueName={uniqueName}
-          currentPage={location.pathname}
-          collapsed={collapsed}
-        />
-      </PageLane>
+      <Sidebar
+        name={name}
+        avatar={avatar}
+        uniqueName={uniqueName}
+        currentPage={location.pathname}
+        collapsed={collapsed}
+      />
 
       {/* central lane */}
       <PageLane width={centralLaneWidth} hasBorder>
@@ -87,7 +85,7 @@ export const HomePage = () => {
       <Modal
         setModalIsOpen={() => undefined}
         modalIsOpen={userHasNoUniqueName}
-        actionsContentAlinement="center"
+        actionsContentAlinement={'center'}
         actions={[<TwLogo key={uuid()} />]}
       >
         <SetAccountForm

@@ -10,10 +10,10 @@ export const BreakingPointSetter = () => {
     const handleResize = () => {
       if (window.innerWidth <= breakpoints['xl']) {
         setCollapsed(true);
-        setLeftLaneWidth(85);
+        // setLeftLaneWidth(85); // number can not be defined here it has to come from some central place
       } else {
         setCollapsed(false);
-        setLeftLaneWidth(270);
+        // setLeftLaneWidth(230); // number can not be defined here it has to come from some central place
       }
     };
 

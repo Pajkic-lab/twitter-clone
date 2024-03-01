@@ -3,7 +3,10 @@ import { createGlobalStyle } from 'styled-components';
 import chipBold from './fonts/chip-bold.woff';
 import chipRegular from './fonts/chip-regular.woff';
 
-export const GlobalStyle = createGlobalStyle<{ theme: any; customCss: string }>`
+export const GlobalStyle = createGlobalStyle<{
+  theme?: any;
+  customCss?: string;
+}>`
 
   @font-face {
     font-family: 'chip-bold';

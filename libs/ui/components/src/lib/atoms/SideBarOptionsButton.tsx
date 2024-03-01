@@ -12,7 +12,7 @@ export const SideBarOptionsButton = (props: SideBarOptionsButtonProps) => {
   const { name, uniqueName, avatar, collapsed } = props;
 
   return (
-    <Wrapper>
+    <Wrapper collapsed={collapsed}>
       <BioWrapper>
         <ProfileImage $backgroundImage={avatar} />
         {!collapsed && (
@@ -27,11 +27,12 @@ export const SideBarOptionsButton = (props: SideBarOptionsButtonProps) => {
   );
 };
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ collapsed: boolean }>`
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between;  */
+  justify-content: ${({ collapsed }) =>
+    collapsed ? 'center' : 'space-between'};
   align-items: center;
-  padding: 0 1rem 0 1rem;
   border-radius: 5rem;
   cursor: pointer;
 
@@ -42,9 +43,8 @@ const Wrapper = styled.div`
 
 const BioWrapper = styled.div`
   display: flex;
-  justify-content: start;
+  justify-content: center;
   align-items: center;
-  padding: 0.3rem;
 `;
 
 const ProfileImage = styled.div<{ $backgroundImage: string }>`
@@ -52,6 +52,7 @@ const ProfileImage = styled.div<{ $backgroundImage: string }>`
   width: 2.8rem;
   height: 2.8rem;
   background-color: ${Colors.bluePrimary};
+  margin: 0.8rem;
 
   ${(props) =>
     props.$backgroundImage &&
@@ -66,14 +67,12 @@ const ProfileImage = styled.div<{ $backgroundImage: string }>`
 
 const H3 = styled.h3`
   margin: 0;
-  padding-left: 0.8rem;
   color: ${Colors.grayPrimary};
   font-weight: 700;
 `;
 
 const Span = styled.span`
   margin: 0;
-  padding-left: 0.8rem;
   color: ${Colors.graySecondary};
   font-weight: 500;
 `;
