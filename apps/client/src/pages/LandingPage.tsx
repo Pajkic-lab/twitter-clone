@@ -1,9 +1,9 @@
 import {
   Colors,
   TwitterIcon,
-  appleLogo,
-  googleLogo,
-  landingPageBackground,
+  appleLogoImg,
+  googleLogoImg,
+  landingPageBackgroundImg,
 } from '@tw/ui/assets';
 import {
   Divider,
@@ -72,11 +72,14 @@ export const LandingPage = () => {
             <H3>Join Twitter today.</H3>
 
             <FormWrapper>
-              <SocialSignInButton onClick={googleSignIn} leftIcon={googleLogo}>
+              <SocialSignInButton
+                onClick={googleSignIn}
+                leftIcon={googleLogoImg}
+              >
                 Sign up with Google
               </SocialSignInButton>
 
-              <SocialSignInButton onClick={appleSignIn} leftIcon={appleLogo}>
+              <SocialSignInButton onClick={appleSignIn} leftIcon={appleLogoImg}>
                 Sign up with Apple
               </SocialSignInButton>
 
@@ -155,7 +158,7 @@ const LogoWrapper = styled.div`
   align-items: center;
   width: calc(100% - 46vw);
   height: 100%;
-  background-image: url(${landingPageBackground});
+  background-image: url(${landingPageBackgroundImg});
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

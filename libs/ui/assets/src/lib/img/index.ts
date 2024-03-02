@@ -1,3 +1,3 @@
-export { default as appleLogo } from './apple-logo.png';
-export { default as googleLogo } from './googl-logo.png';
-export { default as landingPageBackground } from './landing-page-background.png';
+export { default as appleLogoImg } from './apple-logo.png';
+export { default as googleLogoImg } from './googl-logo.png';
+export { default as landingPageBackgroundImg } from './landing-page-background.png';

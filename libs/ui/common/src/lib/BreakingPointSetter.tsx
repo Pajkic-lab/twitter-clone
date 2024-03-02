@@ -1,16 +1,30 @@
-import { useSidebarState } from '@tw/ui/data-access';
+import { useMediabarState, useSidebarState } from '@tw/ui/data-access';
 import { useEffect } from 'react';
 import { breakpoints } from './breakpoints';
 
 export const BreakingPointSetter = () => {
-  const { setCollapsed } = useSidebarState();
+  const { setSidebarCollapsed } = useSidebarState();
+  const { setMediabarSize } = useMediabarState();
 
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth <= breakpoints['xl']) {
-        setCollapsed(true);
+        setSidebarCollapsed(true);
       } else {
-        setCollapsed(false);
+        setSidebarCollapsed(false);
+      }
+
+      if (window.innerWidth <= breakpoints['m']) {
+        setMediabarSize('m');
+      }
+      if (
+        window.innerWidth > breakpoints['m'] &&
+        window.innerWidth <= breakpoints['l']
+      ) {
+        setMediabarSize('l');
+      }
+      if (window.innerWidth > breakpoints['l']) {
+        setMediabarSize('xl');
       }
     };
 

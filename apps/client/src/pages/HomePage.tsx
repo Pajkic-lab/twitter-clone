@@ -11,6 +11,8 @@ import {
 } from '@tw/ui/components';
 import {
   useCheckUniqueUserNameMutation,
+  useMediabarState,
+  useSearchUserMutation,
   useSidebarState,
   useUpdateUniqueUserNameMutation,
   useUserQuery,
@@ -23,17 +25,21 @@ import { v4 as uuid } from 'uuid';
 /* WIP */
 export const HomePage = () => {
   const location = useLocation();
-  const { collapsed } = useSidebarState();
+  const { sidebarCollapsed } = useSidebarState();
+  const { mediabarSize } = useMediabarState();
 
   const useUser = useUserQuery();
   const checkUniqueUserName = useCheckUniqueUserNameMutation();
   const updateUniqueUserName = useUpdateUniqueUserNameMutation();
+  const useSearchUser = useSearchUserMutation();
 
   const user = useUser.data ?? ({} as UserResponseDto);
   const { name, avatar, uniqueName } = user;
 
   const { isNameUnique } = checkUniqueUserName.data ?? {};
+  const { data: searchUserRes, isPending: searchIsLoading } = useSearchUser;
 
+  // unique name logic
   const onSubmitUniqueName = useCallback(
     (uniqueNameFormData: UniqueNameFormData) => {
       updateUniqueUserName.mutate(uniqueNameFormData);
@@ -58,6 +64,19 @@ export const HomePage = () => {
     [isNameUnique]
   );
 
+  // search logic
+  const searchInputOnChange = useCallback(
+    async (searchData: string) => {
+      if (!searchData) {
+        return useSearchUser.reset();
+      }
+      useSearchUser.mutate({ searchData });
+    },
+    [useSearchUser]
+  );
+
+  // console.log('ovde1', searchIsLoading);
+
   return (
     <PageWrapper>
       <Sidebar
@@ -65,16 +84,19 @@ export const HomePage = () => {
         avatar={avatar}
         uniqueName={uniqueName}
         currentPage={location.pathname}
-        collapsed={collapsed}
+        collapsed={sidebarCollapsed}
       />
 
       <PageLane width={598} hasBorder>
         <Testiranje />
       </PageLane>
 
-      <PageLane width={380}>
-        <Mediabar />
-      </PageLane>
+      <Mediabar
+        mediabarSize={mediabarSize}
+        searchInputOnChange={searchInputOnChange}
+        searchUserRes={searchUserRes}
+        searchIsLoading={searchIsLoading}
+      />
 
       <Modal
         setModalIsOpen={() => undefined}
@@ -97,7 +119,6 @@ export const HomePage = () => {
 const PageWrapper = styled.div`
   display: flex;
   justify-content: center;
-  position: 'relative';
 `;
 
 const TwLogo = styled(TwitterIcon)`

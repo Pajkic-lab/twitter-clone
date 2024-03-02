@@ -43,14 +43,16 @@ render alternative Cyclic: https://www.cyclic.sh/
     * TODO
     */
 
-- there is no need for PageLane component, extract Sidebar and Mediabar from it, just keep it for main lane, it will be removed afterwards.
+- read finally flex box article
+- refactore singleUser component
+- there are some small changes that i need to do, it still is not polimorphic component, it has single case use, for now it should remain as it is.
 - do Mediabar
 
 - research dependency-cruiser library you installed, it might be useful.
 
 - modals, position icon to center, 
 - x icon is to thin
-- margins look sketchy
+- margins looks sketchy
 
 
 

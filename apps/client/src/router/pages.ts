@@ -1,9 +1,8 @@
+import { linksRecords } from '@tw/ui/common';
 import { HomePage } from '../pages/HomePage';
 import { LandingPage } from '../pages/LandingPage';
 import { TestingPage } from '../pages/Testing';
 import { ContactList } from '../pages/legacy-pages/ContactList';
-// import { Home } from '../pages/legacy-pages/Home';
-import { linksRecords } from '@tw/ui/common';
 import { Profile } from '../pages/legacy-pages/Profile';
 import { PublicProfile } from '../pages/legacy-pages/PublicProfile';
 import { PublicProfileContactList } from '../pages/legacy-pages/PublicProfileContactList';

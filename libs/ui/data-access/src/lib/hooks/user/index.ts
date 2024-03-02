@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { NameUniqueRequestDto } from '@tw/data';
+import { NameUniqueRequestDto, SearchUserRequestDto } from '@tw/data';
 import { isAxiosError } from 'axios';
 import { http } from '../../http/api';
 import { queryClient } from '../core';
@@ -37,6 +37,20 @@ export const useUpdateUniqueUserNameMutation = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [userQueryKey] });
+    },
+    onError: (error) => {
+      if (isAxiosError(error)) {
+        return (error.message = error.response?.data.message);
+      }
+    },
+  });
+};
+
+export const useSearchUserMutation = () => {
+  return useMutation({
+    mutationFn: async (uniqueName: SearchUserRequestDto) => {
+      const res = await http.user.getSearchedUser(uniqueName);
+      return res.data.payload;
     },
     onError: (error) => {
       if (isAxiosError(error)) {

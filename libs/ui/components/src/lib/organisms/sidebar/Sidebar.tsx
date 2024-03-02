@@ -109,7 +109,7 @@ const ButtonWrapper = styled.div<SidebarStyleProps>`
   display: flex;
   flex-direction: column;
   align-items: ${({ collapsed }) => (collapsed ? 'center' : 'start')};
-  gap: 0.7rem;
+  gap: 0.6rem;
 `;
 
 const IconWrapper = styled.div<SidebarStyleProps>`

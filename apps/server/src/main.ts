@@ -13,10 +13,11 @@ import { AppModule } from './app.module';
 import { ConfigurationService } from './modules/configuration/configuration.service';
 import { CorsService } from './modules/http/cors.service';
 
-function setupSession(app: INestApplication) {
-  const MAX_AGE = 2147483647;
-  const CHECK_PERIOD = 2 * 60 * 1000;
+const LIMIT = '50mb';
+const MAX_AGE = 2147483647;
+const CHECK_PERIOD = 2 * 60 * 1000;
 
+function setupSession(app: INestApplication) {
   const sessionName = app.get(ConfigurationService).sessionName;
   const sessionSecret = app.get(ConfigurationService).sessionSecret;
 
@@ -57,12 +58,10 @@ function enableGlobalPipes(app: INestApplication) {
 }
 
 function setupSizeLimit(app: INestApplication) {
-  const LIMIT = '50mb';
   app.use(json({ limit: LIMIT }));
 }
 
 function setupEncode(app: INestApplication) {
-  const LIMIT = '50mb';
   app.use(urlencoded({ extended: true, limit: LIMIT }));
 }
 

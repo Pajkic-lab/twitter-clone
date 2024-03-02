@@ -7,6 +7,7 @@ export * from './lib/atoms/Loader';
 export * from './lib/atoms/PageLane';
 export * from './lib/atoms/SideBarNavigationButton';
 export * from './lib/atoms/SideBarOptionsButton';
+export * from './lib/atoms/SingleUser';
 
 // molecules
 export * from './lib/molecules/FormInput';

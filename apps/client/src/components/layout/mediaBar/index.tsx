@@ -1,10 +1,9 @@
 import styled from 'styled-components';
-import { SearchBar } from '../../../../../../libs/ui/components/src/lib/molecules/SearchBar';
 
 export const MediaBar = () => {
   return (
     <Wrapper>
-      <SearchBar InputId={'serchBarId'} />
+      {/* <SearchBar InputId={'serchBarId'} /> */}
       {/* trends for you */}
     </Wrapper>
   );

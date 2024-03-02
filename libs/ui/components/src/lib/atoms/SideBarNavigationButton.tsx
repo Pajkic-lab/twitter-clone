@@ -18,8 +18,12 @@ export const SideBarNavigationButton = (
 
   const navigate = useNavigate();
 
+  const handleClick = () => {
+    navigate(path);
+  };
+
   return (
-    <Wrapper onClick={() => navigate(path)}>
+    <Wrapper onClick={handleClick}>
       {isActive && <IconActiveStyled as={IconActive} />}
       {!isActive && <IconBaseStyled as={IconBase} />}
       {!collapsed && <Span isActive={isActive}>{text}</Span>}
