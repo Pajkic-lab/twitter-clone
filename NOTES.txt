@@ -44,11 +44,7 @@ render alternative Cyclic: https://www.cyclic.sh/
     */
 
 
-- Who to follwo should probably be renamed to users list???
-- Mediabar to accept children for WhoToFollow component or for galery, and to research trends, what goes on that position on other pages
-- Loader is taking size dynamicly depending on parent size...
-- how to pass props from parent to child to child component
-
+- WhoToFollwo should probably be renamed to users list???
 
 - read finally flex box article
 - research editprofile how sticky works?????

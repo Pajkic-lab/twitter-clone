@@ -12,7 +12,6 @@ import { queryClient } from '../core';
 /**
  * When used enabled in query this query can not be invalidated in mutation
  * source https://stackoverflow.com/questions/68577988/invalidate-queries-doesnt-work-react-query
- * this is the reason for initial auth request being trigger even there is no need for it, which throws 403
  */
 
 export const authQueryKey = 'authQueryKey';
@@ -23,6 +22,7 @@ export const useAuthQuery = () => {
     // enabled: !!Cookies.get('twitter-clone-auth-session'),
     retry: false,
     queryFn: async () => {
+      if (!Cookies.get('twitter-clone-auth-session')) return null; // replace hardcoded var with env var!
       const res = await http.auth.authUser();
       return res.data.payload;
     },
@@ -67,8 +67,9 @@ export const useSignOutMutation = () => {
       return await http.auth.signOut();
     },
     onSuccess: () => {
-      Cookies.remove('twitter-clone-auth-session'); // should replace hardcoded value with env var.
+      Cookies.remove('twitter-clone-auth-session'); // replace hardcoded value with env var.
       queryClient.removeQueries({ queryKey: [authQueryKey] });
+      queryClient.invalidateQueries({ queryKey: [authQueryKey] });
     },
     onError: (error) => {
       if (isAxiosError(error)) {
