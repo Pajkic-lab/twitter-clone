@@ -19,9 +19,9 @@ export * from './lib/molecules/Trends';
 export * from './lib/molecules/WhoToFollow';
 
 // organisms
+export * from './lib/organisms/MainLane';
 export * from './lib/organisms/Mediabar';
 export * from './lib/organisms/footer/Footer';
 export * from './lib/organisms/footer/footer-landing-page-data';
 export * from './lib/organisms/sidebar/Sidebar';
 export * from './lib/organisms/sidebar/sidebar-data';
-export * from './lib/organisms/testiranje';

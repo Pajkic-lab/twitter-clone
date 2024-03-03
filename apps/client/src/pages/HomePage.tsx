@@ -1,12 +1,11 @@
 import { UserResponseDto } from '@tw/data';
 import { Colors, TwitterIcon } from '@tw/ui/assets';
 import {
+  MainLane,
   Mediabar,
   Modal,
-  PageLane,
   SetAccountForm,
   Sidebar,
-  Testiranje,
   Trends,
   UniqueNameFormData,
   WhoToFollow,
@@ -90,9 +89,7 @@ export const HomePage = () => {
         collapsed={sidebarCollapsed}
       />
 
-      <PageLane width={598} hasBorder>
-        <Testiranje />
-      </PageLane>
+      <MainLane />
 
       <Mediabar
         mediabarSize={mediabarSize}

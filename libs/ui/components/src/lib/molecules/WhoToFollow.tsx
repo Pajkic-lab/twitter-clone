@@ -12,7 +12,7 @@ type WhoToFollowProps = {
 
 /**
  * This component will be design for single use case,
- * after possibly, it will be transformed to polymorphic component
+ * it will be transformed to polymorphic component
  */
 
 export const WhoToFollow = (props: WhoToFollowProps) => {

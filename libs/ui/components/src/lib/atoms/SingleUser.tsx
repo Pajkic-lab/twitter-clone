@@ -61,6 +61,7 @@ const BioWrapper = styled.div`
 const ProfileImage = styled.div<{ $backgroundImage: string }>`
   border-radius: 100%;
   width: 3.2rem;
+  min-width: 3.2rem;
   height: 3.2rem;
   background-color: ${Colors.bluePrimary};
 

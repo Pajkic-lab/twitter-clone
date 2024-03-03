@@ -57,7 +57,7 @@ export const Mediabar = (props: MediabarProps) => {
         <MediabarFooterContainer>
           <Text>
             Terms of Service Privacy Policy Cookie Policy Accessibility Ads info
-            More © 2024 X Corp.
+            More © 2022 Twitter, Inc.
           </Text>
         </MediabarFooterContainer>
       </Sticky>

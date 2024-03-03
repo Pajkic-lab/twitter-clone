@@ -8,6 +8,7 @@ render alternative Cyclic: https://www.cyclic.sh/
     * BUGS
     */
 
+- SingleUser image render when resized change shape.
 - input type switched from password to text, label for some reason drops down when type is password
 - switch from moment.js to day.js
 - replace hardcoded values at front with env vars, this should be done last because it will require changes in production envs (
@@ -43,13 +44,12 @@ render alternative Cyclic: https://www.cyclic.sh/
     * TODO
     */
 
+- Do Profile page.
 
-- WhoToFollwo should probably be renamed to users list???
+- WhoToFollwo should probably be renamed to users list??? and also Follow button is missing, should be optional for users list.
 
 - read finally flex box article
 - research editprofile how sticky works?????
-
-- refactore singleUser component
 
 - modals, position icon to center, 
 - x icon is to thin

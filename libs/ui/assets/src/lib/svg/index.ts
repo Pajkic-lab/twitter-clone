@@ -1,5 +1,6 @@
 export { ReactComponent as BookmarkBaseIcon } from './bookmark.svg';
 export { ReactComponent as BookmarkActiveIcon } from './bookmarkActive.svg';
+export { ReactComponent as CogIcon } from './cog.svg';
 export { ReactComponent as CrossIcon } from './cross.svg';
 export { ReactComponent as FeatherIcon } from './feather.svg';
 export { ReactComponent as HashTagBaseIcon } from './hashTag.svg';
