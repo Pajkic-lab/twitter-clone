@@ -20,7 +20,7 @@ type SidebarProps = {
 
 type SidebarStyleProps = Pick<SidebarProps, 'collapsed'>;
 
-const SIDEBAR_WIDTH_FULL = '14.3rem';
+const SIDEBAR_WIDTH_FULL = '17.857rem';
 const SIDEBAR_WIDTH_COLLAPSED = '6rem';
 
 export const Sidebar = (props: SidebarProps) => {
@@ -94,7 +94,6 @@ const Wrapper = styled.div<SidebarStyleProps>`
   min-width: ${({ collapsed }) =>
     collapsed ? SIDEBAR_WIDTH_COLLAPSED : SIDEBAR_WIDTH_FULL};
   margin-right: ${({ collapsed }) => (collapsed ? '0' : '2rem')};
-  padding-top: 1rem;
 `;
 
 /**
@@ -151,5 +150,5 @@ const PostButton = styled(PrimaryButton)<{ collapsed: string }>`
 const TIPYCONTAINER = styled.div<SidebarStyleProps>`
   width: ${({ collapsed }) => (collapsed ? '4.5rem' : '100%')};
   position: absolute;
-  bottom: 2rem;
+  bottom: 1rem;
 `;

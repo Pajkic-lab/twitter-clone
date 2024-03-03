@@ -15,6 +15,8 @@ export * from './lib/molecules/Modal';
 export * from './lib/molecules/SetAccountForm';
 export * from './lib/molecules/SignInForm';
 export * from './lib/molecules/SignUpForm';
+export * from './lib/molecules/Trends';
+export * from './lib/molecules/WhoToFollow';
 
 // organisms
 export * from './lib/organisms/Mediabar';

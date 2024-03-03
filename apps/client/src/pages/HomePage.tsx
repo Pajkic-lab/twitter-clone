@@ -7,11 +7,14 @@ import {
   SetAccountForm,
   Sidebar,
   Testiranje,
+  Trends,
   UniqueNameFormData,
+  WhoToFollow,
 } from '@tw/ui/components';
 import {
   useCheckUniqueUserNameMutation,
   useMediabarState,
+  useMostPopularUsersQuery,
   useSearchUserMutation,
   useSidebarState,
   useUpdateUniqueUserNameMutation,
@@ -32,6 +35,8 @@ export const HomePage = () => {
   const checkUniqueUserName = useCheckUniqueUserNameMutation();
   const updateUniqueUserName = useUpdateUniqueUserNameMutation();
   const useSearchUser = useSearchUserMutation();
+  const { data: mostPopularUsers, isFetching: isMostPopularUsersLoading } =
+    useMostPopularUsersQuery();
 
   const user = useUser.data ?? ({} as UserResponseDto);
   const { name, avatar, uniqueName } = user;
@@ -75,8 +80,6 @@ export const HomePage = () => {
     [useSearchUser]
   );
 
-  // console.log('ovde1', searchIsLoading);
-
   return (
     <PageWrapper>
       <Sidebar
@@ -96,6 +99,14 @@ export const HomePage = () => {
         searchInputOnChange={searchInputOnChange}
         searchUserRes={searchUserRes}
         searchIsLoading={searchIsLoading}
+        topWindowChilde={
+          <WhoToFollow
+            title={'You might like'}
+            mostPopularUsers={mostPopularUsers}
+            isMostPopularUsersLoading={isMostPopularUsersLoading}
+          />
+        }
+        bottomWindow={<Trends />}
       />
 
       <Modal

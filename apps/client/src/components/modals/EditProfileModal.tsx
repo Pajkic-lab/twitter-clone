@@ -132,6 +132,7 @@ const ModalSection = styled.div`
   background-color: ${Colors.black};
 `;
 
+////////////////////////////////////////////////////////
 const TittleWrapper = styled.div`
   position: sticky;
   top: 0;
@@ -140,6 +141,7 @@ const TittleWrapper = styled.div`
   align-items: center;
   backdrop-filter: blur(10px);
   padding: 1rem 0;
+  /* background-color: red; // */
 `;
 
 const SVGTittleWrapper = styled.div`

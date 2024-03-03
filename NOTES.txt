@@ -43,12 +43,17 @@ render alternative Cyclic: https://www.cyclic.sh/
     * TODO
     */
 
-- read finally flex box article
-- refactore singleUser component
-- there are some small changes that i need to do, it still is not polimorphic component, it has single case use, for now it should remain as it is.
-- do Mediabar
 
-- research dependency-cruiser library you installed, it might be useful.
+- Who to follwo should probably be renamed to users list???
+- Mediabar to accept children for WhoToFollow component or for galery, and to research trends, what goes on that position on other pages
+- Loader is taking size dynamicly depending on parent size...
+- how to pass props from parent to child to child component
+
+
+- read finally flex box article
+- research editprofile how sticky works?????
+
+- refactore singleUser component
 
 - modals, position icon to center, 
 - x icon is to thin

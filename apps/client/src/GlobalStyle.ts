@@ -5,7 +5,7 @@ import chipRegular from './fonts/chip-regular.woff';
 
 export const GlobalStyle = createGlobalStyle<{
   theme?: any;
-  customCss?: string;
+  customCss?: any;
 }>`
 
   @font-face {

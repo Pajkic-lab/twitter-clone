@@ -59,3 +59,13 @@ export const useSearchUserMutation = () => {
     },
   });
 };
+
+export const useMostPopularUsersQuery = () => {
+  return useQuery({
+    queryKey: ['MostPopularUsers'], // to be extracted to separate dir, and replace  hardcode val with dynamic data.
+    queryFn: async () => {
+      const res = await http.user.getMostPopularUsers();
+      return res.data.payload;
+    },
+  });
+};

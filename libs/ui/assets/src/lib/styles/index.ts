@@ -19,6 +19,6 @@ export const Colors = {
   // dark gray
   grayDark: '#2a2d30', // mostly used as border color, some times as background
   grayDarkActive: '#16181c', // used as dark gray active
-  graySearchInputBackground: '#202327', // used in search input as background
+  grayMediaBarBackground: '#202327', // used in search input as background
   grayModalBackgroundShadow: '#5b708366', // used as shadow for modal background
 };

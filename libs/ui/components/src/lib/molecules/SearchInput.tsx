@@ -1,30 +1,20 @@
 import { SearchUsersResponseDto } from '@tw/data';
 import { Colors, MagnifyingGlass } from '@tw/ui/assets';
-import { BreakpointKeys, Breakpoints } from '@tw/ui/common';
 import { Loader, SingleUser } from '@tw/ui/components';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import styled from 'styled-components';
 
-type SearchBarProps = {
+type SearchInputProps = {
   id: string;
-  size: BreakpointKeys;
-  sizeTable: Breakpoints;
   searchInputOnChange: (val: string) => void;
   searchUserRes: SearchUsersResponseDto[] | undefined;
   searchIsLoading: boolean;
 };
 
 type SearchResultWindowProps = {
-  size: BreakpointKeys;
-  sizeTable: Breakpoints;
   searchIsLoading: boolean;
   searchUserRes: SearchUsersResponseDto[];
   inputValue: string;
-};
-
-type InputStyleProps = {
-  $size: BreakpointKeys;
-  $sizeTable: Breakpoints;
 };
 
 type SearchedDataUiProps = {
@@ -36,12 +26,9 @@ type SearchedDataUiProps = {
  * for this specific case it needs to be search bar, there might be some other uses.
  */
 
-/* WIP */
-export const SearchInput = (props: SearchBarProps) => {
+export const SearchInput = (props: SearchInputProps) => {
   const {
     id,
-    size,
-    sizeTable,
     searchInputOnChange,
     searchUserRes = [],
     searchIsLoading,
@@ -50,45 +37,46 @@ export const SearchInput = (props: SearchBarProps) => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>('');
 
-  const onChange = (val: string) => {
-    searchInputOnChange(val);
-    setInputValue(val);
-  };
+  const onChange = useCallback(
+    (val: string) => {
+      searchInputOnChange(val);
+      setInputValue(val);
+    },
+    [searchInputOnChange]
+  );
 
   return (
     <Wrapper>
-      <>
-        <Label htmlFor={id}>{<Svg $isFocused={isFocused} />}</Label>
-        <Input
-          id={id}
-          placeholder={'Search Twitter'}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-          onChange={(e) => onChange(e.target.value)}
-          $sizeTable={sizeTable}
-          $size={size}
+      <Label htmlFor={id}>
+        <Svg $isFocused={isFocused} />
+      </Label>
+
+      <Input
+        id={id}
+        placeholder={'Search Twitter'}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
+        onChange={(e) => onChange(e.target.value)}
+      />
+
+      {inputValue && (
+        <SearchResultWindow
+          searchUserRes={searchUserRes}
+          searchIsLoading={searchIsLoading}
+          inputValue={inputValue}
         />
-        {inputValue && (
-          <SearchResultWindow
-            size={size}
-            sizeTable={sizeTable}
-            searchUserRes={searchUserRes}
-            searchIsLoading={searchIsLoading}
-            inputValue={inputValue}
-          />
-        )}
-      </>
+      )}
     </Wrapper>
   );
 };
 
 const SearchResultWindow = (props: SearchResultWindowProps) => {
-  const { size, sizeTable, searchUserRes, searchIsLoading, inputValue } = props;
+  const { searchUserRes, searchIsLoading, inputValue } = props;
 
   return (
-    <SearchDataWrapper $size={size} $sizeTable={sizeTable}>
-      {searchUserRes && <SearchedDataUi searchUserRes={searchUserRes} />}
+    <SearchDataWrapper>
       {!searchUserRes.length && !searchIsLoading && inputValue && <NoDataUi />}
+      {searchUserRes && <SearchedDataUi searchUserRes={searchUserRes} />}
       {searchIsLoading && <LoadingUi />}
     </SearchDataWrapper>
   );
@@ -99,9 +87,7 @@ const SearchedDataUi = (props: SearchedDataUiProps) => {
   return (
     <>
       {searchUserRes.map((user) => (
-        <ProfileButtonWrapper key={user.id}>
-          <SingleUser user={user} />
-        </ProfileButtonWrapper>
+        <SingleUser user={user} key={user.id} />
       ))}
     </>
   );
@@ -125,16 +111,19 @@ const LoadingUi = () => {
 
 const Wrapper = styled.div`
   position: relative;
-  margin-top: 1rem;
+  margin-top: 0.3rem;
+  margin-bottom: 0.3rem;
+  width: 100%;
 `;
 
-const Input = styled.input<InputStyleProps>`
-  width: ${({ $size, $sizeTable }) => `${$sizeTable[$size]}rem`};
+const Input = styled.input`
+  display: block;
+  width: 100%;
   padding-left: 55px;
   height: 3rem;
   outline: none;
-  background-color: ${Colors.graySearchInputBackground};
-  border: 2px solid ${Colors.graySearchInputBackground};
+  background-color: ${Colors.grayMediaBarBackground};
+  border: 2px solid ${Colors.grayMediaBarBackground};
   border-radius: 5rem;
   font-size: 1rem;
   color: ${Colors.white};
@@ -169,32 +158,19 @@ const Svg = styled(MagnifyingGlass)<{ $isFocused: boolean }>`
   `}
 `;
 
-const SearchDataWrapper = styled.div<InputStyleProps>`
+const SearchDataWrapper = styled.div`
   position: absolute;
   top: 120%;
   left: 50%;
   transform: translateX(-50%);
 
-  width: ${({ $size, $sizeTable }) => `${$sizeTable[$size]}rem`};
+  width: 100%;
   height: 400px;
   overflow-y: scroll;
   border-radius: 1rem;
   padding: 1rem 0 1rem 0;
   background-color: ${Colors.black};
   box-shadow: 0 0 8px hsla(0, 100%, 99.2156862745098%, 0.738);
-`;
-
-const ProfileButtonWrapper = styled.div`
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  width: 100%;
-  padding: 0.3rem 0.5rem 0.3rem 0.5rem;
-  cursor: pointer;
-
-  &:hover {
-    background-color: ${Colors.grayDarkActive};
-  }
 `;
 
 const LoaderWrapper = styled.div`
@@ -204,6 +180,7 @@ const LoaderWrapper = styled.div`
   width: 100%;
   height: 100%;
 `;
+
 const NoResultWrapper = styled.div`
   display: flex;
   justify-content: center;
