@@ -1,4 +1,4 @@
-import { Colors } from '@tw/ui/assets';
+import { colors } from '@tw/ui/assets';
 import { Loader, SecondaryButton } from '@tw/ui/components';
 import {
   followUserThunk,
@@ -124,7 +124,7 @@ const ProfileImage = styled.div<{ $backgroundImage: string }>`
   border-radius: 100%;
   width: 3.2rem;
   height: 3.2rem;
-  background-color: ${Colors.bluePrimary};
+  background-color: ${colors.bluePrimary};
 
   ${(props) =>
     props.$backgroundImage &&
@@ -133,7 +133,7 @@ const ProfileImage = styled.div<{ $backgroundImage: string }>`
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    background-color: ${Colors.black};
+    background-color: ${colors.black};
   `}
 `;
 
@@ -142,35 +142,35 @@ const TextWrapper = styled.div``;
 const H3 = styled.h3`
   margin: 0;
   padding-left: 0.8rem;
-  color: ${Colors.grayPrimary};
+  color: ${colors.grayPrimary};
   font-weight: 700;
 `;
 
 const Span = styled.span`
   margin: 0;
   padding-left: 0.8rem;
-  color: ${Colors.graySecondary};
+  color: ${colors.graySecondary};
   font-weight: 500;
 `;
 
 const FolloweButton = styled(SecondaryButton)`
-  color: ${Colors.black};
-  background-color: ${Colors.white};
+  color: ${colors.black};
+  background-color: ${colors.white};
   padding-left: 0;
   padding-right: 0;
 
   &:hover {
-    color: ${Colors.white};
+    color: ${colors.white};
   }
 `;
 const UnFolloweButton = styled(SecondaryButton)`
-  color: ${Colors.grayPrimary};
+  color: ${colors.grayPrimary};
   padding-left: 0;
   padding-right: 0;
 
   &:hover {
-    color: ${Colors.red};
-    border: 1px solid ${Colors.red};
+    color: ${colors.red};
+    border: 1px solid ${colors.red};
   }
 `;
 

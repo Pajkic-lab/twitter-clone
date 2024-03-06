@@ -1,5 +1,5 @@
-import { UserResponseDto } from '@tw/data';
-import { Colors } from '@tw/ui/assets';
+import { UpdateUserRequestDto, UserResponseDto } from '@tw/data';
+import { colors } from '@tw/ui/assets';
 import {
   EditProfileForm,
   Mediabar,
@@ -16,6 +16,7 @@ import {
   useSearchUserMutation,
   useSidebarState,
   useSocialQuery,
+  useUpdateUserMutation,
   useUserQuery,
 } from '@tw/ui/data-access';
 import { useCallback, useState } from 'react';
@@ -35,6 +36,7 @@ export const ProfilePage = () => {
   const { data: mostPopularUsers, isFetching: isMostPopularUsersLoading } =
     useMostPopularUsersQuery();
   const { data: socialStats } = useSocialQuery();
+  const useUpdateUser = useUpdateUserMutation();
 
   const [isEditProfileModalOpen, setEditModalProfileOpen] =
     useState<boolean>(false);
@@ -56,6 +58,24 @@ export const ProfilePage = () => {
   const openEditProfileModal = () => {
     setEditModalProfileOpen(true);
   };
+
+  //
+  const [userFormData, setUserFormData] = useState<UpdateUserRequestDto>({
+    avatar: '',
+    cover: '',
+    name: '',
+    bio: '',
+    location: '',
+    website: '',
+  });
+
+  console.log(userFormData);
+
+  const updateUserFormOnSubmit = useCallback(() => {
+    useUpdateUser.mutate(userFormData);
+  }, [useUpdateUser]);
+
+  //
 
   return (
     <PageWrapper>
@@ -85,11 +105,15 @@ export const ProfilePage = () => {
             heightFixed
             actions={[
               <Text key={uuid()}>Edit profile</Text>,
-              <EditProfileButton key={uuid()} $width={5}>
+              <EditProfileButton
+                key={uuid()}
+                $width={5}
+                // onClick={handleUpdateUserFromChange}
+              >
                 save
               </EditProfileButton>,
             ]}
-            children={<EditProfileForm />}
+            children={<EditProfileForm setUserFormData={setUserFormData} />}
           />
         }
       />
@@ -118,11 +142,13 @@ const PageWrapper = styled.div`
 `;
 
 const EditProfileButton = styled(SecondaryButton)`
-  color: ${Colors.grayPrimary};
+  color: ${colors.grayPrimary};
   height: 2.286rem;
   padding: 0 16px;
 `;
 
 const Text = styled.span`
-  color: ${Colors.grayPrimary};
+  color: ${colors.grayPrimary};
+  font-weight: 700;
+  font-size: large;
 `;

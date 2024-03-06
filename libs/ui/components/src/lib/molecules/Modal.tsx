@@ -1,4 +1,4 @@
-import { Colors, CrossIcon } from '@tw/ui/assets';
+import { colors, CrossIcon } from '@tw/ui/assets';
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 import ModalBase from 'styled-react-modal';
@@ -65,7 +65,7 @@ export const ModalBackground = styled.div`
   height: 100vh;
   z-index: 2;
   opacity: 100%;
-  background-color: ${Colors.grayModalBackgroundShadow};
+  background-color: ${colors.grayModalBackgroundShadow};
 `;
 
 const Wrapper = styled.div<{ heightFixed: boolean }>`
@@ -73,7 +73,7 @@ const Wrapper = styled.div<{ heightFixed: boolean }>`
   height: ${({ heightFixed }) => heightFixed && '65vh'};
   width: 40rem;
   border-radius: 1rem;
-  background-color: ${Colors.black};
+  background-color: ${colors.black};
 `;
 
 const ActionsWrapper = styled.div<{
@@ -89,6 +89,7 @@ const ActionsWrapper = styled.div<{
   padding-right: ${({ hasCloseButton }) => hasCloseButton && '3.5rem'};
   display: flex;
   align-items: center;
+  z-index: 2;
 `;
 
 const ActionsContentWrapper = styled.div<{
@@ -106,7 +107,7 @@ const ActionsContentWrapper = styled.div<{
 const CloseButton = styled(CrossIcon)`
   width: 1.5rem;
   height: 1.5rem;
-  fill: ${Colors.grayLight};
+  fill: ${colors.grayLight};
   cursor: pointer;
 `;
 

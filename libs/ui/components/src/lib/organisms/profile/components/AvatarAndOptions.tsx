@@ -1,4 +1,4 @@
-import { Colors } from '@tw/ui/assets';
+import { colors } from '@tw/ui/assets';
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 import { SecondaryButton } from '../../../atoms/Button';
@@ -35,10 +35,10 @@ const ImageWrapper = styled.div<{ avatar: string }>`
   left: 1rem;
   width: 10rem;
   height: 10rem;
-  border: 4px solid ${Colors.black};
+  border: 4px solid ${colors.black};
   border-radius: 50%;
   background-image: ${({ avatar }) => avatar && `url(${avatar})`};
-  background-color: ${Colors.grayDark};
+  background-color: ${colors.grayDark};
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -49,28 +49,28 @@ const ActionsWrapper = styled.div`
 `;
 
 const EditProfileButton = styled(SecondaryButton)`
-  color: ${Colors.grayPrimary};
+  color: ${colors.grayPrimary};
   padding-left: 0;
   padding-right: 0;
 `;
 
 const FollowButton = styled(SecondaryButton)`
-  color: ${Colors.black};
-  background-color: ${Colors.white};
+  color: ${colors.black};
+  background-color: ${colors.white};
   padding-left: 0;
   padding-right: 0;
 
   &:hover {
-    color: ${Colors.white};
+    color: ${colors.white};
   }
 `;
 const UnFollowButton = styled(SecondaryButton)`
-  color: ${Colors.grayPrimary};
+  color: ${colors.grayPrimary};
   padding-left: 0;
   padding-right: 0;
 
   &:hover {
-    color: ${Colors.red};
-    border: 1px solid ${Colors.red};
+    color: ${colors.red};
+    border: 1px solid ${colors.red};
   }
 `;

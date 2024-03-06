@@ -52,14 +52,8 @@ render alternative Cyclic: https://www.cyclic.sh/
 
 - read finally flex box article
 
-- create update user modal, refactor rest of modals, there are some small ui problems...
-- modals, position icon to center, 
-- x icon is to thin
-- margins looks sketchy
-
-- profile should be sticky, this should solve problem with height.
-
-- update user
+- update user hook
+- research split form from submit button!!!
 
 - refactore sidebar and mediabar, no need to have hooks outside
 

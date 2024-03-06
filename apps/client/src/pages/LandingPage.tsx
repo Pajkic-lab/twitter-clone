@@ -1,7 +1,7 @@
 import {
-  Colors,
   TwitterIcon,
   appleLogoImg,
+  colors,
   googleLogoImg,
   landingPageBackgroundImg,
 } from '@tw/ui/assets';
@@ -165,7 +165,7 @@ const LogoWrapper = styled.div`
 `;
 
 const CoveringPageLogo = styled(TwitterIcon)`
-  fill: ${Colors.white};
+  fill: ${colors.white};
   width: 470px;
   height: 470px;
 
@@ -176,7 +176,7 @@ const CoveringPageLogo = styled(TwitterIcon)`
 `;
 
 const TwLogo = styled(TwitterIcon)`
-  fill: ${Colors.grayLight};
+  fill: ${colors.grayLight};
   width: 2.5rem;
   height: 2.5rem;
 `;
@@ -189,7 +189,7 @@ const ContentWrapper = styled.div`
   width: 46vw;
   min-width: 600px;
   padding-left: 35px;
-  background-color: ${Colors.black};
+  background-color: ${colors.black};
 `;
 
 const ContentSection = styled.div`
@@ -217,7 +217,7 @@ const FormWrapper = styled.div`
 const Icon = styled(TwitterIcon)`
   width: 56px;
   height: 56px;
-  fill: ${Colors.grayPrimary};
+  fill: ${colors.grayPrimary};
 `;
 
 const H1 = styled.h1`
@@ -230,7 +230,7 @@ const H1 = styled.h1`
   transform: scaleY(1.8);
   transform: scaleX(1.3);
   letter-spacing: -3px;
-  color: ${Colors.grayLight};
+  color: ${colors.grayLight};
 `;
 
 const H3 = styled.h3`
@@ -242,22 +242,22 @@ const H3 = styled.h3`
   transform: scaleX(1.4);
   transform-origin: 0 0;
   letter-spacing: -1px;
-  color: ${Colors.grayLight};
+  color: ${colors.grayLight};
 `;
 
 const H4 = styled.h4`
   margin-bottom: 18px;
   font-weight: 600;
   font-size: 18px;
-  color: ${Colors.grayLight};
+  color: ${colors.grayLight};
 `;
 
 const PolicyTextWrapper = styled.div`
   width: 300px;
-  color: ${Colors.graySecondary};
+  color: ${colors.graySecondary};
   font-size: 11px;
 `;
 
 const SpanText = styled.span`
-  color: ${Colors.bluePrimary};
+  color: ${colors.bluePrimary};
 `;

@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Colors } from '@tw/ui/assets';
+import { colors } from '@tw/ui/assets';
 import { useEffect, useMemo } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import styled from 'styled-components';
@@ -96,14 +96,14 @@ export const SetAccountForm = (props: SetAccountFormProps) => {
 };
 
 const H1 = styled.h1`
-  color: ${Colors.white};
+  color: ${colors.white};
   font-size: xx-large;
   font-weight: 700;
   margin-bottom: 0;
 `;
 
 const H5 = styled.h4`
-  color: ${Colors.graySecondary};
+  color: ${colors.graySecondary};
   margin-top: 0.4rem;
   margin-bottom: 2.4rem;
 `;

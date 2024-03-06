@@ -1,4 +1,4 @@
-import { Colors } from '@tw/ui/assets';
+import { colors } from '@tw/ui/assets';
 import styled from 'styled-components';
 
 export const Trends = () => {
@@ -18,14 +18,14 @@ const ContentWrapper = styled.div`
 `;
 
 const Title = styled.h2`
-  color: ${Colors.white};
+  color: ${colors.white};
   font-weight: 700;
   padding-left: 1rem;
   margin: 1rem 0;
 `;
 
 const Description = styled.h3`
-  color: ${Colors.graySecondary};
+  color: ${colors.graySecondary};
   padding-left: 1rem;
   margin: 1rem 0;
 `;

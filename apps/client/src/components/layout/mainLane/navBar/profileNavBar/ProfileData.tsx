@@ -1,4 +1,4 @@
-import { Colors } from '@tw/ui/assets';
+import { colors } from '@tw/ui/assets';
 // import moment from 'moment';
 import React from 'react';
 import styled from 'styled-components';
@@ -60,12 +60,12 @@ const TextWrapper = styled.div`
 
 const H2Bio = styled.h2`
   margin: 0;
-  color: ${Colors.grayPrimary};
+  color: ${colors.grayPrimary};
   font-weight: 700;
 `;
 
 const SpanBio = styled.span`
-  color: ${Colors.graySecondary};
+  color: ${colors.graySecondary};
   font-weight: 500;
 `;
 
@@ -74,7 +74,7 @@ const SpanTextWrapper = styled.div`
 `;
 
 const SpanText = styled.span`
-  color: ${Colors.white};
+  color: ${colors.white};
   overflow-wrap: break-word;
 `;
 
@@ -89,14 +89,14 @@ const LocationAndWebsiteWrapper = styled.div`
 `;
 
 const LocationLogo = styled(Location)`
-  fill: ${Colors.graySecondary};
+  fill: ${colors.graySecondary};
   width: 1.5rem;
   height: 1.5rem;
   margin-right: 0.3rem;
 `;
 
 const WebLinkLogo = styled(WebLink)`
-  fill: ${Colors.graySecondary};
+  fill: ${colors.graySecondary};
   width: 1.5rem;
   height: 1.5rem;
   margin-left: 1rem;
@@ -104,7 +104,7 @@ const WebLinkLogo = styled(WebLink)`
 `;
 
 const WebLinkSpan = styled.a`
-  color: ${Colors.bluePrimary};
+  color: ${colors.bluePrimary};
   font-weight: 500;
   overflow-wrap: break-word;
   cursor: pointer;
@@ -117,7 +117,7 @@ const DateWrapper = styled.div`
 `;
 
 const CanlenderLogo = styled(Calender)`
-  fill: ${Colors.graySecondary};
+  fill: ${colors.graySecondary};
   width: 1.5rem;
   height: 1.5rem;
   margin-right: 0.3rem;

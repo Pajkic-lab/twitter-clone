@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SocialTwitter } from '@styled-icons/foundation/SocialTwitter';
-import { Colors } from '@tw/ui/assets';
+import { colors } from '@tw/ui/assets';
 import { FormInput, InputComponent, JumboButton } from '@tw/ui/components';
 import {
   checkNameUniqueness,
@@ -94,7 +94,7 @@ const ModalSection = styled.div`
   position: relative;
   border-radius: 1rem;
   padding: 25px 75px 25px 75px;
-  background-color: ${Colors.black};
+  background-color: ${colors.black};
 `;
 
 const LogoWrapper = styled.div`
@@ -106,18 +106,18 @@ const LogoWrapper = styled.div`
 const LogoSvg = styled(SocialTwitter)`
   width: 40px;
   height: 40px;
-  color: ${Colors.grayPrimary};
+  color: ${colors.grayPrimary};
 `;
 
 const H1 = styled.h1`
-  color: ${Colors.white};
+  color: ${colors.white};
   font-size: xx-large;
   font-weight: 700;
   margin-bottom: 0;
 `;
 
 const H5 = styled.h4`
-  color: ${Colors.graySecondary};
+  color: ${colors.graySecondary};
   margin-top: 0.4rem;
   margin-bottom: 2.4rem;
 `;

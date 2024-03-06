@@ -1,5 +1,5 @@
 import Tippy from '@tippyjs/react';
-import { Colors } from '@tw/ui/assets';
+import { colors } from '@tw/ui/assets';
 import { PrimaryButton } from '@tw/ui/components';
 import {
   signOutThunk,
@@ -129,7 +129,7 @@ const IconWrapper = styled.div`
 `;
 
 const TwitterLogo = styled(twitterLogo)`
-  fill: ${Colors.grayPrimary};
+  fill: ${colors.grayPrimary};
   width: 2rem;
   height: 2rem;
   cursor: pointer;
@@ -147,7 +147,7 @@ const LinkWrapper = styled.div`
   cursor: pointer;
 
   &:hover {
-    background-color: ${Colors.grayDarkActive};
+    background-color: ${colors.grayDarkActive};
   }
 `;
 
@@ -159,7 +159,7 @@ const SVGWrapper = styled.div`
 
 const SideBarLogo: React.FC<SideBarLogoProps> = ({
   component: Component,
-  fill = Colors.grayPrimary,
+  fill = colors.grayPrimary,
   width = '2rem',
   height = '2rem',
 }) => {
@@ -167,7 +167,7 @@ const SideBarLogo: React.FC<SideBarLogoProps> = ({
 };
 
 const H2 = styled.h2<{ isActive: boolean }>`
-  color: ${Colors.grayPrimary};
+  color: ${colors.grayPrimary};
   padding-left: 0.6rem;
   margin: 0.9rem;
   font-weight: 500;
@@ -175,7 +175,7 @@ const H2 = styled.h2<{ isActive: boolean }>`
   ${(props) =>
     props.isActive &&
     `
-    color: ${Colors.white};
+    color: ${colors.white};
     font-weight: 900;
   `}
 `;
@@ -198,7 +198,7 @@ const ProfileButtonWrapper = styled.div`
   cursor: pointer;
 
   &:hover {
-    background-color: ${Colors.grayDarkActive};
+    background-color: ${colors.grayDarkActive};
   }
 `;
 
@@ -213,7 +213,7 @@ const ProfileImage = styled.div<{ $backgroundImage: string }>`
   border-radius: 100%;
   width: 2.8rem;
   height: 2.8rem;
-  background-color: ${Colors.bluePrimary};
+  background-color: ${colors.bluePrimary};
 
   ${(props) =>
     props.$backgroundImage &&
@@ -222,7 +222,7 @@ const ProfileImage = styled.div<{ $backgroundImage: string }>`
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    background-color: ${Colors.black};
+    background-color: ${colors.black};
   `}
 `;
 
@@ -231,19 +231,19 @@ const TextWrapper = styled.div``;
 const H3 = styled.h3`
   margin: 0;
   padding-left: 0.8rem;
-  color: ${Colors.grayPrimary};
+  color: ${colors.grayPrimary};
   font-weight: 700;
 `;
 
 const Span = styled.span`
   margin: 0;
   padding-left: 0.8rem;
-  color: ${Colors.graySecondary};
+  color: ${colors.graySecondary};
   font-weight: 500;
 `;
 
 const Options = styled(options)`
-  fill: ${Colors.grayPrimary};
+  fill: ${colors.grayPrimary};
   width: 2rem;
   height: 2rem;
 `;
@@ -257,7 +257,7 @@ const BallonWrapper = styled.div`
 `;
 
 const SpanText = styled.span`
-  color: ${Colors.grayPrimary};
+  color: ${colors.grayPrimary};
   font-weight: 700;
 `;
 

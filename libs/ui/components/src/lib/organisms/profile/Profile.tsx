@@ -1,5 +1,5 @@
 import { SocialStatsResponseDto, UserResponseDto } from '@tw/data';
-import { Colors } from '@tw/ui/assets';
+import { colors } from '@tw/ui/assets';
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 import { AvatarAndOptions } from './components/AvatarAndOptions';
@@ -48,7 +48,7 @@ export const Profile = (props: ProfileProps) => {
 };
 
 const Wrapper = styled.div`
-  border-bottom: 2px solid ${Colors.grayDark};
+  border-bottom: 2px solid ${colors.grayDark};
   position: relative;
 `;
 

@@ -1,5 +1,5 @@
 import { SearchUsersResponseDto } from '@tw/data';
-import { Colors, MagnifyingGlass } from '@tw/ui/assets';
+import { colors, MagnifyingGlass } from '@tw/ui/assets';
 import { Loader, SingleUser } from '@tw/ui/components';
 import { useCallback, useState } from 'react';
 import styled from 'styled-components';
@@ -122,11 +122,11 @@ const Input = styled.input`
   padding-left: 55px;
   height: 3rem;
   outline: none;
-  background-color: ${Colors.grayMediaBarBackground};
-  border: 2px solid ${Colors.grayMediaBarBackground};
+  background-color: ${colors.grayMediaBarBackground};
+  border: 2px solid ${colors.grayMediaBarBackground};
   border-radius: 5rem;
   font-size: 1rem;
-  color: ${Colors.white};
+  color: ${colors.white};
   cursor: text;
 
   ::placeholder {
@@ -134,8 +134,8 @@ const Input = styled.input`
   }
 
   &:focus {
-    border: 2px solid ${Colors.bluePrimary};
-    background-color: ${Colors.black};
+    border: 2px solid ${colors.bluePrimary};
+    background-color: ${colors.black};
   }
 `;
 
@@ -147,14 +147,14 @@ const Label = styled.label`
 `;
 
 const Svg = styled(MagnifyingGlass)<{ $isFocused: boolean }>`
-  fill: ${Colors.graySecondary};
+  fill: ${colors.graySecondary};
   width: 1.5rem;
   height: 1.5rem;
 
   ${(props) =>
     props.$isFocused &&
     `
-    fill: ${Colors.bluePrimary};
+    fill: ${colors.bluePrimary};
   `}
 `;
 
@@ -169,7 +169,7 @@ const SearchDataWrapper = styled.div`
   overflow-y: scroll;
   border-radius: 1rem;
   padding: 1rem 0 1rem 0;
-  background-color: ${Colors.black};
+  background-color: ${colors.black};
   box-shadow: 0 0 8px hsla(0, 100%, 99.2156862745098%, 0.738);
 `;
 
@@ -192,6 +192,6 @@ const NoResultWrapper = styled.div`
 const H3 = styled.h3`
   margin: 0;
   padding-left: 0.8rem;
-  color: ${Colors.grayPrimary};
+  color: ${colors.grayPrimary};
   font-weight: 700;
 `;

@@ -1,4 +1,4 @@
-import { Colors } from '@tw/ui/assets';
+import { colors } from '@tw/ui/assets';
 import styled from 'styled-components';
 
 type FooterProps = {
@@ -26,13 +26,13 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  background-color: ${Colors.black};
+  background-color: ${colors.black};
   padding: 12px 0;
 `;
 
 const A = styled.a`
   padding: 2px 8px;
   font-size: small;
-  color: ${Colors.graySecondary};
+  color: ${colors.graySecondary};
   white-space: nowrap;
 `;

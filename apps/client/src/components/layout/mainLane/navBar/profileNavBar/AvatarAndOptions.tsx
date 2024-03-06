@@ -1,4 +1,4 @@
-import { Colors } from '@tw/ui/assets';
+import { colors } from '@tw/ui/assets';
 import { SecondaryButton } from '@tw/ui/components';
 import {
   followUserThunk,
@@ -91,9 +91,9 @@ const ImageWrapper = styled.div<{ $backgroundImage: string }>`
   left: 1rem;
   width: 10rem;
   height: 10rem;
-  border: 4px solid ${Colors.black};
+  border: 4px solid ${colors.black};
   border-radius: 50%;
-  background-color: ${Colors.grayDark};
+  background-color: ${colors.grayDark};
   ${(props) =>
     props.$backgroundImage &&
     `
@@ -105,28 +105,28 @@ const ImageWrapper = styled.div<{ $backgroundImage: string }>`
 `;
 
 const EditProfileButton = styled(SecondaryButton)`
-  color: ${Colors.grayPrimary};
+  color: ${colors.grayPrimary};
   padding-left: 0;
   padding-right: 0;
 `;
 
 const FolloweButton = styled(SecondaryButton)`
-  color: ${Colors.black};
-  background-color: ${Colors.white};
+  color: ${colors.black};
+  background-color: ${colors.white};
   padding-left: 0;
   padding-right: 0;
 
   &:hover {
-    color: ${Colors.white};
+    color: ${colors.white};
   }
 `;
 const UnFolloweButton = styled(SecondaryButton)`
-  color: ${Colors.grayPrimary};
+  color: ${colors.grayPrimary};
   padding-left: 0;
   padding-right: 0;
 
   &:hover {
-    color: ${Colors.red};
-    border: 1px solid ${Colors.red};
+    color: ${colors.red};
+    border: 1px solid ${colors.red};
   }
 `;

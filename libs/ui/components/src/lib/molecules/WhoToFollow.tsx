@@ -1,5 +1,5 @@
 import { MostPopularUsersResponseDto } from '@tw/data';
-import { Colors } from '@tw/ui/assets';
+import { colors } from '@tw/ui/assets';
 import styled from 'styled-components';
 import { Loader } from '../atoms/Loader';
 import { SingleUser } from '../atoms/SingleUser';
@@ -63,7 +63,7 @@ const LoaderCustom = styled(Loader)`
 `;
 
 const Title = styled.h2`
-  color: ${Colors.white};
+  color: ${colors.white};
   font-weight: 700;
   padding-left: 1rem;
   margin: 1rem 0;

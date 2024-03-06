@@ -1,4 +1,4 @@
-import { CameraIcon, Colors } from '@tw/ui/assets';
+import { CameraIcon, colors } from '@tw/ui/assets';
 import React, { forwardRef, useCallback, useRef, useState } from 'react';
 import Resizer from 'react-image-file-resizer';
 import styled from 'styled-components';
@@ -7,26 +7,25 @@ interface Props {
   name: string;
   type: string;
   id: string;
-  setImageData: React.Dispatch<React.SetStateAction<string>>;
+  onChange: (imageData: string) => void;
+  error?: string;
+  disabled?: boolean;
+  isDirty?: boolean;
 }
 
-const maxWidth = 400;
-const maxHeight = 400;
-const format = 'PNG' || 'JPEG';
-const quality = 100;
-const rotation = 0;
-const outputType = 'base64';
-const minWidth = 400;
-const minHeight = 400;
-const maxFileSizeKB = 800;
-
-// Research size of image and quality and it should be abel to set image metadata thru props...
-// props should be something like Avatar, Cover, Post... which will predefine size of image.
-
-// Research, should I create FormImageInput as integration to react hook form...
+// following stats should be set according to necessity
+const MAX_WIDTH = 400;
+const MAX_HEIGHT = 400;
+const IMAGE_FORMAT = 'JPEG' || 'PNG';
+const QUALITY = 100;
+const ROTATION = 0;
+const OUTPUT_TYPE = 'base64';
+const MIN_WIDTH = 400;
+const MIN_HEIGHT = 400;
+const MAX_FILE_SIZE_KB = 800;
 
 export const ImageInput = forwardRef<HTMLInputElement, Props>(
-  ({ name, type, id, setImageData, ...props }, refernece) => {
+  ({ name, type, id, onChange, disabled, ...rest }, refernece) => {
     const [errorMessage, setErrorMessage] = useState<string>('');
 
     const inputRef = useRef<HTMLInputElement>(null);
@@ -42,24 +41,24 @@ export const ImageInput = forwardRef<HTMLInputElement, Props>(
         try {
           Resizer.imageFileResizer(
             file,
-            maxWidth,
-            maxHeight,
-            format,
-            quality,
-            rotation,
+            MAX_WIDTH,
+            MAX_HEIGHT,
+            IMAGE_FORMAT,
+            QUALITY,
+            ROTATION,
             (uri) => {
-              setImageData(uri as string);
+              onChange(uri as string);
               setErrorMessage('');
             },
-            outputType,
-            minWidth,
-            minHeight
+            OUTPUT_TYPE,
+            MIN_WIDTH,
+            MIN_HEIGHT
           );
         } catch (error: any) {
           setErrorMessage(error.message as string);
         }
       },
-      [setImageData, setErrorMessage]
+      [setErrorMessage, onChange]
     );
 
     const handleFileChange = useCallback(
@@ -80,7 +79,7 @@ export const ImageInput = forwardRef<HTMLInputElement, Props>(
         }
 
         const fileSizeKB = file.size / 1024;
-        if (fileSizeKB > maxFileSizeKB) {
+        if (fileSizeKB > MAX_FILE_SIZE_KB) {
           setErrorMessage('File size exceeds 800KB.');
           alert('File size exceeds 800KB.');
           return;
@@ -96,11 +95,13 @@ export const ImageInput = forwardRef<HTMLInputElement, Props>(
         <ImageSVG />
         <Input
           id={id}
+          name={name}
           ref={inputRef}
           type={type}
           accept="image/*"
           onChange={handleFileChange}
-          {...props}
+          disabled={disabled}
+          {...rest}
         />
       </SVGWrapper>
     );
@@ -117,12 +118,12 @@ const SVGWrapper = styled.div`
   cursor: pointer;
 
   &:hover {
-    background-color: ${Colors.grayDarkActive};
+    background-color: ${colors.grayDarkActive};
   }
 `;
 
 const ImageSVG = styled(CameraIcon)`
-  fill: ${Colors.grayPrimary};
+  fill: ${colors.grayPrimary};
   width: 1.5rem;
   height: 1.5rem;
 `;

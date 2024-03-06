@@ -1,5 +1,5 @@
 import Tippy from '@tippyjs/react';
-import { Colors, FeatherIcon, TwitterIcon } from '@tw/ui/assets';
+import { colors, FeatherIcon, TwitterIcon } from '@tw/ui/assets';
 import { linksRecords } from '@tw/ui/common';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -118,12 +118,12 @@ const IconWrapper = styled.div<SidebarStyleProps>`
   border-radius: 5rem;
 
   &:hover {
-    background-color: ${Colors.grayDarkActive};
+    background-color: ${colors.grayDarkActive};
   }
 `;
 
 const TwLogo = styled(TwitterIcon)`
-  fill: ${Colors.grayPrimary};
+  fill: ${colors.grayPrimary};
   height: 2.5rem;
   width: 2.5rem;
   cursor: pointer;

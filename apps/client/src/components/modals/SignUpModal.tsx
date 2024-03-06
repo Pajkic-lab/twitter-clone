@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Cross } from '@styled-icons/entypo/Cross';
-import { Colors } from '@tw/ui/assets';
+import { colors } from '@tw/ui/assets';
 import { FormInput, InputComponent, JumboButton } from '@tw/ui/components';
 import {
   signUpThunk,
@@ -122,8 +122,8 @@ const ModalSection = styled.div`
   position: relative;
   border-radius: 1rem;
   padding: 48px 75px 25px 75px;
-  background-color: ${Colors.black};
-  color: ${Colors.bluePrimary};
+  background-color: ${colors.black};
+  color: ${colors.bluePrimary};
 `;
 
 const Icon = styled(Cross)`
@@ -132,14 +132,14 @@ const Icon = styled(Cross)`
   left: 12px;
   width: 36px;
   height: 30px;
-  color: ${Colors.grayLight};
+  color: ${colors.grayLight};
   cursor: pointer;
 `;
 
 const H1 = styled.h1`
   font-size: 32px;
   font-weight: 600;
-  color: ${Colors.grayLight};
+  color: ${colors.grayLight};
 `;
 
 const Form = styled.form``;

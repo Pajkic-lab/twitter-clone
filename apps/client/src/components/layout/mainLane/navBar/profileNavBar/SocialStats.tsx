@@ -1,4 +1,4 @@
-import { Colors } from '@tw/ui/assets';
+import { colors } from '@tw/ui/assets';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -79,12 +79,12 @@ const FollowersStatsWrapper = styled.div`
 `;
 
 const StatsNumberSpan = styled.span`
-  color: ${Colors.grayPrimary};
+  color: ${colors.grayPrimary};
   font-weight: 700;
   padding-right: 0.3rem;
 `;
 
 const StatsTextSpan = styled.span`
-  color: ${Colors.graySecondary};
+  color: ${colors.graySecondary};
   padding-right: 1rem;
 `;

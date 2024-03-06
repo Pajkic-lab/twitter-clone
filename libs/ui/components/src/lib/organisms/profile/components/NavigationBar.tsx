@@ -1,4 +1,4 @@
-import { ArrowLeftIcon, Colors } from '@tw/ui/assets';
+import { ArrowLeftIcon, colors } from '@tw/ui/assets';
 import styled from 'styled-components';
 type NavigationBarProps = {
   name: string;
@@ -53,12 +53,12 @@ const SVGWrapper = styled.div`
   cursor: pointer;
 
   &:hover {
-    background-color: ${Colors.grayDarkActive};
+    background-color: ${colors.grayDarkActive};
   }
 `;
 
 const ArrowLogo = styled(ArrowLeftIcon)`
-  fill: ${Colors.grayPrimary};
+  fill: ${colors.grayPrimary};
   width: 1.5rem;
   height: 1.5rem;
 `;
@@ -70,9 +70,9 @@ const TittleWrapper = styled.div`
 const H3 = styled.h3`
   margin: 0;
   font-weight: 700;
-  color: ${Colors.grayPrimary};
+  color: ${colors.grayPrimary};
 `;
 
 const SpanHeader = styled.span`
-  color: ${Colors.graySecondary};
+  color: ${colors.graySecondary};
 `;

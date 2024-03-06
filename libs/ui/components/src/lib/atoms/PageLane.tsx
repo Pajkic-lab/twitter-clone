@@ -1,4 +1,4 @@
-import { Colors } from '@tw/ui/assets';
+import { colors } from '@tw/ui/assets';
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 
@@ -28,7 +28,7 @@ const Wrapper = styled.div<StyleProps>`
   width: ${({ width }) => `${width}px`};
   min-width: ${({ width }) => `${width}px`};
   border-left: ${({ hasBorder }) =>
-    hasBorder && `2px solid ${Colors.grayDark}`};
+    hasBorder && `2px solid ${colors.grayDark}`};
   border-right: ${({ hasBorder }) =>
-    hasBorder && `2px solid ${Colors.grayDark}`};
+    hasBorder && `2px solid ${colors.grayDark}`};
 `;

@@ -1,11 +1,16 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { NameUniqueRequestDto, SearchUserRequestDto } from '@tw/data';
+import {
+  NameUniqueRequestDto,
+  SearchUserRequestDto,
+  UpdateUserRequestDto,
+} from '@tw/data';
 import { isAxiosError } from 'axios';
 import { http } from '../../http/api';
 import { queryClient } from '../core';
 
 export const userQueryKey = 'userQueryKey';
 
+// query
 export const useUserQuery = () => {
   return useQuery({
     queryKey: [userQueryKey],
@@ -16,6 +21,17 @@ export const useUserQuery = () => {
   });
 };
 
+export const useMostPopularUsersQuery = () => {
+  return useQuery({
+    queryKey: ['MostPopularUsers'], // to be extracted to separate dir, and replace  hardcode val with dynamic data.
+    queryFn: async () => {
+      const res = await http.user.getMostPopularUsers();
+      return res.data.payload;
+    },
+  });
+};
+
+// mutation
 export const useCheckUniqueUserNameMutation = () => {
   return useMutation({
     mutationFn: async (uniqueName: NameUniqueRequestDto) => {
@@ -60,12 +76,16 @@ export const useSearchUserMutation = () => {
   });
 };
 
-export const useMostPopularUsersQuery = () => {
-  return useQuery({
-    queryKey: ['MostPopularUsers'], // to be extracted to separate dir, and replace  hardcode val with dynamic data.
-    queryFn: async () => {
-      const res = await http.user.getMostPopularUsers();
+export const useUpdateUserMutation = () => {
+  return useMutation({
+    mutationFn: async (updateUserFormData: UpdateUserRequestDto) => {
+      const res = await http.user.updateUser(updateUserFormData);
       return res.data.payload;
+    },
+    onError: (error) => {
+      if (isAxiosError(error)) {
+        return (error.message = error.response?.data.message);
+      }
     },
   });
 };

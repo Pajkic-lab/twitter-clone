@@ -1,5 +1,5 @@
 import { SocialStatsResponseDto, UserResponseDto } from '@tw/data';
-import { Colors } from '@tw/ui/assets';
+import { colors } from '@tw/ui/assets';
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 import { Profile } from './profile/Profile';
@@ -33,6 +33,6 @@ const Wrapper = styled.div`
   min-height: 100vh;
   width: ${LANE_WIDTH}px;
   min-width: ${LANE_WIDTH}px;
-  border-left: 1px solid ${Colors.grayDark};
-  border-right: 1px solid ${Colors.grayDark};
+  border-left: 1px solid ${colors.grayDark};
+  border-right: 1px solid ${colors.grayDark};
 `;

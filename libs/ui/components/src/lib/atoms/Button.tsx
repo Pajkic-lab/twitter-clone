@@ -1,4 +1,4 @@
-import { Colors } from '@tw/ui/assets';
+import { colors } from '@tw/ui/assets';
 import { ButtonHTMLAttributes, forwardRef } from 'react';
 import styled from 'styled-components';
 import { Loader } from './Loader';
@@ -53,8 +53,8 @@ export const ButtonBase = styled(ButtonComponent)<{
 
   &[disabled] {
     pointer-events: none;
-    background-color: ${Colors.grayLight};
-    color: ${Colors.grayPrimary};
+    background-color: ${colors.grayLight};
+    color: ${colors.grayPrimary};
     border: 0;
   }
 
@@ -83,7 +83,7 @@ const ButtonLoader = styled(Loader)`
   margin: auto;
   /* maybe it should be extracted to colors or not??? */
   border: 3px solid rgba(255, 255, 255, 0.6);
-  border-left-color: ${Colors.bluePrimary};
+  border-left-color: ${colors.bluePrimary};
 
   ::after {
     width: 1.5rem;
@@ -93,38 +93,38 @@ const ButtonLoader = styled(Loader)`
 `;
 
 export const PrimaryButton = styled(ButtonBase)`
-  background-color: ${Colors.bluePrimary};
-  color: ${Colors.white};
+  background-color: ${colors.bluePrimary};
+  color: ${colors.white};
 
   &:hover {
-    background-color: ${Colors.bluePrimaryHover};
+    background-color: ${colors.bluePrimaryHover};
   }
 `;
 
 export const SecondaryButton = styled(ButtonBase)`
-  background-color: ${Colors.black};
-  color: ${Colors.bluePrimary};
-  border: 1px solid ${Colors.grayPrimary};
+  background-color: ${colors.black};
+  color: ${colors.bluePrimary};
+  border: 1px solid ${colors.grayPrimary};
 
   &:hover {
-    background-color: ${Colors.grayDarkActive};
+    background-color: ${colors.grayDarkActive};
   }
 `;
 
 export const SocialSignInButton = styled(ButtonBase)`
-  background-color: ${Colors.white};
-  color: ${Colors.grayDark};
+  background-color: ${colors.white};
+  color: ${colors.grayDark};
 
   &:hover {
-    background-color: ${Colors.grayLight};
+    background-color: ${colors.grayLight};
   }
 `;
 
 export const JumboButton = styled(ButtonBase)`
   /* width: 30rem;
   height: 3.7rem; */
-  color: ${Colors.black};
-  background-color: ${Colors.graySecondary};
+  color: ${colors.black};
+  background-color: ${colors.graySecondary};
   font-size: medium;
   font-weight: 700;
 

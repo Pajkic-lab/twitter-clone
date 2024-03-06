@@ -1,4 +1,4 @@
-import { Colors } from '@tw/ui/assets';
+import { colors } from '@tw/ui/assets';
 import { createGlobalStyle } from 'styled-components';
 import chipBold from './fonts/chip-bold.woff';
 import chipRegular from './fonts/chip-regular.woff';
@@ -34,10 +34,10 @@ export const GlobalStyle = createGlobalStyle<{
   html, body {
     margin: 0;
     padding: 0;
-    color: ${Colors.grayDark};
+    color: ${colors.grayDark};
     font-size: 14px;
     font-family: 'chip-regular', Verdana, "Segoe UI", Arial, sans-serif, Helvetica;
-    background-color: ${Colors.black};
+    background-color: ${colors.black};
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;  
     text-rendering: optimizeLegibility;
@@ -55,7 +55,7 @@ export const GlobalStyle = createGlobalStyle<{
 
   a {
     text-decoration: none;
-    color: ${Colors.bluePrimary};
+    color: ${colors.bluePrimary};
   }
   
   input, textarea {
@@ -65,13 +65,13 @@ export const GlobalStyle = createGlobalStyle<{
   table.table {
     width: 100%;
     border-collapse: collapse;
-    border: 1px solid ${Colors.grayPrimary};
+    border: 1px solid ${colors.grayPrimary};
 
     th,
     td {
       margin: 0;
       padding: 0;
-      border-bottom: 1px solid ${Colors.grayPrimary};
+      border-bottom: 1px solid ${colors.grayPrimary};
     }
 
     input,
@@ -82,12 +82,12 @@ export const GlobalStyle = createGlobalStyle<{
       box-shadow: none;
     }
     [data-element='dropdown'] {
-      border-left: 1px solid ${Colors.grayPrimary};
+      border-left: 1px solid ${colors.grayPrimary};
     }
   }
   
   .table thead {
-    background: ${Colors.grayLight};
+    background: ${colors.grayLight};
     th {
       padding: 1rem;
       font-size: 14px;
@@ -110,8 +110,8 @@ export const GlobalStyle = createGlobalStyle<{
         height: 20px;
         width: 20px;
         display: inline-flex;
-        color: ${Colors.grayPrimary};
-        background: ${Colors.grayModalBackgroundShadow};
+        color: ${colors.grayPrimary};
+        background: ${colors.grayModalBackgroundShadow};
         border-radius: 50%;
         cursor: pointer;
         user-select: none;

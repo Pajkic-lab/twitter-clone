@@ -1,4 +1,4 @@
-import { Colors } from '@tw/ui/assets';
+import { colors } from '@tw/ui/assets';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -32,17 +32,17 @@ export const SideBarNavigationButton = (
 };
 
 const IconBaseStyled = styled((props) => <props.IconBase {...props} />)`
-  fill: ${Colors.grayPrimary};
+  fill: ${colors.grayPrimary};
   height: 2rem;
 `;
 
 const IconActiveStyled = styled((props) => <props.IconActive {...props} />)`
-  fill: ${Colors.white};
+  fill: ${colors.white};
   height: 2rem;
 `;
 
 const Span = styled.span<{ isActive: boolean }>`
-  color: ${(props) => (props.isActive ? Colors.white : Colors.grayPrimary)};
+  color: ${(props) => (props.isActive ? colors.white : colors.grayPrimary)};
   font-weight: 600;
   font-size: large;
   padding-left: 1.3rem;
@@ -57,6 +57,6 @@ const Wrapper = styled.div`
   cursor: pointer;
 
   &:hover {
-    background-color: ${Colors.grayDarkActive};
+    background-color: ${colors.grayDarkActive};
   }
 `;

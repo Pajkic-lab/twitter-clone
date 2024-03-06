@@ -1,4 +1,4 @@
-import { Colors } from '@tw/ui/assets';
+import { colors } from '@tw/ui/assets';
 import { DetailedHTMLProps, InputHTMLAttributes, forwardRef } from 'react';
 import styled from 'styled-components';
 
@@ -57,21 +57,21 @@ const Input = styled.input<{
   padding-left: 10px;
   width: 100%;
   height: 4rem;
-  background-color: ${Colors.black};
+  background-color: ${colors.black};
   outline: none;
-  border: 1px solid ${Colors.grayDark};
+  border: 1px solid ${colors.grayDark};
   border-radius: 4px;
   font-size: 1.2rem;
-  color: ${Colors.white};
+  color: ${colors.white};
   cursor: pointer;
 
   width: ${({ width }) => width}rem;
 
   border: 1px solid
-    ${({ error }) => (error ? Colors.red : Colors.graySecondary)};
+    ${({ error }) => (error ? colors.red : colors.graySecondary)};
 
   &:focus {
-    border: 1px solid ${Colors.bluePrimary};
+    border: 1px solid ${colors.bluePrimary};
   }
 `;
 
@@ -84,19 +84,19 @@ const Label = styled.label<{
   left: 10px;
   padding: 0 7px;
   border-radius: 4px;
-  color: ${Colors.graySecondary};
+  color: ${colors.graySecondary};
   font-size: large;
   transition: 0.1s;
   transition: transform 0.1s;
-  background-color: ${Colors.black};
+  background-color: ${colors.black};
   cursor: pointer;
 
   ${Input}:focus ~ & {
-    color: ${Colors.bluePrimary};
+    color: ${colors.bluePrimary};
     transform: translateY(-2rem);
   }
 
-  color: ${({ error }) => (error ? Colors.red : Colors.graySecondary)};
+  color: ${({ error }) => (error ? colors.red : colors.graySecondary)};
 
   transform: ${({ error, isDirty }) =>
     error || isDirty ? 'translateY(-2rem)' : 'none'};
@@ -106,5 +106,5 @@ const ErrorMessage = styled.h4`
   position: absolute;
   bottom: -1.2rem;
   padding-left: 10px;
-  color: ${Colors.red};
+  color: ${colors.red};
 `;

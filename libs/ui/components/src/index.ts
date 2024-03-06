@@ -11,6 +11,7 @@ export * from './lib/atoms/SingleUser';
 
 // molecules
 export * from './lib/molecules/EditProfileForm';
+export * from './lib/molecules/FormImageInput';
 export * from './lib/molecules/FormInput';
 export * from './lib/molecules/Modal';
 export * from './lib/molecules/SetAccountForm';

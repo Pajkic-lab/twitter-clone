@@ -1,4 +1,4 @@
-import { Colors } from '@tw/ui/assets';
+import { colors } from '@tw/ui/assets';
 import { useAppSelector } from '@tw/ui/data-access';
 import React from 'react';
 import { useLocation } from 'react-router-dom';
@@ -60,7 +60,7 @@ export const ProfileNavBar: React.FC = () => {
 
 const Wrapper = styled.div`
   position: sticky;
-  border-bottom: 2px solid ${Colors.grayDark};
+  border-bottom: 2px solid ${colors.grayDark};
   backdrop-filter: blur(10px);
 `;
 

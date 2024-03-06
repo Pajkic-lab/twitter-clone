@@ -1,5 +1,5 @@
 import { UserResponseDto } from '@tw/data';
-import { Colors, TwitterIcon } from '@tw/ui/assets';
+import { colors, TwitterIcon } from '@tw/ui/assets';
 import {
   HomeMainLane,
   Mediabar,
@@ -130,7 +130,7 @@ const PageWrapper = styled.div`
 `;
 
 const TwLogo = styled(TwitterIcon)`
-  fill: ${Colors.grayLight};
+  fill: ${colors.grayLight};
   width: 2.5rem;
   height: 2.5rem;
 `;

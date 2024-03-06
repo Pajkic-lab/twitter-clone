@@ -1,4 +1,4 @@
-import { Colors } from '@tw/ui/assets';
+import { colors } from '@tw/ui/assets';
 import { FunctionComponent } from 'react';
 import styled, { keyframes } from 'styled-components';
 interface Props {
@@ -27,7 +27,7 @@ const loaderKeyframe = keyframes`
 const Wrapper = styled.div`
   width: 100%;
   height: 100vh;
-  background-color: ${Colors.black};
+  background-color: ${colors.black};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -40,7 +40,7 @@ const Element = styled.div`
   font-size: 10px;
   position: relative;
   border: 4px solid transparent;
-  border-left-color: ${Colors.bluePrimary};
+  border-left-color: ${colors.bluePrimary};
   transform: translateZ(0);
   animation: ${loaderKeyframe} 1.1s infinite linear;
 

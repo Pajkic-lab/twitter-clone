@@ -1,4 +1,4 @@
-import { Colors } from '@tw/ui/assets';
+import { colors } from '@tw/ui/assets';
 import styled from 'styled-components';
 
 type CoverProps = {
@@ -17,7 +17,7 @@ const CoverWrapper = styled.div<CoverProps>`
   height: 200px;
   margin-top: ${({ topMargin }) => `${topMargin}rem`};
   background-image: ${({ cover }) => cover && `url(${cover})`};
-  background-color: ${Colors.grayDark};
+  background-color: ${colors.grayDark};
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

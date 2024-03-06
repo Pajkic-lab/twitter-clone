@@ -1,4 +1,4 @@
-import { Colors, OptionsIcon } from '@tw/ui/assets';
+import { colors, OptionsIcon } from '@tw/ui/assets';
 import styled from 'styled-components';
 
 type SideBarOptionsButtonProps = {
@@ -36,7 +36,7 @@ const Wrapper = styled.div<{ collapsed: boolean }>`
   cursor: pointer;
 
   &:hover {
-    background-color: ${Colors.grayDarkActive};
+    background-color: ${colors.grayDarkActive};
   }
 `;
 
@@ -50,7 +50,7 @@ const ProfileImage = styled.div<{ $backgroundImage: string }>`
   border-radius: 100%;
   width: 2.8rem;
   height: 2.8rem;
-  background-color: ${Colors.bluePrimary};
+  background-color: ${colors.bluePrimary};
   margin: 0.8rem;
 
   ${(props) =>
@@ -60,24 +60,24 @@ const ProfileImage = styled.div<{ $backgroundImage: string }>`
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    background-color: ${Colors.black};
+    background-color: ${colors.black};
   `}
 `;
 
 const H3 = styled.h3`
   margin: 0;
-  color: ${Colors.grayPrimary};
+  color: ${colors.grayPrimary};
   font-weight: 700;
 `;
 
 const Span = styled.span`
   margin: 0;
-  color: ${Colors.graySecondary};
+  color: ${colors.graySecondary};
   font-weight: 500;
 `;
 
 const Options = styled(OptionsIcon)`
-  fill: ${Colors.grayPrimary};
+  fill: ${colors.grayPrimary};
   width: 2rem;
   height: 2rem;
 `;

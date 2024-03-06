@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Colors } from '@tw/ui/assets';
+import { colors } from '@tw/ui/assets';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
@@ -77,5 +77,5 @@ export const SignInForm = (props: SingInFormProps) => {
 const H1 = styled.h1`
   font-size: 32px;
   font-weight: 600;
-  color: ${Colors.grayLight};
+  color: ${colors.grayLight};
 `;

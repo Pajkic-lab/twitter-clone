@@ -1,11 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Colors } from '@tw/ui/assets';
-import {
-  FormInput,
-  ImageInput,
-  InputComponent,
-  SecondaryButton,
-} from '@tw/ui/components';
+import { colors } from '@tw/ui/assets';
+import { FormInput, InputComponent, SecondaryButton } from '@tw/ui/components';
 import { updateUser, useAppDispatch } from '@tw/ui/data-access';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -86,21 +81,21 @@ export const EditProfileModal: React.FC<Props> = ({
             </TittleWrapper>
 
             <CoverWeapper $backgroundImage={cover}>
-              <ImageInput
+              {/* <ImageInput
                 id={'cover'}
                 type={'file'}
                 name={'Cover'}
                 setImageData={setCoverData}
-              />
+              /> */}
             </CoverWeapper>
 
             <AvatarWrapper $backgroundImage={avatar}>
-              <ImageInput
+              {/* <ImageInput
                 id={'avatar'}
                 type={'file'}
                 name={'Avatar'}
                 setImageData={setAvatarData}
-              />
+              /> */}
             </AvatarWrapper>
 
             <FormInput control={control} name="name" id={uuid()} type="text" />
@@ -129,7 +124,7 @@ const ModalSection = styled.div`
   overflow-y: scroll;
   border-radius: 1rem;
   padding: 0 1.5rem 1rem 1.5rem;
-  background-color: ${Colors.black};
+  background-color: ${colors.black};
 `;
 
 ////////////////////////////////////////////////////////
@@ -161,12 +156,12 @@ const ExitSvgWrapper = styled.div`
   cursor: pointer;
 
   &:hover {
-    background-color: ${Colors.grayDarkActive};
+    background-color: ${colors.grayDarkActive};
   }
 `;
 
 const CrossSvg = styled(Cross)`
-  fill: ${Colors.white};
+  fill: ${colors.white};
   width: 1.5rem;
   height: 1.5rem;
 `;
@@ -174,11 +169,11 @@ const CrossSvg = styled(Cross)`
 const H2Tittle = styled.h2`
   margin: 0;
   font-weight: 700;
-  color: ${Colors.white};
+  color: ${colors.white};
 `;
 
 const SaveModalButton = styled(SecondaryButton)`
-  color: ${Colors.grayPrimary};
+  color: ${colors.grayPrimary};
   padding-left: 0;
   padding-right: 0;
 `;
@@ -208,7 +203,7 @@ const AvatarWrapper = styled.div<{ $backgroundImage: string }>`
   height: 8rem;
   border-radius: 50%;
   margin-right: 1rem;
-  background-color: ${Colors.grayModalBackgroundShadow};
+  background-color: ${colors.grayModalBackgroundShadow};
   margin-bottom: 1rem;
   ${(props) =>
     props.$backgroundImage &&

@@ -1,5 +1,5 @@
 import { SearchUsersResponseDto } from '@tw/data';
-import { Colors } from '@tw/ui/assets';
+import { colors } from '@tw/ui/assets';
 import styled from 'styled-components';
 
 type SingleUserProps = {
@@ -43,7 +43,7 @@ const ProfileButtonWrapper = styled.div`
   cursor: pointer;
 
   &:hover {
-    background-color: ${Colors.grayDarkActive};
+    background-color: ${colors.grayDarkActive};
   }
 `;
 
@@ -54,7 +54,7 @@ const BioWrapper = styled.div`
   padding: 0.3rem;
 
   && :hover {
-    background-color: ${Colors.grayDarkActive};
+    background-color: ${colors.grayDarkActive};
   }
 `;
 
@@ -63,7 +63,7 @@ const ProfileImage = styled.div<{ $backgroundImage: string }>`
   width: 3.2rem;
   min-width: 3.2rem;
   height: 3.2rem;
-  background-color: ${Colors.bluePrimary};
+  background-color: ${colors.bluePrimary};
 
   ${(props) =>
     props.$backgroundImage &&
@@ -72,7 +72,7 @@ const ProfileImage = styled.div<{ $backgroundImage: string }>`
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    background-color: ${Colors.black};
+    background-color: ${colors.black};
   `}
 `;
 
@@ -81,13 +81,13 @@ const TextWrapper = styled.div``;
 const H3 = styled.h3`
   margin: 0;
   padding-left: 0.8rem;
-  color: ${Colors.grayPrimary};
+  color: ${colors.grayPrimary};
   font-weight: 700;
 `;
 
 const Span = styled.span`
   margin: 0;
   padding-left: 0.8rem;
-  color: ${Colors.graySecondary};
+  color: ${colors.graySecondary};
   font-weight: 500;
 `;

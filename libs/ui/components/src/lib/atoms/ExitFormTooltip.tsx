@@ -1,4 +1,4 @@
-import { Colors } from '@tw/ui/assets';
+import { colors } from '@tw/ui/assets';
 import { linksRecords } from '@tw/ui/common';
 import { useSignOutMutation } from '@tw/ui/data-access';
 import { useNavigate } from 'react-router-dom';
@@ -26,10 +26,10 @@ const Wrapper = styled.div`
   border-radius: 0.4rem;
   box-shadow: 0 0 8px hsla(0, 100%, 99.2156862745098%, 0.738);
   cursor: pointer;
-  background-color: ${Colors.black};
+  background-color: ${colors.black};
 `;
 
 const Span = styled.span`
-  color: ${Colors.grayPrimary};
+  color: ${colors.grayPrimary};
   font-weight: 700;
 `;

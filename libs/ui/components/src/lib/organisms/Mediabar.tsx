@@ -1,5 +1,5 @@
 import { SearchUsersResponseDto } from '@tw/data';
-import { Colors } from '@tw/ui/assets';
+import { colors } from '@tw/ui/assets';
 import { BreakpointKeys, Breakpoints } from '@tw/ui/common';
 import { ReactNode } from 'react';
 import Sticky from 'react-stickynode';
@@ -75,11 +75,11 @@ const SearchInputWrapper = styled.div<{ size: BreakpointKeys }>`
   position: fixed;
   top: 0;
   z-index: 1;
-  background-color: ${Colors.black};
+  background-color: ${colors.black};
 `;
 
 const TopWindow = styled.div`
-  background-color: ${Colors.grayMediaBarBackground};
+  background-color: ${colors.grayMediaBarBackground};
   height: 21.4rem;
   width: 100%;
   margin-top: 4.5rem;
@@ -88,7 +88,7 @@ const TopWindow = styled.div`
 `;
 
 const BottomWindow = styled.div`
-  background-color: ${Colors.grayMediaBarBackground};
+  background-color: ${colors.grayMediaBarBackground};
   height: 800px;
   width: 100%;
   border-radius: 1rem;
@@ -99,5 +99,5 @@ const MediabarFooterContainer = styled.div`
 `;
 
 const Text = styled.span`
-  color: ${Colors.graySecondary};
+  color: ${colors.graySecondary};
 `;
