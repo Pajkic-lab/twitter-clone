@@ -109,7 +109,6 @@ export const http = {
     },
   },
   social: {
-    // this route has not been tested!!!
     getSocialStats(): Promise<
       AxiosResponse<HttpResponse<SocialStatsResponseDto>>
     > {

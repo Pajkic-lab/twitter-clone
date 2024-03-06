@@ -49,7 +49,7 @@ export const SignInForm = (props: SingInFormProps) => {
   }, [errorMessage]);
 
   return (
-    <ContentWrapper>
+    <>
       <H1>Sign in to Twitter</H1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormInput
@@ -70,14 +70,9 @@ export const SignInForm = (props: SingInFormProps) => {
           Sign In
         </JumboButton>
       </form>
-    </ContentWrapper>
+    </>
   );
 };
-
-const ContentWrapper = styled.div`
-  padding: 0 75px 25px 75px;
-  width: 40rem;
-`;
 
 const H1 = styled.h1`
   font-size: 32px;

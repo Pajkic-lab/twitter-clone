@@ -1,9 +1,9 @@
 import { linksRecords } from '@tw/ui/common';
 import { HomePage } from '../pages/HomePage';
 import { LandingPage } from '../pages/LandingPage';
+import { ProfilePage } from '../pages/ProfilePage';
 import { TestingPage } from '../pages/Testing';
 import { ContactList } from '../pages/legacy-pages/ContactList';
-import { Profile } from '../pages/legacy-pages/Profile';
 import { PublicProfile } from '../pages/legacy-pages/PublicProfile';
 import { PublicProfileContactList } from '../pages/legacy-pages/PublicProfileContactList';
 import { AccessRole } from './accessRole.type';
@@ -14,6 +14,9 @@ export type Page = {
   accessRole: AccessRole;
 };
 
+/**
+ * WIP
+ */
 export const pages = {
   test: {
     path: linksRecords.testingPage,
@@ -31,10 +34,11 @@ export const pages = {
     accessRole: AccessRole.Private,
   },
   profile: {
-    path: '/profile',
-    Component: Profile,
+    path: linksRecords.profilePage,
+    Component: ProfilePage,
     accessRole: AccessRole.Private,
   },
+  // should following routes be a sub routes?? research Athena...
   contactList: {
     path: '/profile/social/:option',
     Component: ContactList,

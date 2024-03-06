@@ -6,10 +6,11 @@ import ModalBase from 'styled-react-modal';
 type ModalProps = {
   modalIsOpen: boolean;
   setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  heightFixed?: boolean;
   hasCloseButton?: boolean;
-  actions?: ReactNode[];
   actionsPositionSticky?: ActionsPositionSticky;
   actionsContentAlinement: ActionsContentAlinement;
+  actions?: ReactNode[];
   children: ReactNode;
 };
 
@@ -20,8 +21,9 @@ export const Modal = (props: ModalProps) => {
   const {
     modalIsOpen,
     setModalIsOpen,
-    hasCloseButton,
-    actionsPositionSticky,
+    heightFixed = false,
+    hasCloseButton = false,
+    actionsPositionSticky = false,
     actionsContentAlinement,
     actions,
     children,
@@ -33,16 +35,20 @@ export const Modal = (props: ModalProps) => {
 
   return (
     <ModalBase isOpen={modalIsOpen} onBackgroundClick={closeModal}>
-      <Wrapper>
-        <WrapperActions actionsPositionSticky={actionsPositionSticky}>
+      <Wrapper heightFixed={heightFixed}>
+        <ActionsWrapper
+          hasCloseButton={hasCloseButton}
+          actionsPositionSticky={actionsPositionSticky}
+        >
           {hasCloseButton && <CloseButton onClick={closeModal} />}
-          <WrapperActionsContent
+          <ActionsContentWrapper
+            hasCloseButton={hasCloseButton}
             actionsContentAlinement={actionsContentAlinement}
           >
             {actions}
-          </WrapperActionsContent>
-        </WrapperActions>
-        {children}
+          </ActionsContentWrapper>
+        </ActionsWrapper>
+        <ChildrenWrapper>{children}</ChildrenWrapper>
       </Wrapper>
     </ModalBase>
   );
@@ -57,35 +63,44 @@ export const ModalBackground = styled.div`
   left: 0;
   width: 100%;
   height: 100vh;
-  z-index: 1;
+  z-index: 2;
   opacity: 100%;
   background-color: ${Colors.grayModalBackgroundShadow};
 `;
 
-const Wrapper = styled.div`
-  background-color: ${Colors.black};
+const Wrapper = styled.div<{ heightFixed: boolean }>`
+  overflow-y: ${({ heightFixed }) => heightFixed && 'scroll'};
+  height: ${({ heightFixed }) => heightFixed && '65vh'};
+  width: 40rem;
   border-radius: 1rem;
+  background-color: ${Colors.black};
 `;
 
-const WrapperActions = styled.div<{
-  actionsPositionSticky?: ActionsPositionSticky;
+const ActionsWrapper = styled.div<{
+  hasCloseButton: boolean;
+  actionsPositionSticky: ActionsPositionSticky;
 }>`
-  // to be tested
-  position: ${(props) => (props.actionsPositionSticky ? 'sticky' : 'static')};
+  position: ${({ actionsPositionSticky }) =>
+    actionsPositionSticky ? 'sticky' : 'static'};
+  backdrop-filter: ${({ actionsPositionSticky }) =>
+    actionsPositionSticky && 'blur(10px)'};
+  top: 0;
   padding: 1rem;
-  padding-right: 2.5rem;
+  padding-right: ${({ hasCloseButton }) => hasCloseButton && '3.5rem'};
   display: flex;
   align-items: center;
 `;
 
-const WrapperActionsContent = styled.div<{
+const ActionsContentWrapper = styled.div<{
+  hasCloseButton: boolean;
   actionsContentAlinement: ActionsContentAlinement;
 }>`
   width: 100%;
   display: flex;
-  align-items: 'center';
-  justify-content: ${(props) => props.actionsContentAlinement ?? 'center'};
-  padding-left: 2.5rem;
+  justify-content: ${({ actionsContentAlinement }) =>
+    actionsContentAlinement ?? 'center'};
+  align-items: center;
+  padding-left: ${({ hasCloseButton }) => hasCloseButton && '3rem'};
 `;
 
 const CloseButton = styled(CrossIcon)`
@@ -93,4 +108,8 @@ const CloseButton = styled(CrossIcon)`
   height: 1.5rem;
   fill: ${Colors.grayLight};
   cursor: pointer;
+`;
+
+const ChildrenWrapper = styled.div`
+  padding: 0 75px 25px 75px;
 `;

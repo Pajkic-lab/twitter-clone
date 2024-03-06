@@ -29,7 +29,7 @@ type Links = {
  * Links being used:
  * pages.ts
  * sidebar-data.ts
- * and in navigation function
+ * and in navigation functions
  */
 export const linksRecords = {
   //   home: '/',
@@ -55,4 +55,5 @@ export const linksRecords = {
   landingPage: '/',
   testingPage: '/test',
   homePage: '/home',
+  profilePage: '/profile',
 } as const satisfies Links;

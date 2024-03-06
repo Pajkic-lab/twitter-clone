@@ -1,30 +1,19 @@
-import { Colors } from '@tw/ui/assets';
-// import moment from 'moment';
-import React from 'react';
+import { UserResponseDto } from '@tw/data';
+import { Colors, LocationIcon, WebLinkIcon, calenderIcon } from '@tw/ui/assets';
+import dayjs from 'dayjs';
 import styled from 'styled-components';
-import { ReactComponent as Calender } from '../../../../../assets/svg/calender.svg';
-import { ReactComponent as Location } from '../../../../../assets/svg/location.svg';
-import { ReactComponent as WebLink } from '../../../../../assets/svg/webLink.svg';
 
-interface Props {
-  name: string;
-  uniqueName: string;
-  bio: string;
-  location: string;
-  website: string;
-  createdAt: string | Date;
+interface PersonalInformationProps {
+  user: UserResponseDto;
 }
 
-export const ProfileData: React.FC<Props> = ({
-  name,
-  uniqueName,
-  bio,
-  location,
-  website,
-  createdAt,
-}: Props) => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-  // const formattedTime = moment(createdAt).format('MMMM YYYY');
+export const PersonalInformation = (props: PersonalInformationProps) => {
+  const {
+    user: { name, uniqueName, bio, createdAt, location, website },
+  } = props;
+
+  const formattedTime = dayjs(createdAt).format('MMMM YYYY');
+
   return (
     <>
       <TextWrapper>
@@ -46,8 +35,8 @@ export const ProfileData: React.FC<Props> = ({
           </WebLinkSpan>
         </LocationAndWebsiteWrapper>
         <DateWrapper>
-          <CanlenderLogo />
-          {/* <SpanBio>Joined {formattedTime}</SpanBio> */}
+          <CalenderLogo />
+          <SpanBio>Joined {formattedTime}</SpanBio>
         </DateWrapper>
       </DescriptionWrapper>
     </>
@@ -88,14 +77,14 @@ const LocationAndWebsiteWrapper = styled.div`
   justify-content: start;
 `;
 
-const LocationLogo = styled(Location)`
+const LocationLogo = styled(LocationIcon)`
   fill: ${Colors.graySecondary};
   width: 1.5rem;
   height: 1.5rem;
   margin-right: 0.3rem;
 `;
 
-const WebLinkLogo = styled(WebLink)`
+const WebLinkLogo = styled(WebLinkIcon)`
   fill: ${Colors.graySecondary};
   width: 1.5rem;
   height: 1.5rem;
@@ -116,7 +105,7 @@ const DateWrapper = styled.div`
   justify-content: start;
 `;
 
-const CanlenderLogo = styled(Calender)`
+const CalenderLogo = styled(calenderIcon)`
   fill: ${Colors.graySecondary};
   width: 1.5rem;
   height: 1.5rem;

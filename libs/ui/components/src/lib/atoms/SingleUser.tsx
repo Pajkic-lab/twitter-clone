@@ -13,7 +13,7 @@ type SingleUserProps = {
  */
 
 /**
- * There should probably be user list component which is going to contain single user
+ * There should probably be user list component which is going to contain SingleUser
  * and which is going to be reused all over the app as polymorphic component.
  */
 export const SingleUser = (props: SingleUserProps) => {

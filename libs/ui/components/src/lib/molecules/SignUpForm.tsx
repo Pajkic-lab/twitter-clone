@@ -64,7 +64,7 @@ export const SignUpForm = (props: SignUpModalProps) => {
   }, [errorMessage]);
 
   return (
-    <ContentWrapper>
+    <>
       <H1>Create your account</H1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormInput
@@ -99,14 +99,9 @@ export const SignUpForm = (props: SignUpModalProps) => {
           Sign Up
         </JumboButton>
       </form>
-    </ContentWrapper>
+    </>
   );
 };
-
-const ContentWrapper = styled.div`
-  padding: 0 75px 25px 75px;
-  width: 40rem;
-`;
 
 const H1 = styled.h1`
   font-size: 32px;

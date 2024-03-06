@@ -1,7 +1,7 @@
 import { Colors } from '@tw/ui/assets';
 import styled from 'styled-components';
 
-export const MainLane = () => {
+export const HomeMainLane = () => {
   return (
     <Wrapper>
       <TabWrapper>

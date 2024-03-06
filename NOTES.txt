@@ -39,25 +39,40 @@ render alternative Cyclic: https://www.cyclic.sh/
     https://refactoring.guru/
 - and after that you should be doing coding challenges daily / or find open source project and contribute to it...
 
+- create separate branch and test out these two libraries 
+    https://www.npmjs.com/package/@ts-rest/core
+    https://www.npmjs.com/package/nestjs-zod, have to test this library, will DTO validate on front as well in runtime, not sure...
+    if these tow libraries can be applied that would greatly improve safety of app. should test it out. When it actually validate on back and on front?
+
+- Should research amplication project backend, make it work on local machine...
 
     /*
     * TODO
     */
 
-- Do Profile page.
-
-- WhoToFollwo should probably be renamed to users list??? and also Follow button is missing, should be optional for users list.
-
 - read finally flex box article
-- research editprofile how sticky works?????
 
+- create update user modal, refactor rest of modals, there are some small ui problems...
 - modals, position icon to center, 
 - x icon is to thin
 - margins looks sketchy
 
+- profile should be sticky, this should solve problem with height.
+
+- update user
+
+- refactore sidebar and mediabar, no need to have hooks outside
+
+- DO Public Profile
+
+- Do Tooltip to wrap user, to show minified version of public profile page...
+
+- WhoToFollwo should probably be renamed to users list??? and also Follow button is missing, should be optional for users list.
+
+- research editprofile how sticky works?????
 
 
 
-
-
+-after finishing auth user and social should set base value from 14px to 16px (this should be researched if it's tru at twitter) 
+and go thru all design and do changes to be 1 to 1 with wire frames.
 

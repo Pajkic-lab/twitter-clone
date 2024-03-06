@@ -1,74 +1,48 @@
 import { UserResponseDto } from '@tw/data';
-import { Colors, TwitterIcon } from '@tw/ui/assets';
+import { Colors } from '@tw/ui/assets';
 import {
-  HomeMainLane,
+  EditProfileForm,
   Mediabar,
   Modal,
-  SetAccountForm,
+  ProfileMainLane,
+  SecondaryButton,
   Sidebar,
   Trends,
-  UniqueNameFormData,
   WhoToFollow,
 } from '@tw/ui/components';
 import {
-  useCheckUniqueUserNameMutation,
   useMediabarState,
   useMostPopularUsersQuery,
   useSearchUserMutation,
   useSidebarState,
-  useUpdateUniqueUserNameMutation,
+  useSocialQuery,
   useUserQuery,
 } from '@tw/ui/data-access';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
 
-/* WIP */
-export const HomePage = () => {
+export const ProfilePage = () => {
+  // all the logic should be moved to organisms, there is no need to have it on every page, same goes for HomePage
+
   const location = useLocation();
   const { sidebarCollapsed } = useSidebarState();
   const { mediabarSize } = useMediabarState();
 
   const useUser = useUserQuery();
-  const checkUniqueUserName = useCheckUniqueUserNameMutation();
-  const updateUniqueUserName = useUpdateUniqueUserNameMutation();
   const useSearchUser = useSearchUserMutation();
   const { data: mostPopularUsers, isFetching: isMostPopularUsersLoading } =
     useMostPopularUsersQuery();
+  const { data: socialStats } = useSocialQuery();
+
+  const [isEditProfileModalOpen, setEditModalProfileOpen] =
+    useState<boolean>(false);
 
   const user = useUser.data ?? ({} as UserResponseDto);
   const { name, avatar, uniqueName } = user;
-
-  const { isNameUnique } = checkUniqueUserName.data ?? {};
   const { data: searchUserRes, isPending: searchIsLoading } = useSearchUser;
 
-  // unique name logic
-  const onSubmitUniqueName = useCallback(
-    (uniqueNameFormData: UniqueNameFormData) => {
-      updateUniqueUserName.mutate(uniqueNameFormData);
-    },
-    [updateUniqueUserName]
-  );
-
-  const onChangeUniqueName = useCallback(
-    (uniqueName: string) => {
-      checkUniqueUserName.mutate({ uniqueName });
-    },
-    [checkUniqueUserName]
-  );
-
-  const userHasNoUniqueName = useMemo(
-    () => !uniqueName && !useUser.isFetching,
-    [uniqueName, useUser.isFetching]
-  );
-
-  const isNameUniqueServerResponse = useMemo(
-    () => !!isNameUnique,
-    [isNameUnique]
-  );
-
-  // search logic
   const searchInputOnChange = useCallback(
     async (searchData: string) => {
       if (!searchData) {
@@ -78,6 +52,10 @@ export const HomePage = () => {
     },
     [useSearchUser]
   );
+
+  const openEditProfileModal = () => {
+    setEditModalProfileOpen(true);
+  };
 
   return (
     <PageWrapper>
@@ -89,7 +67,32 @@ export const HomePage = () => {
         collapsed={sidebarCollapsed}
       />
 
-      <HomeMainLane />
+      <ProfileMainLane
+        user={user}
+        socialStats={socialStats}
+        profileActions={
+          <EditProfileButton onClick={openEditProfileModal}>
+            Edit profile
+          </EditProfileButton>
+        }
+        profileModal={
+          <Modal
+            modalIsOpen={isEditProfileModalOpen}
+            setModalIsOpen={setEditModalProfileOpen}
+            actionsContentAlinement={'space-between'}
+            hasCloseButton
+            actionsPositionSticky
+            heightFixed
+            actions={[
+              <Text key={uuid()}>Edit profile</Text>,
+              <EditProfileButton key={uuid()} $width={5}>
+                save
+              </EditProfileButton>,
+            ]}
+            children={<EditProfileForm />}
+          />
+        }
+      />
 
       <Mediabar
         mediabarSize={mediabarSize}
@@ -105,21 +108,6 @@ export const HomePage = () => {
         }
         bottomWindow={<Trends />}
       />
-
-      <Modal
-        setModalIsOpen={() => undefined}
-        modalIsOpen={userHasNoUniqueName}
-        actionsContentAlinement={'center'}
-        actions={[<TwLogo key={uuid()} />]}
-      >
-        <SetAccountForm
-          onSubmit={onSubmitUniqueName}
-          onChange={onChangeUniqueName}
-          isNameUnique={isNameUniqueServerResponse}
-          isFormSubmitting={updateUniqueUserName.isPending}
-          isUniqueNameChecking={checkUniqueUserName.isPending}
-        />
-      </Modal>
     </PageWrapper>
   );
 };
@@ -129,8 +117,12 @@ const PageWrapper = styled.div`
   justify-content: center;
 `;
 
-const TwLogo = styled(TwitterIcon)`
-  fill: ${Colors.grayLight};
-  width: 2.5rem;
-  height: 2.5rem;
+const EditProfileButton = styled(SecondaryButton)`
+  color: ${Colors.grayPrimary};
+  height: 2.286rem;
+  padding: 0 16px;
+`;
+
+const Text = styled.span`
+  color: ${Colors.grayPrimary};
 `;

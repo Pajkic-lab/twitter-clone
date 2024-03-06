@@ -72,7 +72,7 @@ export const SetAccountForm = (props: SetAccountFormProps) => {
   // }, [nameNotApproved, uniqueName]);
 
   return (
-    <ModalSection>
+    <>
       <H1>What should we call you?</H1>
       <H5>Your @username is unique. You can always change it later.</H5>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -91,16 +91,9 @@ export const SetAccountForm = (props: SetAccountFormProps) => {
           Join us
         </JumboButton>
       </form>
-    </ModalSection>
+    </>
   );
 };
-
-const ModalSection = styled.div`
-  position: relative;
-  border-radius: 1rem;
-  padding: 0 75px 25px 75px;
-  background-color: ${Colors.black};
-`;
 
 const H1 = styled.h1`
   color: ${Colors.white};
