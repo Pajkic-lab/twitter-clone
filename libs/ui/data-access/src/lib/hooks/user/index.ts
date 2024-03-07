@@ -82,6 +82,9 @@ export const useUpdateUserMutation = () => {
       const res = await http.user.updateUser(updateUserFormData);
       return res.data.payload;
     },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [userQueryKey] });
+    },
     onError: (error) => {
       if (isAxiosError(error)) {
         return (error.message = error.response?.data.message);

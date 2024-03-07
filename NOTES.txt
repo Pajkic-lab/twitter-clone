@@ -50,10 +50,10 @@ render alternative Cyclic: https://www.cyclic.sh/
     * TODO
     */
 
-- read finally flex box article
 
-- update user hook
-- research split form from submit button!!!
+- fix backend update user, rethink image upload and add deletion
+
+- read finally flex box article
 
 - refactore sidebar and mediabar, no need to have hooks outside
 
@@ -69,4 +69,3 @@ render alternative Cyclic: https://www.cyclic.sh/
 
 -after finishing auth user and social should set base value from 14px to 16px (this should be researched if it's tru at twitter) 
 and go thru all design and do changes to be 1 to 1 with wire frames.
-

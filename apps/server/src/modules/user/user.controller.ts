@@ -56,7 +56,7 @@ export class UserController {
     return this.userService.updateUniqueUserName(request.user.id, body);
   }
 
-  @Patch('update')
+  @Patch()
   @UseGuards(IsAuthGuard)
   handleUpdateUser(
     @Req() request: RequestContainingUserId,

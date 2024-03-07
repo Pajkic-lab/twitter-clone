@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { UpdateUserRequestDto } from '@tw/data';
+import { UserResponseDto } from '@tw/data';
 import { colors } from '@tw/ui/assets';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
@@ -11,24 +11,26 @@ import { FormInput } from './FormInput';
 
 // have to add validation on backend, at front can not add validation to be optional and to have min max...
 const updateUserSchema = z.object({
-  cover: z.optional(z.string()),
-  avatar: z.optional(z.string()),
-  name: z.optional(z.string()),
-  bio: z.optional(z.string()),
-  location: z.optional(z.string()),
-  website: z.optional(z.string()),
+  name: z.optional(z.string().nullish()),
+  bio: z.optional(z.string().nullish()),
+  location: z.optional(z.string().nullish()),
+  website: z.optional(z.string().nullish()),
+  cover: z.optional(z.string().nullish()),
+  avatar: z.optional(z.string().nullish()),
 });
 
 export type UpdateUserFormData = z.infer<typeof updateUserSchema>;
 
 type EditProfileFormProps = {
-  setUserFormData: React.Dispatch<React.SetStateAction<UpdateUserRequestDto>>;
+  formId: string;
+  onSubmitUpdateUser: (userFromData: UpdateUserFormData) => void;
+  user: UserResponseDto;
 };
 
 export const EditProfileForm = (props: EditProfileFormProps) => {
-  const { setUserFormData } = props;
+  const { formId, onSubmitUpdateUser, user } = props;
 
-  const { handleSubmit, control, formState, setError, watch } =
+  const { handleSubmit, control, formState, setError, watch, setValue } =
     useForm<UpdateUserFormData>({
       resolver: zodResolver(updateUserSchema),
       criteriaMode: 'all',
@@ -43,19 +45,20 @@ export const EditProfileForm = (props: EditProfileFormProps) => {
       },
     });
 
-  const { isValid } = formState;
-
-  const updateUserFormData = watch();
-  const { avatar, bio, cover, location, name, website } = updateUserFormData;
+  const { avatar, cover } = watch();
 
   useEffect(() => {
-    setUserFormData({ avatar, bio, cover, location, name, website });
-  }, [avatar, bio, cover, location, name, website]);
+    if (user) {
+      Object.entries(user).forEach(([key, value]) => {
+        setValue(key as keyof UpdateUserFormData, value);
+      });
+    }
+  }, [user, setValue]);
 
   return (
     <Wrapper>
-      <form>
-        <CoverWrapper $backgroundImage={updateUserFormData.cover}>
+      <form id={formId} onSubmit={handleSubmit(onSubmitUpdateUser)}>
+        <CoverWrapper $backgroundImage={cover}>
           <FormImageInput
             control={control}
             id={uuid()}
@@ -63,8 +66,7 @@ export const EditProfileForm = (props: EditProfileFormProps) => {
             name={'cover'}
           />
         </CoverWrapper>
-
-        <AvatarWrapper $backgroundImage={updateUserFormData.avatar}>
+        <AvatarWrapper $backgroundImage={avatar}>
           <FormImageInput
             control={control}
             id={uuid()}
@@ -72,7 +74,6 @@ export const EditProfileForm = (props: EditProfileFormProps) => {
             name={'avatar'}
           />
         </AvatarWrapper>
-
         <FormInput control={control} name="name" id={uuid()} type="text" />
         <FormInput control={control} name="bio" id={uuid()} type="text" />
         <FormInput control={control} name="location" id={uuid()} type="text" />
@@ -84,7 +85,7 @@ export const EditProfileForm = (props: EditProfileFormProps) => {
 
 const Wrapper = styled.div``;
 
-const CoverWrapper = styled.div<{ $backgroundImage?: string }>`
+const CoverWrapper = styled.div<{ $backgroundImage?: string | null }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -102,7 +103,7 @@ const CoverWrapper = styled.div<{ $backgroundImage?: string }>`
   background-size: cover;
 `;
 
-const AvatarWrapper = styled.div<{ $backgroundImage?: string }>`
+const AvatarWrapper = styled.div<{ $backgroundImage?: string | null }>`
   position: relative;
   top: -4rem;
   left: 0.5rem;

@@ -3,25 +3,25 @@ import { IsOptional, IsString } from 'class-validator';
 export class UpdateUserRequestDto {
   @IsOptional()
   @IsString()
-  name: string | undefined;
+  name?: string | null;
 
   @IsOptional()
   @IsString()
-  bio: string | undefined;
+  bio?: string | null;
 
   @IsOptional()
   @IsString()
-  location: string | undefined;
+  location?: string | null;
 
   @IsOptional()
   @IsString()
-  website: string | undefined;
+  website?: string | null;
 
   @IsOptional()
   @IsString()
-  cover: string | undefined;
+  cover?: string | null;
 
   @IsOptional()
   @IsString()
-  avatar: string | undefined;
+  avatar?: string | null;
 }

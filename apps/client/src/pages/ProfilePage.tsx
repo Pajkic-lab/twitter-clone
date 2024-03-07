@@ -1,4 +1,4 @@
-import { UpdateUserRequestDto, UserResponseDto } from '@tw/data';
+import { UserResponseDto } from '@tw/data';
 import { colors } from '@tw/ui/assets';
 import {
   EditProfileForm,
@@ -8,6 +8,7 @@ import {
   SecondaryButton,
   Sidebar,
   Trends,
+  UpdateUserFormData,
   WhoToFollow,
 } from '@tw/ui/components';
 import {
@@ -24,6 +25,8 @@ import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
 
+const UPDATE_USER_FORM_ID = uuid();
+
 export const ProfilePage = () => {
   // all the logic should be moved to organisms, there is no need to have it on every page, same goes for HomePage
 
@@ -36,7 +39,8 @@ export const ProfilePage = () => {
   const { data: mostPopularUsers, isFetching: isMostPopularUsersLoading } =
     useMostPopularUsersQuery();
   const { data: socialStats } = useSocialQuery();
-  const useUpdateUser = useUpdateUserMutation();
+  const { mutate: updateUserMutate, isPending: updateUserLoading } =
+    useUpdateUserMutation();
 
   const [isEditProfileModalOpen, setEditModalProfileOpen] =
     useState<boolean>(false);
@@ -55,27 +59,16 @@ export const ProfilePage = () => {
     [useSearchUser]
   );
 
+  const onSubmitUpdateUser = useCallback(
+    (userFormData: UpdateUserFormData) => {
+      updateUserMutate(userFormData);
+    },
+    [updateUserMutate]
+  );
+
   const openEditProfileModal = () => {
     setEditModalProfileOpen(true);
   };
-
-  //
-  const [userFormData, setUserFormData] = useState<UpdateUserRequestDto>({
-    avatar: '',
-    cover: '',
-    name: '',
-    bio: '',
-    location: '',
-    website: '',
-  });
-
-  console.log(userFormData);
-
-  const updateUserFormOnSubmit = useCallback(() => {
-    useUpdateUser.mutate(userFormData);
-  }, [useUpdateUser]);
-
-  //
 
   return (
     <PageWrapper>
@@ -107,13 +100,21 @@ export const ProfilePage = () => {
               <Text key={uuid()}>Edit profile</Text>,
               <EditProfileButton
                 key={uuid()}
+                form={UPDATE_USER_FORM_ID}
+                type="submit"
                 $width={5}
-                // onClick={handleUpdateUserFromChange}
+                loading={updateUserLoading}
               >
                 save
               </EditProfileButton>,
             ]}
-            children={<EditProfileForm setUserFormData={setUserFormData} />}
+            children={
+              <EditProfileForm
+                formId={UPDATE_USER_FORM_ID}
+                onSubmitUpdateUser={onSubmitUpdateUser}
+                user={user}
+              />
+            }
           />
         }
       />
