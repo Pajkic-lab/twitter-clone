@@ -50,12 +50,20 @@ render alternative Cyclic: https://www.cyclic.sh/
     * TODO
     */
 
-
+- fix error handling for rest of the modals
+- update user backend validation. handle error.
+- prevent nudity in production https://cloudinary.com/documentation/webpurify_image_moderation_addon
 - fix backend update user, rethink image upload and add deletion
+
+- error handling on all forms is bed, fix it...
 
 - read finally flex box article
 
 - refactore sidebar and mediabar, no need to have hooks outside
+
+- css small fixex
+
+- research editprofile how sticky works?????
 
 - DO Public Profile
 
@@ -63,7 +71,6 @@ render alternative Cyclic: https://www.cyclic.sh/
 
 - WhoToFollwo should probably be renamed to users list??? and also Follow button is missing, should be optional for users list.
 
-- research editprofile how sticky works?????
 
 
 

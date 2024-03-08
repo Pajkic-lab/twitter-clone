@@ -80,7 +80,6 @@ export const http = {
     updateUser(
       updateUser: UpdateUserRequestDto
     ): Promise<AxiosResponse<HttpResponse<UpdateUserResponseDto>>> {
-      // remove '/update/' and test it
       return httpClient.patch('user', updateUser);
     },
     getPublicUser(id: number): Promise<

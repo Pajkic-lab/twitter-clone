@@ -1,5 +1,6 @@
 import { UserResponseDto } from '@tw/data';
 import { colors } from '@tw/ui/assets';
+import { ParsedError } from '@tw/ui/common';
 import {
   EditProfileForm,
   Mediabar,
@@ -39,15 +40,22 @@ export const ProfilePage = () => {
   const { data: mostPopularUsers, isFetching: isMostPopularUsersLoading } =
     useMostPopularUsersQuery();
   const { data: socialStats } = useSocialQuery();
-  const { mutate: updateUserMutate, isPending: updateUserLoading } =
-    useUpdateUserMutation();
+
+  const {
+    mutate: updateUserMutate,
+    isPending: updateUserLoading,
+    error,
+  } = useUpdateUserMutation();
+
+  const updateUserErrorMessage = error?.message as ParsedError;
+
+  const user = useUser.data ?? ({} as UserResponseDto);
+
+  const { name, avatar, uniqueName } = user;
+  const { data: searchUserRes, isPending: searchIsLoading } = useSearchUser;
 
   const [isEditProfileModalOpen, setEditModalProfileOpen] =
     useState<boolean>(false);
-
-  const user = useUser.data ?? ({} as UserResponseDto);
-  const { name, avatar, uniqueName } = user;
-  const { data: searchUserRes, isPending: searchIsLoading } = useSearchUser;
 
   const searchInputOnChange = useCallback(
     async (searchData: string) => {
@@ -110,9 +118,10 @@ export const ProfilePage = () => {
             ]}
             children={
               <EditProfileForm
+                user={user}
+                error={updateUserErrorMessage}
                 formId={UPDATE_USER_FORM_ID}
                 onSubmitUpdateUser={onSubmitUpdateUser}
-                user={user}
               />
             }
           />

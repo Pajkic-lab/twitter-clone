@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { UserResponseDto } from '@tw/data';
 import { colors } from '@tw/ui/assets';
+import { ParsedError } from '@tw/ui/common';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
@@ -9,7 +10,9 @@ import { z } from 'zod';
 import { FormImageInput } from './FormImageInput';
 import { FormInput } from './FormInput';
 
-// have to add validation on backend, at front can not add validation to be optional and to have min max...
+/*
+ *zod validation is not settable for frontend validation, additional validation added to backend
+ */
 const updateUserSchema = z.object({
   name: z.optional(z.string().nullish()),
   bio: z.optional(z.string().nullish()),
@@ -25,25 +28,33 @@ type EditProfileFormProps = {
   formId: string;
   onSubmitUpdateUser: (userFromData: UpdateUserFormData) => void;
   user: UserResponseDto;
+  error: ParsedError;
 };
 
 export const EditProfileForm = (props: EditProfileFormProps) => {
-  const { formId, onSubmitUpdateUser, user } = props;
+  const { formId, onSubmitUpdateUser, user, error } = props;
 
-  const { handleSubmit, control, formState, setError, watch, setValue } =
-    useForm<UpdateUserFormData>({
-      resolver: zodResolver(updateUserSchema),
-      criteriaMode: 'all',
-      mode: 'onBlur',
-      defaultValues: {
-        cover: '',
-        avatar: '',
-        name: '',
-        bio: '',
-        location: '',
-        website: '',
-      },
-    });
+  const {
+    handleSubmit,
+    control,
+    formState,
+    setError,
+    clearErrors,
+    watch,
+    setValue,
+  } = useForm<UpdateUserFormData>({
+    resolver: zodResolver(updateUserSchema),
+    criteriaMode: 'all',
+    mode: 'onBlur',
+    defaultValues: {
+      cover: '',
+      avatar: '',
+      name: '',
+      bio: '',
+      location: '',
+      website: '',
+    },
+  });
 
   const { avatar, cover } = watch();
 
@@ -55,8 +66,18 @@ export const EditProfileForm = (props: EditProfileFormProps) => {
     }
   }, [user, setValue]);
 
+  useEffect(() => {
+    if (error) {
+      Object.entries(error).forEach(([fieldName, errorMessage]) => {
+        setError(fieldName as keyof UpdateUserFormData, {
+          message: errorMessage,
+        });
+      });
+    }
+  }, [error, setError]);
+
   return (
-    <Wrapper>
+    <>
       <form id={formId} onSubmit={handleSubmit(onSubmitUpdateUser)}>
         <CoverWrapper $backgroundImage={cover}>
           <FormImageInput
@@ -79,11 +100,9 @@ export const EditProfileForm = (props: EditProfileFormProps) => {
         <FormInput control={control} name="location" id={uuid()} type="text" />
         <FormInput control={control} name="website" id={uuid()} type="text" />
       </form>
-    </Wrapper>
+    </>
   );
 };
-
-const Wrapper = styled.div``;
 
 const CoverWrapper = styled.div<{ $backgroundImage?: string | null }>`
   display: flex;

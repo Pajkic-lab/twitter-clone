@@ -4,6 +4,7 @@ import {
   SearchUserRequestDto,
   UpdateUserRequestDto,
 } from '@tw/data';
+import { errorParser } from '@tw/ui/common';
 import { isAxiosError } from 'axios';
 import { http } from '../../http/api';
 import { queryClient } from '../core';
@@ -85,10 +86,8 @@ export const useUpdateUserMutation = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [userQueryKey] });
     },
-    onError: (error) => {
-      if (isAxiosError(error)) {
-        return (error.message = error.response?.data.message);
-      }
+    onError: (error: any) => {
+      return (error.message = errorParser(error.response?.data.message));
     },
   });
 };
