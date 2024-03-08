@@ -27,19 +27,6 @@ export const LandingPage = () => {
   const signInMutation = useSignInMutation();
   const signUpMutation = useSignUpMutation();
 
-  /**
-   * Google auth is being triggered this way because it does not make issue at backend when redirecting back to front,
-   * solutions should be researched and implemented
-   */
-  const googleSignIn = () => {
-    process.env.NODE_ENV == 'production'
-      ? window.open('/auth/google/sign-in', '_self')
-      : window.open('http://localhost:5000/auth/google/sign-in', '_self');
-  };
-  const appleSignIn = () => {
-    window.open('http://shorturl.at/nDFY3', '_blank');
-  };
-
   const [signUpModalIsOpen, setSignUpModalIsOpen] = useState<boolean>(false);
   const [signInModalIsOpen, setSignInModalIsOpen] = useState<boolean>(false);
 
@@ -56,6 +43,19 @@ export const LandingPage = () => {
     },
     [signInMutation]
   );
+
+  /**
+   * Google auth is being triggered this way because it does not make issue at backend when redirecting back to front,
+   * solutions should be researched and implemented
+   */
+  const googleSignIn = () => {
+    process.env.NODE_ENV == 'production'
+      ? window.open('/auth/google/sign-in', '_self')
+      : window.open('http://localhost:5000/auth/google/sign-in', '_self');
+  };
+  const appleSignIn = () => {
+    window.open('http://shorturl.at/nDFY3', '_blank');
+  };
 
   return (
     <PageWrapper>

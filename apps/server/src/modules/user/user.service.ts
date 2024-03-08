@@ -20,6 +20,7 @@ import {
   UserBase,
   UserResponseDto,
 } from '@tw/data';
+import isBase64 from 'is-base64';
 import { InjectMapper } from '../../common/decorators/inject-mapper.decorator';
 import { createResponse } from '../../common/http/create-response';
 import { CloudinaryService } from '../cloudinary/cloudinary.service';
@@ -99,28 +100,22 @@ export class UserService {
     userId: number,
     updateUser: UpdateUserRequestDto
   ): Promise<HttpResponse<UpdateUserResponseDto>> {
-    let avatarUrl: string = '';
-    let coverUrl: string = '';
-
-    if (updateUser.avatar) {
+    if (updateUser.avatar && isBase64(updateUser.avatar)) {
       const { url } = await this.cloudinaryService.uploadImage(
         updateUser.avatar,
         userId,
-        MediaDirectory.Private
+        MediaDirectory.avatar
       );
-      avatarUrl = url;
+      updateUser.avatar = url;
     }
-    if (updateUser.cover) {
+    if (updateUser.cover && isBase64(updateUser.cover)) {
       const { url } = await this.cloudinaryService.uploadImage(
         updateUser.cover,
         userId,
-        MediaDirectory.Private
+        MediaDirectory.cover
       );
-      coverUrl = url;
+      updateUser.cover = url;
     }
-
-    updateUser.avatar = avatarUrl;
-    updateUser.cover = coverUrl;
 
     const user = await this.userRepository.updateUser(userId, updateUser);
 

@@ -1,7 +1,7 @@
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
-import { Request } from 'express';
-import { Social, User } from '@prisma/client';
 import { AutoMap } from '@automapper/classes';
+import { Social, User } from '@prisma/client';
+import { IsNotEmpty, IsNumber } from 'class-validator';
+import { Request } from 'express';
 
 export class UserBase implements User {
   @AutoMap()
@@ -78,8 +78,8 @@ export class CreatableGoogleUser {
   name: string;
 }
 
-// should be renamed moved to separate dir and refactored, don't know yet how to organize this
 export enum MediaDirectory {
-  Private = 'private',
-  Public = 'public',
+  avatar = 'avatar',
+  cover = 'cover',
+  post = 'post',
 }
