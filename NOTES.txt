@@ -55,9 +55,6 @@ updateUser has parser build to handle class-validation, research how to do it at
     */
 
 
-
-- read finally flex box article
-
 - refactor sidebar and mediabar, no need to have hooks outside
 - refactor and unify way how to handle data coming from query and mutation
 
@@ -70,8 +67,6 @@ updateUser has parser build to handle class-validation, research how to do it at
 - Do Tooltip to wrap user, to show minified version of public profile page...
 
 - WhoToFollwo should probably be renamed to users list??? and also Follow button is missing, should be optional for users list.
-
-
 
 
 

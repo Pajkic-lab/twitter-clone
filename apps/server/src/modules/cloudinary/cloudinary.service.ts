@@ -30,7 +30,7 @@ export class CloudinaryService extends CloudinaryBase {
 
   async deleteDir(userId: number, dir: MediaDirectory) {
     try {
-      const result = await cloudinary.api.delete_resources_by_prefix(
+      return await cloudinary.api.delete_resources_by_prefix(
         `twitter-clone/user:${userId}/${dir}`
       );
     } catch (error) {

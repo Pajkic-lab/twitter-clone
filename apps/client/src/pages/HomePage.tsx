@@ -24,7 +24,6 @@ import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
 
-/* WIP */
 export const HomePage = () => {
   const location = useLocation();
   const { sidebarCollapsed } = useSidebarState();
