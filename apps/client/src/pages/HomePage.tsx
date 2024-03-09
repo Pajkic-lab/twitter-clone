@@ -12,54 +12,50 @@ import {
 } from '@tw/ui/components';
 import {
   useCheckUniqueUserNameMutation,
-  useMediabarState,
   useMostPopularUsersQuery,
-  useSearchUserMutation,
-  useSidebarState,
   useUpdateUniqueUserNameMutation,
   useUserQuery,
 } from '@tw/ui/data-access';
 import { useCallback, useMemo } from 'react';
-import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
 
 export const HomePage = () => {
-  const location = useLocation();
-  const { sidebarCollapsed } = useSidebarState();
-  const { mediabarSize } = useMediabarState();
-
-  const useUser = useUserQuery();
-  const checkUniqueUserName = useCheckUniqueUserNameMutation();
-  const updateUniqueUserName = useUpdateUniqueUserNameMutation();
-  const useSearchUser = useSearchUserMutation();
+  const { data: user, isPending: userIsLoading } = useUserQuery();
   const { data: mostPopularUsers, isFetching: isMostPopularUsersLoading } =
     useMostPopularUsersQuery();
 
-  const user = useUser.data ?? ({} as UserResponseDto);
-  const { name, avatar, uniqueName } = user;
+  const {
+    data: uniqueUserName,
+    mutate: checkUniqueUserNameMutate,
+    isPending: checkUniqueNameLoading,
+  } = useCheckUniqueUserNameMutation();
 
-  const { isNameUnique } = checkUniqueUserName.data ?? {};
-  const { data: searchUserRes, isPending: searchIsLoading } = useSearchUser;
+  const {
+    mutate: updateUniqueUserNameMutate,
+    isPending: updateUniqueUserNameLoading,
+  } = useUpdateUniqueUserNameMutation();
 
-  // unique name logic
+  const { uniqueName } = user ?? ({} as UserResponseDto);
+  const { isNameUnique } = uniqueUserName ?? {};
+
   const onSubmitUniqueName = useCallback(
     (uniqueNameFormData: UniqueNameFormData) => {
-      updateUniqueUserName.mutate(uniqueNameFormData);
+      updateUniqueUserNameMutate(uniqueNameFormData);
     },
-    [updateUniqueUserName]
+    [updateUniqueUserNameMutate]
   );
 
   const onChangeUniqueName = useCallback(
     (uniqueName: string) => {
-      checkUniqueUserName.mutate({ uniqueName });
+      checkUniqueUserNameMutate({ uniqueName });
     },
-    [checkUniqueUserName]
+    [checkUniqueUserNameMutate]
   );
 
   const userHasNoUniqueName = useMemo(
-    () => !uniqueName && !useUser.isFetching,
-    [uniqueName, useUser.isFetching]
+    () => !uniqueName && !userIsLoading,
+    [uniqueName, userIsLoading]
   );
 
   const isNameUniqueServerResponse = useMemo(
@@ -67,34 +63,13 @@ export const HomePage = () => {
     [isNameUnique]
   );
 
-  // search logic
-  const searchInputOnChange = useCallback(
-    async (searchData: string) => {
-      if (!searchData) {
-        return useSearchUser.reset();
-      }
-      useSearchUser.mutate({ searchData });
-    },
-    [useSearchUser]
-  );
-
   return (
     <PageWrapper>
-      <Sidebar
-        name={name}
-        avatar={avatar}
-        uniqueName={uniqueName}
-        currentPage={location.pathname}
-        collapsed={sidebarCollapsed}
-      />
+      <Sidebar />
 
       <HomeMainLane />
 
       <Mediabar
-        mediabarSize={mediabarSize}
-        searchInputOnChange={searchInputOnChange}
-        searchUserRes={searchUserRes}
-        searchIsLoading={searchIsLoading}
         topWindowChilde={
           <WhoToFollow
             title={'You might like'}
@@ -102,7 +77,7 @@ export const HomePage = () => {
             isMostPopularUsersLoading={isMostPopularUsersLoading}
           />
         }
-        bottomWindow={<Trends />}
+        bottomWindowChilde={<Trends />}
       />
 
       <Modal
@@ -115,8 +90,8 @@ export const HomePage = () => {
           onSubmit={onSubmitUniqueName}
           onChange={onChangeUniqueName}
           isNameUnique={isNameUniqueServerResponse}
-          isFormSubmitting={updateUniqueUserName.isPending}
-          isUniqueNameChecking={checkUniqueUserName.isPending}
+          isFormSubmitting={updateUniqueUserNameLoading}
+          isUniqueNameChecking={checkUniqueNameLoading}
         />
       </Modal>
     </PageWrapper>

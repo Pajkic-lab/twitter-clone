@@ -1,8 +1,10 @@
 import Tippy from '@tippyjs/react';
+import { UserResponseDto } from '@tw/data';
 import { colors, FeatherIcon, TwitterIcon } from '@tw/ui/assets';
 import { linksRecords } from '@tw/ui/common';
+import { useSidebarState, useUserQuery } from '@tw/ui/data-access';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { PrimaryButton } from '../../atoms/Button';
 import { ExitFormTooltip } from '../../atoms/ExitFormTooltip';
@@ -10,29 +12,21 @@ import { SideBarNavigationButton } from '../../atoms/SideBarNavigationButton';
 import { SideBarOptionsButton } from '../../atoms/SideBarOptionsButton';
 import { sidebarData } from './sidebar-data';
 
-type SidebarProps = {
-  avatar: string | undefined;
-  name: string | undefined;
-  uniqueName: string | undefined;
-  currentPage: string;
+type SidebarStyleProps = {
   collapsed: boolean;
 };
-
-type SidebarStyleProps = Pick<SidebarProps, 'collapsed'>;
 
 const SIDEBAR_WIDTH_FULL = '17.857rem';
 const SIDEBAR_WIDTH_COLLAPSED = '6rem';
 
-export const Sidebar = (props: SidebarProps) => {
-  const {
-    name = '',
-    uniqueName = '',
-    avatar = '',
-    currentPage,
-    collapsed,
-  } = props;
-
+export const Sidebar = () => {
   const navigate = useNavigate();
+  const useUser = useUserQuery();
+  const { pathname } = useLocation();
+  const { sidebarCollapsed } = useSidebarState();
+
+  const user = useUser.data ?? ({} as UserResponseDto);
+  const { name, avatar, uniqueName } = user;
 
   const [sidebarOptionsOpen, setSidebarOptionsOpen] = useState<boolean>(false);
 
@@ -45,9 +39,9 @@ export const Sidebar = (props: SidebarProps) => {
   };
 
   return (
-    <Wrapper collapsed={collapsed}>
-      <ButtonWrapper collapsed={collapsed}>
-        <IconWrapper collapsed={collapsed} onClick={handleLogoClick}>
+    <Wrapper collapsed={sidebarCollapsed}>
+      <ButtonWrapper collapsed={sidebarCollapsed}>
+        <IconWrapper collapsed={sidebarCollapsed} onClick={handleLogoClick}>
           <TwLogo />
         </IconWrapper>
 
@@ -58,13 +52,13 @@ export const Sidebar = (props: SidebarProps) => {
             text={e.text}
             IconBase={e.ComponentBase}
             IconActive={e.ComponentActive}
-            isActive={e.path === currentPage}
-            collapsed={collapsed}
+            isActive={e.path === pathname}
+            collapsed={sidebarCollapsed}
           />
         ))}
 
-        <PostButton collapsed={JSON.stringify(collapsed)}>
-          {collapsed ? <FeatherIcon /> : 'Post'}
+        <PostButton collapsed={JSON.stringify(sidebarCollapsed)}>
+          {sidebarCollapsed ? <FeatherIcon /> : 'Post'}
         </PostButton>
 
         <Tippy
@@ -73,12 +67,12 @@ export const Sidebar = (props: SidebarProps) => {
           onClickOutside={handleTooltip}
           content={<ExitFormTooltip uniqueName={uniqueName} />}
         >
-          <TIPYCONTAINER collapsed={collapsed} onClick={handleTooltip}>
+          <TIPYCONTAINER collapsed={sidebarCollapsed} onClick={handleTooltip}>
             <SideBarOptionsButton
               name={name}
               avatar={avatar}
               uniqueName={uniqueName}
-              collapsed={collapsed}
+              collapsed={sidebarCollapsed}
             />
           </TIPYCONTAINER>
         </Tippy>

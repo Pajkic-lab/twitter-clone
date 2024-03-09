@@ -18,11 +18,11 @@ export type SignInFormData = z.infer<typeof signInSchema>;
 type SingInFormProps = {
   onSubmit: (signInFormData: SignInFormData) => void;
   isPending: boolean;
-  errorMessage?: string;
+  error: Error | null;
 };
 
 export const SignInForm = (props: SingInFormProps) => {
-  const { onSubmit, isPending, errorMessage } = props;
+  const { onSubmit, isPending, error } = props;
 
   const { handleSubmit, control, formState, setError } =
     useForm<SignInFormData>({
@@ -41,12 +41,12 @@ export const SignInForm = (props: SingInFormProps) => {
      * should be refactored, weather use loop or find the other way to set error globally
      */
     setError('email', {
-      message: errorMessage,
+      message: error?.message,
     });
     setError('password', {
-      message: errorMessage,
+      message: error?.message,
     });
-  }, [errorMessage]);
+  }, [error]);
 
   return (
     <>

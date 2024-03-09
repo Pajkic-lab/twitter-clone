@@ -20,7 +20,6 @@ type ProfileProps = {
 const NAVBAR_HEIGHT = 4.286; //rem
 
 export const Profile = (props: ProfileProps) => {
-  // research could i use rest here or in any of these components?
   const {
     width,
     user: { name, id, avatar, cover },

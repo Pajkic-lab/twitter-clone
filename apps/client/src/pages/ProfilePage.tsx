@@ -13,33 +13,22 @@ import {
   WhoToFollow,
 } from '@tw/ui/components';
 import {
-  useMediabarState,
   useMostPopularUsersQuery,
-  useSearchUserMutation,
-  useSidebarState,
   useSocialQuery,
   useUpdateUserMutation,
   useUserQuery,
 } from '@tw/ui/data-access';
 import { useCallback, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
 
 const UPDATE_USER_FORM_ID = uuid();
 
 export const ProfilePage = () => {
-  // all the logic should be moved to organisms, there is no need to have it on every page, same goes for HomePage
-
-  const location = useLocation();
-  const { sidebarCollapsed } = useSidebarState();
-  const { mediabarSize } = useMediabarState();
-
-  const useUser = useUserQuery();
-  const useSearchUser = useSearchUserMutation();
+  const { data: user } = useUserQuery() as { data: UserResponseDto };
+  const { data: socialStats } = useSocialQuery();
   const { data: mostPopularUsers, isFetching: isMostPopularUsersLoading } =
     useMostPopularUsersQuery();
-  const { data: socialStats } = useSocialQuery();
 
   const {
     mutate: updateUserMutate,
@@ -49,23 +38,8 @@ export const ProfilePage = () => {
 
   const updateUserErrorMessage = error?.message as ParsedError;
 
-  const user = useUser.data ?? ({} as UserResponseDto);
-
-  const { name, avatar, uniqueName } = user;
-  const { data: searchUserRes, isPending: searchIsLoading } = useSearchUser;
-
   const [isEditProfileModalOpen, setEditModalProfileOpen] =
     useState<boolean>(false);
-
-  const searchInputOnChange = useCallback(
-    async (searchData: string) => {
-      if (!searchData) {
-        return useSearchUser.reset();
-      }
-      useSearchUser.mutate({ searchData });
-    },
-    [useSearchUser]
-  );
 
   const onSubmitUpdateUser = useCallback(
     (userFormData: UpdateUserFormData) => {
@@ -80,13 +54,7 @@ export const ProfilePage = () => {
 
   return (
     <PageWrapper>
-      <Sidebar
-        name={name}
-        avatar={avatar}
-        uniqueName={uniqueName}
-        currentPage={location.pathname}
-        collapsed={sidebarCollapsed}
-      />
+      <Sidebar />
 
       <ProfileMainLane
         user={user}
@@ -129,10 +97,6 @@ export const ProfilePage = () => {
       />
 
       <Mediabar
-        mediabarSize={mediabarSize}
-        searchInputOnChange={searchInputOnChange}
-        searchUserRes={searchUserRes}
-        searchIsLoading={searchIsLoading}
         topWindowChilde={
           <WhoToFollow
             title={'You might like'}
@@ -140,7 +104,7 @@ export const ProfilePage = () => {
             isMostPopularUsersLoading={isMostPopularUsersLoading}
           />
         }
-        bottomWindow={<Trends />}
+        bottomWindowChilde={<Trends />}
       />
     </PageWrapper>
   );

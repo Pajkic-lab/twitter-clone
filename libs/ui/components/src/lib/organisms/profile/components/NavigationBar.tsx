@@ -28,9 +28,8 @@ export const NavigationBar = (props: NavigationBarProps) => {
 
 const Container = styled.div<NavigationBarStyleProps>`
   width: ${({ width }) =>
-    `${width}px`}; // px because it defines value that will never change
-  height: ${({ height }) =>
-    `${height}rem`}; // rem because it defines value that could change
+    `calc(${width}px - 2px)`}; // this is compleat hacking problem desc in comments bellow
+  height: ${({ height }) => `${height}rem`};
   backdrop-filter: blur(10px);
   position: fixed;
   top: 0;
@@ -76,3 +75,9 @@ const H3 = styled.h3`
 const SpanHeader = styled.span`
   color: ${colors.graySecondary};
 `;
+
+/**
+ * Navbar is design in wrongfully,
+ * it should be component for itself which stretches whole page,
+ * then it could have sticky property which would solve problem with bottom margin.
+ */

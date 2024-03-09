@@ -1,19 +1,15 @@
-import { SearchUsersResponseDto } from '@tw/data';
 import { colors } from '@tw/ui/assets';
 import { BreakpointKeys, Breakpoints } from '@tw/ui/common';
-import { ReactNode } from 'react';
+import { useMediabarState, useSearchUserMutation } from '@tw/ui/data-access';
+import { ReactNode, useCallback } from 'react';
 import Sticky from 'react-stickynode';
 import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
 import { SearchInput } from '../molecules/SearchInput';
 
 type MediabarProps = {
-  mediabarSize: BreakpointKeys;
-  searchInputOnChange: (val: string) => void;
-  searchUserRes: SearchUsersResponseDto[] | undefined;
-  searchIsLoading: boolean;
   topWindowChilde: ReactNode;
-  bottomWindow: ReactNode;
+  bottomWindowChilde: ReactNode;
 };
 
 const sizeTable: Breakpoints = {
@@ -29,14 +25,22 @@ const sizeTable: Breakpoints = {
  * Flicker is do to library 'react-stickynode'
  */
 export const Mediabar = (props: MediabarProps) => {
-  const {
-    mediabarSize,
-    searchInputOnChange,
-    searchUserRes,
-    searchIsLoading,
-    topWindowChilde,
-    bottomWindow,
-  } = props;
+  const { topWindowChilde, bottomWindowChilde } = props;
+
+  const { mediabarSize } = useMediabarState();
+  const useSearchUser = useSearchUserMutation();
+
+  const { data: searchUserRes, isPending: searchIsLoading } = useSearchUser;
+
+  const searchInputOnChange = useCallback(
+    async (searchData: string) => {
+      if (!searchData) {
+        return useSearchUser.reset();
+      }
+      useSearchUser.mutate({ searchData });
+    },
+    [useSearchUser]
+  );
 
   if (sizeTable[mediabarSize] === sizeTable.m) return;
 
@@ -53,7 +57,7 @@ export const Mediabar = (props: MediabarProps) => {
 
       <Sticky>
         <TopWindow>{topWindowChilde}</TopWindow>
-        <BottomWindow>{bottomWindow}</BottomWindow>
+        <BottomWindow>{bottomWindowChilde}</BottomWindow>
         <MediabarFooterContainer>
           <Text>
             Terms of Service Privacy Policy Cookie Policy Accessibility Ads info

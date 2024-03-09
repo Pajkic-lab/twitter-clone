@@ -20,7 +20,7 @@ export const WhoToFollow = (props: WhoToFollowProps) => {
 
   return (
     <Wrapper>
-      {mostPopularUsers && !isMostPopularUsersLoading && (
+      {mostPopularUsers && (
         <ContentWrapper>
           <Title>{title}</Title>
           {mostPopularUsers.map((user) => (
@@ -28,7 +28,7 @@ export const WhoToFollow = (props: WhoToFollowProps) => {
           ))}
         </ContentWrapper>
       )}
-      {isMostPopularUsersLoading && (
+      {isMostPopularUsersLoading && !mostPopularUsers && (
         <LoaderWrapper>
           <LoaderCustom />
         </LoaderWrapper>

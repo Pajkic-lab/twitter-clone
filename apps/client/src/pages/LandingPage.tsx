@@ -24,24 +24,33 @@ import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
 
 export const LandingPage = () => {
-  const signInMutation = useSignInMutation();
-  const signUpMutation = useSignUpMutation();
+  const {
+    mutate: signInMutate,
+    isPending: signInLoading,
+    error: signInError,
+  } = useSignInMutation();
+
+  const {
+    mutate: signUpMutate,
+    isPending: signUpLoading,
+    error: signUpError,
+  } = useSignUpMutation();
 
   const [signUpModalIsOpen, setSignUpModalIsOpen] = useState<boolean>(false);
   const [signInModalIsOpen, setSignInModalIsOpen] = useState<boolean>(false);
 
   const signUpFormOnSubmit = useCallback(
     (signUpFormData: SignUpFormData) => {
-      signUpMutation.mutate(signUpFormData);
+      signUpMutate(signUpFormData);
     },
-    [signUpMutation]
+    [signUpMutate]
   );
 
   const signInFormOnSubmit = useCallback(
     (signInFormData: SignInFormData) => {
-      signInMutation.mutate(signInFormData);
+      signInMutate(signInFormData);
     },
-    [signInMutation]
+    [signInMutate]
   );
 
   /**
@@ -99,8 +108,8 @@ export const LandingPage = () => {
               >
                 <SignUpForm
                   onSubmit={signUpFormOnSubmit}
-                  isPending={signUpMutation.isPending}
-                  errorMessage={signUpMutation.error?.message}
+                  isPending={signUpLoading}
+                  error={signUpError}
                 />
               </Modal>
 
@@ -126,8 +135,8 @@ export const LandingPage = () => {
               >
                 <SignInForm
                   onSubmit={signInFormOnSubmit}
-                  isPending={signInMutation.isPending}
-                  errorMessage={signInMutation.error?.message}
+                  isPending={signInLoading}
+                  error={signInError}
                 />
               </Modal>
             </FormWrapper>
