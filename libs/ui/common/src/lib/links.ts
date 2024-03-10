@@ -55,5 +55,10 @@ export const linksRecords = {
   landingPage: '/',
   testingPage: '/test',
   homePage: '/home',
-  profilePage: '/profile',
+  // profilePage: '/profile',
+  profilePage: {
+    base: '/profile',
+    followers: '/profile/followers',
+    following: '/profile/following',
+  },
 } as const satisfies Links;

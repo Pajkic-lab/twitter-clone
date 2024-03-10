@@ -58,7 +58,7 @@ export const sidebarData = [
     ComponentBase: ProfileBaseIcon,
     ComponentActive: ProfileActiveIcon,
     text: 'Profile',
-    path: linksRecords.profilePage,
+    path: linksRecords.profilePage.base,
   },
   {
     ComponentBase: MoreBaseIcon,

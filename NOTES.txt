@@ -57,7 +57,7 @@ updateUser has parser build to handle class-validation, research how to do it at
     * TODO
     */
 
-
+- Search WhoToFollwo and userList should accept same DTO
 
 - Do Public Profile
 

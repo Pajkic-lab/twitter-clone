@@ -19,7 +19,7 @@ export const PageManager = (props: PageManagerProps) => {
   const isAuth = useMemo(() => !!auth.data?.id, [auth]);
 
   const PageComponent = () => {
-    return auth.isFetching ? <Loader fullScreen /> : children;
+    return auth.isFetching && !auth.data ? <Loader fullScreen /> : children;
   };
 
   if (!isAuth) {

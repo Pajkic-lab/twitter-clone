@@ -7,7 +7,7 @@ import { SingleUser } from '../atoms/SingleUser';
 type WhoToFollowProps = {
   mostPopularUsers: MostPopularUsersResponseDto[] | undefined;
   isMostPopularUsersLoading: boolean;
-  title: string;
+  title?: string;
 };
 
 /**
@@ -15,6 +15,7 @@ type WhoToFollowProps = {
  * it will be transformed to polymorphic component
  */
 
+// Maybe rename it to UserLIst, nothing else is coming up to my mind
 export const WhoToFollow = (props: WhoToFollowProps) => {
   const { mostPopularUsers, isMostPopularUsersLoading, title } = props;
 
@@ -22,7 +23,7 @@ export const WhoToFollow = (props: WhoToFollowProps) => {
     <Wrapper>
       {mostPopularUsers && (
         <ContentWrapper>
-          <Title>{title}</Title>
+          {title && <Title>{title}</Title>}
           {mostPopularUsers.map((user) => (
             <SingleUser key={user.id} user={user} />
           ))}

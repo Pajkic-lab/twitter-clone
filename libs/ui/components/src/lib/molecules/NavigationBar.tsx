@@ -1,5 +1,7 @@
 import { ArrowLeftIcon, colors } from '@tw/ui/assets';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+
 type NavigationBarProps = {
   name: string;
   width: number;
@@ -11,10 +13,16 @@ type NavigationBarStyleProps = Pick<NavigationBarProps, 'width' | 'height'>;
 export const NavigationBar = (props: NavigationBarProps) => {
   const { name, width, height } = props;
 
+  let navigate = useNavigate();
+
+  const goBack = () => {
+    navigate(-1);
+  };
+
   return (
     <Container width={width} height={height}>
       <Wrapper>
-        <SVGWrapper>
+        <SVGWrapper onClick={goBack}>
           <ArrowLogo />
         </SVGWrapper>
         <TittleWrapper>

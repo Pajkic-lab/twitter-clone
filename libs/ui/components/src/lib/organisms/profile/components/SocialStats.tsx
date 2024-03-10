@@ -1,5 +1,7 @@
 import { SocialStatsResponseDto } from '@tw/data';
 import { colors } from '@tw/ui/assets';
+import { linksRecords } from '@tw/ui/common';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 type SocialStatsProps = {
@@ -10,15 +12,25 @@ type SocialStatsProps = {
 export const SocialStats = (props: SocialStatsProps) => {
   const { id, socialStats } = props;
 
+  const navigate = useNavigate();
+
   const { followersCount = '', followingCount = '' } = socialStats ?? {};
+
+  const navigateToFollowers = () => {
+    navigate(linksRecords.profilePage.followers);
+  };
+
+  const navigateToFollowing = () => {
+    navigate(linksRecords.profilePage.following);
+  };
 
   return (
     <SocialStatsWrapper>
-      <FollowingStatsWrapper>
+      <FollowingStatsWrapper onClick={navigateToFollowing}>
         <StatsNumberSpan>{followingCount}</StatsNumberSpan>
         <StatsTextSpan>Following</StatsTextSpan>
       </FollowingStatsWrapper>
-      <FollowersStatsWrapper>
+      <FollowersStatsWrapper onClick={navigateToFollowers}>
         <StatsNumberSpan>{followersCount}</StatsNumberSpan>
         <StatsTextSpan>Followers</StatsTextSpan>
       </FollowersStatsWrapper>
