@@ -1,6 +1,6 @@
 import { SearchUsersResponseDto } from '@tw/data';
 import { colors, MagnifyingGlass } from '@tw/ui/assets';
-import { Loader, SingleUser } from '@tw/ui/components';
+import { UserLIst } from '@tw/ui/components';
 import { useCallback, useState } from 'react';
 import styled from 'styled-components';
 
@@ -14,18 +14,14 @@ type SearchInputProps = {
 type SearchResultWindowProps = {
   searchIsLoading: boolean;
   searchUserRes: SearchUsersResponseDto[];
-  inputValue: string;
-};
-
-type SearchedDataUiProps = {
-  searchUserRes: SearchUsersResponseDto[];
 };
 
 /**
  * This component needs to be revamped. Make it polymorphic as async dropdown
- * for this specific case it needs to be search bar, there might be some other uses.
+ * for this specific case it needs to be search bar, there might be some other cases.
  */
 
+// clear button is missing...
 export const SearchInput = (props: SearchInputProps) => {
   const {
     id,
@@ -45,6 +41,21 @@ export const SearchInput = (props: SearchInputProps) => {
     [searchInputOnChange]
   );
 
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      onChange(e.target.value);
+    },
+    [onChange]
+  );
+
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
+  };
+
   return (
     <Wrapper>
       <Label htmlFor={id}>
@@ -54,16 +65,15 @@ export const SearchInput = (props: SearchInputProps) => {
       <Input
         id={id}
         placeholder={'Search Twitter'}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
-        onChange={(e) => onChange(e.target.value)}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        onChange={handleChange}
       />
 
       {inputValue && (
         <SearchResultWindow
           searchUserRes={searchUserRes}
           searchIsLoading={searchIsLoading}
-          inputValue={inputValue}
         />
       )}
     </Wrapper>
@@ -71,41 +81,14 @@ export const SearchInput = (props: SearchInputProps) => {
 };
 
 const SearchResultWindow = (props: SearchResultWindowProps) => {
-  const { searchUserRes, searchIsLoading, inputValue } = props;
+  const { searchUserRes, searchIsLoading } = props;
 
   return (
     <SearchDataWrapper>
-      {!searchUserRes.length && !searchIsLoading && inputValue && <NoDataUi />}
-      {searchUserRes && <SearchedDataUi searchUserRes={searchUserRes} />}
-      {searchIsLoading && <LoadingUi />}
+      {searchUserRes && (
+        <UserLIst users={searchUserRes} userListLoading={searchIsLoading} />
+      )}
     </SearchDataWrapper>
-  );
-};
-
-const SearchedDataUi = (props: SearchedDataUiProps) => {
-  const { searchUserRes } = props;
-  return (
-    <>
-      {searchUserRes.map((user) => (
-        <SingleUser user={user} key={user.id} />
-      ))}
-    </>
-  );
-};
-
-const NoDataUi = () => {
-  return (
-    <NoResultWrapper>
-      <H3>No matching data</H3>
-    </NoResultWrapper>
-  );
-};
-
-const LoadingUi = () => {
-  return (
-    <LoaderWrapper>
-      <Loader />
-    </LoaderWrapper>
   );
 };
 
@@ -171,27 +154,4 @@ const SearchDataWrapper = styled.div`
   padding: 1rem 0 1rem 0;
   background-color: ${colors.black};
   box-shadow: 0 0 8px hsla(0, 100%, 99.2156862745098%, 0.738);
-`;
-
-const LoaderWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-`;
-
-const NoResultWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-`;
-
-const H3 = styled.h3`
-  margin: 0;
-  padding-left: 0.8rem;
-  color: ${colors.grayPrimary};
-  font-weight: 700;
 `;

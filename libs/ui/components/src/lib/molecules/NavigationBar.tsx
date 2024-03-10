@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 type NavigationBarProps = {
-  name: string;
+  title: string;
+  text: string;
   width: number;
   height: number;
 };
@@ -11,7 +12,7 @@ type NavigationBarProps = {
 type NavigationBarStyleProps = Pick<NavigationBarProps, 'width' | 'height'>;
 
 export const NavigationBar = (props: NavigationBarProps) => {
-  const { name, width, height } = props;
+  const { title, text, width, height } = props;
 
   let navigate = useNavigate();
 
@@ -26,8 +27,8 @@ export const NavigationBar = (props: NavigationBarProps) => {
           <ArrowLogo />
         </SVGWrapper>
         <TittleWrapper>
-          <H3>{name}</H3>
-          <SpanHeader>number of tweets</SpanHeader>
+          <H3>{title}</H3>
+          <SpanHeader>{text}</SpanHeader>
         </TittleWrapper>
       </Wrapper>
     </Container>

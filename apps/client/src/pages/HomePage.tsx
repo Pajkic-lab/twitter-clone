@@ -8,7 +8,7 @@ import {
   Sidebar,
   Trends,
   UniqueNameFormData,
-  WhoToFollow,
+  UserLIst,
 } from '@tw/ui/components';
 import {
   useCheckUniqueUserNameMutation,
@@ -71,10 +71,10 @@ export const HomePage = () => {
 
       <Mediabar
         topWindowChilde={
-          <WhoToFollow
+          <UserLIst
             title={'You might like'}
-            mostPopularUsers={mostPopularUsers}
-            isMostPopularUsersLoading={isMostPopularUsersLoading}
+            users={mostPopularUsers}
+            userListLoading={isMostPopularUsersLoading}
           />
         }
         bottomWindowChilde={<Trends />}

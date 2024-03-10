@@ -10,7 +10,7 @@ import {
   Sidebar,
   Trends,
   UpdateUserFormData,
-  WhoToFollow,
+  UserLIst,
 } from '@tw/ui/components';
 import {
   useMostPopularUsersQuery,
@@ -98,10 +98,10 @@ export const ProfilePage = () => {
 
       <Mediabar
         topWindowChilde={
-          <WhoToFollow
+          <UserLIst
             title={'You might like'}
-            mostPopularUsers={mostPopularUsers}
-            isMostPopularUsersLoading={isMostPopularUsersLoading}
+            users={mostPopularUsers}
+            userListLoading={isMostPopularUsersLoading}
           />
         }
         bottomWindowChilde={<Trends />}

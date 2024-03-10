@@ -19,12 +19,12 @@ export * from './lib/molecules/SetAccountForm';
 export * from './lib/molecules/SignInForm';
 export * from './lib/molecules/SignUpForm';
 export * from './lib/molecules/Trends';
-export * from './lib/molecules/WhoToFollow';
 
 // organisms
 export * from './lib/organisms/HomeMainLane';
 export * from './lib/organisms/Mediabar';
 export * from './lib/organisms/ProfileMainLane';
+export * from './lib/organisms/UserLIst';
 export * from './lib/organisms/UserListLane';
 export * from './lib/organisms/footer/Footer';
 export * from './lib/organisms/footer/footer-landing-page-data';

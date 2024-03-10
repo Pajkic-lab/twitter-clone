@@ -1,13 +1,15 @@
+import { UserResponseDto } from '@tw/data';
 import {
   Mediabar,
   Sidebar,
   Trends,
+  UserLIst,
   UserListLane,
-  WhoToFollow,
 } from '@tw/ui/components';
 import {
   useFollowersQuery,
   useMostPopularUsersQuery,
+  useUserQuery,
 } from '@tw/ui/data-access';
 import styled from 'styled-components';
 
@@ -15,6 +17,7 @@ const followerOffset = 0;
 const followerLimit = 50;
 
 export const ProfileFollowersPage = () => {
+  const { data: user } = useUserQuery() as { data: UserResponseDto };
   const { data: mostPopularUsers, isFetching: isMostPopularUsersLoading } =
     useMostPopularUsersQuery();
 
@@ -27,14 +30,18 @@ export const ProfileFollowersPage = () => {
     <PageWrapper>
       <Sidebar />
 
-      <UserListLane userList={userList} userListLoading={userListLoading} />
+      <UserListLane
+        user={user}
+        userList={userList}
+        userListLoading={userListLoading}
+      />
 
       <Mediabar
         topWindowChilde={
-          <WhoToFollow
+          <UserLIst
             title={'You might like'}
-            mostPopularUsers={mostPopularUsers}
-            isMostPopularUsersLoading={isMostPopularUsersLoading}
+            users={mostPopularUsers}
+            userListLoading={isMostPopularUsersLoading}
           />
         }
         bottomWindowChilde={<Trends />}

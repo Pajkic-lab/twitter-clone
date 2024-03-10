@@ -23,7 +23,7 @@ const NAVBAR_HEIGHT = 4.286; //rem
 export const Profile = (props: ProfileProps) => {
   const {
     width,
-    user: { name, id, avatar, cover },
+    user: { name, id, uniqueName, avatar, cover },
     socialStats,
     profileActions,
     profileModal,
@@ -31,7 +31,12 @@ export const Profile = (props: ProfileProps) => {
 
   return (
     <Wrapper>
-      <NavigationBar name={name} width={width} height={NAVBAR_HEIGHT} />
+      <NavigationBar
+        title={name}
+        text={uniqueName}
+        width={width}
+        height={NAVBAR_HEIGHT}
+      />
       <Cover cover={cover} topMargin={NAVBAR_HEIGHT} />
       <AvatarAndOptions
         avatar={avatar}
