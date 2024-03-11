@@ -15,53 +15,42 @@ import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import styled from 'styled-components';
 
-// const followerOffset = 0;
-// const followerLimit = 50;
+const FOLLOWER_LIST_SIZE_LIMIT = 10;
 
 export const ProfileFollowersPage = () => {
-  //
-  const { ref, inView, entry } = useInView({
+  const { ref, inView } = useInView({
     threshold: 0,
   });
-  //
 
   const { data: user } = useUserQuery() as { data: UserResponseDto };
   const { data: mostPopularUsers, isFetching: isMostPopularUsersLoading } =
     useMostPopularUsersQuery();
-
-  // const { data: userList, isFetching: userListLoading } = useFollowersQuery({
-  //   followerOffset,
-  //   followerLimit,
-  // });
 
   const {
     data,
     fetchNextPage,
     isFetching: userListLoading,
     hasNextPage,
-  } = useFollowersInfQuery();
+  } = useFollowersInfQuery(FOLLOWER_LIST_SIZE_LIMIT);
+
+  const userList: FollowerListResponseDto[] = data?.pages?.flat() ?? [];
 
   useEffect(() => {
     if (inView) {
       fetchNextPage();
-      console.log('fire');
     }
-  }, [inView]);
+  }, [inView, fetchNextPage]);
 
-  const pageParams = data?.pageParams;
-  const pages = data?.pages;
-
-  const userList: FollowerListResponseDto[] = pages?.flat() ?? [];
-
+  // Where to position loader, and no data, should i reuse existing on in UserLIst or to create new??? and how to trigger request???
   return (
     <PageWrapper>
       <Sidebar />
 
       <UserListLane
         user={user}
-        userList={userList} //
+        userList={userList}
         userListLoading={userListLoading}
-        reff={ref} // RENAME REFF IN DEPTH
+        infScrollElRef={ref}
       />
 
       <Mediabar

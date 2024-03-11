@@ -15,7 +15,7 @@ type UserListLaneProps = {
   user: UserResponseDto;
   userList: FollowerListResponseDto[];
   userListLoading: boolean;
-  reff?: (node?: Element | null | undefined) => void;
+  infScrollElRef?: (node?: Element | null | undefined) => void;
 };
 
 export const UserListLane = (props: UserListLaneProps) => {
@@ -23,7 +23,7 @@ export const UserListLane = (props: UserListLaneProps) => {
     user: { name, uniqueName },
     userList,
     userListLoading,
-    reff,
+    infScrollElRef,
   } = props;
 
   return (
@@ -40,7 +40,7 @@ export const UserListLane = (props: UserListLaneProps) => {
       <UserLIst
         users={userList}
         userListLoading={userListLoading}
-        reff={reff}
+        infScrollElRef={infScrollElRef}
       />
     </Wrapper>
   );

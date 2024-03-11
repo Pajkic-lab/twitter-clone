@@ -9,7 +9,7 @@ type UserListProps = {
   userListLoading?: boolean;
   title?: string;
   noDataText?: string;
-  reff?: (node?: Element | null | undefined) => void;
+  infScrollElRef?: (node?: Element | null | undefined) => void;
 };
 
 type ContentUiProps = {
@@ -27,7 +27,7 @@ export const UserLIst = (props: UserListProps) => {
     userListLoading,
     title,
     noDataText = 'No matching data',
-    reff,
+    infScrollElRef,
   } = props;
 
   return (
@@ -37,7 +37,9 @@ export const UserLIst = (props: UserListProps) => {
         <NoDataUi noDataText={noDataText} />
       )}
       {userListLoading && !users?.length && <LoaderUi />}
-      {reff && <InfTrigger ref={reff} />}
+
+      {/* // should this be attached to loader??? */}
+      {infScrollElRef && <InfScrollElTrigger ref={infScrollElRef} />}
     </Wrapper>
   );
 };
@@ -54,6 +56,7 @@ const ContentUi = (props: ContentUiProps) => {
   );
 };
 
+// should this be extracted as component for itself???
 const NoDataUi = (props: NoDataUiProps) => {
   const { noDataText } = props;
   return (
@@ -63,6 +66,7 @@ const NoDataUi = (props: NoDataUiProps) => {
   );
 };
 
+// Loader should be refactored, no need to build wrapper when it can be adjusted via props
 const LoaderUi = () => {
   return (
     <LoaderWrapper>
@@ -118,8 +122,11 @@ const H3 = styled.h3`
   font-weight: 700;
 `;
 
-const InfTrigger = styled.div`
-  width: 10px;
+const InfScrollElTrigger = styled.div`
+  /*
+  * Does not occupy space, purpose is to trigger inf scroll
+   */
+  width: 1px;
   height: 1px;
   background-color: red;
 `;

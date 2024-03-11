@@ -60,6 +60,8 @@ updateUser has parser build to handle class-validation, research how to do it at
 - Do infinit scroll for followers profile page...
 https://www.npmjs.com/package/react-intersection-observer
 
+- Where to position loader, and no data, should i reuse existing on in UserLIst or to create new??? and how to trigger request???
+
 - Do Following page
 
 - Do Public Profile

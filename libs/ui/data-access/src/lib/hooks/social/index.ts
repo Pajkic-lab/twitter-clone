@@ -1,5 +1,4 @@
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
-import { FollowerListRequestDto, FollowerListResponseDto } from '@tw/data';
 import { http } from '../../http/api';
 
 export const socialGetFollowersKey = 'socialGetFollowersKey';
@@ -15,41 +14,19 @@ export const useSocialQuery = () => {
   });
 };
 
-export const useFollowersQuery = ({
-  followerOffset,
-  followerLimit,
-}: FollowerListRequestDto) => {
-  return useQuery({
+export const useFollowersInfQuery = (limit: number) => {
+  return useInfiniteQuery({
     queryKey: [socialGetFollowersKey],
-    queryFn: async () => {
-      const res = await http.social.getFollowers({
-        followerOffset,
-        followerLimit,
-      });
-      return res.data.payload;
-    },
-  });
-};
-
-export const useFollowersInfQuery = () => {
-  return useInfiniteQuery<FollowerListResponseDto[], Error>({
-    queryKey: ['followers'],
     initialPageParam: 0,
-
-    queryFn: async ({ pageParam = 0 }) => {
-      console.log('pageParam', pageParam);
-      // if (pageParam === false) return [];
+    queryFn: async ({ pageParam }: { pageParam: number }) => {
       const res = await http.social.getFollowers({
-        followerOffset: pageParam as number,
-        followerLimit: 10,
+        followerOffset: pageParam,
+        followerLimit: limit,
       });
       return res.data.payload;
     },
-
-    getNextPageParam: (lastPage, allPages) => {
-      console.log('lastPage', lastPage);
-      console.log('allPages', allPages);
-      return lastPage.length === 10 ? allPages.length * 10 : false;
+    getNextPageParam: (lastGroup, allGroups) => {
+      return lastGroup.length === limit ? allGroups.length * limit : undefined;
     },
   });
 };
