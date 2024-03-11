@@ -58,6 +58,7 @@ updateUser has parser build to handle class-validation, research how to do it at
     */
 
 - Do infinit scroll for followers profile page...
+https://www.npmjs.com/package/react-intersection-observer
 
 - Do Following page
 
@@ -67,7 +68,7 @@ updateUser has parser build to handle class-validation, research how to do it at
 
 - Do Tooltip to wrap user, to show minified version of public profile page...
 
-- SearchInput WhoToFollwo and userList should accept same DTO
+- SearchInput WhoToFollwo and userList should accept same DTO, or maybe this is good place to practice Generic???
 
 
 

@@ -86,7 +86,7 @@ const SpanHeader = styled.span`
 `;
 
 /**
- * Navbar is design in wrongfully,
+ * Navbar is design is bad,
  * it should be component for itself which stretches whole page,
  * then it could have sticky property which would solve problem with bottom margin.
  */

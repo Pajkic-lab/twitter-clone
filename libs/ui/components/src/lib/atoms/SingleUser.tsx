@@ -3,7 +3,7 @@ import { colors } from '@tw/ui/assets';
 import styled from 'styled-components';
 
 type SingleUserProps = {
-  user: SearchUsersResponseDto;
+  user: SearchUsersResponseDto; // should this be generic?
 };
 
 /**
@@ -12,10 +12,6 @@ type SingleUserProps = {
  * Should be polymeric, and will be probably changed in future.
  */
 
-/**
- * There should probably be user list component which is going to contain SingleUser
- * and which is going to be reused all over the app as polymorphic component.
- */
 export const SingleUser = (props: SingleUserProps) => {
   const {
     user: { name, uniqueName, avatar },

@@ -1,35 +1,33 @@
-import { MostPopularUsersResponseDto } from '@tw/data';
+import { FollowerListResponseDto } from '@tw/data';
 import { colors } from '@tw/ui/assets';
 import styled from 'styled-components';
 import { Loader } from '../atoms/Loader';
 import { SingleUser } from '../atoms/SingleUser';
 
-/**
- * Unify following DTO, in order to share component access data:
- * FollowerListResponseDto FollowingListResponseDto MostPopularUsersResponseDto SearchUsersResponseDto
- */
-type UserLIstProps = {
-  users: MostPopularUsersResponseDto[] | undefined; // This Dto must be unified, read comment above
+type UserListProps = {
+  users: FollowerListResponseDto[] | undefined;
   userListLoading?: boolean;
   title?: string;
   noDataText?: string;
+  reff?: (node?: Element | null | undefined) => void;
+};
+
+type ContentUiProps = {
+  users: FollowerListResponseDto[];
+  title?: string;
 };
 
 type NoDataUiProps = {
   noDataText: string;
 };
 
-type ContentUiProps = {
-  users: MostPopularUsersResponseDto[];
-  title?: string;
-};
-
-export const UserLIst = (props: UserLIstProps) => {
+export const UserLIst = (props: UserListProps) => {
   const {
     users,
     userListLoading,
     title,
     noDataText = 'No matching data',
+    reff,
   } = props;
 
   return (
@@ -39,6 +37,7 @@ export const UserLIst = (props: UserLIstProps) => {
         <NoDataUi noDataText={noDataText} />
       )}
       {userListLoading && !users?.length && <LoaderUi />}
+      {reff && <InfTrigger ref={reff} />}
     </Wrapper>
   );
 };
@@ -117,4 +116,10 @@ const H3 = styled.h3`
   padding-left: 0.8rem;
   color: ${colors.grayPrimary};
   font-weight: 700;
+`;
+
+const InfTrigger = styled.div`
+  width: 10px;
+  height: 1px;
+  background-color: red;
 `;

@@ -13,8 +13,9 @@ const NAVBAR_HEIGHT = 4.286; //rem
 
 type UserListLaneProps = {
   user: UserResponseDto;
-  userList: FollowerListResponseDto[] | undefined;
+  userList: FollowerListResponseDto[];
   userListLoading: boolean;
+  reff?: (node?: Element | null | undefined) => void;
 };
 
 export const UserListLane = (props: UserListLaneProps) => {
@@ -22,6 +23,7 @@ export const UserListLane = (props: UserListLaneProps) => {
     user: { name, uniqueName },
     userList,
     userListLoading,
+    reff,
   } = props;
 
   return (
@@ -35,7 +37,11 @@ export const UserListLane = (props: UserListLaneProps) => {
 
       <Divider topMargin={NAVBAR_HEIGHT} />
 
-      <UserLIst users={userList} userListLoading={userListLoading} />
+      <UserLIst
+        users={userList}
+        userListLoading={userListLoading}
+        reff={reff}
+      />
     </Wrapper>
   );
 };

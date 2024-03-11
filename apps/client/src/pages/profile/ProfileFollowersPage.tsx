@@ -1,4 +1,4 @@
-import { UserResponseDto } from '@tw/data';
+import { FollowerListResponseDto, UserResponseDto } from '@tw/data';
 import {
   Mediabar,
   Sidebar,
@@ -7,24 +7,51 @@ import {
   UserListLane,
 } from '@tw/ui/components';
 import {
-  useFollowersQuery,
+  useFollowersInfQuery,
   useMostPopularUsersQuery,
   useUserQuery,
 } from '@tw/ui/data-access';
+import { useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
 import styled from 'styled-components';
 
-const followerOffset = 0;
-const followerLimit = 50;
+// const followerOffset = 0;
+// const followerLimit = 50;
 
 export const ProfileFollowersPage = () => {
+  //
+  const { ref, inView, entry } = useInView({
+    threshold: 0,
+  });
+  //
+
   const { data: user } = useUserQuery() as { data: UserResponseDto };
   const { data: mostPopularUsers, isFetching: isMostPopularUsersLoading } =
     useMostPopularUsersQuery();
 
-  const { data: userList, isFetching: userListLoading } = useFollowersQuery({
-    followerOffset,
-    followerLimit,
-  });
+  // const { data: userList, isFetching: userListLoading } = useFollowersQuery({
+  //   followerOffset,
+  //   followerLimit,
+  // });
+
+  const {
+    data,
+    fetchNextPage,
+    isFetching: userListLoading,
+    hasNextPage,
+  } = useFollowersInfQuery();
+
+  useEffect(() => {
+    if (inView) {
+      fetchNextPage();
+      console.log('fire');
+    }
+  }, [inView]);
+
+  const pageParams = data?.pageParams;
+  const pages = data?.pages;
+
+  const userList: FollowerListResponseDto[] = pages?.flat() ?? [];
 
   return (
     <PageWrapper>
@@ -32,8 +59,9 @@ export const ProfileFollowersPage = () => {
 
       <UserListLane
         user={user}
-        userList={userList}
+        userList={userList} //
         userListLoading={userListLoading}
+        reff={ref} // RENAME REFF IN DEPTH
       />
 
       <Mediabar

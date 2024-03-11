@@ -1,39 +1,41 @@
-import { AutoMap } from '@automapper/classes';
+import { PublicUserBase } from '../../user';
 
-export class FollowerListResponseDto {
-  @AutoMap()
-  followingStatus: boolean;
+export class FollowerListResponseDto extends PublicUserBase {}
 
-  @AutoMap()
-  id: number;
+// export class FollowerListResponseDto {
+//   @AutoMap()
+//   followingStatus: boolean;
 
-  @AutoMap()
-  email: string;
+//   @AutoMap()
+//   id: number;
 
-  @AutoMap()
-  name: string;
+//   @AutoMap()
+//   email: string;
 
-  @AutoMap()
-  avatar: string;
+//   @AutoMap()
+//   name: string;
 
-  @AutoMap()
-  cover: string;
+//   @AutoMap()
+//   avatar: string;
 
-  @AutoMap()
-  uniqueName: string;
+//   @AutoMap()
+//   cover: string;
 
-  @AutoMap()
-  bio: string;
+//   @AutoMap()
+//   uniqueName: string;
 
-  @AutoMap()
-  location: string;
+//   @AutoMap()
+//   bio: string;
 
-  @AutoMap()
-  website: string;
+//   @AutoMap()
+//   location: string;
 
-  @AutoMap()
-  createdAt: Date;
+//   @AutoMap()
+//   website: string;
 
-  @AutoMap()
-  updatedAt: Date;
-}
+//   @AutoMap()
+//   createdAt: Date;
+
+//   @AutoMap()
+//   updatedAt: Date;
+// }

@@ -2,6 +2,10 @@ import { colors } from '@tw/ui/assets';
 import { useState } from 'react';
 import styled from 'styled-components';
 
+/**
+ * This component is for now place holder,
+ * It should be polymorphic and it should be used for every tab need.
+ */
 export const Tabs = () => {
   const [selected, setSelected] = useState({
     tweets: true,

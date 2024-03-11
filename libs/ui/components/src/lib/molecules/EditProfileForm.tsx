@@ -11,7 +11,7 @@ import { FormImageInput } from './FormImageInput';
 import { FormInput } from './FormInput';
 
 /*
- *zod validation is not settable for frontend validation, additional validation added to backend
+ *zod validation is not suitable for frontend validation, additional validation added to backend
  */
 const updateUserSchema = z.object({
   name: z.optional(z.string().nullish()),

@@ -1,15 +1,17 @@
-import { AutoMap } from '@automapper/classes';
+import { PublicUserBase } from '../user.type';
 
-export class MostPopularUsersResponseDto {
-  @AutoMap()
-  id: number;
+export class MostPopularUsersResponseDto extends PublicUserBase {}
 
-  @AutoMap()
-  name: string;
+// export class MostPopularUsersResponseDto {
+//   @AutoMap()
+//   id: number;
 
-  @AutoMap()
-  avatar: string;
+//   @AutoMap()
+//   name: string;
 
-  @AutoMap()
-  uniqueName: string;
-}
+//   @AutoMap()
+//   avatar: string;
+
+//   @AutoMap()
+//   uniqueName: string;
+// }
