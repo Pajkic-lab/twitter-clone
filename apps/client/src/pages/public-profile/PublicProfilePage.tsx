@@ -13,6 +13,7 @@ import {
   useMostPopularUsersQuery,
   usePublicProfileQuery,
 } from '@tw/ui/data-access';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -31,7 +32,19 @@ export const PublicProfilePage = () => {
     ?.socialStats as SocialStatsResponseDto;
 
   const followingStatus = publicUserRes?.data?.followingStatus as boolean;
-  console.log(followingStatus);
+
+  const [isHovered, setIsHovered] = useState<boolean>(false);
+
+  const btFollowText = isHovered ? 'UnFollow' : 'Following';
+  const socialButtonText = followingStatus ? btFollowText : 'Follow';
+
+  const handleHover = () => {
+    setIsHovered(true);
+  };
+
+  const handleHoverExit = () => {
+    setIsHovered(false);
+  };
 
   if (publicUserRes.isFetching) return <Loader fullScreen />;
   return (
@@ -41,7 +54,15 @@ export const PublicProfilePage = () => {
       <ProfileMainLane
         user={user}
         socialStats={socialStats}
-        profileActions={<FollowButton>Follow</FollowButton>}
+        profileActions={
+          <SocialButton
+            followingStatus={followingStatus}
+            onMouseEnter={handleHover}
+            onMouseLeave={handleHoverExit}
+          >
+            {socialButtonText}
+          </SocialButton>
+        }
       />
 
       <Mediabar
@@ -63,37 +84,21 @@ const PageWrapper = styled.div`
   justify-content: center;
 `;
 
-// const EditProfileButton = styled(SecondaryButton)`
-//   color: ${colors.grayPrimary};
-//   height: 2.286rem;
-//   padding: 0 16px;
-// `;
-
-const Text = styled.span`
-  color: ${colors.grayPrimary};
-  font-weight: 700;
-  font-size: large;
-`;
-
-//
-
-const FollowButton = styled(SecondaryButton)`
-  color: ${colors.black};
-  background-color: ${colors.white};
+const SocialButton = styled(SecondaryButton)<{ followingStatus: boolean }>`
   height: 2.286rem;
   padding: 0 16px;
+  width: 7rem;
+
+  color: ${({ followingStatus }) =>
+    followingStatus ? colors.black : colors.grayPrimary};
+
+  background-color: ${({ followingStatus }) =>
+    followingStatus ? colors.white : ''};
 
   &:hover {
-    color: ${colors.white};
-  }
-`;
-const UnFollowButton = styled(SecondaryButton)`
-  color: ${colors.grayPrimary};
-  height: 2.286rem;
-  padding: 0 16px;
-
-  &:hover {
-    color: ${colors.red};
-    border: 1px solid ${colors.red};
+    color: ${({ followingStatus }) =>
+      followingStatus ? colors.red : colors.white};
+    border: ${({ followingStatus }) =>
+      followingStatus ? `1px solid ${colors.red}` : ''};
   }
 `;
