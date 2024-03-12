@@ -1,5 +1,6 @@
 import { FollowerListResponseDto } from '@tw/data';
 import { colors } from '@tw/ui/assets';
+import { useMemo } from 'react';
 import styled from 'styled-components';
 import { Loader } from '../atoms/Loader';
 import { SingleUser } from '../atoms/SingleUser';
@@ -9,7 +10,9 @@ type UserListProps = {
   userListLoading?: boolean;
   title?: string;
   noDataText?: string;
+  scrollable?: boolean;
   infScrollElRef?: (node?: Element | null | undefined) => void;
+  hasMoreData?: boolean;
 };
 
 type ContentUiProps = {
@@ -19,6 +22,11 @@ type ContentUiProps = {
 
 type NoDataUiProps = {
   noDataText: string;
+  scrollable?: boolean;
+};
+
+type LoaderUiProps = {
+  scrollable?: boolean;
 };
 
 export const UserLIst = (props: UserListProps) => {
@@ -26,20 +34,38 @@ export const UserLIst = (props: UserListProps) => {
     users,
     userListLoading,
     title,
-    noDataText = 'No matching data',
+    noDataText = 'No matching data.',
+    scrollable = false,
     infScrollElRef,
+    hasMoreData,
   } = props;
+
+  const memoizedValues = useMemo(() => {
+    const scrollLoader = userListLoading;
+    const scrollNoData = !hasMoreData && !userListLoading;
+
+    const defaultLoader = userListLoading! && !users?.length;
+    const defaultNoData = !userListLoading && !users?.length;
+
+    const showLoader = scrollable ? scrollLoader : defaultLoader;
+    const showNoData = scrollable ? scrollNoData : defaultNoData;
+
+    return { showLoader, showNoData };
+  }, [userListLoading, users, hasMoreData, scrollable]);
+
+  const { showLoader, showNoData } = memoizedValues;
 
   return (
     <Wrapper>
       {users && <ContentUi users={users} title={title} />}
-      {!userListLoading && !users?.length && (
-        <NoDataUi noDataText={noDataText} />
-      )}
-      {userListLoading && !users?.length && <LoaderUi />}
 
-      {/* // should this be attached to loader??? */}
       {infScrollElRef && <InfScrollElTrigger ref={infScrollElRef} />}
+
+      {showLoader && <LoaderUi scrollable={scrollable} />}
+
+      {showNoData && (
+        <NoDataUi scrollable={scrollable} noDataText={noDataText} />
+      )}
     </Wrapper>
   );
 };
@@ -56,20 +82,19 @@ const ContentUi = (props: ContentUiProps) => {
   );
 };
 
-// should this be extracted as component for itself???
 const NoDataUi = (props: NoDataUiProps) => {
-  const { noDataText } = props;
+  const { noDataText, scrollable } = props;
   return (
-    <NoResultWrapper>
+    <NoResultWrapper scrollable={scrollable}>
       <H3>{noDataText}</H3>
     </NoResultWrapper>
   );
 };
 
-// Loader should be refactored, no need to build wrapper when it can be adjusted via props
-const LoaderUi = () => {
+const LoaderUi = (props: LoaderUiProps) => {
+  const { scrollable } = props;
   return (
-    <LoaderWrapper>
+    <LoaderWrapper scrollable={scrollable}>
       <LoaderCustom />
     </LoaderWrapper>
   );
@@ -87,12 +112,12 @@ const ContentWrapper = styled.div`
   justify-items: center;
 `;
 
-const LoaderWrapper = styled.div`
+const LoaderWrapper = styled.div<{ scrollable?: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100%;
+  height: ${({ scrollable }) => (scrollable ? '5rem' : '100%')};
 `;
 
 const LoaderCustom = styled(Loader)`
@@ -107,12 +132,12 @@ const Title = styled.h2`
   margin: 1rem 0;
 `;
 
-const NoResultWrapper = styled.div`
+const NoResultWrapper = styled.div<{ scrollable?: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100%;
+  height: ${({ scrollable }) => (scrollable ? '5rem' : '100%')};
 `;
 
 const H3 = styled.h3`
@@ -122,11 +147,11 @@ const H3 = styled.h3`
   font-weight: 700;
 `;
 
+/*
+ * InfScrollElTrigger purpose is to trigger inf scroll
+ */
 const InfScrollElTrigger = styled.div`
-  /*
-  * Does not occupy space, purpose is to trigger inf scroll
-   */
   width: 1px;
   height: 1px;
-  background-color: red;
+  background-color: ${colors.black};
 `;

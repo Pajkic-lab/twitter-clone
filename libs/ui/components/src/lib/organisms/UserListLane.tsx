@@ -15,7 +15,8 @@ type UserListLaneProps = {
   user: UserResponseDto;
   userList: FollowerListResponseDto[];
   userListLoading: boolean;
-  infScrollElRef?: (node?: Element | null | undefined) => void;
+  infScrollElRef: (node?: Element | null | undefined) => void;
+  hasMoreData: boolean;
 };
 
 export const UserListLane = (props: UserListLaneProps) => {
@@ -24,6 +25,7 @@ export const UserListLane = (props: UserListLaneProps) => {
     userList,
     userListLoading,
     infScrollElRef,
+    hasMoreData,
   } = props;
 
   return (
@@ -40,19 +42,22 @@ export const UserListLane = (props: UserListLaneProps) => {
       <UserLIst
         users={userList}
         userListLoading={userListLoading}
+        scrollable
         infScrollElRef={infScrollElRef}
+        hasMoreData={hasMoreData}
+        noDataText={'End of followers list'}
       />
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
+  overflow: hidden !important; // important because some times it does not apply for some reason.
   min-height: 100vh;
   width: ${LANE_WIDTH}px;
   min-width: ${LANE_WIDTH}px;
   border-left: 1px solid ${colors.grayDark};
   border-right: 1px solid ${colors.grayDark};
-  overflow: hidden !important; // important because some times it does not apply for some reason.
 `;
 
 const Divider = styled.div<{ topMargin: number }>`

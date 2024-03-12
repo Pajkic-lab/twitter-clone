@@ -15,7 +15,7 @@ import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import styled from 'styled-components';
 
-const FOLLOWER_LIST_SIZE_LIMIT = 10;
+const FOLLOWER_LIST_SIZE_LIMIT = 20;
 
 export const ProfileFollowersPage = () => {
   const { ref, inView } = useInView({
@@ -41,7 +41,6 @@ export const ProfileFollowersPage = () => {
     }
   }, [inView, fetchNextPage]);
 
-  // Where to position loader, and no data, should i reuse existing on in UserLIst or to create new??? and how to trigger request???
   return (
     <PageWrapper>
       <Sidebar />
@@ -51,6 +50,7 @@ export const ProfileFollowersPage = () => {
         userList={userList}
         userListLoading={userListLoading}
         infScrollElRef={ref}
+        hasMoreData={hasNextPage}
       />
 
       <Mediabar
