@@ -2,11 +2,11 @@ import { linksRecords } from '@tw/ui/common';
 import { HomePage } from '../pages/HomePage';
 import { LandingPage } from '../pages/LandingPage';
 import { TestingPage } from '../pages/Testing';
-import { PublicProfile } from '../pages/legacy-pages/PublicProfile';
 import { PublicProfileContactList } from '../pages/legacy-pages/PublicProfileContactList';
 import { ProfileFollowersPage } from '../pages/profile/ProfileFollowersPage';
 import { ProfileFollowingPage } from '../pages/profile/ProfileFollowingPage';
 import { ProfilePage } from '../pages/profile/ProfilePage';
+import { PublicProfilePage } from '../pages/public-profile/PublicProfilePage';
 import { AccessRole } from './accessRole.type';
 
 export type Page = {
@@ -49,12 +49,12 @@ export const pages = {
     Component: ProfileFollowingPage,
     accessRole: AccessRole.Private,
   },
-  //
   publicProfile: {
-    path: '/user/:id/unique-name/:name',
-    Component: PublicProfile,
+    path: linksRecords.publicProfilePage.base,
+    Component: PublicProfilePage,
     accessRole: AccessRole.Private,
   },
+  //
   publicProfileContactList: {
     path: '/user/:id/social/:option',
     Component: PublicProfileContactList,

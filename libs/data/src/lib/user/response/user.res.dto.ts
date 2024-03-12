@@ -29,5 +29,8 @@ export class UserResponseDto {
   website: string;
 
   @AutoMap()
-  createdAt: string;
+  createdAt: Date | string;
+
+  @AutoMap()
+  updatedAt: Date | string;
 }

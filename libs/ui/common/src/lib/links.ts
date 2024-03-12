@@ -60,4 +60,8 @@ export const linksRecords = {
     followers: '/profile/followers',
     following: '/profile/following',
   },
+  publicProfilePage: {
+    base: '/public-profile/:userId',
+    byId: (id: string) => `/public-profile/${id}`,
+  },
 } as const satisfies Links;

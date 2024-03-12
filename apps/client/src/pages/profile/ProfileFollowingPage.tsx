@@ -51,6 +51,7 @@ export const ProfileFollowingPage = () => {
         userListLoading={userListLoading}
         infScrollElRef={ref}
         hasMoreData={hasNextPage}
+        noDataText={'End of following list'}
       />
 
       <Mediabar

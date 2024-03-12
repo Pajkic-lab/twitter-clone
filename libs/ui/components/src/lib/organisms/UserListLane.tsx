@@ -17,6 +17,7 @@ type UserListLaneProps = {
   userListLoading: boolean;
   infScrollElRef: (node?: Element | null | undefined) => void;
   hasMoreData: boolean;
+  noDataText: string;
 };
 
 export const UserListLane = (props: UserListLaneProps) => {
@@ -26,6 +27,7 @@ export const UserListLane = (props: UserListLaneProps) => {
     userListLoading,
     infScrollElRef,
     hasMoreData,
+    noDataText,
   } = props;
 
   return (
@@ -45,7 +47,7 @@ export const UserListLane = (props: UserListLaneProps) => {
         scrollable
         infScrollElRef={infScrollElRef}
         hasMoreData={hasMoreData}
-        noDataText={'End of followers list'}
+        noDataText={noDataText}
       />
     </Wrapper>
   );

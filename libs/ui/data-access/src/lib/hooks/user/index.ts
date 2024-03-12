@@ -10,6 +10,7 @@ import { http } from '../../http/api';
 import { queryClient } from '../core';
 
 export const userQueryKey = 'userQueryKey';
+export const mostPopularUsersQueryKey = 'mostPopularUsersQueryKey';
 
 // query
 export const useUserQuery = () => {
@@ -24,7 +25,7 @@ export const useUserQuery = () => {
 
 export const useMostPopularUsersQuery = () => {
   return useQuery({
-    queryKey: ['MostPopularUsers'], // to be extracted to separate dir, and replace  hardcode val with dynamic data.
+    queryKey: [mostPopularUsersQueryKey],
     queryFn: async () => {
       const res = await http.user.getMostPopularUsers();
       return res.data.payload;

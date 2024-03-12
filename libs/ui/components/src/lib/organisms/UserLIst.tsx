@@ -1,6 +1,6 @@
 import { FollowerListResponseDto } from '@tw/data';
 import { colors } from '@tw/ui/assets';
-import { useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import styled from 'styled-components';
 import { Loader } from '../atoms/Loader';
 import { SingleUser } from '../atoms/SingleUser';
@@ -70,7 +70,7 @@ export const UserLIst = (props: UserListProps) => {
   );
 };
 
-const ContentUi = (props: ContentUiProps) => {
+const ContentUi = memo((props: ContentUiProps) => {
   const { title, users } = props;
   return (
     <ContentWrapper>
@@ -80,25 +80,25 @@ const ContentUi = (props: ContentUiProps) => {
       ))}
     </ContentWrapper>
   );
-};
+});
 
-const NoDataUi = (props: NoDataUiProps) => {
+const NoDataUi = memo((props: NoDataUiProps) => {
   const { noDataText, scrollable } = props;
   return (
     <NoResultWrapper scrollable={scrollable}>
       <H3>{noDataText}</H3>
     </NoResultWrapper>
   );
-};
+});
 
-const LoaderUi = (props: LoaderUiProps) => {
+const LoaderUi = memo((props: LoaderUiProps) => {
   const { scrollable } = props;
   return (
     <LoaderWrapper scrollable={scrollable}>
       <LoaderCustom />
     </LoaderWrapper>
   );
-};
+});
 
 const Wrapper = styled.div`
   width: 100%;

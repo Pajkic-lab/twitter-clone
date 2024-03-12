@@ -1,9 +1,12 @@
-import { SearchUsersResponseDto } from '@tw/data';
+import { PublicUserBase } from '@tw/data';
 import { colors } from '@tw/ui/assets';
+import { linksRecords } from '@tw/ui/common';
+import { useInvalidatePublicProfile } from '@tw/ui/data-access';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 type SingleUserProps = {
-  user: SearchUsersResponseDto; // should this be generic?
+  user: PublicUserBase;
 };
 
 /**
@@ -14,11 +17,18 @@ type SingleUserProps = {
 
 export const SingleUser = (props: SingleUserProps) => {
   const {
-    user: { name, uniqueName, avatar },
+    user: { name, uniqueName, avatar, id },
   } = props;
 
+  const navigate = useNavigate();
+
+  const goToUserPage = () => {
+    useInvalidatePublicProfile();
+    navigate(linksRecords.publicProfilePage.byId(JSON.stringify(id)));
+  };
+
   return (
-    <ProfileButtonWrapper>
+    <ProfileButtonWrapper onClick={goToUserPage}>
       <BioWrapper>
         <ProfileImage $backgroundImage={avatar} />
         <TextWrapper>

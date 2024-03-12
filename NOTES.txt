@@ -57,8 +57,11 @@ updateUser has parser build to handle class-validation, research how to do it at
     * TODO
     */
 
+- Follow button at public profile page
 
-- Do Public Profile
+- following and follower pages for public profile
+
+- Read page manager comment how to persist history page...
 
 - Follow button is missing, should be optional for users list.
 

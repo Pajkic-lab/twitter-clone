@@ -51,6 +51,7 @@ export const ProfileFollowersPage = () => {
         userListLoading={userListLoading}
         infScrollElRef={ref}
         hasMoreData={hasNextPage}
+        noDataText={'End of followers list'}
       />
 
       <Mediabar

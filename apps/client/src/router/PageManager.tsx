@@ -31,3 +31,5 @@ export const PageManager = (props: PageManagerProps) => {
     if (publicAccess) return <Navigate to={'/home'} />;
   }
 };
+
+// persist router history and if there is history redirect to last page...
