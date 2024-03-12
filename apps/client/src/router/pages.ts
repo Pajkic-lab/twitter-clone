@@ -5,6 +5,7 @@ import { TestingPage } from '../pages/Testing';
 import { PublicProfile } from '../pages/legacy-pages/PublicProfile';
 import { PublicProfileContactList } from '../pages/legacy-pages/PublicProfileContactList';
 import { ProfileFollowersPage } from '../pages/profile/ProfileFollowersPage';
+import { ProfileFollowingPage } from '../pages/profile/ProfileFollowingPage';
 import { ProfilePage } from '../pages/profile/ProfilePage';
 import { AccessRole } from './accessRole.type';
 
@@ -41,6 +42,11 @@ export const pages = {
   profileFollowers: {
     path: linksRecords.profilePage.followers,
     Component: ProfileFollowersPage,
+    accessRole: AccessRole.Private,
+  },
+  profileFollowing: {
+    path: linksRecords.profilePage.following,
+    Component: ProfileFollowingPage,
     accessRole: AccessRole.Private,
   },
   //

@@ -55,7 +55,6 @@ export const linksRecords = {
   landingPage: '/',
   testingPage: '/test',
   homePage: '/home',
-  // profilePage: '/profile',
   profilePage: {
     base: '/profile',
     followers: '/profile/followers',
