@@ -2,7 +2,6 @@ import { linksRecords } from '@tw/ui/common';
 import { HomePage } from '../pages/HomePage';
 import { LandingPage } from '../pages/LandingPage';
 import { TestingPage } from '../pages/Testing';
-import { PublicProfileContactList } from '../pages/legacy-pages/PublicProfileContactList';
 import { ProfileFollowersPage } from '../pages/profile/ProfileFollowersPage';
 import { ProfileFollowingPage } from '../pages/profile/ProfileFollowingPage';
 import { ProfilePage } from '../pages/profile/ProfilePage';
@@ -64,12 +63,6 @@ export const pages = {
   publicProfileFollowing: {
     path: linksRecords.publicProfilePage.following,
     Component: PublicProfileFollowingPage,
-    accessRole: AccessRole.Private,
-  },
-  //
-  publicProfileContactList: {
-    path: '/user/:id/social/:option',
-    Component: PublicProfileContactList,
     accessRole: AccessRole.Private,
   },
 } as const satisfies Record<string, Page>;

@@ -11,6 +11,7 @@ import styled from 'styled-components';
 
 type SingleUserProps = {
   user: PublicUserBase;
+  meId: number;
 };
 
 /**
@@ -20,14 +21,19 @@ type SingleUserProps = {
  */
 export const SingleUser = (props: SingleUserProps) => {
   const {
+    meId,
     user: { name, uniqueName, avatar, id },
   } = props;
 
   const navigate = useNavigate();
 
   const goToUserPage = () => {
-    useResetQuery(QueryAction.Remove, publicProfileQueryKey);
-    navigate(linksRecords.publicProfilePage.baseById(JSON.stringify(id)));
+    if (meId === id) {
+      return navigate(linksRecords.profilePage.base);
+    } else {
+      useResetQuery(QueryAction.Remove, publicProfileQueryKey);
+      navigate(linksRecords.publicProfilePage.baseById(JSON.stringify(id)));
+    }
   };
 
   return (

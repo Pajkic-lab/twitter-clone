@@ -12,6 +12,7 @@ const LANE_WIDTH = 598; // px
 const NAVBAR_HEIGHT = 4.286; //rem
 
 type UserListLaneProps = {
+  meId: number;
   user: UserResponseDto;
   userList: FollowerListResponseDto[];
   userListLoading: boolean;
@@ -22,6 +23,7 @@ type UserListLaneProps = {
 
 export const UserListLane = (props: UserListLaneProps) => {
   const {
+    meId,
     user: { name, uniqueName },
     userList,
     userListLoading,
@@ -42,6 +44,7 @@ export const UserListLane = (props: UserListLaneProps) => {
       <Divider topMargin={NAVBAR_HEIGHT} />
 
       <UserLIst
+        meId={meId}
         users={userList}
         userListLoading={userListLoading}
         scrollable

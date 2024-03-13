@@ -37,7 +37,7 @@ export const NavigationBar = (props: NavigationBarProps) => {
 
 const Container = styled.div<NavigationBarStyleProps>`
   width: ${({ width }) =>
-    `calc(${width}px - 2px)`}; // this is compleat hacking problem desc in comments bellow
+    `calc(${width}px - 2px)`}; // this is compleat hacking, problem desc in comments bellow
   height: ${({ height }) => `${height}rem`};
   backdrop-filter: blur(10px);
   position: fixed;

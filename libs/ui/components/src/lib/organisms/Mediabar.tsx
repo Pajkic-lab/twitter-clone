@@ -8,6 +8,7 @@ import { v4 as uuid } from 'uuid';
 import { SearchInput } from '../molecules/SearchInput';
 
 type MediabarProps = {
+  meId: number;
   topWindowChilde: ReactNode;
   bottomWindowChilde: ReactNode;
 };
@@ -25,7 +26,7 @@ const sizeTable: Breakpoints = {
  * Flicker is do to library 'react-stickynode'
  */
 export const Mediabar = (props: MediabarProps) => {
-  const { topWindowChilde, bottomWindowChilde } = props;
+  const { meId, topWindowChilde, bottomWindowChilde } = props;
 
   const { mediabarSize } = useMediabarState();
   const useSearchUser = useSearchUserMutation();
@@ -48,6 +49,7 @@ export const Mediabar = (props: MediabarProps) => {
     <Wrapper size={mediabarSize}>
       <SearchInputWrapper size={mediabarSize}>
         <SearchInput
+          meId={meId}
           id={uuid()}
           searchInputOnChange={searchInputOnChange}
           searchUserRes={searchUserRes}

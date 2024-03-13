@@ -46,6 +46,7 @@ export const ProfileFollowingPage = () => {
       <Sidebar />
 
       <UserListLane
+        meId={user.id}
         user={user}
         userList={userList}
         userListLoading={userListLoading}
@@ -55,8 +56,10 @@ export const ProfileFollowingPage = () => {
       />
 
       <Mediabar
+        meId={user.id}
         topWindowChilde={
           <UserLIst
+            meId={user.id}
             title={'You might like'}
             users={mostPopularUsers}
             userListLoading={isMostPopularUsersLoading}

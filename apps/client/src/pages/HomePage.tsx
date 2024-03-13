@@ -36,7 +36,7 @@ export const HomePage = () => {
     isPending: updateUniqueUserNameLoading,
   } = useUpdateUniqueUserNameMutation();
 
-  const { uniqueName } = user ?? ({} as UserResponseDto);
+  const { id, uniqueName } = user ?? ({} as UserResponseDto);
   const { isNameUnique } = uniqueUserName ?? {};
 
   const onSubmitUniqueName = useCallback(
@@ -70,8 +70,10 @@ export const HomePage = () => {
       <HomeMainLane />
 
       <Mediabar
+        meId={id}
         topWindowChilde={
           <UserLIst
+            meId={id}
             title={'You might like'}
             users={mostPopularUsers}
             userListLoading={isMostPopularUsersLoading}

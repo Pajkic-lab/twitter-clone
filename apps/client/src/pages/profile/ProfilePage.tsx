@@ -97,8 +97,10 @@ export const ProfilePage = () => {
       />
 
       <Mediabar
+        meId={user.id}
         topWindowChilde={
           <UserLIst
+            meId={user.id}
             title={'You might like'}
             users={mostPopularUsers}
             userListLoading={isMostPopularUsersLoading}

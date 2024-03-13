@@ -13,9 +13,11 @@ type UserListProps = {
   scrollable?: boolean;
   infScrollElRef?: (node?: Element | null | undefined) => void;
   hasMoreData?: boolean;
+  meId: number;
 };
 
 type ContentUiProps = {
+  meId: number;
   users: FollowerListResponseDto[];
   title?: string;
 };
@@ -38,6 +40,7 @@ export const UserLIst = (props: UserListProps) => {
     scrollable = false,
     infScrollElRef,
     hasMoreData,
+    meId,
   } = props;
 
   const memoizedValues = useMemo(() => {
@@ -57,7 +60,7 @@ export const UserLIst = (props: UserListProps) => {
 
   return (
     <Wrapper>
-      {users && <ContentUi users={users} title={title} />}
+      {users && <ContentUi meId={meId} users={users} title={title} />}
 
       {scrollable && <InfScrollElTrigger ref={infScrollElRef} />}
 
@@ -71,12 +74,12 @@ export const UserLIst = (props: UserListProps) => {
 };
 
 const ContentUi = memo((props: ContentUiProps) => {
-  const { title, users } = props;
+  const { meId, title, users } = props;
   return (
     <ContentWrapper>
       {title && <Title>{title}</Title>}
       {users.map((user) => (
-        <SingleUser key={user.id} user={user} />
+        <SingleUser key={user.id} meId={meId} user={user} />
       ))}
     </ContentWrapper>
   );

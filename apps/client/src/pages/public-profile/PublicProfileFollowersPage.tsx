@@ -10,6 +10,7 @@ import {
   useMostPopularUsersQuery,
   usePublicProfileFollowersInfQuery,
   usePublicProfileQuery,
+  useUserQuery,
 } from '@tw/ui/data-access';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
@@ -27,6 +28,7 @@ export const PublicProfileFollowersPage = () => {
 
   const userId = Number(params?.userId);
 
+  const userRes = useUserQuery();
   const publicUserRes = usePublicProfileQuery(userId);
   const { data: mostPopularUsers, isFetching: isMostPopularUsersLoading } =
     useMostPopularUsersQuery();
@@ -38,6 +40,7 @@ export const PublicProfileFollowersPage = () => {
     hasNextPage,
   } = usePublicProfileFollowersInfQuery(userId, FOLLOWER_LIST_SIZE_LIMIT);
 
+  const meId = userRes.data?.id ?? 0;
   const user = publicUserRes?.data?.user as PublicUserResponseDto;
   const userList: FollowerListResponseDto[] = data?.pages?.flat() ?? [];
 
@@ -52,6 +55,7 @@ export const PublicProfileFollowersPage = () => {
       <Sidebar />
 
       <UserListLane
+        meId={meId}
         user={user}
         userList={userList}
         userListLoading={userListLoading}
@@ -61,8 +65,10 @@ export const PublicProfileFollowersPage = () => {
       />
 
       <Mediabar
+        meId={meId}
         topWindowChilde={
           <UserLIst
+            meId={meId}
             title={'You might like'}
             users={mostPopularUsers}
             userListLoading={isMostPopularUsersLoading}

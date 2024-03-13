@@ -12,6 +12,7 @@ import {
 import {
   useMostPopularUsersQuery,
   usePublicProfileQuery,
+  useUserQuery,
 } from '@tw/ui/data-access';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -22,6 +23,7 @@ export const PublicProfilePage = () => {
 
   const userId = Number(params?.userId);
 
+  const userRes = useUserQuery();
   const publicUserRes = usePublicProfileQuery(userId);
 
   const { data: mostPopularUsers, isFetching: isMostPopularUsersLoading } =
@@ -31,6 +33,7 @@ export const PublicProfilePage = () => {
   const socialStats = publicUserRes?.data
     ?.socialStats as SocialStatsResponseDto;
 
+  const meId = userRes.data?.id ?? 0;
   const followingStatus = publicUserRes?.data?.followingStatus as boolean;
 
   const [isHovered, setIsHovered] = useState<boolean>(false);
@@ -66,8 +69,10 @@ export const PublicProfilePage = () => {
       />
 
       <Mediabar
+        meId={meId}
         topWindowChilde={
           <UserLIst
+            meId={meId}
             title={'You might like'}
             users={mostPopularUsers}
             userListLoading={isMostPopularUsersLoading}

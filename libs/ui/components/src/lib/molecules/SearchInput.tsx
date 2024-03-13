@@ -6,12 +6,14 @@ import styled from 'styled-components';
 
 type SearchInputProps = {
   id: string;
+  meId: number;
   searchInputOnChange: (val: string) => void;
   searchUserRes: SearchUsersResponseDto[] | undefined;
   searchIsLoading: boolean;
 };
 
 type SearchResultWindowProps = {
+  meId: number;
   searchIsLoading: boolean;
   searchUserRes: SearchUsersResponseDto[];
 };
@@ -25,6 +27,7 @@ type SearchResultWindowProps = {
 export const SearchInput = (props: SearchInputProps) => {
   const {
     id,
+    meId,
     searchInputOnChange,
     searchUserRes = [],
     searchIsLoading,
@@ -72,6 +75,7 @@ export const SearchInput = (props: SearchInputProps) => {
 
       {inputValue && (
         <SearchResultWindow
+          meId={meId}
           searchUserRes={searchUserRes}
           searchIsLoading={searchIsLoading}
         />
@@ -81,12 +85,16 @@ export const SearchInput = (props: SearchInputProps) => {
 };
 
 const SearchResultWindow = (props: SearchResultWindowProps) => {
-  const { searchUserRes, searchIsLoading } = props;
+  const { meId, searchUserRes, searchIsLoading } = props;
 
   return (
     <SearchDataWrapper>
       {searchUserRes && (
-        <UserLIst users={searchUserRes} userListLoading={searchIsLoading} />
+        <UserLIst
+          meId={meId}
+          users={searchUserRes}
+          userListLoading={searchIsLoading}
+        />
       )}
     </SearchDataWrapper>
   );

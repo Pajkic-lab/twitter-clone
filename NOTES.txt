@@ -59,9 +59,8 @@ updateUser has parser build to handle class-validation, research how to do it at
 
 
 
-- when on following page of public profile then click on back it redirects to me following
-
-- prevent navigating to me Id, on click on me it should redirect to profile at backend set exeption to trow if getPublicProfile has the sam userId as me Id
+- do i need user hook on every page, how about to use it once in component which is going to seat on top of app and than store it in jotai?
+- go thru all pages and see what hooks do I need, what can be extracted and name id to userId or publicUserId
 
 
 - Read page manager comment how to persist history page...
@@ -84,3 +83,12 @@ updateUser has parser build to handle class-validation, research how to do it at
 and go thru all design and do changes to be 1 to 1 with wire frames.
 
 - aca review apply
+
+
+
+
+
+
+        "tsConfig": "apps/client/tsconfig.app.json",
+                                    "assets": ["apps/client/src/favicon.ico", "apps/client/src/assets"],
+        "styles": [],
