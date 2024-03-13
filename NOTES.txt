@@ -57,17 +57,24 @@ updateUser has parser build to handle class-validation, research how to do it at
     * TODO
     */
 
-- Follow button at public profile page
 
-- following and follower pages for public profile
+
+- when on following page of public profile then click on back it redirects to me following
+
+- prevent navigating to me Id, on click on me it should redirect to profile at backend set exeption to trow if getPublicProfile has the sam userId as me Id
+
 
 - Read page manager comment how to persist history page...
+
+- (backend) Who to follow returns user who are already being followed 
 
 - Follow button is missing, should be optional for users list.
 
 - Do Tooltip to wrap user, to show minified version of public profile page...
 
-- SearchInput WhoToFollwo and userList should accept same DTO, or maybe this is good place to practice Generic???
+- Can follower and following page be unified, do I need to have 2 pages, can it be settled from params???
+
+
 
 
 

@@ -14,7 +14,7 @@ type NavigationBarStyleProps = Pick<NavigationBarProps, 'width' | 'height'>;
 export const NavigationBar = (props: NavigationBarProps) => {
   const { title, text, width, height } = props;
 
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const goBack = () => {
     navigate(-1);
@@ -87,6 +87,6 @@ const SpanHeader = styled.span`
 
 /**
  * Navbar is design is bad,
- * it should be component for itself which stretches whole page,
+ * it should be component for itself which stretches the whole page,
  * then it could have sticky property which would solve problem with bottom margin.
  */

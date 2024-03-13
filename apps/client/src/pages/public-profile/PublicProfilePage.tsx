@@ -56,7 +56,7 @@ export const PublicProfilePage = () => {
         socialStats={socialStats}
         profileActions={
           <SocialButton
-            followingStatus={followingStatus}
+            $followingStatus={followingStatus}
             onMouseEnter={handleHover}
             onMouseLeave={handleHoverExit}
           >
@@ -84,21 +84,21 @@ const PageWrapper = styled.div`
   justify-content: center;
 `;
 
-const SocialButton = styled(SecondaryButton)<{ followingStatus: boolean }>`
+const SocialButton = styled(SecondaryButton)<{ $followingStatus: boolean }>`
   height: 2.286rem;
   padding: 0 16px;
   width: 7rem;
 
-  color: ${({ followingStatus }) =>
-    followingStatus ? colors.black : colors.grayPrimary};
+  color: ${({ $followingStatus }) =>
+    $followingStatus ? colors.black : colors.grayPrimary};
 
-  background-color: ${({ followingStatus }) =>
-    followingStatus ? colors.white : ''};
+  background-color: ${({ $followingStatus }) =>
+    $followingStatus ? colors.white : ''};
 
   &:hover {
-    color: ${({ followingStatus }) =>
-      followingStatus ? colors.red : colors.white};
-    border: ${({ followingStatus }) =>
-      followingStatus ? `1px solid ${colors.red}` : ''};
+    color: ${({ $followingStatus }) =>
+      $followingStatus ? colors.red : colors.white};
+    border: ${({ $followingStatus }) =>
+      $followingStatus ? `1px solid ${colors.red}` : ''};
   }
 `;

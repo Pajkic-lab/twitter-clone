@@ -1,27 +1,46 @@
 import { SocialStatsResponseDto } from '@tw/data';
 import { colors } from '@tw/ui/assets';
 import { linksRecords } from '@tw/ui/common';
-import { useNavigate } from 'react-router-dom';
+import {
+  QueryAction,
+  socialGetPublicProfileFollowersKey,
+  socialGetPublicProfileFollowingKey,
+  useResetQuery,
+} from '@tw/ui/data-access';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 type SocialStatsProps = {
-  id: number | undefined;
   socialStats: SocialStatsResponseDto | undefined;
 };
 
 export const SocialStats = (props: SocialStatsProps) => {
-  const { id, socialStats } = props;
+  const { socialStats } = props;
 
+  const params = useParams();
   const navigate = useNavigate();
+
+  const userId = Number(params?.userId);
 
   const { followersCount = '', followingCount = '' } = socialStats ?? {};
 
   const navigateToFollowers = () => {
-    navigate(linksRecords.profilePage.followers);
+    if (userId) {
+      navigate(linksRecords.publicProfilePage.followersById(userId));
+      useResetQuery(QueryAction.Remove, socialGetPublicProfileFollowersKey);
+    } else {
+      navigate(linksRecords.profilePage.followers);
+    }
   };
 
   const navigateToFollowing = () => {
     navigate(linksRecords.profilePage.following);
+    if (userId) {
+      navigate(linksRecords.publicProfilePage.followingById(userId));
+      useResetQuery(QueryAction.Remove, socialGetPublicProfileFollowingKey);
+    } else {
+      navigate(linksRecords.profilePage.following);
+    }
   };
 
   return (

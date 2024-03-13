@@ -45,7 +45,7 @@ export const Profile = (props: ProfileProps) => {
       />
       <BioWrapper>
         <PersonalInformation user={props.user} />
-        <SocialStats id={id} socialStats={socialStats} />
+        <SocialStats socialStats={socialStats} />
       </BioWrapper>
       <Tabs />
 

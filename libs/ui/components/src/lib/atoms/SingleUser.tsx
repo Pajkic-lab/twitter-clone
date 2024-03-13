@@ -1,7 +1,11 @@
 import { PublicUserBase } from '@tw/data';
 import { colors } from '@tw/ui/assets';
 import { linksRecords } from '@tw/ui/common';
-import { useInvalidatePublicProfile } from '@tw/ui/data-access';
+import {
+  QueryAction,
+  publicProfileQueryKey,
+  useResetQuery,
+} from '@tw/ui/data-access';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -14,7 +18,6 @@ type SingleUserProps = {
  * It is intended to represent single user from user list.
  * Should be polymeric, and will be probably changed in future.
  */
-
 export const SingleUser = (props: SingleUserProps) => {
   const {
     user: { name, uniqueName, avatar, id },
@@ -23,8 +26,8 @@ export const SingleUser = (props: SingleUserProps) => {
   const navigate = useNavigate();
 
   const goToUserPage = () => {
-    useInvalidatePublicProfile();
-    navigate(linksRecords.publicProfilePage.byId(JSON.stringify(id)));
+    useResetQuery(QueryAction.Remove, publicProfileQueryKey);
+    navigate(linksRecords.publicProfilePage.baseById(JSON.stringify(id)));
   };
 
   return (

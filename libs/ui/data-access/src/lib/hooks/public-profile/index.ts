@@ -1,8 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { http } from '../../http/api';
-import { queryClient } from '../core';
 
-const publicProfileQueryKey = 'publicProfileQueryKey';
+export const publicProfileQueryKey = 'publicProfileQueryKey';
 
 /**
  * When ever call query every subsequent request has to be invalidated.
@@ -16,7 +15,3 @@ export const usePublicProfileQuery = (userId: number) => {
     },
   });
 };
-
-export function useInvalidatePublicProfile() {
-  queryClient.removeQueries({ queryKey: [publicProfileQueryKey] });
-}

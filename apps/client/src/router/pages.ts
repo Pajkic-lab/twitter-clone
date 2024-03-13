@@ -6,6 +6,8 @@ import { PublicProfileContactList } from '../pages/legacy-pages/PublicProfileCon
 import { ProfileFollowersPage } from '../pages/profile/ProfileFollowersPage';
 import { ProfileFollowingPage } from '../pages/profile/ProfileFollowingPage';
 import { ProfilePage } from '../pages/profile/ProfilePage';
+import { PublicProfileFollowersPage } from '../pages/public-profile/PublicProfileFollowersPage';
+import { PublicProfileFollowingPage } from '../pages/public-profile/PublicProfileFollowingPage';
 import { PublicProfilePage } from '../pages/public-profile/PublicProfilePage';
 import { AccessRole } from './accessRole.type';
 
@@ -52,6 +54,16 @@ export const pages = {
   publicProfile: {
     path: linksRecords.publicProfilePage.base,
     Component: PublicProfilePage,
+    accessRole: AccessRole.Private,
+  },
+  publicProfileFollowers: {
+    path: linksRecords.publicProfilePage.followers,
+    Component: PublicProfileFollowersPage,
+    accessRole: AccessRole.Private,
+  },
+  publicProfileFollowing: {
+    path: linksRecords.publicProfilePage.following,
+    Component: PublicProfileFollowingPage,
     accessRole: AccessRole.Private,
   },
   //
