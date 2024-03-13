@@ -19,8 +19,10 @@ updateUser has parser build to handle class-validation, research how to do it at
 - button should be redesign
 - upload images should be rethink and db schema should be redesign, whole service should be redesign, research this, problem is... I don't store img id 
 - error at setAccountModal not rendering pass in manually to input
+- when on following page of public user, and then click on go back it trows you to profile following, for followers works...
 
 - FRONTEND mayor bugs, navbar should be redesign and profile navbar should be sticky, mediabar should be sticky as well
+
 
 
     /*
@@ -31,6 +33,7 @@ updateUser has parser build to handle class-validation, research how to do it at
 - update React version to v19, new version will be released in March or April 2024
 - there are some hardcoded values in API client and in auth query session name, inject them as envs, and change prod
 - thru all app switch userId from number to uuid, same goes for prisma schema
+- do I need 4 api routes for followers? can there be only one route and based on arguments designate response
 
 
     /*
@@ -53,14 +56,17 @@ updateUser has parser build to handle class-validation, research how to do it at
 
 - Should research amplication project backend, make it work on local machine...
 
+
     /*
     * TODO
     */
 
+- Follow and Following can be extracted in template (create template dir) and that template can be reused on all 4 pages, 
+template is absolutly the same just figure out how to handle reusability. Should new page which is going ro replace followers and following be named "ProfileContactsPage"???
 
+- Do I need 4 follow and following routes, can this be only one route ???
 
-- do i need user hook on every page, how about to use it once in component which is going to seat on top of app and than store it in jotai?
-- go thru all pages and see what hooks do I need, what can be extracted and name id to userId or publicUserId
+- can profile and public profile be a template as well? Maybe this could be done but it will require props drilling with react elements ... to be seen, fuck it I could try it.
 
 
 - Read page manager comment how to persist history page...
@@ -84,11 +90,3 @@ and go thru all design and do changes to be 1 to 1 with wire frames.
 
 - aca review apply
 
-
-
-
-
-
-        "tsConfig": "apps/client/tsconfig.app.json",
-                                    "assets": ["apps/client/src/favicon.ico", "apps/client/src/assets"],
-        "styles": [],

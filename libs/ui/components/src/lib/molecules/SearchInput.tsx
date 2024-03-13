@@ -5,7 +5,7 @@ import { useCallback, useState } from 'react';
 import styled from 'styled-components';
 
 type SearchInputProps = {
-  id: string;
+  inputId: string;
   meId: number;
   searchInputOnChange: (val: string) => void;
   searchUserRes: SearchUsersResponseDto[] | undefined;
@@ -26,7 +26,7 @@ type SearchResultWindowProps = {
 // clear button is missing...
 export const SearchInput = (props: SearchInputProps) => {
   const {
-    id,
+    inputId,
     meId,
     searchInputOnChange,
     searchUserRes = [],
@@ -61,12 +61,12 @@ export const SearchInput = (props: SearchInputProps) => {
 
   return (
     <Wrapper>
-      <Label htmlFor={id}>
+      <Label htmlFor={inputId}>
         <Svg $isFocused={isFocused} />
       </Label>
 
       <Input
-        id={id}
+        id={inputId}
         placeholder={'Search Twitter'}
         onFocus={handleFocus}
         onBlur={handleBlur}

@@ -96,8 +96,7 @@ export const http = {
     getMostPopularUsers(): Promise<
       AxiosResponse<HttpResponse<MostPopularUsersResponseDto[]>>
     > {
-      // most-popular instead of current route
-      return httpClient.get('user/most/popular');
+      return httpClient.get('user/most-popular');
     },
     getSearchedUser({
       searchData,
@@ -123,7 +122,7 @@ export const http = {
     ): Promise<AxiosResponse<HttpResponse<UnFollowUserResponseDto>>> {
       return httpClient.delete(`social/un-follow/user/${unFollowUser.userId}`);
     },
-
+    // Do I need 4 following routes, can this be only one route with extra argument to designate what data to return???
     getFollowers({
       followerOffset,
       followerLimit,

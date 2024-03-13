@@ -80,7 +80,7 @@ export class UserController {
     return this.userService.getPublicUser(id, request.user.id);
   }
 
-  @Get('most/popular')
+  @Get('most-popular')
   @UseGuards(IsAuthGuard)
   handleGetMostPopularUsers(
     @Req() request: RequestContainingUserId

@@ -44,7 +44,6 @@ export const PublicProfileFollowingPage = () => {
   );
 
   const meId = userRes.data?.id ?? 0;
-
   const publicUser = publicUserRes?.data?.user as PublicUserResponseDto;
   const userList: FollowerListResponseDto[] = data?.pages?.flat() ?? [];
 

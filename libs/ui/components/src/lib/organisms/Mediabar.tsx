@@ -44,13 +44,12 @@ export const Mediabar = (props: MediabarProps) => {
   );
 
   if (sizeTable[mediabarSize] === sizeTable.m) return;
-
   return (
     <Wrapper size={mediabarSize}>
       <SearchInputWrapper size={mediabarSize}>
         <SearchInput
           meId={meId}
-          id={uuid()}
+          inputId={uuid()}
           searchInputOnChange={searchInputOnChange}
           searchUserRes={searchUserRes}
           searchIsLoading={searchIsLoading}

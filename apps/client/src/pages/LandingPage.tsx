@@ -24,6 +24,9 @@ import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
 
 export const LandingPage = () => {
+  const [signUpModalIsOpen, setSignUpModalIsOpen] = useState<boolean>(false);
+  const [signInModalIsOpen, setSignInModalIsOpen] = useState<boolean>(false);
+
   const {
     mutate: signInMutate,
     isPending: signInLoading,
@@ -35,9 +38,6 @@ export const LandingPage = () => {
     isPending: signUpLoading,
     error: signUpError,
   } = useSignUpMutation();
-
-  const [signUpModalIsOpen, setSignUpModalIsOpen] = useState<boolean>(false);
-  const [signInModalIsOpen, setSignInModalIsOpen] = useState<boolean>(false);
 
   const signUpFormOnSubmit = useCallback(
     (signUpFormData: SignUpFormData) => {
@@ -65,6 +65,14 @@ export const LandingPage = () => {
   const appleSignIn = () => {
     window.open('http://shorturl.at/nDFY3', '_blank');
   };
+
+  const handleSignUpModal = useCallback(() => {
+    setSignUpModalIsOpen(!signUpModalIsOpen);
+  }, [signUpModalIsOpen]);
+
+  const handleSignInModal = useCallback(() => {
+    setSignInModalIsOpen(!signInModalIsOpen);
+  }, [signInModalIsOpen]);
 
   return (
     <PageWrapper>
@@ -94,9 +102,7 @@ export const LandingPage = () => {
 
               <Divider text={'or'} />
 
-              <PrimaryButton
-                onClick={() => setSignUpModalIsOpen(!signUpModalIsOpen)}
-              >
+              <PrimaryButton onClick={handleSignUpModal}>
                 Sign up with email
               </PrimaryButton>
               <Modal
@@ -104,7 +110,7 @@ export const LandingPage = () => {
                 modalIsOpen={signUpModalIsOpen}
                 actionsContentAlinement={'center'}
                 actions={[<TwLogo key={uuid()} />]}
-                setModalIsOpen={() => setSignUpModalIsOpen(!signUpModalIsOpen)}
+                setModalIsOpen={handleSignUpModal}
               >
                 <SignUpForm
                   onSubmit={signUpFormOnSubmit}
@@ -121,9 +127,7 @@ export const LandingPage = () => {
               </PolicyTextWrapper>
               <H4>Already have an account?</H4>
 
-              <SecondaryButton
-                onClick={() => setSignInModalIsOpen(!signInModalIsOpen)}
-              >
+              <SecondaryButton onClick={handleSignInModal}>
                 Sign in
               </SecondaryButton>
               <Modal
@@ -131,7 +135,7 @@ export const LandingPage = () => {
                 modalIsOpen={signInModalIsOpen}
                 actionsContentAlinement={'center'}
                 actions={[<TwLogo key={uuid()} />]}
-                setModalIsOpen={() => setSignInModalIsOpen(!signInModalIsOpen)}
+                setModalIsOpen={handleSignInModal}
               >
                 <SignInForm
                   onSubmit={signInFormOnSubmit}

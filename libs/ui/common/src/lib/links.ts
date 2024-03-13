@@ -60,7 +60,6 @@ export const linksRecords = {
     followers: '/profile/followers',
     following: '/profile/following',
   },
-  // maybe put id at the end??? try to rename key in object to something else, not to have duplicate key words...
   publicProfilePage: {
     base: '/public-profile/:userId',
     baseById: (id: string | number) => `/public-profile/${id}`,

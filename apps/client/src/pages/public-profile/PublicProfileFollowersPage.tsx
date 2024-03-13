@@ -26,10 +26,10 @@ export const PublicProfileFollowersPage = () => {
     threshold: 0,
   });
 
-  const userId = Number(params?.userId);
+  const publicUserId = Number(params?.userId);
 
   const userRes = useUserQuery();
-  const publicUserRes = usePublicProfileQuery(userId);
+  const publicUserRes = usePublicProfileQuery(publicUserId);
   const { data: mostPopularUsers, isFetching: isMostPopularUsersLoading } =
     useMostPopularUsersQuery();
 
@@ -38,10 +38,10 @@ export const PublicProfileFollowersPage = () => {
     fetchNextPage,
     isFetching: userListLoading,
     hasNextPage,
-  } = usePublicProfileFollowersInfQuery(userId, FOLLOWER_LIST_SIZE_LIMIT);
+  } = usePublicProfileFollowersInfQuery(publicUserId, FOLLOWER_LIST_SIZE_LIMIT);
 
   const meId = userRes.data?.id ?? 0;
-  const user = publicUserRes?.data?.user as PublicUserResponseDto;
+  const publicUser = publicUserRes?.data?.user as PublicUserResponseDto;
   const userList: FollowerListResponseDto[] = data?.pages?.flat() ?? [];
 
   useEffect(() => {
@@ -56,7 +56,7 @@ export const PublicProfileFollowersPage = () => {
 
       <UserListLane
         meId={meId}
-        user={user}
+        user={publicUser}
         userList={userList}
         userListLoading={userListLoading}
         infScrollElRef={ref}
