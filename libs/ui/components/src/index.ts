@@ -31,3 +31,6 @@ export * from './lib/organisms/footer/footer-landing-page-data';
 export * from './lib/organisms/profile/Profile';
 export * from './lib/organisms/sidebar/Sidebar';
 export * from './lib/organisms/sidebar/sidebar-data';
+
+// templates
+export * from './lib/templates/Contacts';

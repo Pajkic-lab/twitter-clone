@@ -1,11 +1,5 @@
 import { FollowerListResponseDto, UserResponseDto } from '@tw/data';
-import {
-  Mediabar,
-  Sidebar,
-  Trends,
-  UserLIst,
-  UserListLane,
-} from '@tw/ui/components';
+import { Contacts } from '@tw/ui/components';
 import {
   useFollowingInfQuery,
   useMostPopularUsersQuery,
@@ -13,7 +7,6 @@ import {
 } from '@tw/ui/data-access';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
-import styled from 'styled-components';
 
 const FOLLOWING_LIST_SIZE_LIMIT = 20;
 
@@ -23,7 +16,7 @@ export const ProfileFollowingPage = () => {
   });
 
   const { data: user } = useUserQuery() as { data: UserResponseDto };
-  const { data: mostPopularUsers, isFetching: isMostPopularUsersLoading } =
+  const { data: mostPopularUsers, isFetching: mostPopularUsersLoading } =
     useMostPopularUsersQuery();
 
   const {
@@ -42,36 +35,17 @@ export const ProfileFollowingPage = () => {
   }, [inView, fetchNextPage]);
 
   return (
-    <PageWrapper>
-      <Sidebar />
-
-      <UserListLane
-        meId={user.id}
-        user={user}
-        userList={userList}
-        userListLoading={userListLoading}
-        infScrollElRef={ref}
-        hasMoreData={hasNextPage}
-        noDataText={'End of following list'}
-      />
-
-      <Mediabar
-        meId={user.id}
-        topWindowChilde={
-          <UserLIst
-            meId={user.id}
-            title={'You might like'}
-            users={mostPopularUsers}
-            userListLoading={isMostPopularUsersLoading}
-          />
-        }
-        bottomWindowChilde={<Trends />}
-      />
-    </PageWrapper>
+    <Contacts
+      meId={user.id}
+      user={user}
+      userList={userList}
+      userListLoading={userListLoading}
+      infScrollElRef={ref}
+      hasMoreData={hasNextPage}
+      noDataText={'No more users you follow'}
+      mediaBarUserListTitle={'Who to follow'}
+      mostPopularUsers={mostPopularUsers}
+      mostPopularUsersLoading={mostPopularUsersLoading}
+    />
   );
 };
-
-const PageWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-`;

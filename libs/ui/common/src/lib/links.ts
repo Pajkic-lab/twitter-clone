@@ -65,7 +65,7 @@ export const linksRecords = {
     baseById: (id: string | number) => `/public-profile/${id}`,
     followers: '/public-profile/:userId/followers',
     followersById: (id: string | number) => `/public-profile/${id}/followers`,
-    following: '/public-profile/:userId/following',
+    following: '/public-profile/:userId/following', // change route to something else...
     followingById: (id: string | number) => `/public-profile/${id}/following`,
   },
 } as const satisfies Links;

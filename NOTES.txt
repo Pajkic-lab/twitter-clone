@@ -61,8 +61,7 @@ updateUser has parser build to handle class-validation, research how to do it at
     * TODO
     */
 
-- Follow and Following can be extracted in template (create template dir) and that template can be reused on all 4 pages, 
-template is absolutly the same just figure out how to handle reusability. Should new page which is going ro replace followers and following be named "ProfileContactsPage"???
+- Should new page which is going ro replace followers and following be named "ProfileContactsPage"???
 
 - Do I need 4 follow and following routes, can this be only one route ???
 
