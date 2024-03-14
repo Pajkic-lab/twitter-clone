@@ -27,6 +27,7 @@ export const Sidebar = () => {
 
   const user = useUser.data ?? ({} as UserResponseDto);
   const { name, avatar, uniqueName } = user;
+  const postButtonText = 'post';
 
   const [sidebarOptionsOpen, setSidebarOptionsOpen] = useState<boolean>(false);
 
@@ -58,7 +59,7 @@ export const Sidebar = () => {
         ))}
 
         <PostButton collapsed={JSON.stringify(sidebarCollapsed)}>
-          {sidebarCollapsed ? <FeatherIcon /> : 'Post'}
+          {sidebarCollapsed ? <FeatherIcon /> : postButtonText}
         </PostButton>
 
         <Tippy

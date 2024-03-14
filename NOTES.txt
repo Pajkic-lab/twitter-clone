@@ -20,6 +20,8 @@ updateUser has parser build to handle class-validation, research how to do it at
 - upload images should be rethink and db schema should be redesign, whole service should be redesign, research this, problem is... I don't store img id 
 - error at setAccountModal not rendering pass in manually to input
 - when on following page of public user, and then click on go back it trows you to profile following, for followers works...
+- can Profile and PublicProfile b extracted to a template? to be seen depends on what mainLane will accept in future...
+- persist route, jotai already exist, see how to implement it and how not to break app
 
 - FRONTEND mayor bugs, navbar should be redesign and profile navbar should be sticky, mediabar should be sticky as well
 
@@ -61,18 +63,13 @@ updateUser has parser build to handle class-validation, research how to do it at
     * TODO
     */
 
-- Should new page which is going ro replace followers and following be named "ProfileContactsPage"???
-
-- Do I need 4 follow and following routes, can this be only one route ???
-
-- can profile and public profile be a template as well? Maybe this could be done but it will require props drilling with react elements ... to be seen, fuck it I could try it.
-
-
-- Read page manager comment how to persist history page...
-
-- (backend) Who to follow returns user who are already being followed 
+- Sidebar and Mediabar are geting user internaly, make them dependent on props? 
 
 - Follow button is missing, should be optional for users list.
+
+- (backend) Who to follow returns user who are already being followed 
+    change has been made, needs to be tested only when follow functionality is done... 
+    \apps\server\src\modules\user\user.repository.ts
 
 - Do Tooltip to wrap user, to show minified version of public profile page...
 
