@@ -61,11 +61,8 @@ export const UserLIst = (props: UserListProps) => {
   return (
     <Wrapper>
       {users && <ContentUi meId={meId} users={users} title={title} />}
-
       {scrollable && <InfScrollElTrigger ref={infScrollElRef} />}
-
       {showLoader && <LoaderUi scrollable={scrollable} />}
-
       {showNoData && (
         <NoDataUi scrollable={scrollable} noDataText={noDataText} />
       )}

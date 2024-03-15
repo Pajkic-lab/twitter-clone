@@ -36,7 +36,6 @@ export const ProfileFollowersPage = () => {
 
   return (
     <Contacts
-      meId={user.id}
       user={user}
       userList={userList}
       userListLoading={userListLoading}

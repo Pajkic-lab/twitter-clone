@@ -63,9 +63,9 @@ updateUser has parser build to handle class-validation, research how to do it at
     * TODO
     */
 
-- Sidebar and Mediabar are geting user internaly, make them dependent on props? 
 
-- Follow button is missing, should be optional for users list.
+- Follow button added to PublicProfile and functionality works. Changes that needs to be done, split getPublicUser to 3 req, is there a need for public user loader???
+- query reset function has to accept array, make it work...
 
 - (backend) Who to follow returns user who are already being followed 
     change has been made, needs to be tested only when follow functionality is done... 
@@ -73,7 +73,7 @@ updateUser has parser build to handle class-validation, research how to do it at
 
 - Do Tooltip to wrap user, to show minified version of public profile page...
 
-- Can follower and following page be unified, do I need to have 2 pages, can it be settled from params???
+
 
 
 

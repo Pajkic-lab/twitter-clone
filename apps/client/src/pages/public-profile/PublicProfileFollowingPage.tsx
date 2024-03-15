@@ -1,4 +1,8 @@
-import { FollowerListResponseDto, PublicUserResponseDto } from '@tw/data';
+import {
+  FollowerListResponseDto,
+  PublicUserResponseDto,
+  UserResponseDto,
+} from '@tw/data';
 import { Contacts } from '@tw/ui/components';
 import {
   useMostPopularUsersQuery,
@@ -21,7 +25,7 @@ export const PublicProfileFollowingPage = () => {
 
   const publicUserId = Number(params?.userId);
 
-  const userRes = useUserQuery();
+  const { data: user } = useUserQuery() as { data: UserResponseDto };
   const publicUserRes = usePublicProfileQuery(publicUserId);
   const { data: mostPopularUsers, isFetching: mostPopularUsersLoading } =
     useMostPopularUsersQuery();
@@ -36,7 +40,6 @@ export const PublicProfileFollowingPage = () => {
     FOLLOWING_LIST_SIZE_LIMIT
   );
 
-  const meId = userRes.data?.id ?? 0;
   const publicUser = publicUserRes?.data?.user as PublicUserResponseDto;
   const userList: FollowerListResponseDto[] = data?.pages?.flat() ?? [];
 
@@ -48,8 +51,8 @@ export const PublicProfileFollowingPage = () => {
 
   return (
     <Contacts
-      meId={meId}
-      user={publicUser}
+      user={user}
+      pubLicUser={publicUser}
       userList={userList}
       userListLoading={userListLoading}
       infScrollElRef={ref}

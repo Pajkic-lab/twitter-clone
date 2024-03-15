@@ -36,6 +36,7 @@ export const ProfilePage = () => {
     error,
   } = useUpdateUserMutation();
 
+  const { name, uniqueName, avatar } = user ?? ({} as UserResponseDto);
   const updateUserErrorMessage = error?.message as ParsedError;
 
   const [isEditProfileModalOpen, setEditModalProfileOpen] =
@@ -54,7 +55,7 @@ export const ProfilePage = () => {
 
   return (
     <PageWrapper>
-      <Sidebar />
+      <Sidebar name={name} uniqueName={uniqueName} avatar={avatar} />
 
       <ProfileMainLane
         user={user}
@@ -76,9 +77,9 @@ export const ProfilePage = () => {
               <Text key={uuid()}>Edit profile</Text>,
               <EditProfileButton
                 key={uuid()}
-                form={UPDATE_USER_FORM_ID}
-                type="submit"
                 $width={5}
+                type="submit"
+                form={UPDATE_USER_FORM_ID}
                 loading={updateUserLoading}
               >
                 save

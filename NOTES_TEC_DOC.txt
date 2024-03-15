@@ -23,3 +23,5 @@ solution source: https://stackoverflow.com/questions/68577988/invalidate-queries
      For position: sticky to work, the containing element of the sticky element must have a defined height and should be scrollable.
      The containing element of the sticky element should have a positioning property other than static.
      Ensure that the overflow property of the container is set to auto or scroll.
+
+- React query, user external invalidation, form some reason it wont invalidate when used internal...

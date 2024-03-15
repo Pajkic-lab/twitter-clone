@@ -14,11 +14,6 @@ type SingleUserProps = {
   meId: number;
 };
 
-/**
- * This component does not have final shape
- * It is intended to represent single user from user list.
- * Should be polymeric, and will be probably changed in future.
- */
 export const SingleUser = (props: SingleUserProps) => {
   const {
     meId,
@@ -30,10 +25,9 @@ export const SingleUser = (props: SingleUserProps) => {
   const goToUserPage = () => {
     if (meId === id) {
       return navigate(linksRecords.profilePage.base);
-    } else {
-      useResetQuery(QueryAction.Remove, publicProfileQueryKey);
-      navigate(linksRecords.publicProfilePage.baseById(JSON.stringify(id)));
     }
+    useResetQuery(QueryAction.Remove, publicProfileQueryKey);
+    navigate(linksRecords.publicProfilePage.baseById(id));
   };
 
   return (

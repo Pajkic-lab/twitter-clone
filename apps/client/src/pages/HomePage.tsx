@@ -36,7 +36,7 @@ export const HomePage = () => {
     isPending: updateUniqueUserNameLoading,
   } = useUpdateUniqueUserNameMutation();
 
-  const { id, uniqueName } = user ?? ({} as UserResponseDto);
+  const { id, name, uniqueName, avatar } = user ?? ({} as UserResponseDto);
   const { isNameUnique } = uniqueUserName ?? {};
 
   const onSubmitUniqueName = useCallback(
@@ -65,7 +65,7 @@ export const HomePage = () => {
 
   return (
     <PageWrapper>
-      <Sidebar />
+      <Sidebar name={name} uniqueName={uniqueName} avatar={avatar} />
 
       <HomeMainLane />
 

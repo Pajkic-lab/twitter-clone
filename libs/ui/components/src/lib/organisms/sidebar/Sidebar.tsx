@@ -1,8 +1,7 @@
 import Tippy from '@tippyjs/react';
-import { UserResponseDto } from '@tw/data';
 import { colors, FeatherIcon, TwitterIcon } from '@tw/ui/assets';
 import { linksRecords } from '@tw/ui/common';
-import { useSidebarState, useUserQuery } from '@tw/ui/data-access';
+import { useSidebarState } from '@tw/ui/data-access';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -12,6 +11,12 @@ import { SideBarNavigationButton } from '../../atoms/SideBarNavigationButton';
 import { SideBarOptionsButton } from '../../atoms/SideBarOptionsButton';
 import { sidebarData } from './sidebar-data';
 
+type SidebarProps = {
+  name: string;
+  avatar: string;
+  uniqueName: string;
+};
+
 type SidebarStyleProps = {
   collapsed: boolean;
 };
@@ -19,14 +24,14 @@ type SidebarStyleProps = {
 const SIDEBAR_WIDTH_FULL = '17.857rem';
 const SIDEBAR_WIDTH_COLLAPSED = '6rem';
 
-export const Sidebar = () => {
+export const Sidebar = (props: SidebarProps) => {
+  const { name, uniqueName, avatar } = props;
+
   const navigate = useNavigate();
-  const useUser = useUserQuery();
   const { pathname } = useLocation();
   const { sidebarCollapsed } = useSidebarState();
 
-  const user = useUser.data ?? ({} as UserResponseDto);
-  const { name, avatar, uniqueName } = user;
+  const sideBarStateString = JSON.stringify(sidebarCollapsed);
   const postButtonText = 'post';
 
   const [sidebarOptionsOpen, setSidebarOptionsOpen] = useState<boolean>(false);
@@ -58,7 +63,7 @@ export const Sidebar = () => {
           />
         ))}
 
-        <PostButton collapsed={JSON.stringify(sidebarCollapsed)}>
+        <PostButton collapsed={sideBarStateString}>
           {sidebarCollapsed ? <FeatherIcon /> : postButtonText}
         </PostButton>
 

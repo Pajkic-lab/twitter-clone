@@ -1,4 +1,8 @@
-import { PublicUserResponseDto, SocialStatsResponseDto } from '@tw/data';
+import {
+  PublicUserResponseDto,
+  SocialStatsResponseDto,
+  UserResponseDto,
+} from '@tw/data';
 import { colors } from '@tw/ui/assets';
 import {
   Loader,
@@ -10,8 +14,10 @@ import {
   UserLIst,
 } from '@tw/ui/components';
 import {
+  useFollowMutation,
   useMostPopularUsersQuery,
   usePublicProfileQuery,
+  useUnFollowMutation,
   useUserQuery,
 } from '@tw/ui/data-access';
 import { useState } from 'react';
@@ -29,11 +35,20 @@ export const PublicProfilePage = () => {
   const { data: mostPopularUsers, isFetching: isMostPopularUsersLoading } =
     useMostPopularUsersQuery();
 
-  const user = publicUserRes?.data?.user as PublicUserResponseDto;
+  const { mutate: followMutation } = useFollowMutation();
+  const { mutate: unFollowMutation } = useUnFollowMutation();
+
+  const publicUser = publicUserRes?.data?.user as PublicUserResponseDto;
   const socialStats = publicUserRes?.data
     ?.socialStats as SocialStatsResponseDto;
 
-  const meId = userRes.data?.id ?? 0;
+  const {
+    id: meId,
+    name,
+    uniqueName,
+    avatar,
+  } = userRes.data ?? ({} as UserResponseDto);
+
   const followingStatus = publicUserRes?.data?.followingStatus as boolean;
 
   const [isHovered, setIsHovered] = useState<boolean>(false);
@@ -49,22 +64,32 @@ export const PublicProfilePage = () => {
     setIsHovered(false);
   };
 
+  const handleClick = () => {
+    if (!followingStatus) {
+      followMutation({ userId });
+    }
+    if (followingStatus) {
+      unFollowMutation({ userId });
+    }
+  };
+
   if (publicUserRes.isFetching) return <Loader fullScreen />;
   return (
     <PageWrapper>
-      <Sidebar />
+      <Sidebar name={name} uniqueName={uniqueName} avatar={avatar} />
 
       <ProfileMainLane
-        user={user}
+        user={publicUser}
         socialStats={socialStats}
         profileActions={
-          <SocialButton
+          <ConnectButton
             $followingStatus={followingStatus}
             onMouseEnter={handleHover}
             onMouseLeave={handleHoverExit}
+            onClick={handleClick}
           >
             {socialButtonText}
-          </SocialButton>
+          </ConnectButton>
         }
       />
 
@@ -89,7 +114,7 @@ const PageWrapper = styled.div`
   justify-content: center;
 `;
 
-const SocialButton = styled(SecondaryButton)<{ $followingStatus: boolean }>`
+const ConnectButton = styled(SecondaryButton)<{ $followingStatus: boolean }>`
   height: 2.286rem;
   padding: 0 16px;
   width: 7rem;

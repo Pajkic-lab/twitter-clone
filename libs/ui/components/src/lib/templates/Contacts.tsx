@@ -11,22 +11,22 @@ import { UserListLane } from '../organisms/UserListLane';
 import { Sidebar } from '../organisms/sidebar/Sidebar';
 
 type ContactsProps = {
-  meId: number;
   user: UserResponseDto;
+  pubLicUser?: UserResponseDto;
   userList: FollowerListResponseDto[];
   userListLoading: boolean;
   infScrollElRef: (node?: Element | null | undefined) => void;
   hasMoreData: boolean;
   noDataText: string;
   mediaBarUserListTitle: string;
-  mostPopularUsers: PublicUserBase[] | undefined; // how to handle undefined and where???
+  mostPopularUsers: PublicUserBase[] | undefined;
   mostPopularUsersLoading: boolean;
 };
 
 export const Contacts = (props: ContactsProps) => {
   const {
-    meId,
     user,
+    pubLicUser,
     userList,
     userListLoading,
     infScrollElRef,
@@ -37,13 +37,16 @@ export const Contacts = (props: ContactsProps) => {
     mostPopularUsersLoading,
   } = props;
 
+  const { id: meId, name, uniqueName, avatar } = user;
+  const userForLane = pubLicUser ?? user;
+
   return (
     <Wrapper>
-      <Sidebar />
+      <Sidebar name={name} uniqueName={uniqueName} avatar={avatar} />
 
       <UserListLane
         meId={meId}
-        user={user}
+        user={userForLane}
         userList={userList}
         userListLoading={userListLoading}
         infScrollElRef={infScrollElRef}
@@ -53,6 +56,7 @@ export const Contacts = (props: ContactsProps) => {
 
       <Mediabar
         meId={meId}
+        // should come from props!
         topWindowChilde={
           <UserLIst
             meId={meId}
@@ -61,6 +65,7 @@ export const Contacts = (props: ContactsProps) => {
             userListLoading={mostPopularUsersLoading}
           />
         }
+        // should come from props!
         bottomWindowChilde={<Trends />}
       />
     </Wrapper>

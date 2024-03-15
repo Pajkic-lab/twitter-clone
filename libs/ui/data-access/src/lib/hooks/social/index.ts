@@ -1,7 +1,10 @@
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
+import { FollowUserRequestDto, UnFollowUserRequestDto } from '@tw/data';
 import { http } from '../../http/api';
+import { publicProfileQueryKey } from '../public-profile';
+import { QueryAction, useResetQuery } from '../resetQuery';
 
-export const socialQueryKey = 'socialQueryKey';
+export const socialQueryKey = 'socialQueryKey'; // rename this
 export const socialGetFollowersKey = 'socialGetFollowersKey';
 export const socialGetFollowingKey = 'socialGetFollowingKey';
 export const socialGetPublicProfileFollowersKey =
@@ -92,5 +95,38 @@ export const usePublicProfileFollowingInfQuery = (
     getNextPageParam: (lastGroup, allGroups) => {
       return lastGroup.length === limit ? allGroups.length * limit : undefined;
     },
+  });
+};
+
+// Follow unFollow
+export const useFollowMutation = () => {
+  return useMutation({
+    mutationFn: async (userId: FollowUserRequestDto) => {
+      return await http.social.followUser(userId);
+    },
+    onSuccess: () => {
+      // useResetQuery(QueryAction.Remove, publicProfileQueryKey);
+      useResetQuery(QueryAction.Invalidate, publicProfileQueryKey);
+      // window.alert('inv query triggered');
+      // queryClient.invalidateQueries({
+      //   queryKey: [publicProfileQueryKey, socialQueryKey],
+      // });
+    },
+    onError: (error) => {},
+  });
+};
+
+export const useUnFollowMutation = () => {
+  return useMutation({
+    mutationFn: async (userId: UnFollowUserRequestDto) => {
+      return await http.social.unFollowUser(userId);
+    },
+    onSuccess: () => {
+      useResetQuery(QueryAction.Invalidate, publicProfileQueryKey);
+      // queryClient.invalidateQueries({
+      //   queryKey: [publicProfileQueryKey, socialQueryKey],
+      // });
+    },
+    onError: (error) => {},
   });
 };
