@@ -1,23 +1,19 @@
 import { PublicUserBase } from '@tw/data';
 import { colors } from '@tw/ui/assets';
 import { linksRecords } from '@tw/ui/common';
-import {
-  QueryAction,
-  publicProfileQueryKey,
-  useResetQuery,
-} from '@tw/ui/data-access';
+import { QueryAction, useResetQuery } from '@tw/ui/data-access';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 type SingleUserProps = {
-  user: PublicUserBase;
+  publicUser: PublicUserBase;
   meId: number;
 };
 
 export const SingleUser = (props: SingleUserProps) => {
   const {
     meId,
-    user: { name, uniqueName, avatar, id },
+    publicUser: { name, uniqueName, avatar, id },
   } = props;
 
   const navigate = useNavigate();
@@ -26,7 +22,7 @@ export const SingleUser = (props: SingleUserProps) => {
     if (meId === id) {
       return navigate(linksRecords.profilePage.base);
     }
-    useResetQuery(QueryAction.Remove, publicProfileQueryKey);
+    useResetQuery(QueryAction.Remove, ['publicUser']); // must be handled differently
     navigate(linksRecords.publicProfilePage.baseById(id));
   };
 

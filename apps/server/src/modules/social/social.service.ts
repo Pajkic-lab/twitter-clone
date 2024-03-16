@@ -19,6 +19,7 @@ import {
 import { InjectMapper } from '../../common/decorators/inject-mapper.decorator';
 import { createResponse } from '../../common/http/create-response';
 import { AuthRepository } from '../auth/auth.repository';
+import { UserRepository } from '../user/user.repository';
 import { SocialRepository } from './social.repository';
 
 @Injectable()
@@ -26,6 +27,7 @@ export class SocialService {
   constructor(
     private authRepository: AuthRepository,
     private socialRepository: SocialRepository,
+    private userRepository: UserRepository,
     @InjectMapper() private readonly mapper: Mapper
   ) {}
 
@@ -38,9 +40,36 @@ export class SocialService {
 
     return createResponse({
       payload: socialStats,
-      message: 'authentication success',
+      message: 'social stats returned successfully',
     });
   }
+
+  async getPublicUserSocialStats(
+    publicUserId: number
+  ): Promise<HttpResponse<SocialStatsResponseDto>> {
+    const socialStats = await this.authRepository.getSocialStats(publicUserId);
+
+    if (!socialStats) throw new NotFoundException('Social stats do not exist');
+
+    return createResponse({
+      payload: socialStats,
+      message: 'social stats returned successfully',
+    });
+  }
+
+  //
+  async getPublicUserFollowingStatus(userId: number, publicUserId: number) {
+    const followingStatus = await this.userRepository.getFollowingStatus(
+      publicUserId,
+      userId
+    );
+
+    return createResponse({
+      payload: { followingStatus },
+      message: 'public user following status success',
+    });
+  }
+  //
 
   async followUser(
     userId: number,

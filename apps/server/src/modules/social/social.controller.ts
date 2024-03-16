@@ -27,13 +27,35 @@ import { SocialService } from './social.service';
 export class SocialController {
   constructor(private socialService: SocialService) {}
 
-  @Get('stats') // this route has not been tested!!!
+  @Get('stats')
   @UseGuards(IsAuthGuard)
   handleGetSocialStats(
     @Req() request: RequestContainingUserId
   ): Promise<HttpResponse<SocialStatsResponseDto>> {
     return this.socialService.getStats(request.user.id);
   }
+
+  @Get('stats/public-user/:userId')
+  @UseGuards(IsAuthGuard)
+  handleGetPublicUserSocialStats(
+    @Param('userId') userId: number
+  ): Promise<HttpResponse<SocialStatsResponseDto>> {
+    return this.socialService.getPublicUserSocialStats(userId);
+  }
+
+  //
+  @Get('following-status/public-user/:userId')
+  @UseGuards(IsAuthGuard)
+  handleGetPublicUserFollowingStatus(
+    @Req() request: RequestContainingUserId,
+    @Param('userId') userId: number
+  ) {
+    return this.socialService.getPublicUserFollowingStatus(
+      request.user.id,
+      userId
+    );
+  }
+  //
 
   @Post('follow/user')
   @UseGuards(IsAuthGuard)

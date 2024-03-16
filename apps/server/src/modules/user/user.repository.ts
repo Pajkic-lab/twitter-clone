@@ -123,14 +123,8 @@ export class UserRepository {
   }
 
   async getMostPopularUsers(userId: number): Promise<User[]> {
-    // Test this out, no way this code works
     try {
       return await this.prisma.user.findMany({
-        // where: {
-        //   NOT: {
-        //     id: userId,
-        //   },
-        // },
         where: {
           AND: [
             {
@@ -151,7 +145,7 @@ export class UserRepository {
         },
         orderBy: {
           followers: {
-            _count: 'desc', // why desc?
+            _count: 'desc',
           },
         },
         take: 3, // this should come from API, it should not be hardcoded

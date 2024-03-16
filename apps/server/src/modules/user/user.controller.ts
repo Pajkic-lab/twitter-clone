@@ -19,7 +19,6 @@ import {
   PublicUserResponseDto,
   RequestContainingUserId,
   SearchUsersResponseDto,
-  SocialStatsResponseDto,
   UpdateUserRequestDto,
   UpdateUserResponseDto,
   UserResponseDto,
@@ -73,8 +72,6 @@ export class UserController {
   ): Promise<
     HttpResponse<{
       user: PublicUserResponseDto;
-      socialStats: SocialStatsResponseDto;
-      followingStatus: boolean;
     }>
   > {
     return this.userService.getPublicUser(id, request.user.id);

@@ -14,7 +14,6 @@ import {
   NameUniqueUpdateResponseDto,
   PublicUserResponseDto,
   SearchUsersResponseDto,
-  SocialStatsResponseDto,
   UpdateUserRequestDto,
   UpdateUserResponseDto,
   UserBase,
@@ -133,12 +132,8 @@ export class UserService {
   ): Promise<
     HttpResponse<{
       user: PublicUserResponseDto;
-      socialStats: SocialStatsResponseDto;
-      followingStatus: boolean;
     }>
   > {
-    let followingStatus;
-
     if (publicUserId === userId) {
       throw new NotFoundException(
         'Can not access to specific user as authenticated same user'
@@ -151,18 +146,8 @@ export class UserService {
 
     const publicUser = this.mapper.map(user, UserBase, PublicUserResponseDto);
 
-    const socialStats = await this.userRepository.getSocialStats(publicUserId);
-
-    if (!socialStats) throw new NotFoundException('Social status do not exist');
-    if (userId) {
-      followingStatus = await this.userRepository.getFollowingStatus(
-        publicUserId,
-        userId
-      );
-    }
-
     return createResponse({
-      payload: { user: publicUser, socialStats, followingStatus },
+      payload: { user: publicUser },
       message: 'public user success',
     });
   }

@@ -14,7 +14,7 @@ import {
 } from '@tw/ui/components';
 import {
   useMostPopularUsersQuery,
-  useSocialQuery,
+  useSocialStatsQuery,
   useUpdateUserMutation,
   useUserQuery,
 } from '@tw/ui/data-access';
@@ -26,7 +26,7 @@ const UPDATE_USER_FORM_ID = uuid();
 
 export const ProfilePage = () => {
   const { data: user } = useUserQuery() as { data: UserResponseDto };
-  const { data: socialStats } = useSocialQuery();
+  const { data: socialStats } = useSocialStatsQuery();
   const { data: mostPopularUsers, isFetching: isMostPopularUsersLoading } =
     useMostPopularUsersQuery();
 

@@ -42,6 +42,8 @@ export const PublicProfileFollowingPage = () => {
 
   const publicUser = publicUserRes?.data?.user as PublicUserResponseDto;
   const userList: FollowerListResponseDto[] = data?.pages?.flat() ?? [];
+  const noDataText = `${publicUser.name} does not follow anyone else`;
+  const mediaBarUserListTitle = 'Who to follow';
 
   useEffect(() => {
     if (inView) {
@@ -57,8 +59,8 @@ export const PublicProfileFollowingPage = () => {
       userListLoading={userListLoading}
       infScrollElRef={ref}
       hasMoreData={hasNextPage}
-      noDataText={'No more users you follow'}
-      mediaBarUserListTitle={'Who to follow'}
+      noDataText={noDataText}
+      mediaBarUserListTitle={mediaBarUserListTitle}
       mostPopularUsers={mostPopularUsers}
       mostPopularUsersLoading={mostPopularUsersLoading}
     />

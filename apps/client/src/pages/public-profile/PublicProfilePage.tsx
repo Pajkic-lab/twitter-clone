@@ -1,8 +1,4 @@
-import {
-  PublicUserResponseDto,
-  SocialStatsResponseDto,
-  UserResponseDto,
-} from '@tw/data';
+import { PublicUserResponseDto, UserResponseDto } from '@tw/data';
 import { colors } from '@tw/ui/assets';
 import {
   Loader,
@@ -17,6 +13,8 @@ import {
   useFollowMutation,
   useMostPopularUsersQuery,
   usePublicProfileQuery,
+  usePublicUserFollowingStatusQuery,
+  usePublicUserSocialStatsQuery,
   useUnFollowMutation,
   useUserQuery,
 } from '@tw/ui/data-access';
@@ -31,16 +29,20 @@ export const PublicProfilePage = () => {
 
   const userRes = useUserQuery();
   const publicUserRes = usePublicProfileQuery(userId);
+  const { data: socialStats } = usePublicUserSocialStatsQuery(userId);
+  const { data: followingStatusData, isFetching: isFollowStatusLoading } =
+    usePublicUserFollowingStatusQuery(userId);
 
   const { data: mostPopularUsers, isFetching: isMostPopularUsersLoading } =
     useMostPopularUsersQuery();
 
-  const { mutate: followMutation } = useFollowMutation();
-  const { mutate: unFollowMutation } = useUnFollowMutation();
+  const { mutate: followMutation, isPending: isFollowLoading } =
+    useFollowMutation();
+  const { mutate: unFollowMutation, isPending: isUnFollowLoading } =
+    useUnFollowMutation();
 
   const publicUser = publicUserRes?.data?.user as PublicUserResponseDto;
-  const socialStats = publicUserRes?.data
-    ?.socialStats as SocialStatsResponseDto;
+  const followingStatus = followingStatusData?.followingStatus as boolean;
 
   const {
     id: meId,
@@ -49,12 +51,12 @@ export const PublicProfilePage = () => {
     avatar,
   } = userRes.data ?? ({} as UserResponseDto);
 
-  const followingStatus = publicUserRes?.data?.followingStatus as boolean;
-
   const [isHovered, setIsHovered] = useState<boolean>(false);
 
   const btFollowText = isHovered ? 'UnFollow' : 'Following';
-  const socialButtonText = followingStatus ? btFollowText : 'Follow';
+  const connectButtonText = followingStatus ? btFollowText : 'Follow';
+  const isConnectButtonLoading =
+    isFollowLoading || isUnFollowLoading || isFollowStatusLoading;
 
   const handleHover = () => {
     setIsHovered(true);
@@ -64,13 +66,12 @@ export const PublicProfilePage = () => {
     setIsHovered(false);
   };
 
-  const handleClick = () => {
+  const handleConnect = () => {
     if (!followingStatus) {
       followMutation({ userId });
+      return;
     }
-    if (followingStatus) {
-      unFollowMutation({ userId });
-    }
+    unFollowMutation({ userId });
   };
 
   if (publicUserRes.isFetching) return <Loader fullScreen />;
@@ -83,12 +84,13 @@ export const PublicProfilePage = () => {
         socialStats={socialStats}
         profileActions={
           <ConnectButton
+            loading={isConnectButtonLoading}
             $followingStatus={followingStatus}
             onMouseEnter={handleHover}
             onMouseLeave={handleHoverExit}
-            onClick={handleClick}
+            onClick={handleConnect}
           >
-            {socialButtonText}
+            {connectButtonText}
           </ConnectButton>
         }
       />

@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { http } from '../../http/api';
 
-export const publicProfileQueryKey = 'publicProfileQueryKey';
+export const publicProfileQueryKey = ['publicUser', 'publicProfileQueryKey'];
 
 /**
  * When ever call query every subsequent request has to be invalidated.

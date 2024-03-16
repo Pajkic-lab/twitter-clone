@@ -81,17 +81,7 @@ export const http = {
     ): Promise<AxiosResponse<HttpResponse<UpdateUserResponseDto>>> {
       return httpClient.patch('user', updateUser);
     },
-    getPublicUser(id: number): Promise<
-      AxiosResponse<
-        HttpResponse<{
-          user: PublicUserResponseDto;
-          socialStats: SocialStatsResponseDto;
-          followingStatus: boolean;
-        }>
-      >
-    > {
-      return httpClient.get(`user/public/${id}`);
-    },
+
     getMostPopularUsers(): Promise<
       AxiosResponse<HttpResponse<MostPopularUsersResponseDto[]>>
     > {
@@ -104,6 +94,16 @@ export const http = {
     > {
       return httpClient.get(`user/search/${searchData}`);
     },
+    //
+    getPublicUser(id: number): Promise<
+      AxiosResponse<
+        HttpResponse<{
+          user: PublicUserResponseDto;
+        }>
+      >
+    > {
+      return httpClient.get(`user/public/${id}`);
+    },
   },
   social: {
     getSocialStats(): Promise<
@@ -111,6 +111,17 @@ export const http = {
     > {
       return httpClient.get('social/stats');
     },
+    //
+    getPublicUserSocialStats(
+      userId: number
+    ): Promise<AxiosResponse<HttpResponse<SocialStatsResponseDto>>> {
+      return httpClient.get(`social/stats/public-user/${userId}`);
+    },
+    // return type is missing
+    getPublicUserFollowingStatus(userId: number) {
+      return httpClient.get(`social/following-status/public-user/${userId}`);
+    },
+    //
     followUser(
       userId: FollowUserRequestDto
     ): Promise<AxiosResponse<HttpResponse<FollowUserResponseDto>>> {
@@ -121,7 +132,6 @@ export const http = {
     ): Promise<AxiosResponse<HttpResponse<UnFollowUserResponseDto>>> {
       return httpClient.delete(`social/un-follow/user/${unFollowUser.userId}`);
     },
-    // Do I need 4 following routes, can this be only one route with extra argument to designate what data to return???
     getFollowers({
       followerOffset,
       followerLimit,

@@ -22,6 +22,7 @@ updateUser has parser build to handle class-validation, research how to do it at
 - when on following page of public user, and then click on go back it trows you to profile following, for followers works...
 - can Profile and PublicProfile b extracted to a template? to be seen depends on what mainLane will accept in future...
 - persist route, jotai already exist, see how to implement it and how not to break app
+- user following list stays cached after change, should force refetch 
 
 - FRONTEND mayor bugs, navbar should be redesign and profile navbar should be sticky, mediabar should be sticky as well
 
@@ -63,21 +64,9 @@ updateUser has parser build to handle class-validation, research how to do it at
     * TODO
     */
 
-
-- Follow button added to PublicProfile and functionality works. Changes that needs to be done, split getPublicUser to 3 req, is there a need for public user loader???
-- query reset function has to accept array, make it work...
-
-- (backend) Who to follow returns user who are already being followed 
-    change has been made, needs to be tested only when follow functionality is done... 
-    \apps\server\src\modules\user\user.repository.ts
+- reset queries: userFollowing userFollowers, should refetch data on window focus... they don't update after change...
 
 - Do Tooltip to wrap user, to show minified version of public profile page...
-
-
-
-
-
-
 
 
 

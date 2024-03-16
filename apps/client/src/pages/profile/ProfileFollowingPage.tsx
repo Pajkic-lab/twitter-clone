@@ -27,6 +27,8 @@ export const ProfileFollowingPage = () => {
   } = useFollowingInfQuery(FOLLOWING_LIST_SIZE_LIMIT);
 
   const userList: FollowerListResponseDto[] = data?.pages?.flat() ?? [];
+  const mediaBarUserListTitle = 'Who to follow';
+  const noDataText = 'No more users you follow';
 
   useEffect(() => {
     if (inView) {
@@ -41,8 +43,8 @@ export const ProfileFollowingPage = () => {
       userListLoading={userListLoading}
       infScrollElRef={ref}
       hasMoreData={hasNextPage}
-      noDataText={'No more users you follow'}
-      mediaBarUserListTitle={'Who to follow'}
+      noDataText={noDataText}
+      mediaBarUserListTitle={mediaBarUserListTitle}
       mostPopularUsers={mostPopularUsers}
       mostPopularUsersLoading={mostPopularUsersLoading}
     />

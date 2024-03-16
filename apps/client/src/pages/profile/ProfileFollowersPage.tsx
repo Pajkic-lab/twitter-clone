@@ -8,7 +8,7 @@ import {
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 
-const FOLLOWER_LIST_SIZE_LIMIT = 20;
+const FOLLOWERS_LIST_SIZE_LIMIT = 20;
 
 export const ProfileFollowersPage = () => {
   const { ref, inView } = useInView({
@@ -24,9 +24,11 @@ export const ProfileFollowersPage = () => {
     fetchNextPage,
     isFetching: userListLoading,
     hasNextPage,
-  } = useFollowersInfQuery(FOLLOWER_LIST_SIZE_LIMIT);
+  } = useFollowersInfQuery(FOLLOWERS_LIST_SIZE_LIMIT);
 
   const userList: FollowerListResponseDto[] = data?.pages?.flat() ?? [];
+  const mediaBarUserListTitle = 'Who to follow';
+  const noDataText = 'No more followers';
 
   useEffect(() => {
     if (inView) {
@@ -41,8 +43,8 @@ export const ProfileFollowersPage = () => {
       userListLoading={userListLoading}
       infScrollElRef={ref}
       hasMoreData={hasNextPage}
-      noDataText={'No more users you follow'}
-      mediaBarUserListTitle={'Who to follow'}
+      noDataText={noDataText}
+      mediaBarUserListTitle={mediaBarUserListTitle}
       mostPopularUsers={mostPopularUsers}
       mostPopularUsersLoading={mostPopularUsersLoading}
     />

@@ -1,20 +1,33 @@
 import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
 import { FollowUserRequestDto, UnFollowUserRequestDto } from '@tw/data';
 import { http } from '../../http/api';
-import { publicProfileQueryKey } from '../public-profile';
 import { QueryAction, useResetQuery } from '../resetQuery';
 
-export const socialQueryKey = 'socialQueryKey'; // rename this
-export const socialGetFollowersKey = 'socialGetFollowersKey';
-export const socialGetFollowingKey = 'socialGetFollowingKey';
+export const socialStatsQueryKey = 'socialStatsQueryKey';
+
+export const publicUserSocialStatsQueryKey = [
+  'publicUser',
+  'publicUserSocialStatsQueryKey',
+];
+
+export const publicUserSFollowingStatsQueryKey = [
+  'publicUser',
+  'publicUserSFollowingStatsQueryKey',
+];
+
+export const userGetFollowersKey = 'userGetFollowersKey';
+
+export const userGetFollowingKey = 'userGetFollowingKey';
+
 export const socialGetPublicProfileFollowersKey =
   'socialGetPublicProfileFollowersKey';
+
 export const socialGetPublicProfileFollowingKey =
   'socialGetPublicProfileFollowingKey';
 
-export const useSocialQuery = () => {
+export const useSocialStatsQuery = () => {
   return useQuery({
-    queryKey: [socialQueryKey],
+    queryKey: [socialStatsQueryKey],
     queryFn: async () => {
       const res = await http.social.getSocialStats();
       return res.data.payload;
@@ -22,9 +35,31 @@ export const useSocialQuery = () => {
   });
 };
 
+//
+export const usePublicUserSocialStatsQuery = (userId: number) => {
+  return useQuery({
+    queryKey: [publicUserSocialStatsQueryKey],
+    queryFn: async () => {
+      const res = await http.social.getPublicUserSocialStats(userId);
+      return res.data.payload;
+    },
+  });
+};
+//
+export const usePublicUserFollowingStatusQuery = (userId: number) => {
+  return useQuery({
+    queryKey: [publicUserSFollowingStatsQueryKey],
+    queryFn: async () => {
+      const res = await http.social.getPublicUserFollowingStatus(userId);
+      return res.data.payload;
+    },
+  });
+};
+
+//
 export const useFollowersInfQuery = (limit: number) => {
   return useInfiniteQuery({
-    queryKey: [socialGetFollowersKey],
+    queryKey: [userGetFollowersKey],
     initialPageParam: 0,
     queryFn: async ({ pageParam }: { pageParam: number }) => {
       const res = await http.social.getFollowers({
@@ -36,12 +71,14 @@ export const useFollowersInfQuery = (limit: number) => {
     getNextPageParam: (lastGroup, allGroups) => {
       return lastGroup.length === limit ? allGroups.length * limit : undefined;
     },
+    refetchOnMount: true,
+    refetchOnWindowFocus: true,
   });
 };
 
 export const useFollowingInfQuery = (limit: number) => {
   return useInfiniteQuery({
-    queryKey: [socialGetFollowingKey],
+    queryKey: [userGetFollowingKey],
     initialPageParam: 0,
     queryFn: async ({ pageParam }: { pageParam: number }) => {
       const res = await http.social.getFollowingUsers({
@@ -53,6 +90,8 @@ export const useFollowingInfQuery = (limit: number) => {
     getNextPageParam: (lastGroup, allGroups) => {
       return lastGroup.length === limit ? allGroups.length * limit : undefined;
     },
+    refetchOnMount: true,
+    refetchOnWindowFocus: true,
   });
 };
 
@@ -98,19 +137,14 @@ export const usePublicProfileFollowingInfQuery = (
   });
 };
 
-// Follow unFollow
 export const useFollowMutation = () => {
   return useMutation({
     mutationFn: async (userId: FollowUserRequestDto) => {
       return await http.social.followUser(userId);
     },
     onSuccess: () => {
-      // useResetQuery(QueryAction.Remove, publicProfileQueryKey);
-      useResetQuery(QueryAction.Invalidate, publicProfileQueryKey);
-      // window.alert('inv query triggered');
-      // queryClient.invalidateQueries({
-      //   queryKey: [publicProfileQueryKey, socialQueryKey],
-      // });
+      useResetQuery(QueryAction.Invalidate, publicUserSocialStatsQueryKey);
+      useResetQuery(QueryAction.Invalidate, publicUserSFollowingStatsQueryKey);
     },
     onError: (error) => {},
   });
@@ -122,10 +156,8 @@ export const useUnFollowMutation = () => {
       return await http.social.unFollowUser(userId);
     },
     onSuccess: () => {
-      useResetQuery(QueryAction.Invalidate, publicProfileQueryKey);
-      // queryClient.invalidateQueries({
-      //   queryKey: [publicProfileQueryKey, socialQueryKey],
-      // });
+      useResetQuery(QueryAction.Invalidate, publicUserSocialStatsQueryKey);
+      useResetQuery(QueryAction.Invalidate, publicUserSFollowingStatsQueryKey);
     },
     onError: (error) => {},
   });

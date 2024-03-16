@@ -76,7 +76,7 @@ const ContentUi = memo((props: ContentUiProps) => {
     <ContentWrapper>
       {title && <Title>{title}</Title>}
       {users.map((user) => (
-        <SingleUser key={user.id} meId={meId} user={user} />
+        <SingleUser key={user.id} meId={meId} publicUser={user} />
       ))}
     </ContentWrapper>
   );
