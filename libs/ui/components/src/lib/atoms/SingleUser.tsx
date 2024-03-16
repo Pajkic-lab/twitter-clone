@@ -1,50 +1,95 @@
 import { PublicUserBase } from '@tw/data';
 import { colors } from '@tw/ui/assets';
 import { linksRecords } from '@tw/ui/common';
-import { QueryAction, useResetQuery } from '@tw/ui/data-access';
+import {
+  QueryAction,
+  useFollowMutation,
+  useResetQuery,
+  useUnFollowMutation,
+} from '@tw/ui/data-access';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { SecondaryButton } from './Button';
 
 type SingleUserProps = {
   publicUser: PublicUserBase;
   meId: number;
+  connectButtonExist?: boolean;
 };
 
 export const SingleUser = (props: SingleUserProps) => {
   const {
     meId,
-    publicUser: { name, uniqueName, avatar, id },
+    publicUser: { name, uniqueName, avatar, id, followingStatus },
   } = props;
 
   const navigate = useNavigate();
+
+  const { mutateAsync: followMutation, isPending: isFollowLoading } =
+    useFollowMutation();
+  const { mutateAsync: unFollowMutation, isPending: isUnFollowingLoading } =
+    useUnFollowMutation();
+
+  const [isHovered, setIsHovered] = useState<boolean>(false);
 
   const goToUserPage = () => {
     if (meId === id) {
       return navigate(linksRecords.profilePage.base);
     }
-    useResetQuery(QueryAction.Remove, ['publicUser']); // must be handled differently
+    // must be handled differently, no hardcoded values...
+    useResetQuery(QueryAction.Remove, ['publicUser']);
     navigate(linksRecords.publicProfilePage.baseById(id));
   };
 
+  const handleHover = () => {
+    setIsHovered(true);
+  };
+
+  const handleHoverExit = () => {
+    setIsHovered(false);
+  };
+
+  const btFollowText = isHovered ? 'UnFollow' : 'Following';
+  const connectButtonText = followingStatus ? btFollowText : 'Follow';
+  const isConnectionButtonLoading = isFollowLoading || isUnFollowingLoading;
+
+  const handleConnect = () => {
+    if (!followingStatus) {
+      followMutation({ userId: id });
+      return;
+    }
+    unFollowMutation({ userId: id });
+  };
+
   return (
-    <ProfileButtonWrapper onClick={goToUserPage}>
-      <BioWrapper>
-        <ProfileImage $backgroundImage={avatar} />
+    <ProfileButtonWrapper>
+      <ContextWrapper>
+        <ProfileImage $backgroundImage={avatar} onClick={goToUserPage} />
         <TextWrapper>
           <H3>{name}</H3>
           <Span>{uniqueName}</Span>
         </TextWrapper>
-      </BioWrapper>
+      </ContextWrapper>
+      <ConnectButton
+        loading={isConnectionButtonLoading}
+        $followingStatus={followingStatus}
+        onMouseEnter={handleHover}
+        onMouseLeave={handleHoverExit}
+        onClick={handleConnect}
+      >
+        {connectButtonText}
+      </ConnectButton>
     </ProfileButtonWrapper>
   );
 };
 
 const ProfileButtonWrapper = styled.div`
   display: flex;
-  justify-content: start;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 0.5rem 0.5rem;
+  padding: 0.8rem 0.8rem;
   cursor: pointer;
 
   &:hover {
@@ -52,15 +97,10 @@ const ProfileButtonWrapper = styled.div`
   }
 `;
 
-const BioWrapper = styled.div`
+const ContextWrapper = styled.div`
   display: flex;
   justify-content: start;
   align-items: center;
-  padding: 0.3rem;
-
-  && :hover {
-    background-color: ${colors.grayDarkActive};
-  }
 `;
 
 const ProfileImage = styled.div<{ $backgroundImage: string }>`
@@ -95,4 +135,24 @@ const Span = styled.span`
   padding-left: 0.8rem;
   color: ${colors.graySecondary};
   font-weight: 500;
+`;
+
+const ConnectButton = styled(SecondaryButton)<{ $followingStatus: boolean }>`
+  height: 2.286rem;
+  padding: 0 16px;
+  width: 6rem;
+  /* z-index: 50; // this should be handled */
+
+  color: ${({ $followingStatus }) =>
+    $followingStatus ? colors.black : colors.grayPrimary};
+
+  background-color: ${({ $followingStatus }) =>
+    $followingStatus ? colors.white : ''};
+
+  &:hover {
+    color: ${({ $followingStatus }) =>
+      $followingStatus ? colors.red : colors.white};
+    border: ${({ $followingStatus }) =>
+      $followingStatus ? `1px solid ${colors.red}` : ''};
+  }
 `;

@@ -6,7 +6,7 @@ import { Loader } from '../atoms/Loader';
 import { SingleUser } from '../atoms/SingleUser';
 
 type UserListProps = {
-  users: FollowerListResponseDto[] | undefined;
+  userList: FollowerListResponseDto[] | undefined;
   userListLoading?: boolean;
   title?: string;
   noDataText?: string;
@@ -18,7 +18,7 @@ type UserListProps = {
 
 type ContentUiProps = {
   meId: number;
-  users: FollowerListResponseDto[];
+  userList: FollowerListResponseDto[];
   title?: string;
 };
 
@@ -33,34 +33,34 @@ type LoaderUiProps = {
 
 export const UserLIst = (props: UserListProps) => {
   const {
-    users,
+    meId,
+    userList,
     userListLoading,
     title,
     noDataText = 'No matching data.',
     scrollable = false,
     infScrollElRef,
     hasMoreData,
-    meId,
   } = props;
 
   const memoizedValues = useMemo(() => {
     const scrollLoader = userListLoading;
     const scrollNoData = !hasMoreData && !userListLoading;
 
-    const defaultLoader = userListLoading! && !users?.length;
-    const defaultNoData = !userListLoading && !users?.length;
+    const defaultLoader = userListLoading! && !userList?.length;
+    const defaultNoData = !userListLoading && !userList?.length;
 
     const showLoader = scrollable ? scrollLoader : defaultLoader;
     const showNoData = scrollable ? scrollNoData : defaultNoData;
 
     return { showLoader, showNoData };
-  }, [userListLoading, users, hasMoreData, scrollable]);
+  }, [userListLoading, userList, hasMoreData, scrollable]);
 
   const { showLoader, showNoData } = memoizedValues;
 
   return (
     <Wrapper>
-      {users && <ContentUi meId={meId} users={users} title={title} />}
+      {userList && <ContentUi meId={meId} userList={userList} title={title} />}
       {scrollable && <InfScrollElTrigger ref={infScrollElRef} />}
       {showLoader && <LoaderUi scrollable={scrollable} />}
       {showNoData && (
@@ -71,11 +71,12 @@ export const UserLIst = (props: UserListProps) => {
 };
 
 const ContentUi = memo((props: ContentUiProps) => {
-  const { meId, title, users } = props;
+  const { meId, title, userList } = props;
+  // console.log(222, userList);
   return (
     <ContentWrapper>
       {title && <Title>{title}</Title>}
-      {users.map((user) => (
+      {userList.map((user) => (
         <SingleUser key={user.id} meId={meId} publicUser={user} />
       ))}
     </ContentWrapper>

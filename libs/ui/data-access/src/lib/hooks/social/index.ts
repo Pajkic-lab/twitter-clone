@@ -15,9 +15,9 @@ export const publicUserSFollowingStatsQueryKey = [
   'publicUserSFollowingStatsQueryKey',
 ];
 
-export const userGetFollowersKey = 'userGetFollowersKey';
+export const userGetFollowersKey = ['query', 'userGetFollowersKey'];
 
-export const userGetFollowingKey = 'userGetFollowingKey';
+export const userGetFollowingKey = ['query', 'userGetFollowingKey'];
 
 export const socialGetPublicProfileFollowersKey =
   'socialGetPublicProfileFollowersKey';
@@ -145,6 +145,8 @@ export const useFollowMutation = () => {
     onSuccess: () => {
       useResetQuery(QueryAction.Invalidate, publicUserSocialStatsQueryKey);
       useResetQuery(QueryAction.Invalidate, publicUserSFollowingStatsQueryKey);
+      useResetQuery(QueryAction.Invalidate, userGetFollowersKey);
+      useResetQuery(QueryAction.Invalidate, userGetFollowingKey);
     },
     onError: (error) => {},
   });
@@ -158,6 +160,8 @@ export const useUnFollowMutation = () => {
     onSuccess: () => {
       useResetQuery(QueryAction.Invalidate, publicUserSocialStatsQueryKey);
       useResetQuery(QueryAction.Invalidate, publicUserSFollowingStatsQueryKey);
+      useResetQuery(QueryAction.Invalidate, userGetFollowersKey);
+      useResetQuery(QueryAction.Invalidate, userGetFollowingKey);
     },
     onError: (error) => {},
   });

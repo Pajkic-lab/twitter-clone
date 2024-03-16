@@ -65,6 +65,9 @@ updateUser has parser build to handle class-validation, research how to do it at
     */
 
 - reset queries: userFollowing userFollowers, should refetch data on window focus... they don't update after change...
+- research how to organize keys in hooks, what is industry standard and how they work, all of them should be reorganized
+
+- Connect button in SingleUser component...
 
 - Do Tooltip to wrap user, to show minified version of public profile page...
 

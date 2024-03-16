@@ -43,7 +43,6 @@ export class SocialController {
     return this.socialService.getPublicUserSocialStats(userId);
   }
 
-  //
   @Get('following-status/public-user/:userId')
   @UseGuards(IsAuthGuard)
   handleGetPublicUserFollowingStatus(
@@ -55,7 +54,6 @@ export class SocialController {
       userId
     );
   }
-  //
 
   @Post('follow/user')
   @UseGuards(IsAuthGuard)
@@ -96,21 +94,37 @@ export class SocialController {
     return this.socialService.handleFollowing(request.user.id, offset, limit);
   }
 
+  //
   @Get('public-profile/followers/:userId/:offset/:limit')
   handleGetPublicProfileFollowers(
     @Param('userId') userId: number,
     @Param('offset') offset: number,
-    @Param('limit') limit: number
+    @Param('limit') limit: number,
+    @Req() request: RequestContainingUserId //
   ): Promise<HttpResponse<FollowerListResponseDto[]>> {
-    return this.socialService.handleFollowers(userId, offset, limit);
+    return this.socialService.handlePublicProfileFollowers(
+      request.user.id,
+      userId,
+      offset,
+      limit
+    );
   }
+  //
 
+  //
   @Get('public-profile/following/:userId/:offset/:limit')
   handleGetPublicProfileFollowing(
     @Param('userId') userId: number,
     @Param('offset') offset: number,
-    @Param('limit') limit: number
+    @Param('limit') limit: number,
+    @Req() request: RequestContainingUserId //
   ): Promise<HttpResponse<FollowingListResponseDto[]>> {
-    return this.socialService.handleFollowing(userId, offset, limit);
+    return this.socialService.handlePublicProfileFollowing(
+      request.user.id,
+      userId,
+      offset,
+      limit
+    );
   }
+  //
 }

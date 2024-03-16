@@ -92,7 +92,7 @@ const SearchResultWindow = (props: SearchResultWindowProps) => {
       {searchUserRes && (
         <UserLIst
           meId={meId}
-          users={searchUserRes}
+          userList={searchUserRes}
           userListLoading={searchIsLoading}
         />
       )}

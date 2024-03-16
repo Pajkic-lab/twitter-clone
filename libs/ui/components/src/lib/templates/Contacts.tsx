@@ -61,7 +61,7 @@ export const Contacts = (props: ContactsProps) => {
           <UserLIst
             meId={meId}
             title={mediaBarUserListTitle}
-            users={mostPopularUsers}
+            userList={mostPopularUsers}
             userListLoading={mostPopularUsersLoading}
           />
         }

@@ -39,7 +39,7 @@ export const PublicProfileFollowersPage = () => {
 
   const publicUser = publicUserRes?.data?.user as PublicUserResponseDto;
   const userList: FollowerListResponseDto[] = data?.pages?.flat() ?? [];
-  const noDataText = `${publicUser.name} does't have more followers`;
+  const noDataText = `End of ${publicUser.name} followers list.`;
   const mediaBarUserListTitle = 'Who to follow';
 
   useEffect(() => {

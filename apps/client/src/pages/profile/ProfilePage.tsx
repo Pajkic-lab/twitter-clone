@@ -103,7 +103,7 @@ export const ProfilePage = () => {
           <UserLIst
             meId={user.id}
             title={'You might like'}
-            users={mostPopularUsers}
+            userList={mostPopularUsers}
             userListLoading={isMostPopularUsersLoading}
           />
         }

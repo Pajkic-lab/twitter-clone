@@ -101,7 +101,7 @@ export const PublicProfilePage = () => {
           <UserLIst
             meId={meId}
             title={'You might like'}
-            users={mostPopularUsers}
+            userList={mostPopularUsers}
             userListLoading={isMostPopularUsersLoading}
           />
         }

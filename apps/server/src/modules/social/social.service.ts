@@ -177,4 +177,69 @@ export class SocialService {
       message: 'following list success',
     });
   }
+
+  //
+  async handlePublicProfileFollowers(
+    meId: number,
+    publicUserId: number,
+    offset: number,
+    limit: number
+  ): Promise<HttpResponse<FollowerListResponseDto[]>> {
+    const userList = await this.socialRepository.getPublicProfileFollowers(
+      meId,
+      publicUserId,
+      offset,
+      limit
+    );
+    if (!userList) {
+      throw new HttpException(
+        'Error while finding followers',
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+    }
+
+    const followerList = this.mapper.mapArray(
+      userList,
+      UserWithFollowingStatus,
+      FollowerListResponseDto
+    );
+
+    return createResponse({
+      payload: followerList,
+      message: 'follower list success',
+    });
+  }
+  //
+  async handlePublicProfileFollowing(
+    meId: number,
+    publicUserId: number,
+    offset: number,
+    limit: number
+  ): Promise<HttpResponse<FollowingListResponseDto[]>> {
+    const userList = await this.socialRepository.getPublicProfileFollowingUsers(
+      meId,
+      publicUserId,
+      offset,
+      limit
+    );
+
+    if (!userList) {
+      throw new HttpException(
+        'Error while finding following users',
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+    }
+
+    const followingList = this.mapper.mapArray(
+      userList,
+      UserWithFollowingStatus,
+      FollowingListResponseDto
+    );
+
+    return createResponse({
+      payload: followingList,
+      message: 'following list success',
+    });
+  }
+  //
 }

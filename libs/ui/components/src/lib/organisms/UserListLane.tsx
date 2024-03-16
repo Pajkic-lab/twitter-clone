@@ -45,7 +45,7 @@ export const UserListLane = (props: UserListLaneProps) => {
 
       <UserLIst
         meId={meId}
-        users={userList}
+        userList={userList}
         userListLoading={userListLoading}
         scrollable
         infScrollElRef={infScrollElRef}

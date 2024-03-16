@@ -75,7 +75,7 @@ export const HomePage = () => {
           <UserLIst
             meId={id}
             title={'You might like'}
-            users={mostPopularUsers}
+            userList={mostPopularUsers}
             userListLoading={isMostPopularUsersLoading}
           />
         }
