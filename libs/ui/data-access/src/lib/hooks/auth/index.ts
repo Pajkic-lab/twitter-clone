@@ -69,7 +69,7 @@ export const useSignOutMutation = () => {
     onSuccess: () => {
       Cookies.remove('twitter-clone-auth-session'); // replace hardcoded value with env var.
       queryClient.removeQueries({ queryKey: [authQueryKey] });
-      queryClient.invalidateQueries({ queryKey: [authQueryKey] });
+      queryClient.invalidateQueries({ queryKey: [authQueryKey] }); // no need for this line
     },
     onError: (error) => {
       if (isAxiosError(error)) {
