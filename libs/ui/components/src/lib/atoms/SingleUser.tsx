@@ -1,12 +1,7 @@
 import { PublicUserBase } from '@tw/data';
 import { colors } from '@tw/ui/assets';
 import { linksRecords } from '@tw/ui/common';
-import {
-  QueryAction,
-  useFollowMutation,
-  useResetQuery,
-  useUnFollowMutation,
-} from '@tw/ui/data-access';
+import { useFollowMutation, useUnFollowMutation } from '@tw/ui/data-access';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -37,8 +32,6 @@ export const SingleUser = (props: SingleUserProps) => {
     if (meId === id) {
       return navigate(linksRecords.profilePage.base);
     }
-    // must be handled differently, no hardcoded values...
-    useResetQuery(QueryAction.Remove, ['publicUser']);
     navigate(linksRecords.publicProfilePage.baseById(id));
   };
 

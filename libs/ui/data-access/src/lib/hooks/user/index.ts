@@ -12,7 +12,6 @@ import { queryClient } from '../core';
 export const userQueryKey = 'userQueryKey';
 export const mostPopularUsersQueryKey = 'mostPopularUsersQueryKey';
 
-// query
 export const useUserQuery = () => {
   return useQuery({
     queryKey: [userQueryKey],
@@ -33,7 +32,6 @@ export const useMostPopularUsersQuery = () => {
   });
 };
 
-// mutation
 export const useCheckUniqueUserNameMutation = () => {
   return useMutation({
     mutationFn: async (uniqueName: NameUniqueRequestDto) => {

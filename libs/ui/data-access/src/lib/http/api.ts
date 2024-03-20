@@ -98,7 +98,7 @@ export const http = {
     getPublicUser(id: number): Promise<
       AxiosResponse<
         HttpResponse<{
-          user: PublicUserResponseDto;
+          user: PublicUserResponseDto; // is there a need for type literal
         }>
       >
     > {

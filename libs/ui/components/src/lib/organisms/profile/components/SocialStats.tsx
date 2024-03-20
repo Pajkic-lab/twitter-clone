@@ -1,12 +1,6 @@
 import { SocialStatsResponseDto } from '@tw/data';
 import { colors } from '@tw/ui/assets';
 import { linksRecords } from '@tw/ui/common';
-import {
-  QueryAction,
-  socialGetPublicProfileFollowersKey,
-  socialGetPublicProfileFollowingKey,
-  useResetQuery,
-} from '@tw/ui/data-access';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -27,7 +21,6 @@ export const SocialStats = (props: SocialStatsProps) => {
   const navigateToFollowers = () => {
     if (userId) {
       navigate(linksRecords.publicProfilePage.followersById(userId));
-      useResetQuery(QueryAction.Remove, socialGetPublicProfileFollowersKey);
     } else {
       navigate(linksRecords.profilePage.followers);
     }
@@ -37,7 +30,6 @@ export const SocialStats = (props: SocialStatsProps) => {
     navigate(linksRecords.profilePage.following);
     if (userId) {
       navigate(linksRecords.publicProfilePage.followingById(userId));
-      useResetQuery(QueryAction.Remove, socialGetPublicProfileFollowingKey);
     } else {
       navigate(linksRecords.profilePage.following);
     }

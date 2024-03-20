@@ -10,11 +10,15 @@ import {
   UserLIst,
 } from '@tw/ui/components';
 import {
+  QueryAction,
+  publicUserSFollowingStatsQueryKey,
+  publicUserSocialStatsQueryKey,
   useFollowMutation,
   useMostPopularUsersQuery,
   usePublicProfileQuery,
   usePublicUserFollowingStatusQuery,
   usePublicUserSocialStatsQuery,
+  useResetQuery,
   useUnFollowMutation,
   useUserQuery,
 } from '@tw/ui/data-access';
@@ -36,9 +40,9 @@ export const PublicProfilePage = () => {
   const { data: mostPopularUsers, isFetching: isMostPopularUsersLoading } =
     useMostPopularUsersQuery();
 
-  const { mutate: followMutation, isPending: isFollowLoading } =
+  const { mutateAsync: followMutation, isPending: isFollowLoading } =
     useFollowMutation();
-  const { mutate: unFollowMutation, isPending: isUnFollowLoading } =
+  const { mutateAsync: unFollowMutation, isPending: isUnFollowLoading } =
     useUnFollowMutation();
 
   const publicUser = publicUserRes?.data?.user as PublicUserResponseDto;
@@ -66,12 +70,32 @@ export const PublicProfilePage = () => {
     setIsHovered(false);
   };
 
-  const handleConnect = () => {
+  const handleConnect = async () => {
     if (!followingStatus) {
-      followMutation({ userId });
+      const { status } = await followMutation({ userId });
+      if (status) {
+        useResetQuery(
+          QueryAction.Invalidate,
+          publicUserSocialStatsQueryKey(userId)
+        );
+        useResetQuery(
+          QueryAction.Invalidate,
+          publicUserSFollowingStatsQueryKey(userId)
+        );
+      }
       return;
     }
-    unFollowMutation({ userId });
+    const { status } = await unFollowMutation({ userId });
+    if (status) {
+      useResetQuery(
+        QueryAction.Invalidate,
+        publicUserSocialStatsQueryKey(userId)
+      );
+      useResetQuery(
+        QueryAction.Invalidate,
+        publicUserSFollowingStatsQueryKey(userId)
+      );
+    }
   };
 
   if (publicUserRes.isFetching) return <Loader fullScreen />;

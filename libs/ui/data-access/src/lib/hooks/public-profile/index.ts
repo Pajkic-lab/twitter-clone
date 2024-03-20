@@ -1,14 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import { http } from '../../http/api';
 
-export const publicProfileQueryKey = ['publicUser', 'publicProfileQueryKey'];
+export const publicProfileQueryKey = (userId: any) => {
+  return ['publicUser', userId];
+};
 
-/**
- * When ever call query every subsequent request has to be invalidated.
- */
 export const usePublicProfileQuery = (userId: number) => {
   return useQuery({
-    queryKey: [publicProfileQueryKey],
+    queryKey: publicProfileQueryKey(userId),
     queryFn: async () => {
       const res = await http.user.getPublicUser(userId);
       return res.data.payload;

@@ -4,12 +4,11 @@ export enum QueryAction {
   Remove = 'remove',
   Invalidate = 'invalidate',
 }
-export function useResetQuery(
-  queryAction: QueryAction,
-  key: string | string[]
-) {
+export async function useResetQuery(queryAction: QueryAction, key: string[]) {
+  console.log('res', key);
   if (queryAction === QueryAction.Invalidate) {
-    queryClient.invalidateQueries({ queryKey: [key] });
+    const res = await queryClient.invalidateQueries({ queryKey: key });
+    console.log('query inv response', res);
   }
   if (queryAction === QueryAction.Remove) {
     queryClient.removeQueries({ queryKey: [key] });
