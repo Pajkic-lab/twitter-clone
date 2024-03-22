@@ -1,10 +1,12 @@
+import { colors } from '@tw/ui/assets';
 import { createGlobalStyle } from 'styled-components';
-import chipRegular from './fonts/chip-regular.woff';
 import chipBold from './fonts/chip-bold.woff';
-import { Colors } from './ui/styles';
-// import { Colors } from 'ui/styles'
+import chipRegular from './fonts/chip-regular.woff';
 
-export const GlobalStyle = createGlobalStyle<{ theme: any; customCss: string }>`
+export const GlobalStyle = createGlobalStyle<{
+  theme?: any;
+  customCss?: any;
+}>`
 
   @font-face {
     font-family: 'chip-bold';
@@ -32,10 +34,10 @@ export const GlobalStyle = createGlobalStyle<{ theme: any; customCss: string }>`
   html, body {
     margin: 0;
     padding: 0;
-    color: ${Colors.textColor};
+    color: ${colors.grayDark};
     font-size: 14px;
     font-family: 'chip-regular', Verdana, "Segoe UI", Arial, sans-serif, Helvetica;
-    background-color: ${Colors.background};
+    background-color: ${colors.black};
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;  
     text-rendering: optimizeLegibility;
@@ -53,7 +55,7 @@ export const GlobalStyle = createGlobalStyle<{ theme: any; customCss: string }>`
 
   a {
     text-decoration: none;
-    color: ${Colors.primary};
+    color: ${colors.bluePrimary};
   }
   
   input, textarea {
@@ -63,13 +65,13 @@ export const GlobalStyle = createGlobalStyle<{ theme: any; customCss: string }>`
   table.table {
     width: 100%;
     border-collapse: collapse;
-    border: 1px solid ${Colors.borderColor};
+    border: 1px solid ${colors.grayPrimary};
 
     th,
     td {
       margin: 0;
       padding: 0;
-      border-bottom: 1px solid ${Colors.borderColor};
+      border-bottom: 1px solid ${colors.grayPrimary};
     }
 
     input,
@@ -80,12 +82,12 @@ export const GlobalStyle = createGlobalStyle<{ theme: any; customCss: string }>`
       box-shadow: none;
     }
     [data-element='dropdown'] {
-      border-left: 1px solid ${Colors.borderColor};
+      border-left: 1px solid ${colors.grayPrimary};
     }
   }
   
   .table thead {
-    background: ${Colors.chartTitleBackground};
+    background: ${colors.grayLight};
     th {
       padding: 1rem;
       font-size: 14px;
@@ -108,8 +110,8 @@ export const GlobalStyle = createGlobalStyle<{ theme: any; customCss: string }>`
         height: 20px;
         width: 20px;
         display: inline-flex;
-        color: ${Colors.lightGray};
-        background: ${Colors.backgroundShadow};
+        color: ${colors.grayPrimary};
+        background: ${colors.grayModalBackgroundShadow};
         border-radius: 50%;
         cursor: pointer;
         user-select: none;

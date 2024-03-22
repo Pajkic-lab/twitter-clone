@@ -14,11 +14,12 @@ import {
   NameUniqueUpdateResponseDto,
   PublicUserResponseDto,
   SearchUsersResponseDto,
-  SocialStatsResponseDto,
   UpdateUserRequestDto,
   UpdateUserResponseDto,
   UserBase,
+  UserResponseDto,
 } from '@tw/data';
+import isBase64 from 'is-base64';
 import { InjectMapper } from '../../common/decorators/inject-mapper.decorator';
 import { createResponse } from '../../common/http/create-response';
 import { CloudinaryService } from '../cloudinary/cloudinary.service';
@@ -32,9 +33,25 @@ export class UserService {
     @InjectMapper() private readonly mapper: Mapper
   ) {}
 
+  async getUser(userId: number): Promise<HttpResponse<UserResponseDto>> {
+    let user;
+
+    user = await this.userRepository.findUserById(userId);
+
+    if (!user) throw new NotFoundException('User does not exist');
+
+    user = this.mapper.map(user, UserBase, UserResponseDto);
+
+    return createResponse({
+      payload: user,
+      message: 'user returned successfully',
+    });
+  }
+
   async checkNameUniqueness(
     data: NameUniqueRequestDto
   ): Promise<HttpResponse<NameUniqueResponseDto>> {
+    // should return what data is validating
     const res = await this.userRepository.isUserNameUnique(data.uniqueName);
 
     let isNameUnique;
@@ -47,7 +64,7 @@ export class UserService {
 
     return createResponse({
       payload: { isNameUnique },
-      message: 'unique name is unique',
+      message: 'name is unique',
     });
   }
 
@@ -82,28 +99,22 @@ export class UserService {
     userId: number,
     updateUser: UpdateUserRequestDto
   ): Promise<HttpResponse<UpdateUserResponseDto>> {
-    let avatarUrl: string = '';
-    let coverUrl: string = '';
-
-    if (updateUser.avatar) {
+    if (updateUser.avatar && isBase64(updateUser.avatar)) {
       const { url } = await this.cloudinaryService.uploadImage(
         updateUser.avatar,
         userId,
-        MediaDirectory.Private
+        MediaDirectory.avatar
       );
-      avatarUrl = url;
+      updateUser.avatar = url;
     }
-    if (updateUser.cover) {
+    if (updateUser.cover && isBase64(updateUser.cover)) {
       const { url } = await this.cloudinaryService.uploadImage(
         updateUser.cover,
         userId,
-        MediaDirectory.Private
+        MediaDirectory.cover
       );
-      coverUrl = url;
+      updateUser.cover = url;
     }
-
-    updateUser.avatar = avatarUrl;
-    updateUser.cover = coverUrl;
 
     const user = await this.userRepository.updateUser(userId, updateUser);
 
@@ -121,12 +132,8 @@ export class UserService {
   ): Promise<
     HttpResponse<{
       user: PublicUserResponseDto;
-      socialStats: SocialStatsResponseDto;
-      followingStatus: boolean;
     }>
   > {
-    let followingStatus;
-
     if (publicUserId === userId) {
       throw new NotFoundException(
         'Can not access to specific user as authenticated same user'
@@ -139,18 +146,8 @@ export class UserService {
 
     const publicUser = this.mapper.map(user, UserBase, PublicUserResponseDto);
 
-    const socialStats = await this.userRepository.getSocialStats(publicUserId);
-
-    if (!socialStats) throw new NotFoundException('Social status do not exist');
-    if (userId) {
-      followingStatus = await this.userRepository.getFollowingStatus(
-        publicUserId,
-        userId
-      );
-    }
-
     return createResponse({
-      payload: { user: publicUser, socialStats, followingStatus },
+      payload: { user: publicUser },
       message: 'public user success',
     });
   }

@@ -4,7 +4,7 @@ import { ConfigurationService } from '../configuration/configuration.service';
 
 @Injectable()
 export class CloudinaryBase {
-  constructor(private confService: ConfigurationService) {
+  constructor(protected confService: ConfigurationService) {
     cloudinary.config({
       cloud_name: this.confService.cloudinaryCloudName,
       api_key: this.confService.cloudinaryApiKey,

@@ -1,36 +1,17 @@
-import { AutoMap } from '@automapper/classes';
+import { PublicUserBase } from '../user.type';
 
-export class SearchUsersResponseDto {
-  @AutoMap()
-  id: number;
+export class SearchUsersResponseDto extends PublicUserBase {}
 
-  @AutoMap()
-  email: string;
+// export class SearchUsersResponseDto {
+//   @AutoMap()
+//   id: number;
 
-  @AutoMap()
-  name: string;
+//   @AutoMap()
+//   name: string;
 
-  @AutoMap()
-  avatar: string;
+//   @AutoMap()
+//   avatar: string;
 
-  @AutoMap()
-  cover: string;
-
-  @AutoMap()
-  uniqueName: string;
-
-  @AutoMap()
-  bio: string;
-
-  @AutoMap()
-  location: string;
-
-  @AutoMap()
-  website: string;
-
-  @AutoMap()
-  createdAt: Date;
-
-  @AutoMap()
-  updatedAt: Date;
-}
+//   @AutoMap()
+//   uniqueName: string;
+// }

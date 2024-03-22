@@ -59,6 +59,7 @@ export class AuthRepository {
     }
   }
 
+  // this is duplicate, there is already findUserById in user repo
   async findUserById(userId: number): Promise<User | null> {
     try {
       return await this.prisma.user.findUnique({
