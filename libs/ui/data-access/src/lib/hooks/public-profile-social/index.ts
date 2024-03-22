@@ -5,15 +5,15 @@ export const publicUserSocialStatsQueryKey = (userId: any) => {
   return ['publicUser', 'socialStats', userId];
 };
 
-export const publicUserSFollowingStatsQueryKey = (userId: any) => {
+export const publicUserFollowingStatsQueryKey = (userId: any) => {
   return ['publicUser', 'followingStatus', userId];
 };
 
-export const socialGetPublicProfileFollowersKey = (userId: any) => {
+export const publicProfileFollowersKey = (userId: any) => {
   return ['publicUser', 'followers', userId];
 };
 
-export const socialGetPublicProfileFollowingKey = (userId: any) => {
+export const publicProfileFollowingKey = (userId: any) => {
   return ['publicUser', 'following', userId];
 };
 
@@ -29,7 +29,7 @@ export const usePublicUserSocialStatsQuery = (userId: number) => {
 
 export const usePublicUserFollowingStatusQuery = (userId: number) => {
   return useQuery({
-    queryKey: publicUserSFollowingStatsQueryKey(userId),
+    queryKey: publicUserFollowingStatsQueryKey(userId),
     queryFn: async () => {
       const res = await http.social.getPublicUserFollowingStatus(userId);
       return res.data.payload;
@@ -42,7 +42,7 @@ export const usePublicProfileFollowersInfQuery = (
   limit: number
 ) => {
   return useInfiniteQuery({
-    queryKey: socialGetPublicProfileFollowersKey(userId),
+    queryKey: publicProfileFollowersKey(userId),
     initialPageParam: 0,
     queryFn: async ({ pageParam }: { pageParam: number }) => {
       const res = await http.social.getPublicProfileFollowers({
@@ -63,7 +63,7 @@ export const usePublicProfileFollowingInfQuery = (
   limit: number
 ) => {
   return useInfiniteQuery({
-    queryKey: socialGetPublicProfileFollowingKey(userId),
+    queryKey: publicProfileFollowingKey(userId),
     initialPageParam: 0,
     queryFn: async ({ pageParam }: { pageParam: number }) => {
       const res = await http.social.getPublicProfileFollowingUsers({

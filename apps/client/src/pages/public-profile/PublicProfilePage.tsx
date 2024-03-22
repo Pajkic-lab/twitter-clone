@@ -11,7 +11,8 @@ import {
 } from '@tw/ui/components';
 import {
   QueryAction,
-  publicUserSFollowingStatsQueryKey,
+  publicProfileFollowersKey,
+  publicUserFollowingStatsQueryKey,
   publicUserSocialStatsQueryKey,
   useFollowMutation,
   useMostPopularUsersQuery,
@@ -21,6 +22,7 @@ import {
   useResetQuery,
   useUnFollowMutation,
   useUserQuery,
+  userGetFollowingKey,
 } from '@tw/ui/data-access';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -46,7 +48,10 @@ export const PublicProfilePage = () => {
     useUnFollowMutation();
 
   const publicUser = publicUserRes?.data?.user as PublicUserResponseDto;
+  const publicUserId = publicUserRes?.data?.user?.id as number;
   const followingStatus = followingStatusData?.followingStatus as boolean;
+
+  // console.log(1, publicUserId);
 
   const {
     id: meId,
@@ -72,29 +77,43 @@ export const PublicProfilePage = () => {
 
   const handleConnect = async () => {
     if (!followingStatus) {
-      const { status } = await followMutation({ userId });
+      const { status } = await followMutation({ userId: publicUserId });
       if (status) {
         useResetQuery(
           QueryAction.Invalidate,
-          publicUserSocialStatsQueryKey(userId)
+          publicUserSocialStatsQueryKey(publicUserId)
         );
         useResetQuery(
           QueryAction.Invalidate,
-          publicUserSFollowingStatsQueryKey(userId)
+          publicUserFollowingStatsQueryKey(publicUserId)
         );
+        //
+        useResetQuery(
+          QueryAction.Invalidate,
+          publicProfileFollowersKey(publicUserId)
+        );
+        //
+        useResetQuery(QueryAction.Invalidate, userGetFollowingKey());
       }
       return;
     }
-    const { status } = await unFollowMutation({ userId });
+    const { status } = await unFollowMutation({ userId: publicUserId });
     if (status) {
       useResetQuery(
         QueryAction.Invalidate,
-        publicUserSocialStatsQueryKey(userId)
+        publicUserSocialStatsQueryKey(publicUserId)
       );
       useResetQuery(
         QueryAction.Invalidate,
-        publicUserSFollowingStatsQueryKey(userId)
+        publicUserFollowingStatsQueryKey(publicUserId)
       );
+      //
+      useResetQuery(
+        QueryAction.Invalidate,
+        publicProfileFollowersKey(publicUserId)
+      );
+      //
+      useResetQuery(QueryAction.Invalidate, userGetFollowingKey());
     }
   };
 

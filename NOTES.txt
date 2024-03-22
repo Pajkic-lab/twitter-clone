@@ -65,12 +65,12 @@ updateUser has parser build to handle class-validation, research how to do it at
     */
 
 
-- Ivn queryes dont work: on connect click it should invalidate at user following page, following list, and at public profile followers list, 
+- Ivn queryes dont work: on connect click it should invalidate at following list, and at public profile followers list, 
     When reset triggered wia button ot that specific page it works, when trying to trigger it via useEffect it does not...
 
-- Connect button in SingleUser component...
+- Connect button in SingleUser component... same problem with invalidate
 
-- prevent rendering connect button on userList component
+- prevent rendering connect button on userList component for meId
 
 - Do Tooltip to wrap user, to show minified version of public profile page...
 

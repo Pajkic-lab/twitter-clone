@@ -37,6 +37,8 @@ export const PublicProfileFollowersPage = () => {
     hasNextPage,
   } = usePublicProfileFollowersInfQuery(publicUserId, FOLLOWER_LIST_SIZE_LIMIT);
 
+  // console.log(3, publicUserId);
+
   const publicUser = publicUserRes?.data?.user as PublicUserResponseDto;
   const userList: FollowerListResponseDto[] = data?.pages?.flat() ?? [];
   const noDataText = `End of ${publicUser.name} followers list.`;

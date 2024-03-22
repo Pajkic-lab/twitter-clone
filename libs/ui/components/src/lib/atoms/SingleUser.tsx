@@ -47,12 +47,41 @@ export const SingleUser = (props: SingleUserProps) => {
   const connectButtonText = followingStatus ? btFollowText : 'Follow';
   const isConnectionButtonLoading = isFollowLoading || isUnFollowingLoading;
 
-  const handleConnect = () => {
-    if (!followingStatus) {
-      followMutation({ userId: id });
-      return;
-    }
-    unFollowMutation({ userId: id });
+  // const handleConnect = () => {
+  //   if (!followingStatus) {
+  //     followMutation({ userId: id });
+  //     return;
+  //   }
+  //   unFollowMutation({ userId: id });
+  // };
+
+  const handleConnect = async () => {
+    // if (!followingStatus) {
+    //   const { status } = await followMutation({ userId: id });
+    //   if (status) {
+    //     useResetQuery(
+    //       QueryAction.Invalidate,
+    //       // koje je tebra ovo Id, zasto ovaj id, zato ga i ne invalidira, tebi treba drugi id, razmisli koji...
+    //       socialGetPublicProfileFollowersKey(id)
+    //     );
+    //     useResetQuery(
+    //       QueryAction.Invalidate,
+    //       socialGetPublicProfileFollowingKey(id)
+    //     );
+    //   }
+    //   return;
+    // }
+    // const { status } = await unFollowMutation({ userId: id });
+    // if (status) {
+    //   useResetQuery(
+    //     QueryAction.Invalidate,
+    //     socialGetPublicProfileFollowersKey(id)
+    //   );
+    //   useResetQuery(
+    //     QueryAction.Invalidate,
+    //     socialGetPublicProfileFollowingKey(id)
+    //   );
+    // }
   };
 
   return (

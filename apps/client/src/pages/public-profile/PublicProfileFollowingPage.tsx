@@ -40,6 +40,8 @@ export const PublicProfileFollowingPage = () => {
     FOLLOWING_LIST_SIZE_LIMIT
   );
 
+  // console.log(2, publicUserId);
+
   const publicUser = publicUserRes?.data?.user as PublicUserResponseDto;
   const userList: FollowerListResponseDto[] = data?.pages?.flat() ?? [];
   const noDataText = `${publicUser.name} does not follow anyone else`;
