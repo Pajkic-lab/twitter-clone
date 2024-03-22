@@ -1,0 +1,27 @@
+- Button outside of form component
+solution source: https://github.com/react-hook-form/react-hook-form/issues/566#issuecomment-675515940
+
+        const { handleSubmit } = useForm();
+        const onSubmit = data => {
+            console.log(data);
+        };
+
+        <form id="hook-form" onSubmit={handleSubmit(onSubmit)}>
+            {/* your awesome form */}
+        </form>
+
+        <button type="submit" form="hook-form">Submit</button>
+
+
+- Can not use enebeled and invalidate query at the same time
+solution source: https://stackoverflow.com/questions/68577988/invalidate-queries-doesnt-work-react-query
+
+
+- Tipy component has to wrap div element can not wrap other component
+
+- Sticky property:
+     For position: sticky to work, the containing element of the sticky element must have a defined height and should be scrollable.
+     The containing element of the sticky element should have a positioning property other than static.
+     Ensure that the overflow property of the container is set to auto or scroll.
+
+- React query, user external invalidation, form some reason it wont invalidate when used internal...

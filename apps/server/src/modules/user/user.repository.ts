@@ -126,16 +126,29 @@ export class UserRepository {
     try {
       return await this.prisma.user.findMany({
         where: {
-          NOT: {
-            id: userId,
-          },
+          AND: [
+            {
+              NOT: {
+                id: userId,
+              },
+            },
+            {
+              NOT: {
+                followers: {
+                  some: {
+                    userId: userId,
+                  },
+                },
+              },
+            },
+          ],
         },
         orderBy: {
           followers: {
             _count: 'desc',
           },
         },
-        take: 3,
+        take: 3, // this should come from API, it should not be hardcoded
       });
     } catch (error) {
       throw new HttpException(

@@ -1,16 +1,18 @@
-import { createRoot } from 'react-dom/client';
-import { Provider } from 'react-redux';
-import { store } from './store';
-import { App } from './App';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { queryClient } from '@tw/ui/data-access';
 import React from 'react';
+import { createRoot } from 'react-dom/client';
+import { App } from './App';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
+    <QueryClientProvider client={queryClient}>
       <App />
-    </Provider>
+      <ReactQueryDevtools />
+    </QueryClientProvider>
   </React.StrictMode>
 );

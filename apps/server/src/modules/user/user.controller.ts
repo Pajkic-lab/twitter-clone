@@ -19,9 +19,9 @@ import {
   PublicUserResponseDto,
   RequestContainingUserId,
   SearchUsersResponseDto,
-  SocialStatsResponseDto,
   UpdateUserRequestDto,
   UpdateUserResponseDto,
+  UserResponseDto,
 } from '@tw/data';
 import { IsAuthGuard } from '../../common/guards/is-auth.guard';
 import { UserService } from './user.service';
@@ -29,6 +29,14 @@ import { UserService } from './user.service';
 @Controller('user')
 export class UserController {
   constructor(private userService: UserService) {}
+
+  @Get()
+  @UseGuards(IsAuthGuard)
+  handleGetUser(
+    @Req() request: RequestContainingUserId
+  ): Promise<HttpResponse<UserResponseDto>> {
+    return this.userService.getUser(request.user.id);
+  }
 
   @Post('name-unique')
   @UseGuards(IsAuthGuard)
@@ -47,7 +55,7 @@ export class UserController {
     return this.userService.updateUniqueUserName(request.user.id, body);
   }
 
-  @Patch('update')
+  @Patch()
   @UseGuards(IsAuthGuard)
   handleUpdateUser(
     @Req() request: RequestContainingUserId,
@@ -64,14 +72,12 @@ export class UserController {
   ): Promise<
     HttpResponse<{
       user: PublicUserResponseDto;
-      socialStats: SocialStatsResponseDto;
-      followingStatus: boolean;
     }>
   > {
     return this.userService.getPublicUser(id, request.user.id);
   }
 
-  @Get('most/popular')
+  @Get('most-popular')
   @UseGuards(IsAuthGuard)
   handleGetMostPopularUsers(
     @Req() request: RequestContainingUserId

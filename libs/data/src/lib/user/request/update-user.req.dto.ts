@@ -1,27 +1,31 @@
-import { IsOptional, IsString } from 'class-validator';
+import { IsOptional, IsString, Length } from 'class-validator';
 
 export class UpdateUserRequestDto {
   @IsOptional()
   @IsString()
-  name: string;
+  @Length(3, 8)
+  name?: string | null;
 
   @IsOptional()
   @IsString()
-  bio: string;
+  @Length(2, 20)
+  bio?: string | null;
 
   @IsOptional()
   @IsString()
-  location: string;
+  @Length(2, 15)
+  location?: string | null;
 
   @IsOptional()
   @IsString()
-  website: string;
+  @Length(4, 25)
+  website?: string | null;
 
   @IsOptional()
   @IsString()
-  cover: string;
+  cover?: string | null;
 
   @IsOptional()
   @IsString()
-  avatar: string;
+  avatar?: string | null;
 }

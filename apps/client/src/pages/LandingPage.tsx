@@ -1,80 +1,124 @@
-import googleSocialSignInLogo from '../assets/googl-socil-signIn-logo.png';
-import { SocialTwitter } from '@styled-icons/foundation/SocialTwitter';
-import appleSocilSignInlogo from '../assets/apple-socil-signIn-logo.png';
-import backgroundImage from '../assets/landing-page-backgrount.png';
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { SignUpModal } from '../components/modals/SignUpModal';
-import { SignInModal } from '../components/modals/SignInModal';
-import { Footer } from '../components/Footer';
-import { Colors } from '../ui/styles';
 import {
+  TwitterIcon,
+  appleLogoImg,
+  colors,
+  googleLogoImg,
+  landingPageBackgroundImg,
+} from '@tw/ui/assets';
+import {
+  Divider,
+  Footer,
+  Modal,
   PrimaryButton,
   SecondaryButton,
+  SignInForm,
+  SignInFormData,
+  SignUpForm,
+  SignUpFormData,
   SocialSignInButton,
-} from '../ui/Button';
-import { http } from '../http/api';
+  footerData,
+} from '@tw/ui/components';
+import { useSignInMutation, useSignUpMutation } from '@tw/ui/data-access';
+import { useCallback, useState } from 'react';
+import styled from 'styled-components';
+import { v4 as uuid } from 'uuid';
 
-export const LandingPage: React.FC = () => {
-  const [signUpModalIsOpen, setSignUpModalIsOpen] = useState(false);
-  const [signInModalIsOpen, setSignInModalIsOpen] = useState(false);
+export const LandingPage = () => {
+  const [signUpModalIsOpen, setSignUpModalIsOpen] = useState<boolean>(false);
+  const [signInModalIsOpen, setSignInModalIsOpen] = useState<boolean>(false);
+
+  const {
+    mutate: signInMutate,
+    isPending: signInLoading,
+    error: signInError,
+  } = useSignInMutation();
+
+  const {
+    mutate: signUpMutate,
+    isPending: signUpLoading,
+    error: signUpError,
+  } = useSignUpMutation();
+
+  const signUpFormOnSubmit = useCallback(
+    (signUpFormData: SignUpFormData) => {
+      signUpMutate(signUpFormData);
+    },
+    [signUpMutate]
+  );
+
+  const signInFormOnSubmit = useCallback(
+    (signInFormData: SignInFormData) => {
+      signInMutate(signInFormData);
+    },
+    [signInMutate]
+  );
 
   /**
    * Google auth is being triggered this way because it does not make issue at backend when redirecting back to front,
-   * Axios instance that is being used in rest of the app has credentials flag set to true,
+   * solutions should be researched and implemented
    */
-  const googleLogin = () => {
+  const googleSignIn = () => {
     process.env.NODE_ENV == 'production'
       ? window.open('/auth/google/sign-in', '_self')
       : window.open('http://localhost:5000/auth/google/sign-in', '_self');
   };
-
-  const appleLogin = () => {
+  const appleSignIn = () => {
     window.open('http://shorturl.at/nDFY3', '_blank');
   };
 
-  return (
-    <>
-      <PageWrapper>
-        <LayoutWrapper>
-          <LogoWrapper>
-            <LogoSvg />
-          </LogoWrapper>
+  const handleSignUpModal = useCallback(() => {
+    setSignUpModalIsOpen(!signUpModalIsOpen);
+  }, [signUpModalIsOpen]);
 
-          <ContentWrapper>
-            <ContentSection>
-              <Icon />
-              <H1>Happening now</H1>
-              <H3>Join Twitter today.</H3>
-              <SocialButton
-                onClick={googleLogin}
-                image={googleSocialSignInLogo}
-                $wide={true}
+  const handleSignInModal = useCallback(() => {
+    setSignInModalIsOpen(!signInModalIsOpen);
+  }, [signInModalIsOpen]);
+
+  return (
+    <PageWrapper>
+      <LayoutWrapper>
+        <LogoWrapper>
+          <CoveringPageLogo />
+        </LogoWrapper>
+
+        <ContentWrapper>
+          <ContentSection>
+            <Icon />
+
+            <H1>Happening now</H1>
+            <H3>Join Twitter today.</H3>
+
+            <FormWrapper>
+              <SocialSignInButton
+                onClick={googleSignIn}
+                leftIcon={googleLogoImg}
               >
                 Sign up with Google
-              </SocialButton>
-              <SocialButton
-                onClick={appleLogin}
-                image={appleSocilSignInlogo}
-                $wide={true}
-              >
+              </SocialSignInButton>
+
+              <SocialSignInButton onClick={appleSignIn} leftIcon={appleLogoImg}>
                 Sign up with Apple
-              </SocialButton>
-              <DividerWrapper>
-                <DividerLine />
-                <H5>or</H5>
-                <DividerLine />
-              </DividerWrapper>
-              <SignUpButton
-                $wide={true}
-                onClick={() => setSignUpModalIsOpen(!signUpModalIsOpen)}
-              >
+              </SocialSignInButton>
+
+              <Divider text={'or'} />
+
+              <PrimaryButton onClick={handleSignUpModal}>
                 Sign up with email
-              </SignUpButton>
-              <SignUpModal
-                signUpModalIsOpen={signUpModalIsOpen}
-                setSignUpModalIsOpen={setSignUpModalIsOpen}
-              />
+              </PrimaryButton>
+              <Modal
+                hasCloseButton
+                modalIsOpen={signUpModalIsOpen}
+                actionsContentAlinement={'center'}
+                actions={[<TwLogo key={uuid()} />]}
+                setModalIsOpen={handleSignUpModal}
+              >
+                <SignUpForm
+                  onSubmit={signUpFormOnSubmit}
+                  isPending={signUpLoading}
+                  error={signUpError}
+                />
+              </Modal>
+
               <PolicyTextWrapper>
                 By signing up, you agree to the
                 <SpanText>Terms of Service </SpanText>
@@ -82,23 +126,29 @@ export const LandingPage: React.FC = () => {
                 <SpanText> Cookie Use</SpanText>.
               </PolicyTextWrapper>
               <H4>Already have an account?</H4>
-              <SignInButton
-                $wide={true}
-                onClick={() => setSignInModalIsOpen(!signInModalIsOpen)}
-              >
-                Sign in
-              </SignInButton>
-              <SignInModal
-                signInModalIsOpen={signInModalIsOpen}
-                setSignInModalIsOpen={setSignInModalIsOpen}
-              />
-            </ContentSection>
-          </ContentWrapper>
-        </LayoutWrapper>
 
-        <Footer />
-      </PageWrapper>
-    </>
+              <SecondaryButton onClick={handleSignInModal}>
+                Sign in
+              </SecondaryButton>
+              <Modal
+                hasCloseButton
+                modalIsOpen={signInModalIsOpen}
+                actionsContentAlinement={'center'}
+                actions={[<TwLogo key={uuid()} />]}
+                setModalIsOpen={handleSignInModal}
+              >
+                <SignInForm
+                  onSubmit={signInFormOnSubmit}
+                  isPending={signInLoading}
+                  error={signInError}
+                />
+              </Modal>
+            </FormWrapper>
+          </ContentSection>
+        </ContentWrapper>
+      </LayoutWrapper>
+      <Footer footerData={footerData} />
+    </PageWrapper>
   );
 };
 
@@ -121,20 +171,27 @@ const LogoWrapper = styled.div`
   align-items: center;
   width: calc(100% - 46vw);
   height: 100%;
-  background-image: url(${backgroundImage});
+  background-image: url(${landingPageBackgroundImg});
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 `;
 
-const LogoSvg = styled(SocialTwitter)`
+const CoveringPageLogo = styled(TwitterIcon)`
+  fill: ${colors.white};
   width: 470px;
   height: 470px;
-  color: ${Colors.white};
+
   @media (max-width: 1200px) {
     width: 75%;
     height: 75%;
   }
+`;
+
+const TwLogo = styled(TwitterIcon)`
+  fill: ${colors.grayLight};
+  width: 2.5rem;
+  height: 2.5rem;
 `;
 
 const ContentWrapper = styled.div`
@@ -145,7 +202,7 @@ const ContentWrapper = styled.div`
   width: 46vw;
   min-width: 600px;
   padding-left: 35px;
-  background-color: ${Colors.black};
+  background-color: ${colors.black};
 `;
 
 const ContentSection = styled.div`
@@ -154,11 +211,26 @@ const ContentSection = styled.div`
   flex-direction: column;
 `;
 
-const Icon = styled(SocialTwitter)`
-  margin-left: -5px;
+const FormWrapper = styled.div`
+  width: 21rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+
+  & > * {
+    margin-bottom: 1rem;
+  }
+
+  & > :last-child {
+    margin-bottom: 0;
+  }
+`;
+
+const Icon = styled(TwitterIcon)`
   width: 56px;
   height: 56px;
-  color: ${Colors.textGray};
+  fill: ${colors.grayPrimary};
 `;
 
 const H1 = styled.h1`
@@ -169,9 +241,9 @@ const H1 = styled.h1`
   font-family: 'chip-bold';
   transform-origin: 0 0;
   transform: scaleY(1.8);
-  transform: scalex(1.3);
+  transform: scaleX(1.3);
   letter-spacing: -3px;
-  color: ${Colors.lighterGray};
+  color: ${colors.grayLight};
 `;
 
 const H3 = styled.h3`
@@ -180,58 +252,25 @@ const H3 = styled.h3`
   font-weight: 900;
   transform-origin: 0 0;
   transform: scaleY(1.8);
-  transform: scalex(1.4);
+  transform: scaleX(1.4);
   transform-origin: 0 0;
   letter-spacing: -1px;
-  color: ${Colors.lighterGray};
+  color: ${colors.grayLight};
 `;
 
 const H4 = styled.h4`
   margin-bottom: 18px;
   font-weight: 600;
   font-size: 18px;
-  color: ${Colors.lighterGray};
-`;
-
-const H5 = styled.h5`
-  font-weight: 500;
-  font-size: medium;
-  color: ${Colors.lighterGray};
-  padding: 7px;
-`;
-
-const SpanText = styled.span`
-  color: ${Colors.primary};
-`;
-
-const DividerWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 20px;
-  width: 296px;
-  margin-bottom: 5px;
-`;
-
-const DividerLine = styled.div`
-  width: 100%;
-  height: 0.2px;
-  background-color: ${Colors.darkerGrey};
+  color: ${colors.grayLight};
 `;
 
 const PolicyTextWrapper = styled.div`
   width: 300px;
-  margin-bottom: 35px;
-  color: ${Colors.darkGray};
+  color: ${colors.graySecondary};
   font-size: 11px;
 `;
 
-const SocialButton = styled(SocialSignInButton)`
-  margin-bottom: 8px;
+const SpanText = styled.span`
+  color: ${colors.bluePrimary};
 `;
-
-const SignUpButton = styled(PrimaryButton)`
-  margin-bottom: 5px;
-`;
-
-const SignInButton = styled(SecondaryButton)``;

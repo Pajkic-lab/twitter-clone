@@ -1,3 +1,4 @@
-export * from './lib/data.module';
-export * from './lib/user';
+export * from './lib/auth';
 export * from './lib/http';
+export * from './lib/social';
+export * from './lib/user';

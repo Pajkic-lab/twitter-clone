@@ -8,6 +8,9 @@ export class PublicUserResponseDto {
   name: string;
 
   @AutoMap()
+  email: string;
+
+  @AutoMap()
   avatar: string;
 
   @AutoMap()
@@ -26,8 +29,8 @@ export class PublicUserResponseDto {
   website: string;
 
   @AutoMap()
-  createdAt: Date;
+  createdAt: Date | string;
 
   @AutoMap()
-  updatedAt: Date;
+  updatedAt: Date | string;
 }
