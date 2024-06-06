@@ -38,7 +38,7 @@ export const Contacts = (props: ContactsProps) => {
   } = props;
 
   const { id: meId, name, uniqueName, avatar } = user;
-  const userForLane = pubLicUser ?? user;
+  const currentUser = pubLicUser ?? user;
 
   return (
     <Wrapper>
@@ -46,7 +46,7 @@ export const Contacts = (props: ContactsProps) => {
 
       <UserListLane
         meId={meId}
-        user={userForLane}
+        publicUser={currentUser}
         userList={userList}
         userListLoading={userListLoading}
         infScrollElRef={infScrollElRef}

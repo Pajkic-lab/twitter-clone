@@ -1,22 +1,32 @@
 import { PublicUserBase } from '@tw/data';
 import { colors } from '@tw/ui/assets';
 import { linksRecords } from '@tw/ui/common';
-import { useFollowMutation, useUnFollowMutation } from '@tw/ui/data-access';
+import {
+  QueryAction,
+  publicProfileFollowersKey,
+  useFollowMutation,
+  useResetQuery,
+  useUnFollowMutation,
+  userGetFollowersKey,
+  userGetFollowingKey,
+} from '@tw/ui/data-access';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { SecondaryButton } from './Button';
 
 type SingleUserProps = {
-  publicUser: PublicUserBase;
+  buttonRelatedUser: PublicUserBase;
   meId: number;
+  publicUserId?: number;
   connectButtonExist?: boolean;
 };
 
 export const SingleUser = (props: SingleUserProps) => {
   const {
     meId,
-    publicUser: { name, uniqueName, avatar, id, followingStatus },
+    publicUserId,
+    buttonRelatedUser: { name, uniqueName, avatar, id, followingStatus },
   } = props;
 
   const navigate = useNavigate();
@@ -47,41 +57,37 @@ export const SingleUser = (props: SingleUserProps) => {
   const connectButtonText = followingStatus ? btFollowText : 'Follow';
   const isConnectionButtonLoading = isFollowLoading || isUnFollowingLoading;
 
-  // const handleConnect = () => {
-  //   if (!followingStatus) {
-  //     followMutation({ userId: id });
-  //     return;
-  //   }
-  //   unFollowMutation({ userId: id });
-  // };
-
   const handleConnect = async () => {
-    // if (!followingStatus) {
-    //   const { status } = await followMutation({ userId: id });
-    //   if (status) {
-    //     useResetQuery(
-    //       QueryAction.Invalidate,
-    //       // koje je tebra ovo Id, zasto ovaj id, zato ga i ne invalidira, tebi treba drugi id, razmisli koji...
-    //       socialGetPublicProfileFollowersKey(id)
-    //     );
-    //     useResetQuery(
-    //       QueryAction.Invalidate,
-    //       socialGetPublicProfileFollowingKey(id)
-    //     );
-    //   }
-    //   return;
-    // }
-    // const { status } = await unFollowMutation({ userId: id });
-    // if (status) {
-    //   useResetQuery(
-    //     QueryAction.Invalidate,
-    //     socialGetPublicProfileFollowersKey(id)
-    //   );
-    //   useResetQuery(
-    //     QueryAction.Invalidate,
-    //     socialGetPublicProfileFollowingKey(id)
-    //   );
-    // }
+    // OK, so where from this button is begin triggered depends what should be invalidated and refatched, so this should be think thru
+
+    // should this logic be in atom it should be outside and based on where is component being invoked than pass adecvat logic?
+    if (!followingStatus) {
+      const { status } = await followMutation({ userId: id });
+      if (status) {
+        if (publicUserId) {
+          useResetQuery(
+            QueryAction.Invalidate,
+            publicProfileFollowersKey(publicUserId)
+          );
+        }
+
+        useResetQuery(QueryAction.Invalidate, userGetFollowersKey()); // do i need to reset followers, it does not touch it
+        useResetQuery(QueryAction.Invalidate, userGetFollowingKey());
+      }
+      return;
+    }
+    const { status } = await unFollowMutation({ userId: id });
+    if (status) {
+      if (publicUserId) {
+        useResetQuery(
+          QueryAction.Invalidate,
+          publicProfileFollowersKey(publicUserId)
+        );
+      }
+
+      useResetQuery(QueryAction.Invalidate, userGetFollowersKey());
+      useResetQuery(QueryAction.Invalidate, userGetFollowingKey());
+    }
   };
 
   return (

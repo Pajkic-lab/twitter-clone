@@ -14,10 +14,12 @@ type UserListProps = {
   infScrollElRef?: (node?: Element | null | undefined) => void;
   hasMoreData?: boolean;
   meId: number;
+  publicUserId?: number;
 };
 
 type ContentUiProps = {
   meId: number;
+  publicUserId?: number;
   userList: FollowerListResponseDto[];
   title?: string;
 };
@@ -34,6 +36,7 @@ type LoaderUiProps = {
 export const UserLIst = (props: UserListProps) => {
   const {
     meId,
+    publicUserId,
     userList,
     userListLoading,
     title,
@@ -60,7 +63,14 @@ export const UserLIst = (props: UserListProps) => {
 
   return (
     <Wrapper>
-      {userList && <ContentUi meId={meId} userList={userList} title={title} />}
+      {userList && (
+        <ContentUi
+          meId={meId}
+          publicUserId={publicUserId}
+          userList={userList}
+          title={title}
+        />
+      )}
       {scrollable && <InfScrollElTrigger ref={infScrollElRef} />}
       {showLoader && <LoaderUi scrollable={scrollable} />}
       {showNoData && (
@@ -71,13 +81,17 @@ export const UserLIst = (props: UserListProps) => {
 };
 
 const ContentUi = memo((props: ContentUiProps) => {
-  const { meId, title, userList } = props;
-  // console.log(222, userList);
+  const { meId, publicUserId, title, userList } = props;
   return (
     <ContentWrapper>
       {title && <Title>{title}</Title>}
       {userList.map((user) => (
-        <SingleUser key={user.id} meId={meId} publicUser={user} />
+        <SingleUser
+          key={user.id}
+          meId={meId}
+          publicUserId={publicUserId}
+          buttonRelatedUser={user}
+        />
       ))}
     </ContentWrapper>
   );

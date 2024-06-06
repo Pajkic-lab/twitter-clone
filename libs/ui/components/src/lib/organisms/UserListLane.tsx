@@ -13,7 +13,7 @@ const NAVBAR_HEIGHT = 4.286; //rem
 
 type UserListLaneProps = {
   meId: number;
-  user: UserResponseDto;
+  publicUser: UserResponseDto;
   userList: FollowerListResponseDto[];
   userListLoading: boolean;
   infScrollElRef: (node?: Element | null | undefined) => void;
@@ -24,7 +24,7 @@ type UserListLaneProps = {
 export const UserListLane = (props: UserListLaneProps) => {
   const {
     meId,
-    user: { name, uniqueName },
+    publicUser: { id: publicUserId, name, uniqueName },
     userList,
     userListLoading,
     infScrollElRef,
@@ -45,6 +45,7 @@ export const UserListLane = (props: UserListLaneProps) => {
 
       <UserLIst
         meId={meId}
+        publicUserId={publicUserId}
         userList={userList}
         userListLoading={userListLoading}
         scrollable

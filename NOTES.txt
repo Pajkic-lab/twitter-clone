@@ -64,9 +64,14 @@ updateUser has parser build to handle class-validation, research how to do it at
     * TODO
     */
 
+- user click on follow list and unfollow user than go to following list, and that user is following me but his follow status hasnt changed 
 
-- Ivn queryes dont work: on connect click it should invalidate at following list, and at public profile followers list, 
-    When reset triggered wia button ot that specific page it works, when trying to trigger it via useEffect it does not...
+- it seems to me that it works well, but there are some things that should be resolved, there is small delay when clicked on follow and unfollow, resolve this,
+ and in code there is a big block of code which is ugly and triggers unnecessery requessts, resolve this. 
+
+- there should be guard in front of db if user already follow specific userId than, throw error
+
+- Media bar users should be in sync with follow and unfollow users from main list lane
 
 - Connect button in SingleUser component... same problem with invalidate
 

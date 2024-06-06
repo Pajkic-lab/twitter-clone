@@ -5,11 +5,11 @@ import { http } from '../../http/api';
 export const socialStatsQueryKey = ['userSocialStats'];
 
 export const userGetFollowersKey = () => {
-  return ['userFollowers'];
+  return ['user followers'];
 };
 
 export const userGetFollowingKey = () => {
-  return ['userFollowing'];
+  return ['user following'];
 };
 
 export const useSocialStatsQuery = () => {
