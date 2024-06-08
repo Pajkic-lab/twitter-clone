@@ -44,6 +44,11 @@ export const useUnFollowMutation = () => {
 
 export const useFollowersInfQuery = (limit: number) => {
   return useInfiniteQuery({
+    staleTime: 0,
+    refetchOnMount: true,
+    refetchOnWindowFocus: true,
+    refetchIntervalInBackground: true,
+
     queryKey: userGetFollowersKey(),
     initialPageParam: 0,
     queryFn: async ({ pageParam }: { pageParam: number }) => {

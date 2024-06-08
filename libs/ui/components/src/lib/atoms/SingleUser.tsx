@@ -1,16 +1,7 @@
-import { PublicUserBase } from '@tw/data';
+import { ConnectUser, PublicUserBase } from '@tw/data';
 import { colors } from '@tw/ui/assets';
 import { linksRecords } from '@tw/ui/common';
-import {
-  QueryAction,
-  publicProfileFollowersKey,
-  useFollowMutation,
-  useResetQuery,
-  useUnFollowMutation,
-  userGetFollowersKey,
-  userGetFollowingKey,
-} from '@tw/ui/data-access';
-import { useState } from 'react';
+import { MouseEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { SecondaryButton } from './Button';
@@ -20,6 +11,8 @@ type SingleUserProps = {
   meId: number;
   publicUserId?: number;
   connectButtonExist?: boolean;
+  handleUserConnect?: ConnectUser;
+  isConnectPending?: boolean;
 };
 
 export const SingleUser = (props: SingleUserProps) => {
@@ -27,14 +20,11 @@ export const SingleUser = (props: SingleUserProps) => {
     meId,
     publicUserId,
     buttonRelatedUser: { name, uniqueName, avatar, id, followingStatus },
+    handleUserConnect,
+    isConnectPending,
   } = props;
 
   const navigate = useNavigate();
-
-  const { mutateAsync: followMutation, isPending: isFollowLoading } =
-    useFollowMutation();
-  const { mutateAsync: unFollowMutation, isPending: isUnFollowingLoading } =
-    useUnFollowMutation();
 
   const [isHovered, setIsHovered] = useState<boolean>(false);
 
@@ -55,59 +45,40 @@ export const SingleUser = (props: SingleUserProps) => {
 
   const btFollowText = isHovered ? 'UnFollow' : 'Following';
   const connectButtonText = followingStatus ? btFollowText : 'Follow';
-  const isConnectionButtonLoading = isFollowLoading || isUnFollowingLoading;
+  const isConnectionButtonLoading = isConnectPending;
 
-  const handleConnect = async () => {
-    // OK, so where from this button is begin triggered depends what should be invalidated and refatched, so this should be think thru
+  const handleConnectUser = (e: MouseEvent) => {
+    e.stopPropagation();
+    handleUserConnect && handleUserConnect(id, followingStatus, publicUserId);
+  };
 
-    // should this logic be in atom it should be outside and based on where is component being invoked than pass adecvat logic?
-    if (!followingStatus) {
-      const { status } = await followMutation({ userId: id });
-      if (status) {
-        if (publicUserId) {
-          useResetQuery(
-            QueryAction.Invalidate,
-            publicProfileFollowersKey(publicUserId)
-          );
-        }
-
-        useResetQuery(QueryAction.Invalidate, userGetFollowersKey()); // do i need to reset followers, it does not touch it
-        useResetQuery(QueryAction.Invalidate, userGetFollowingKey());
-      }
-      return;
+  const renderConnectButton = () => {
+    if (id !== meId) {
+      return (
+        <ConnectButton
+          loading={isConnectionButtonLoading}
+          $followingStatus={followingStatus}
+          onMouseEnter={handleHover}
+          onMouseLeave={handleHoverExit}
+          onClick={(e) => handleConnectUser(e)}
+        >
+          {connectButtonText}
+        </ConnectButton>
+      );
     }
-    const { status } = await unFollowMutation({ userId: id });
-    if (status) {
-      if (publicUserId) {
-        useResetQuery(
-          QueryAction.Invalidate,
-          publicProfileFollowersKey(publicUserId)
-        );
-      }
-
-      useResetQuery(QueryAction.Invalidate, userGetFollowersKey());
-      useResetQuery(QueryAction.Invalidate, userGetFollowingKey());
-    }
+    return null;
   };
 
   return (
-    <ProfileButtonWrapper>
+    <ProfileButtonWrapper onClick={goToUserPage}>
       <ContextWrapper>
-        <ProfileImage $backgroundImage={avatar} onClick={goToUserPage} />
+        <ProfileImage $backgroundImage={avatar} />
         <TextWrapper>
           <H3>{name}</H3>
           <Span>{uniqueName}</Span>
         </TextWrapper>
       </ContextWrapper>
-      <ConnectButton
-        loading={isConnectionButtonLoading}
-        $followingStatus={followingStatus}
-        onMouseEnter={handleHover}
-        onMouseLeave={handleHoverExit}
-        onClick={handleConnect}
-      >
-        {connectButtonText}
-      </ConnectButton>
+      {renderConnectButton()}
     </ProfileButtonWrapper>
   );
 };

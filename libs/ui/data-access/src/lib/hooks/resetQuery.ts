@@ -13,6 +13,6 @@ export async function useResetQuery(queryAction: QueryAction, key: string[]) {
     queryClient.removeQueries({ queryKey: [key] });
   }
   if (queryAction === QueryAction.Refetch) {
-    queryClient.removeQueries({ queryKey: [key] });
+    queryClient.refetchQueries({ queryKey: [key] });
   }
 }

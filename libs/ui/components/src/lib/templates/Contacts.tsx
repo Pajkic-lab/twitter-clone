@@ -1,12 +1,11 @@
 import {
+  ConnectUser,
   FollowerListResponseDto,
-  PublicUserBase,
   UserResponseDto,
 } from '@tw/data';
+import { ReactNode } from 'react';
 import styled from 'styled-components';
-import { Trends } from '../molecules/Trends';
 import { Mediabar } from '../organisms/Mediabar';
-import { UserLIst } from '../organisms/UserLIst';
 import { UserListLane } from '../organisms/UserListLane';
 import { Sidebar } from '../organisms/sidebar/Sidebar';
 
@@ -18,9 +17,10 @@ type ContactsProps = {
   infScrollElRef: (node?: Element | null | undefined) => void;
   hasMoreData: boolean;
   noDataText: string;
-  mediaBarUserListTitle: string;
-  mostPopularUsers: PublicUserBase[] | undefined;
-  mostPopularUsersLoading: boolean;
+  handleUserConnect?: ConnectUser;
+  isConnectPending?: number[];
+  topWindowChilde: ReactNode;
+  bottomWindowChilde: ReactNode;
 };
 
 export const Contacts = (props: ContactsProps) => {
@@ -32,9 +32,10 @@ export const Contacts = (props: ContactsProps) => {
     infScrollElRef,
     hasMoreData,
     noDataText,
-    mediaBarUserListTitle,
-    mostPopularUsers,
-    mostPopularUsersLoading,
+    handleUserConnect,
+    isConnectPending,
+    topWindowChilde,
+    bottomWindowChilde,
   } = props;
 
   const { id: meId, name, uniqueName, avatar } = user;
@@ -52,21 +53,14 @@ export const Contacts = (props: ContactsProps) => {
         infScrollElRef={infScrollElRef}
         hasMoreData={hasMoreData}
         noDataText={noDataText}
+        handleUserConnect={handleUserConnect}
+        isConnectPending={isConnectPending}
       />
 
       <Mediabar
         meId={meId}
-        // should come from props!
-        topWindowChilde={
-          <UserLIst
-            meId={meId}
-            title={mediaBarUserListTitle}
-            userList={mostPopularUsers}
-            userListLoading={mostPopularUsersLoading}
-          />
-        }
-        // should come from props!
-        bottomWindowChilde={<Trends />}
+        topWindowChilde={topWindowChilde}
+        bottomWindowChilde={bottomWindowChilde}
       />
     </Wrapper>
   );

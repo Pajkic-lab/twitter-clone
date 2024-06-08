@@ -1,4 +1,4 @@
-import { FollowerListResponseDto } from '@tw/data';
+import { ConnectUser, FollowerListResponseDto } from '@tw/data';
 import { colors } from '@tw/ui/assets';
 import { memo, useMemo } from 'react';
 import styled from 'styled-components';
@@ -15,6 +15,8 @@ type UserListProps = {
   hasMoreData?: boolean;
   meId: number;
   publicUserId?: number;
+  handleUserConnect?: ConnectUser;
+  isConnectPending?: number[];
 };
 
 type ContentUiProps = {
@@ -22,6 +24,8 @@ type ContentUiProps = {
   publicUserId?: number;
   userList: FollowerListResponseDto[];
   title?: string;
+  handleUserConnect?: ConnectUser;
+  isConnectPending?: number[];
 };
 
 type NoDataUiProps = {
@@ -44,6 +48,8 @@ export const UserLIst = (props: UserListProps) => {
     scrollable = false,
     infScrollElRef,
     hasMoreData,
+    handleUserConnect,
+    isConnectPending,
   } = props;
 
   const memoizedValues = useMemo(() => {
@@ -69,6 +75,8 @@ export const UserLIst = (props: UserListProps) => {
           publicUserId={publicUserId}
           userList={userList}
           title={title}
+          handleUserConnect={handleUserConnect}
+          isConnectPending={isConnectPending}
         />
       )}
       {scrollable && <InfScrollElTrigger ref={infScrollElRef} />}
@@ -81,7 +89,16 @@ export const UserLIst = (props: UserListProps) => {
 };
 
 const ContentUi = memo((props: ContentUiProps) => {
-  const { meId, publicUserId, title, userList } = props;
+  const {
+    meId,
+    publicUserId,
+    title,
+    userList,
+    handleUserConnect,
+    isConnectPending,
+  } = props;
+
+  console.log(111, isConnectPending);
   return (
     <ContentWrapper>
       {title && <Title>{title}</Title>}
@@ -91,6 +108,8 @@ const ContentUi = memo((props: ContentUiProps) => {
           meId={meId}
           publicUserId={publicUserId}
           buttonRelatedUser={user}
+          handleUserConnect={handleUserConnect}
+          isConnectPending={isConnectPending?.includes(user.id)}
         />
       ))}
     </ContentWrapper>

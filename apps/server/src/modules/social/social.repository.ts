@@ -129,7 +129,7 @@ export class SocialRepository {
       );
     }
   }
-  //
+
   async getPublicProfileFollowers(
     meId: number,
     publicUserId: number,

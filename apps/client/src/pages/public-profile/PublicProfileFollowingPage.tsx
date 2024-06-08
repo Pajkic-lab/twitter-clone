@@ -3,18 +3,27 @@ import {
   PublicUserResponseDto,
   UserResponseDto,
 } from '@tw/data';
-import { Contacts } from '@tw/ui/components';
+import { Contacts, Trends, UserLIst } from '@tw/ui/components';
 import {
+  QueryAction,
+  publicProfileFollowersKey,
+  publicProfileFollowingKey,
+  useFollowMutation,
   useMostPopularUsersQuery,
   usePublicProfileFollowingInfQuery,
   usePublicProfileQuery,
+  useResetQuery,
+  useUnFollowMutation,
   useUserQuery,
+  userGetFollowersKey,
+  userGetFollowingKey,
 } from '@tw/ui/data-access';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useParams } from 'react-router-dom';
 
 const FOLLOWING_LIST_SIZE_LIMIT = 20;
+const MEDIA_BAR_USER_LIST_TITLE = 'Who to follow';
 
 export const PublicProfileFollowingPage = () => {
   const params = useParams();
@@ -24,6 +33,9 @@ export const PublicProfileFollowingPage = () => {
   });
 
   const publicUserId = Number(params?.userId);
+
+  const [idToConnectTo, setIdToConnectTo] = useState<number>(0);
+  const [isConnectPending, setIsConnectPending] = useState<number[]>([]);
 
   const { data: user } = useUserQuery() as { data: UserResponseDto };
   const publicUserRes = usePublicProfileQuery(publicUserId);
@@ -40,18 +52,77 @@ export const PublicProfileFollowingPage = () => {
     FOLLOWING_LIST_SIZE_LIMIT
   );
 
-  // console.log(2, publicUserId);
+  const { mutateAsync: followMutation, isPending: isFollowLoading } =
+    useFollowMutation();
+  const { mutateAsync: unFollowMutation, isPending: isUnFollowingLoading } =
+    useUnFollowMutation();
 
   const publicUser = publicUserRes?.data?.user as PublicUserResponseDto;
   const userList: FollowerListResponseDto[] = data?.pages?.flat() ?? [];
   const noDataText = `${publicUser.name} does not follow anyone else`;
-  const mediaBarUserListTitle = 'Who to follow';
+
+  const connectionPending =
+    isFollowLoading || isUnFollowingLoading || userListLoading;
+
+  useEffect(() => {
+    if (connectionPending) {
+      setIsConnectPending([...isConnectPending, idToConnectTo]);
+    } else {
+      setIsConnectPending([]);
+    }
+  }, [connectionPending, idToConnectTo]);
 
   useEffect(() => {
     if (inView) {
       fetchNextPage();
     }
   }, [inView, fetchNextPage]);
+
+  const handleUserConnect = async (
+    connectUserId: number,
+    followingStatus: boolean,
+    pubUserId?: number
+  ) => {
+    if (!followingStatus) {
+      setIdToConnectTo(connectUserId);
+
+      const { status } = await followMutation({ userId: connectUserId });
+
+      if (status) {
+        if (pubUserId) {
+          useResetQuery(
+            QueryAction.Invalidate,
+            publicProfileFollowersKey(pubUserId)
+          );
+          useResetQuery(
+            QueryAction.Invalidate,
+            publicProfileFollowingKey(pubUserId)
+          );
+        }
+        useResetQuery(QueryAction.Refetch, userGetFollowingKey());
+        useResetQuery(QueryAction.Invalidate, userGetFollowersKey());
+      }
+      return;
+    }
+    setIdToConnectTo(connectUserId);
+
+    const { status } = await unFollowMutation({ userId: connectUserId });
+
+    if (status) {
+      if (pubUserId) {
+        useResetQuery(
+          QueryAction.Invalidate,
+          publicProfileFollowersKey(pubUserId)
+        );
+        useResetQuery(
+          QueryAction.Invalidate,
+          publicProfileFollowingKey(pubUserId)
+        );
+      }
+      useResetQuery(QueryAction.Refetch, userGetFollowingKey());
+      useResetQuery(QueryAction.Invalidate, userGetFollowersKey());
+    }
+  };
 
   return (
     <Contacts
@@ -62,9 +133,19 @@ export const PublicProfileFollowingPage = () => {
       infScrollElRef={ref}
       hasMoreData={hasNextPage}
       noDataText={noDataText}
-      mediaBarUserListTitle={mediaBarUserListTitle}
-      mostPopularUsers={mostPopularUsers}
-      mostPopularUsersLoading={mostPopularUsersLoading}
+      handleUserConnect={handleUserConnect}
+      isConnectPending={isConnectPending}
+      topWindowChilde={
+        <UserLIst
+          meId={user.id}
+          title={MEDIA_BAR_USER_LIST_TITLE}
+          userList={mostPopularUsers}
+          userListLoading={mostPopularUsersLoading}
+          handleUserConnect={handleUserConnect}
+          isConnectPending={isConnectPending}
+        />
+      }
+      bottomWindowChilde={<Trends />}
     />
   );
 };
