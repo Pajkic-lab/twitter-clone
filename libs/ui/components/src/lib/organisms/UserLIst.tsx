@@ -98,7 +98,6 @@ const ContentUi = memo((props: ContentUiProps) => {
     isConnectPending,
   } = props;
 
-  console.log(111, isConnectPending);
   return (
     <ContentWrapper>
       {title && <Title>{title}</Title>}

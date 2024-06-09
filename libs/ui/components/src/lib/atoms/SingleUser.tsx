@@ -1,10 +1,13 @@
+import Tippy from '@tippyjs/react/headless';
 import { ConnectUser, PublicUserBase } from '@tw/data';
 import { colors } from '@tw/ui/assets';
 import { linksRecords } from '@tw/ui/common';
-import { MouseEvent, useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSpring } from 'react-spring';
 import styled from 'styled-components';
-import { SecondaryButton } from './Button';
+import { ConnectButton } from './ConnectButton';
+import { UserPreviewTooltip } from './UserPreviewTooltip';
 
 type SingleUserProps = {
   buttonRelatedUser: PublicUserBase;
@@ -19,14 +22,20 @@ export const SingleUser = (props: SingleUserProps) => {
   const {
     meId,
     publicUserId,
-    buttonRelatedUser: { name, uniqueName, avatar, id, followingStatus },
+    buttonRelatedUser,
     handleUserConnect,
     isConnectPending,
   } = props;
 
+  const { id, name, avatar, uniqueName, followingStatus } = buttonRelatedUser;
+
   const navigate = useNavigate();
 
-  const [isHovered, setIsHovered] = useState<boolean>(false);
+  const [showTooltipContent, setShowTooltipContent] = useState<boolean>(false);
+
+  const config = { tension: 300, friction: 15 };
+  const initialStyles = { opacity: 0, transform: 'scale(0.5)' };
+  const [styleProps, setSpring] = useSpring(() => initialStyles);
 
   const goToUserPage = () => {
     if (meId === id) {
@@ -35,50 +44,75 @@ export const SingleUser = (props: SingleUserProps) => {
     navigate(linksRecords.publicProfilePage.baseById(id));
   };
 
-  const handleHover = () => {
-    setIsHovered(true);
-  };
+  function onMount() {
+    setShowTooltipContent(true);
+    setSpring({
+      opacity: 1,
+      transform: 'scale(1)',
+      onRest: () => {},
+      config,
+      delay: 1000,
+    });
+  }
 
-  const handleHoverExit = () => {
-    setIsHovered(false);
-  };
+  function onHide({ unmount }: { unmount: any }) {
+    setSpring({
+      ...initialStyles,
+      onRest: unmount,
+      config: { ...config, clamp: true },
+    });
+  }
 
-  const btFollowText = isHovered ? 'UnFollow' : 'Following';
-  const connectButtonText = followingStatus ? btFollowText : 'Follow';
-  const isConnectionButtonLoading = isConnectPending;
+  // should this be extracted as separate component? is there a need for it???
+  const TippyWrapper = ({ element }: { element: ReactNode }) => {
+    if (id === meId) return;
 
-  const handleConnectUser = (e: MouseEvent) => {
-    e.stopPropagation();
-    handleUserConnect && handleUserConnect(id, followingStatus, publicUserId);
-  };
-
-  const renderConnectButton = () => {
-    if (id !== meId) {
-      return (
-        <ConnectButton
-          loading={isConnectionButtonLoading}
-          $followingStatus={followingStatus}
-          onMouseEnter={handleHover}
-          onMouseLeave={handleHoverExit}
-          onClick={(e) => handleConnectUser(e)}
+    return (
+      <div>
+        <Tippy
+          interactive
+          animation
+          onMount={onMount}
+          onHide={onHide}
+          render={(attrs) =>
+            showTooltipContent ? (
+              <UserPreviewTooltip
+                {...attrs}
+                styleProps={styleProps}
+                buttonRelatedUser={buttonRelatedUser}
+                meId={meId}
+                publicUserId={publicUserId}
+                isConnectPending={isConnectPending}
+                handleUserConnect={handleUserConnect}
+              />
+            ) : (
+              <></>
+            )
+          }
         >
-          {connectButtonText}
-        </ConnectButton>
-      );
-    }
-    return null;
+          <div>{element}</div>
+        </Tippy>
+      </div>
+    );
   };
 
   return (
     <ProfileButtonWrapper onClick={goToUserPage}>
       <ContextWrapper>
-        <ProfileImage $backgroundImage={avatar} />
+        <TippyWrapper element={<ProfileImage $backgroundImage={avatar} />} />
         <TextWrapper>
           <H3>{name}</H3>
           <Span>{uniqueName}</Span>
         </TextWrapper>
       </ContextWrapper>
-      {renderConnectButton()}
+      <ConnectButton
+        meId={meId}
+        buttonRelatedUserId={id}
+        publicUserId={publicUserId}
+        followingStatus={followingStatus}
+        isConnectPending={isConnectPending}
+        handleUserConnect={handleUserConnect}
+      />
     </ProfileButtonWrapper>
   );
 };
@@ -134,24 +168,4 @@ const Span = styled.span`
   padding-left: 0.8rem;
   color: ${colors.graySecondary};
   font-weight: 500;
-`;
-
-const ConnectButton = styled(SecondaryButton)<{ $followingStatus: boolean }>`
-  height: 2.286rem;
-  padding: 0 16px;
-  width: 6rem;
-  /* z-index: 50; // this should be handled */
-
-  color: ${({ $followingStatus }) =>
-    $followingStatus ? colors.black : colors.grayPrimary};
-
-  background-color: ${({ $followingStatus }) =>
-    $followingStatus ? colors.white : ''};
-
-  &:hover {
-    color: ${({ $followingStatus }) =>
-      $followingStatus ? colors.red : colors.white};
-    border: ${({ $followingStatus }) =>
-      $followingStatus ? `1px solid ${colors.red}` : ''};
-  }
 `;

@@ -1,5 +1,6 @@
 // atoms
 export * from './lib/atoms/Button';
+export * from './lib/atoms/ConnectButton';
 export * from './lib/atoms/Divider';
 export * from './lib/atoms/ImageInput';
 export * from './lib/atoms/Input';
@@ -8,6 +9,7 @@ export * from './lib/atoms/PageLane';
 export * from './lib/atoms/SideBarNavigationButton';
 export * from './lib/atoms/SideBarOptionsButton';
 export * from './lib/atoms/SingleUser';
+export * from './lib/atoms/UserPreviewTooltip';
 
 // molecules
 export * from './lib/molecules/EditProfileForm';

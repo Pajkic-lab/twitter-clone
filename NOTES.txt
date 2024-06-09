@@ -69,6 +69,10 @@ updateUser has parser build to handle class-validation, research how to do it at
 - Media bar users should be in sync with follow and unfollow users from main list lane
 
 - Do Tooltip to wrap user, to show minified version of public profile page...
+- current setup triggers to many requests, there must be a way how to prevent this
+- add in userList bio or what ever is it, either way, some text is missing
+- in UserList when hover over connect button for some reason it triggers social stats req for that user... research
+- finish user preview design, refactor and reuse compoenents that are reused...
 
 
 

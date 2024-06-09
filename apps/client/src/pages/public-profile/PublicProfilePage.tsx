@@ -51,8 +51,6 @@ export const PublicProfilePage = () => {
   const publicUserId = publicUserRes?.data?.user?.id as number;
   const followingStatus = followingStatusData?.followingStatus as boolean;
 
-  // console.log(1, publicUserId);
-
   const {
     id: meId,
     name,
