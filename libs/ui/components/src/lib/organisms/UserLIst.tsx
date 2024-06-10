@@ -11,6 +11,7 @@ type UserListProps = {
   title?: string;
   noDataText?: string;
   scrollable?: boolean;
+  showBio: boolean;
   infScrollElRef?: (node?: Element | null | undefined) => void;
   hasMoreData?: boolean;
   meId: number;
@@ -24,6 +25,7 @@ type ContentUiProps = {
   publicUserId?: number;
   userList: FollowerListResponseDto[];
   title?: string;
+  showBio: boolean;
   handleUserConnect?: ConnectUser;
   isConnectPending?: number[];
 };
@@ -46,6 +48,7 @@ export const UserLIst = (props: UserListProps) => {
     title,
     noDataText = 'No matching data.',
     scrollable = false,
+    showBio,
     infScrollElRef,
     hasMoreData,
     handleUserConnect,
@@ -75,6 +78,7 @@ export const UserLIst = (props: UserListProps) => {
           publicUserId={publicUserId}
           userList={userList}
           title={title}
+          showBio={showBio}
           handleUserConnect={handleUserConnect}
           isConnectPending={isConnectPending}
         />
@@ -96,6 +100,7 @@ const ContentUi = memo((props: ContentUiProps) => {
     userList,
     handleUserConnect,
     isConnectPending,
+    showBio,
   } = props;
 
   return (
@@ -105,6 +110,7 @@ const ContentUi = memo((props: ContentUiProps) => {
         <SingleUser
           key={user.id}
           meId={meId}
+          showBio={showBio}
           publicUserId={publicUserId}
           buttonRelatedUser={user}
           handleUserConnect={handleUserConnect}

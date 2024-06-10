@@ -1,6 +1,8 @@
 import { ConnectUser, PublicUserBase } from '@tw/data';
 import { colors } from '@tw/ui/assets';
+import { linksRecords } from '@tw/ui/common';
 import { usePublicUserSocialStatsQuery } from '@tw/ui/data-access';
+import { useNavigate } from 'react-router-dom';
 import { SpringValue, animated } from 'react-spring';
 import styled from 'styled-components';
 import { ConnectButton } from '../../atoms/ConnectButton';
@@ -32,7 +34,14 @@ export const ProfilePreviewTooltip = (props: UserPreviewTooltipProps) => {
   const { id, avatar, followingStatus, name, uniqueName, bio } =
     buttonRelatedUser;
 
+  const navigate = useNavigate();
+
   const { data: socialStats } = usePublicUserSocialStatsQuery(id);
+
+  const navigateToUser = () => {
+    if (id === meId) return navigate(linksRecords.profilePage.base);
+    navigate(linksRecords.publicProfilePage.baseById(id));
+  };
 
   return (
     <WrapperAnimated style={styleProps}>
@@ -42,7 +51,7 @@ export const ProfilePreviewTooltip = (props: UserPreviewTooltipProps) => {
         }}
       >
         <TopSectionWrapper>
-          <ProfileImage $backgroundImage={avatar} />
+          <ProfileImage $backgroundImage={avatar} onClick={navigateToUser} />
           <ConnectButton
             meId={meId}
             buttonRelatedUserId={id}
@@ -53,7 +62,12 @@ export const ProfilePreviewTooltip = (props: UserPreviewTooltipProps) => {
           />
         </TopSectionWrapper>
 
-        <NameAndUniquename name={name} uniqueName={uniqueName} bio={bio} />
+        <NameAndUniquename
+          name={name}
+          uniqueName={uniqueName}
+          bio={bio}
+          navigateToUser={navigateToUser}
+        />
 
         <SocialStats socialStats={socialStats} socialStatsUserId={id} />
       </div>
@@ -73,7 +87,6 @@ const WrapperAnimated = styled(animated.div)`
 const TopSectionWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  /* align-items: center; */
 `;
 
 const ProfileImage = styled.div<{ $backgroundImage: string }>`

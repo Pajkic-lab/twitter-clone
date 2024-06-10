@@ -127,6 +127,7 @@ export const PublicProfileFollowersPage = () => {
       pubLicUser={publicUser}
       userList={userList}
       userListLoading={userListLoading}
+      showBio
       infScrollElRef={ref}
       hasMoreData={hasNextPage}
       noDataText={noDataText}
@@ -140,6 +141,7 @@ export const PublicProfileFollowersPage = () => {
           userListLoading={mostPopularUsersLoading}
           handleUserConnect={handleUserConnect}
           isConnectPending={isConnectPending}
+          showBio={false}
         />
       }
       bottomWindowChilde={<Trends />}

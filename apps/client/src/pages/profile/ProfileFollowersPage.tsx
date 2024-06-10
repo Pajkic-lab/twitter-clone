@@ -91,6 +91,7 @@ export const ProfileFollowersPage = () => {
       user={user}
       userList={userList}
       userListLoading={userListLoading}
+      showBio
       infScrollElRef={ref}
       hasMoreData={hasNextPage}
       noDataText={NO_DATA_TEXT}
@@ -101,6 +102,7 @@ export const ProfileFollowersPage = () => {
           meId={user.id}
           title={MEDIA_BAR_USER_LIST_TITLE}
           userList={mostPopularUsers}
+          showBio={false}
           userListLoading={mostPopularUsersLoading}
           handleUserConnect={handleUserConnect}
           isConnectPending={isConnectPending}

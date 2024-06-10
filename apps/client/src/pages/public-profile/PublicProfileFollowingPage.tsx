@@ -130,6 +130,7 @@ export const PublicProfileFollowingPage = () => {
       pubLicUser={publicUser}
       userList={userList}
       userListLoading={userListLoading}
+      showBio
       infScrollElRef={ref}
       hasMoreData={hasNextPage}
       noDataText={noDataText}
@@ -141,6 +142,7 @@ export const PublicProfileFollowingPage = () => {
           title={MEDIA_BAR_USER_LIST_TITLE}
           userList={mostPopularUsers}
           userListLoading={mostPopularUsersLoading}
+          showBio={false}
           handleUserConnect={handleUserConnect}
           isConnectPending={isConnectPending}
         />

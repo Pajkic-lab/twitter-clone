@@ -144,6 +144,7 @@ export const PublicProfilePage = () => {
             title={'You might like'}
             userList={mostPopularUsers}
             userListLoading={isMostPopularUsersLoading}
+            showBio={false}
           />
         }
         bottomWindowChilde={<Trends />}

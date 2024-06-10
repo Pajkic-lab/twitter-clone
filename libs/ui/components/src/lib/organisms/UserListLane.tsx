@@ -20,6 +20,7 @@ type UserListLaneProps = {
   publicUser: UserResponseDto;
   userList: FollowerListResponseDto[];
   userListLoading: boolean;
+  showBio: boolean;
   infScrollElRef: (node?: Element | null | undefined) => void;
   hasMoreData: boolean;
   noDataText: string;
@@ -32,6 +33,7 @@ export const UserListLane = (props: UserListLaneProps) => {
     meId,
     publicUser: { id: publicUserId, name, uniqueName },
     userList,
+    showBio,
     userListLoading,
     infScrollElRef,
     hasMoreData,
@@ -56,6 +58,7 @@ export const UserListLane = (props: UserListLaneProps) => {
         publicUserId={publicUserId}
         userList={userList}
         userListLoading={userListLoading}
+        showBio={showBio}
         scrollable
         infScrollElRef={infScrollElRef}
         hasMoreData={hasMoreData}

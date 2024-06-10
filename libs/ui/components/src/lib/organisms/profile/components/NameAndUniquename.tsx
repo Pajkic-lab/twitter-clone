@@ -5,15 +5,17 @@ import styled from 'styled-components';
 type NameAndUniquenameProps = Pick<
   UserResponseDto,
   'name' | 'uniqueName' | 'bio'
->;
+> & {
+  navigateToUser?: () => void;
+};
 
 export const NameAndUniquename = (props: NameAndUniquenameProps) => {
-  const { name, uniqueName, bio } = props;
+  const { name, uniqueName, bio, navigateToUser } = props;
   return (
     <>
       <TextWrapper>
-        <H2Bio>{name}</H2Bio>
-        <SpanBio>{uniqueName}</SpanBio>
+        <H2Bio onClick={navigateToUser}>{name}</H2Bio> <br />
+        <SpanBio onClick={navigateToUser}>{uniqueName}</SpanBio>
       </TextWrapper>
       {bio && (
         <TextWrapper>
@@ -28,10 +30,12 @@ const TextWrapper = styled.div`
   padding-bottom: 1rem;
 `;
 
-const H2Bio = styled.h2`
+const H2Bio = styled.span`
   margin: 0;
   color: ${colors.grayPrimary};
   font-weight: 700;
+  font-size: x-large;
+  cursor: pointer;
 `;
 
 const SpanText = styled.span`
@@ -42,4 +46,5 @@ const SpanText = styled.span`
 const SpanBio = styled.span`
   color: ${colors.graySecondary};
   font-weight: 500;
+  cursor: pointer;
 `;

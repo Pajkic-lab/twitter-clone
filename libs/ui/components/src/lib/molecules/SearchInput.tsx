@@ -94,6 +94,7 @@ const SearchResultWindow = (props: SearchResultWindowProps) => {
           meId={meId}
           userList={searchUserRes}
           userListLoading={searchIsLoading}
+          showBio={false}
         />
       )}
     </SearchDataWrapper>

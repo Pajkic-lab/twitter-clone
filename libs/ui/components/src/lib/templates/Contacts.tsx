@@ -14,6 +14,7 @@ type ContactsProps = {
   pubLicUser?: UserResponseDto;
   userList: FollowerListResponseDto[];
   userListLoading: boolean;
+  showBio: boolean;
   infScrollElRef: (node?: Element | null | undefined) => void;
   hasMoreData: boolean;
   noDataText: string;
@@ -29,6 +30,7 @@ export const Contacts = (props: ContactsProps) => {
     pubLicUser,
     userList,
     userListLoading,
+    showBio,
     infScrollElRef,
     hasMoreData,
     noDataText,
@@ -49,6 +51,7 @@ export const Contacts = (props: ContactsProps) => {
         meId={meId}
         publicUser={currentUser}
         userList={userList}
+        showBio={showBio}
         userListLoading={userListLoading}
         infScrollElRef={infScrollElRef}
         hasMoreData={hasMoreData}

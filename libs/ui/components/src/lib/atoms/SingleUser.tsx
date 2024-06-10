@@ -16,6 +16,7 @@ type SingleUserProps = {
   connectButtonExist?: boolean;
   handleUserConnect?: ConnectUser;
   isConnectPending?: boolean;
+  showBio: boolean;
 };
 
 export const SingleUser = (props: SingleUserProps) => {
@@ -25,9 +26,11 @@ export const SingleUser = (props: SingleUserProps) => {
     buttonRelatedUser,
     handleUserConnect,
     isConnectPending,
+    showBio,
   } = props;
 
-  const { id, name, avatar, uniqueName, followingStatus } = buttonRelatedUser;
+  const { id, name, avatar, uniqueName, bio, followingStatus } =
+    buttonRelatedUser;
 
   const navigate = useNavigate();
 
@@ -97,37 +100,55 @@ export const SingleUser = (props: SingleUserProps) => {
   };
 
   return (
-    <ProfileButtonWrapper onClick={goToUserPage}>
-      <ContextWrapper>
-        <TippyWrapper element={<ProfileImage $backgroundImage={avatar} />} />
-        <TextWrapper>
-          <H3>{name}</H3>
-          <Span>{uniqueName}</Span>
-        </TextWrapper>
-      </ContextWrapper>
-      <ConnectButton
-        meId={meId}
-        buttonRelatedUserId={id}
-        publicUserId={publicUserId}
-        followingStatus={followingStatus}
-        isConnectPending={isConnectPending}
-        handleUserConnect={handleUserConnect}
-      />
-    </ProfileButtonWrapper>
+    <Wrapper onClick={goToUserPage}>
+      <TippyWrapper element={<ProfileImage $backgroundImage={avatar} />} />
+      <ContentWrapper>
+        <ProfileWrapper>
+          <ContextWrapper>
+            <TextWrapper>
+              <H3>{name}</H3>
+              <Span>{uniqueName}</Span>
+            </TextWrapper>
+          </ContextWrapper>
+          <ConnectButton
+            meId={meId}
+            buttonRelatedUserId={id}
+            publicUserId={publicUserId}
+            followingStatus={followingStatus}
+            isConnectPending={isConnectPending}
+            handleUserConnect={handleUserConnect}
+          />
+        </ProfileWrapper>
+        {showBio && <S>{bio}</S>}
+      </ContentWrapper>
+    </Wrapper>
   );
 };
 
-const ProfileButtonWrapper = styled.div`
+const Wrapper = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
   padding: 0.8rem 0.8rem;
   cursor: pointer;
 
   &:hover {
     background-color: ${colors.grayDarkActive};
   }
+`;
+
+const ContentWrapper = styled.div`
+  width: 100%;
+  padding-left: 0.8rem;
+`;
+
+const S = styled.span`
+  color: ${colors.grayLight};
+`;
+
+const ProfileWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 `;
 
 const ContextWrapper = styled.div`
@@ -158,14 +179,12 @@ const TextWrapper = styled.div``;
 
 const H3 = styled.h3`
   margin: 0;
-  padding-left: 0.8rem;
   color: ${colors.grayPrimary};
   font-weight: 700;
 `;
 
 const Span = styled.span`
   margin: 0;
-  padding-left: 0.8rem;
   color: ${colors.graySecondary};
   font-weight: 500;
 `;
