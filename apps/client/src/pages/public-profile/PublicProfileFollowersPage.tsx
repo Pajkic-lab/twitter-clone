@@ -6,6 +6,7 @@ import {
 import { Contacts, Trends, UserLIst } from '@tw/ui/components';
 import {
   QueryAction,
+  mostPopularUsersQueryKey,
   publicProfileFollowersKey,
   publicProfileFollowingKey,
   useFollowMutation,
@@ -98,6 +99,14 @@ export const PublicProfileFollowersPage = () => {
         }
         useResetQuery(QueryAction.Refetch, userGetFollowingKey());
         useResetQuery(QueryAction.Invalidate, userGetFollowersKey());
+
+        if (
+          userList.some((user) =>
+            mostPopularUsers?.some((popUser) => user.id === popUser.id)
+          )
+        ) {
+          useResetQuery(QueryAction.Invalidate, mostPopularUsersQueryKey());
+        }
       }
       return;
     }
@@ -118,6 +127,14 @@ export const PublicProfileFollowersPage = () => {
       }
       useResetQuery(QueryAction.Refetch, userGetFollowingKey());
       useResetQuery(QueryAction.Invalidate, userGetFollowersKey());
+
+      if (
+        userList.some((user) =>
+          mostPopularUsers?.some((popUser) => user.id === popUser.id)
+        )
+      ) {
+        useResetQuery(QueryAction.Invalidate, mostPopularUsersQueryKey());
+      }
     }
   };
 
@@ -127,7 +144,6 @@ export const PublicProfileFollowersPage = () => {
       pubLicUser={publicUser}
       userList={userList}
       userListLoading={userListLoading}
-      showBio
       infScrollElRef={ref}
       hasMoreData={hasNextPage}
       noDataText={noDataText}
@@ -136,6 +152,7 @@ export const PublicProfileFollowersPage = () => {
       topWindowChilde={
         <UserLIst
           meId={user.id}
+          publicUserId={publicUserId}
           title={MEDIA_BAR_USER_LIST_TITLE}
           userList={mostPopularUsers}
           userListLoading={mostPopularUsersLoading}

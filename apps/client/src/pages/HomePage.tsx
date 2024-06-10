@@ -11,16 +11,28 @@ import {
   UserLIst,
 } from '@tw/ui/components';
 import {
+  mostPopularUsersQueryKey,
+  QueryAction,
   useCheckUniqueUserNameMutation,
+  useFollowMutation,
   useMostPopularUsersQuery,
+  useResetQuery,
+  userGetFollowersKey,
+  userGetFollowingKey,
+  useUnFollowMutation,
   useUpdateUniqueUserNameMutation,
   useUserQuery,
 } from '@tw/ui/data-access';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
 
+const MEDIA_BAR_TOP_WINDOW_CONTAINER_TITLE = 'You might like';
+
 export const HomePage = () => {
+  const [idToConnectTo, setIdToConnectTo] = useState<number>(0);
+  const [isConnectPending, setIsConnectPending] = useState<number[]>([]);
+
   const { data: user, isPending: userIsLoading } = useUserQuery();
   const { data: mostPopularUsers, isFetching: isMostPopularUsersLoading } =
     useMostPopularUsersQuery();
@@ -36,8 +48,15 @@ export const HomePage = () => {
     isPending: updateUniqueUserNameLoading,
   } = useUpdateUniqueUserNameMutation();
 
+  const { mutateAsync: followMutation, isPending: isFollowLoading } =
+    useFollowMutation();
+  const { mutateAsync: unFollowMutation, isPending: isUnFollowingLoading } =
+    useUnFollowMutation();
+
   const { id, name, uniqueName, avatar } = user ?? ({} as UserResponseDto);
   const { isNameUnique } = uniqueUserName ?? {};
+
+  const connectionPending = isFollowLoading || isUnFollowingLoading;
 
   const onSubmitUniqueName = useCallback(
     (uniqueNameFormData: UniqueNameFormData) => {
@@ -63,6 +82,43 @@ export const HomePage = () => {
     [isNameUnique]
   );
 
+  const handleUserConnect = async (
+    connectUserId: number,
+    followingStatus: boolean
+  ) => {
+    if (!followingStatus) {
+      setIdToConnectTo(connectUserId);
+
+      const { status } = await followMutation({ userId: connectUserId });
+
+      if (status) {
+        useResetQuery(QueryAction.Invalidate, userGetFollowingKey());
+        useResetQuery(QueryAction.Invalidate, userGetFollowersKey());
+
+        useResetQuery(QueryAction.Invalidate, mostPopularUsersQueryKey());
+      }
+      return;
+    }
+    setIdToConnectTo(connectUserId);
+
+    const { status } = await unFollowMutation({ userId: connectUserId });
+
+    if (status) {
+      useResetQuery(QueryAction.Invalidate, userGetFollowingKey());
+      useResetQuery(QueryAction.Invalidate, userGetFollowersKey());
+
+      useResetQuery(QueryAction.Invalidate, mostPopularUsersQueryKey());
+    }
+  };
+
+  useEffect(() => {
+    if (connectionPending) {
+      setIsConnectPending([...isConnectPending, idToConnectTo]);
+    } else {
+      setIsConnectPending([]);
+    }
+  }, [connectionPending, idToConnectTo]);
+
   return (
     <PageWrapper>
       <Sidebar name={name} uniqueName={uniqueName} avatar={avatar} />
@@ -74,9 +130,11 @@ export const HomePage = () => {
         topWindowChilde={
           <UserLIst
             meId={id}
-            title={'You might like'}
+            title={MEDIA_BAR_TOP_WINDOW_CONTAINER_TITLE}
             userList={mostPopularUsers}
             userListLoading={isMostPopularUsersLoading}
+            handleUserConnect={handleUserConnect}
+            isConnectPending={isConnectPending}
             showBio={false}
           />
         }

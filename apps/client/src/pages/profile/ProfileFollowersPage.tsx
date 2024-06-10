@@ -2,6 +2,7 @@ import { FollowerListResponseDto, UserResponseDto } from '@tw/data';
 import { Contacts, Trends, UserLIst } from '@tw/ui/components';
 import {
   QueryAction,
+  mostPopularUsersQueryKey,
   useFollowMutation,
   useFollowersInfQuery,
   useMostPopularUsersQuery,
@@ -71,8 +72,16 @@ export const ProfileFollowersPage = () => {
       const { status } = await followMutation({ userId: connectUserId });
 
       if (status) {
-        useResetQuery(QueryAction.Remove, userGetFollowingKey());
+        useResetQuery(QueryAction.Refetch, userGetFollowingKey());
         useResetQuery(QueryAction.Invalidate, userGetFollowersKey());
+
+        if (
+          userList.some((user) =>
+            mostPopularUsers?.some((popUser) => user.id === popUser.id)
+          )
+        ) {
+          useResetQuery(QueryAction.Invalidate, mostPopularUsersQueryKey());
+        }
       }
       return;
     }
@@ -81,8 +90,15 @@ export const ProfileFollowersPage = () => {
     const { status } = await unFollowMutation({ userId: connectUserId });
 
     if (status) {
-      useResetQuery(QueryAction.Remove, userGetFollowingKey());
+      useResetQuery(QueryAction.Refetch, userGetFollowingKey());
       useResetQuery(QueryAction.Invalidate, userGetFollowersKey());
+      if (
+        userList.some((user) =>
+          mostPopularUsers?.some((popUser) => user.id === popUser.id)
+        )
+      ) {
+        useResetQuery(QueryAction.Invalidate, mostPopularUsersQueryKey());
+      }
     }
   };
 
@@ -91,7 +107,6 @@ export const ProfileFollowersPage = () => {
       user={user}
       userList={userList}
       userListLoading={userListLoading}
-      showBio
       infScrollElRef={ref}
       hasMoreData={hasNextPage}
       noDataText={NO_DATA_TEXT}

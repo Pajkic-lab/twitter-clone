@@ -95,6 +95,8 @@ const SearchResultWindow = (props: SearchResultWindowProps) => {
           userList={searchUserRes}
           userListLoading={searchIsLoading}
           showBio={false}
+          showConnectButton={false}
+          showUserPreview={false}
         />
       )}
     </SearchDataWrapper>

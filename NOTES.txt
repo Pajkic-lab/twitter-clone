@@ -68,13 +68,11 @@ updateUser has parser build to handle class-validation, research how to do it at
 
 - Problem with infiniteQuery not updating cache on second visit to page, network returns correct data but query is not updating...
 
-- Media bar users should be in sync with follow and unfollow users from main list lane
+- public profile preview followers / following throws error
 
-- Do Tooltip to wrap user, to show minified version of public profile page...
-
-- add in userList bio or what ever is it, either way, some text is missing
-
-- finish user preview design, refactor and reuse compoenents that are reused...
+- handle connect can not be optional also is connect panding.
+- maybe there is a way how to reuse connect function and to reuse it, current setup is to redundant.
+- open prisma and check why so many same users amrko or what ever...
 
 
 

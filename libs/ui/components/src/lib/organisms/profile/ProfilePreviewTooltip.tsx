@@ -38,7 +38,7 @@ export const ProfilePreviewTooltip = (props: UserPreviewTooltipProps) => {
 
   const { data: socialStats } = usePublicUserSocialStatsQuery(id);
 
-  const navigateToUser = () => {
+  const goToUserPage = () => {
     if (id === meId) return navigate(linksRecords.profilePage.base);
     navigate(linksRecords.publicProfilePage.baseById(id));
   };
@@ -51,7 +51,7 @@ export const ProfilePreviewTooltip = (props: UserPreviewTooltipProps) => {
         }}
       >
         <TopSectionWrapper>
-          <ProfileImage $backgroundImage={avatar} onClick={navigateToUser} />
+          <ProfileImage $backgroundImage={avatar} onClick={goToUserPage} />
           <ConnectButton
             meId={meId}
             buttonRelatedUserId={id}
@@ -66,7 +66,7 @@ export const ProfilePreviewTooltip = (props: UserPreviewTooltipProps) => {
           name={name}
           uniqueName={uniqueName}
           bio={bio}
-          navigateToUser={navigateToUser}
+          navigateToUser={goToUserPage}
         />
 
         <SocialStats socialStats={socialStats} socialStatsUserId={id} />

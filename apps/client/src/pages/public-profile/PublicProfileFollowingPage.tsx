@@ -6,6 +6,7 @@ import {
 import { Contacts, Trends, UserLIst } from '@tw/ui/components';
 import {
   QueryAction,
+  mostPopularUsersQueryKey,
   publicProfileFollowersKey,
   publicProfileFollowingKey,
   useFollowMutation,
@@ -37,8 +38,9 @@ export const PublicProfileFollowingPage = () => {
   const [idToConnectTo, setIdToConnectTo] = useState<number>(0);
   const [isConnectPending, setIsConnectPending] = useState<number[]>([]);
 
-  const { data: user } = useUserQuery() as { data: UserResponseDto };
-  const publicUserRes = usePublicProfileQuery(publicUserId);
+  const { data: user } = useUserQuery() as { data: UserResponseDto }; //
+  const publicUserRes = usePublicProfileQuery(publicUserId); //
+
   const { data: mostPopularUsers, isFetching: mostPopularUsersLoading } =
     useMostPopularUsersQuery();
 
@@ -57,7 +59,8 @@ export const PublicProfileFollowingPage = () => {
   const { mutateAsync: unFollowMutation, isPending: isUnFollowingLoading } =
     useUnFollowMutation();
 
-  const publicUser = publicUserRes?.data?.user as PublicUserResponseDto;
+  const publicUser = publicUserRes?.data?.user as PublicUserResponseDto; // should not use cast type, refactor this
+
   const userList: FollowerListResponseDto[] = data?.pages?.flat() ?? [];
   const noDataText = `${publicUser.name} does not follow anyone else`;
 
@@ -101,6 +104,13 @@ export const PublicProfileFollowingPage = () => {
         }
         useResetQuery(QueryAction.Refetch, userGetFollowingKey());
         useResetQuery(QueryAction.Invalidate, userGetFollowersKey());
+        if (
+          userList.some((user) =>
+            mostPopularUsers?.some((popUser) => user.id === popUser.id)
+          )
+        ) {
+          useResetQuery(QueryAction.Invalidate, mostPopularUsersQueryKey());
+        }
       }
       return;
     }
@@ -121,6 +131,13 @@ export const PublicProfileFollowingPage = () => {
       }
       useResetQuery(QueryAction.Refetch, userGetFollowingKey());
       useResetQuery(QueryAction.Invalidate, userGetFollowersKey());
+      if (
+        userList.some((user) =>
+          mostPopularUsers?.some((popUser) => user.id === popUser.id)
+        )
+      ) {
+        useResetQuery(QueryAction.Invalidate, mostPopularUsersQueryKey());
+      }
     }
   };
 
@@ -130,7 +147,6 @@ export const PublicProfileFollowingPage = () => {
       pubLicUser={publicUser}
       userList={userList}
       userListLoading={userListLoading}
-      showBio
       infScrollElRef={ref}
       hasMoreData={hasNextPage}
       noDataText={noDataText}
@@ -139,12 +155,13 @@ export const PublicProfileFollowingPage = () => {
       topWindowChilde={
         <UserLIst
           meId={user.id}
+          publicUserId={publicUserId}
           title={MEDIA_BAR_USER_LIST_TITLE}
           userList={mostPopularUsers}
           userListLoading={mostPopularUsersLoading}
-          showBio={false}
           handleUserConnect={handleUserConnect}
           isConnectPending={isConnectPending}
+          showBio={false}
         />
       }
       bottomWindowChilde={<Trends />}

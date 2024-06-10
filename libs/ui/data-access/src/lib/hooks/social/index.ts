@@ -2,7 +2,9 @@ import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
 import { FollowUserRequestDto, UnFollowUserRequestDto } from '@tw/data';
 import { http } from '../../http/api';
 
-export const socialStatsQueryKey = ['userSocialStats'];
+export const socialStatsQueryKey = () => {
+  return ['user socialStats'];
+};
 
 export const userGetFollowersKey = () => {
   return ['user followers'];
@@ -14,7 +16,7 @@ export const userGetFollowingKey = () => {
 
 export const useSocialStatsQuery = () => {
   return useQuery({
-    queryKey: socialStatsQueryKey,
+    queryKey: socialStatsQueryKey(),
     queryFn: async () => {
       const res = await http.social.getSocialStats();
       return res.data.payload;

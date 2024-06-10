@@ -2,6 +2,7 @@ import { FollowerListResponseDto, UserResponseDto } from '@tw/data';
 import { Contacts, Trends, UserLIst } from '@tw/ui/components';
 import {
   QueryAction,
+  mostPopularUsersQueryKey,
   useFollowMutation,
   useFollowingInfQuery,
   useMostPopularUsersQuery,
@@ -73,6 +74,13 @@ export const ProfileFollowingPage = () => {
       if (status) {
         useResetQuery(QueryAction.Invalidate, userGetFollowingKey());
         useResetQuery(QueryAction.Remove, userGetFollowersKey());
+        if (
+          userList.some((user) =>
+            mostPopularUsers?.some((popUser) => user.id === popUser.id)
+          )
+        ) {
+          useResetQuery(QueryAction.Invalidate, mostPopularUsersQueryKey());
+        }
       }
       return;
     }
@@ -83,6 +91,13 @@ export const ProfileFollowingPage = () => {
     if (status) {
       useResetQuery(QueryAction.Invalidate, userGetFollowingKey());
       useResetQuery(QueryAction.Remove, userGetFollowersKey());
+      if (
+        userList.some((user) =>
+          mostPopularUsers?.some((popUser) => user.id === popUser.id)
+        )
+      ) {
+        useResetQuery(QueryAction.Invalidate, mostPopularUsersQueryKey());
+      }
     }
   };
 
@@ -91,7 +106,6 @@ export const ProfileFollowingPage = () => {
       user={user}
       userList={userList}
       userListLoading={userListLoading}
-      showBio
       infScrollElRef={ref}
       hasMoreData={hasNextPage}
       noDataText={NO_DATA_TEXT}

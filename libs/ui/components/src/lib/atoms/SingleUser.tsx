@@ -16,7 +16,9 @@ type SingleUserProps = {
   connectButtonExist?: boolean;
   handleUserConnect?: ConnectUser;
   isConnectPending?: boolean;
-  showBio: boolean;
+  showBio?: boolean;
+  showConnectButton?: boolean;
+  showUserPreview?: boolean;
 };
 
 export const SingleUser = (props: SingleUserProps) => {
@@ -26,7 +28,9 @@ export const SingleUser = (props: SingleUserProps) => {
     buttonRelatedUser,
     handleUserConnect,
     isConnectPending,
-    showBio,
+    showBio = true,
+    showConnectButton = true,
+    showUserPreview = true,
   } = props;
 
   const { id, name, avatar, uniqueName, bio, followingStatus } =
@@ -78,7 +82,7 @@ export const SingleUser = (props: SingleUserProps) => {
           onMount={onMount}
           onHide={onHide}
           render={(attrs) =>
-            showTooltipContent ? (
+            showUserPreview && showTooltipContent ? (
               <ProfilePreviewTooltip
                 {...attrs}
                 styleProps={styleProps}
@@ -110,14 +114,16 @@ export const SingleUser = (props: SingleUserProps) => {
               <Span>{uniqueName}</Span>
             </TextWrapper>
           </ContextWrapper>
-          <ConnectButton
-            meId={meId}
-            buttonRelatedUserId={id}
-            publicUserId={publicUserId}
-            followingStatus={followingStatus}
-            isConnectPending={isConnectPending}
-            handleUserConnect={handleUserConnect}
-          />
+          {showConnectButton && (
+            <ConnectButton
+              meId={meId}
+              buttonRelatedUserId={id}
+              publicUserId={publicUserId}
+              followingStatus={followingStatus}
+              isConnectPending={isConnectPending}
+              handleUserConnect={handleUserConnect}
+            />
+          )}
         </ProfileWrapper>
         {showBio && <S>{bio}</S>}
       </ContentWrapper>

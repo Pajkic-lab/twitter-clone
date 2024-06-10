@@ -13,18 +13,29 @@ import {
   UserLIst,
 } from '@tw/ui/components';
 import {
+  QueryAction,
+  mostPopularUsersQueryKey,
+  socialStatsQueryKey,
+  useFollowMutation,
   useMostPopularUsersQuery,
+  useResetQuery,
   useSocialStatsQuery,
+  useUnFollowMutation,
   useUpdateUserMutation,
   useUserQuery,
+  userGetFollowersKey,
+  userGetFollowingKey,
 } from '@tw/ui/data-access';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
 
 const UPDATE_USER_FORM_ID = uuid();
 
 export const ProfilePage = () => {
+  const [idToConnectTo, setIdToConnectTo] = useState<number>(0);
+  const [isConnectPending, setIsConnectPending] = useState<number[]>([]);
+
   const { data: user } = useUserQuery() as { data: UserResponseDto };
   const { data: socialStats } = useSocialStatsQuery();
   const { data: mostPopularUsers, isFetching: isMostPopularUsersLoading } =
@@ -36,8 +47,15 @@ export const ProfilePage = () => {
     error,
   } = useUpdateUserMutation();
 
+  const { mutateAsync: followMutation, isPending: isFollowLoading } =
+    useFollowMutation();
+  const { mutateAsync: unFollowMutation, isPending: isUnFollowingLoading } =
+    useUnFollowMutation();
+
   const { name, uniqueName, avatar } = user ?? ({} as UserResponseDto);
   const updateUserErrorMessage = error?.message as ParsedError;
+
+  const connectionPending = isFollowLoading || isUnFollowingLoading;
 
   const [isEditProfileModalOpen, setEditModalProfileOpen] =
     useState<boolean>(false);
@@ -52,6 +70,45 @@ export const ProfilePage = () => {
   const openEditProfileModal = () => {
     setEditModalProfileOpen(true);
   };
+
+  const handleUserConnect = async (
+    connectUserId: number,
+    followingStatus: boolean
+  ) => {
+    if (!followingStatus) {
+      setIdToConnectTo(connectUserId);
+
+      const { status } = await followMutation({ userId: connectUserId });
+
+      if (status) {
+        useResetQuery(QueryAction.Invalidate, userGetFollowingKey());
+        useResetQuery(QueryAction.Invalidate, userGetFollowersKey());
+
+        useResetQuery(QueryAction.Invalidate, mostPopularUsersQueryKey());
+        useResetQuery(QueryAction.Invalidate, socialStatsQueryKey());
+      }
+      return;
+    }
+    setIdToConnectTo(connectUserId);
+
+    const { status } = await unFollowMutation({ userId: connectUserId });
+
+    if (status) {
+      useResetQuery(QueryAction.Invalidate, userGetFollowingKey());
+      useResetQuery(QueryAction.Invalidate, userGetFollowersKey());
+
+      useResetQuery(QueryAction.Invalidate, mostPopularUsersQueryKey());
+      useResetQuery(QueryAction.Invalidate, socialStatsQueryKey());
+    }
+  };
+
+  useEffect(() => {
+    if (connectionPending) {
+      setIsConnectPending([...isConnectPending, idToConnectTo]);
+    } else {
+      setIsConnectPending([]);
+    }
+  }, [connectionPending, idToConnectTo]);
 
   return (
     <PageWrapper>
@@ -105,6 +162,8 @@ export const ProfilePage = () => {
             title={'You might like'}
             userList={mostPopularUsers}
             userListLoading={isMostPopularUsersLoading}
+            handleUserConnect={handleUserConnect}
+            isConnectPending={isConnectPending}
             showBio={false}
           />
         }

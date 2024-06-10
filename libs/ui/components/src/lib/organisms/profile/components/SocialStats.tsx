@@ -15,7 +15,7 @@ export const SocialStats = (props: SocialStatsProps) => {
   const params = useParams();
   const navigate = useNavigate();
 
-  const userId = socialStatsUserId || Number(params?.userId);
+  const userId = (socialStatsUserId || params?.userId)?.toString();
 
   const { followersCount = '', followingCount = '' } = socialStats ?? {};
 
@@ -28,7 +28,6 @@ export const SocialStats = (props: SocialStatsProps) => {
   };
 
   const navigateToFollowing = () => {
-    navigate(linksRecords.profilePage.following);
     if (userId) {
       navigate(linksRecords.publicProfilePage.followingById(userId));
     } else {
