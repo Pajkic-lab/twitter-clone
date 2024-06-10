@@ -3,8 +3,9 @@ import { colors } from '@tw/ui/assets';
 import { usePublicUserSocialStatsQuery } from '@tw/ui/data-access';
 import { SpringValue, animated } from 'react-spring';
 import styled from 'styled-components';
-import { SocialStats } from '../organisms/profile/components/SocialStats';
-import { ConnectButton } from './ConnectButton';
+import { ConnectButton } from '../../atoms/ConnectButton';
+import { NameAndUniquename } from './components/NameAndUniquename';
+import { SocialStats } from './components/SocialStats';
 
 type UserPreviewTooltipProps = {
   buttonRelatedUser: PublicUserBase;
@@ -18,7 +19,7 @@ type UserPreviewTooltipProps = {
   handleUserConnect?: ConnectUser;
 };
 
-export const UserPreviewTooltip = (props: UserPreviewTooltipProps) => {
+export const ProfilePreviewTooltip = (props: UserPreviewTooltipProps) => {
   const {
     buttonRelatedUser,
     styleProps,
@@ -52,16 +53,9 @@ export const UserPreviewTooltip = (props: UserPreviewTooltipProps) => {
           />
         </TopSectionWrapper>
 
-        {/* should this be reused from profile component??? it could be */}
-        <TextWrapper>
-          <H2Bio>{name}</H2Bio>
-          <SpanBio>{uniqueName}</SpanBio>
-        </TextWrapper>
-        <SpanTextWrapper>
-          <SpanText>{bio}</SpanText>
-        </SpanTextWrapper>
+        <NameAndUniquename name={name} uniqueName={uniqueName} bio={bio} />
 
-        <SocialStats socialStats={socialStats} />
+        <SocialStats socialStats={socialStats} socialStatsUserId={id} />
       </div>
     </WrapperAnimated>
   );
@@ -98,28 +92,4 @@ const ProfileImage = styled.div<{ $backgroundImage: string }>`
     background-size: cover;
     background-color: ${colors.black};
   `}
-`;
-
-const TextWrapper = styled.div`
-  padding-bottom: 1rem;
-`;
-
-const H2Bio = styled.h2`
-  margin: 0;
-  color: ${colors.grayPrimary};
-  font-weight: 700;
-`;
-
-const SpanBio = styled.span`
-  color: ${colors.graySecondary};
-  font-weight: 500;
-`;
-
-const SpanTextWrapper = styled.div`
-  padding-bottom: 1rem;
-`;
-
-const SpanText = styled.span`
-  color: ${colors.white};
-  overflow-wrap: break-word;
 `;

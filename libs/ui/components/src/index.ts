@@ -9,7 +9,6 @@ export * from './lib/atoms/PageLane';
 export * from './lib/atoms/SideBarNavigationButton';
 export * from './lib/atoms/SideBarOptionsButton';
 export * from './lib/atoms/SingleUser';
-export * from './lib/atoms/UserPreviewTooltip';
 
 // molecules
 export * from './lib/molecules/EditProfileForm';
@@ -31,6 +30,7 @@ export * from './lib/organisms/UserListLane';
 export * from './lib/organisms/footer/Footer';
 export * from './lib/organisms/footer/footer-landing-page-data';
 export * from './lib/organisms/profile/Profile';
+export * from './lib/organisms/profile/ProfilePreviewTooltip';
 export * from './lib/organisms/sidebar/Sidebar';
 export * from './lib/organisms/sidebar/sidebar-data';
 

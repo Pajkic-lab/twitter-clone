@@ -36,7 +36,6 @@ export const ProfileFollowingPage = () => {
     isFetching: userListLoading,
     hasNextPage,
   } = useFollowingInfQuery(FOLLOWING_LIST_SIZE_LIMIT);
-  console.log(222, data?.pages);
 
   const { mutateAsync: followMutation, isPending: isFollowLoading } =
     useFollowMutation();

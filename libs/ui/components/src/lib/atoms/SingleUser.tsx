@@ -6,8 +6,8 @@ import { ReactNode, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSpring } from 'react-spring';
 import styled from 'styled-components';
+import { ProfilePreviewTooltip } from '../organisms/profile/ProfilePreviewTooltip';
 import { ConnectButton } from './ConnectButton';
-import { UserPreviewTooltip } from './UserPreviewTooltip';
 
 type SingleUserProps = {
   buttonRelatedUser: PublicUserBase;
@@ -56,17 +56,17 @@ export const SingleUser = (props: SingleUserProps) => {
   }
 
   function onHide({ unmount }: { unmount: any }) {
-    setSpring({
-      ...initialStyles,
-      onRest: unmount,
-      config: { ...config, clamp: true },
-    });
+    if (unmount) {
+      setSpring({
+        ...initialStyles,
+        onRest: unmount,
+        config: { ...config, clamp: true },
+      });
+    }
   }
 
   // should this be extracted as separate component? is there a need for it???
   const TippyWrapper = ({ element }: { element: ReactNode }) => {
-    if (id === meId) return;
-
     return (
       <div>
         <Tippy
@@ -76,7 +76,7 @@ export const SingleUser = (props: SingleUserProps) => {
           onHide={onHide}
           render={(attrs) =>
             showTooltipContent ? (
-              <UserPreviewTooltip
+              <ProfilePreviewTooltip
                 {...attrs}
                 styleProps={styleProps}
                 buttonRelatedUser={buttonRelatedUser}

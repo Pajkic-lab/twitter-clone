@@ -6,15 +6,16 @@ import styled from 'styled-components';
 
 type SocialStatsProps = {
   socialStats: SocialStatsResponseDto | undefined;
+  socialStatsUserId?: number;
 };
 
 export const SocialStats = (props: SocialStatsProps) => {
-  const { socialStats } = props;
+  const { socialStats, socialStatsUserId } = props;
 
   const params = useParams();
   const navigate = useNavigate();
 
-  const userId = Number(params?.userId);
+  const userId = socialStatsUserId || Number(params?.userId);
 
   const { followersCount = '', followingCount = '' } = socialStats ?? {};
 
@@ -53,7 +54,6 @@ const SocialStatsWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: start;
-  padding-bottom: 1rem;
 `;
 
 const FollowingStatsWrapper = styled.div`
