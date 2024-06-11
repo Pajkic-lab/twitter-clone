@@ -1,9 +1,5 @@
-import {
-  FollowerListResponseDto,
-  PublicUserResponseDto,
-  UserResponseDto,
-} from '@tw/data';
-import { Contacts, Trends, UserLIst } from '@tw/ui/components';
+import { FollowerListResponseDto } from '@tw/data';
+import { Contacts, Loader, Trends, UserLIst } from '@tw/ui/components';
 import {
   QueryAction,
   mostPopularUsersQueryKey,
@@ -38,8 +34,8 @@ export const PublicProfileFollowingPage = () => {
   const [idToConnectTo, setIdToConnectTo] = useState<number>(0);
   const [isConnectPending, setIsConnectPending] = useState<number[]>([]);
 
-  const { data: user } = useUserQuery() as { data: UserResponseDto }; //
-  const publicUserRes = usePublicProfileQuery(publicUserId); //
+  const { data: user } = useUserQuery();
+  const publicUserRes = usePublicProfileQuery(publicUserId);
 
   const { data: mostPopularUsers, isFetching: mostPopularUsersLoading } =
     useMostPopularUsersQuery();
@@ -59,10 +55,13 @@ export const PublicProfileFollowingPage = () => {
   const { mutateAsync: unFollowMutation, isPending: isUnFollowingLoading } =
     useUnFollowMutation();
 
-  const publicUser = publicUserRes?.data?.user as PublicUserResponseDto; // should not use cast type, refactor this
+  const publicUser = publicUserRes?.data?.user;
 
   const userList: FollowerListResponseDto[] = data?.pages?.flat() ?? [];
-  const noDataText = `${publicUser.name} does not follow anyone else`;
+  let noDataText = 'user does not follow anyone else';
+  if (publicUser) {
+    noDataText = `${publicUser.name} does not follow anyone else`;
+  }
 
   const connectionPending =
     isFollowLoading || isUnFollowingLoading || userListLoading;
@@ -141,6 +140,7 @@ export const PublicProfileFollowingPage = () => {
     }
   };
 
+  if (!user || !publicUser) return <Loader fullScreen />;
   return (
     <Contacts
       user={user}

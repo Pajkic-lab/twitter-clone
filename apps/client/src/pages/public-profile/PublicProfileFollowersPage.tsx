@@ -1,9 +1,5 @@
-import {
-  FollowerListResponseDto,
-  PublicUserResponseDto,
-  UserResponseDto,
-} from '@tw/data';
-import { Contacts, Trends, UserLIst } from '@tw/ui/components';
+import { FollowerListResponseDto, UserResponseDto } from '@tw/data';
+import { Contacts, Loader, Trends, UserLIst } from '@tw/ui/components';
 import {
   QueryAction,
   mostPopularUsersQueryKey,
@@ -55,9 +51,12 @@ export const PublicProfileFollowersPage = () => {
   const { mutateAsync: unFollowMutation, isPending: isUnFollowingLoading } =
     useUnFollowMutation();
 
-  const publicUser = publicUserRes?.data?.user as PublicUserResponseDto;
+  const publicUser = publicUserRes?.data?.user;
   const userList: FollowerListResponseDto[] = data?.pages?.flat() ?? [];
-  const noDataText = `End of ${publicUser.name} followers list.`;
+  let noDataText = 'user does not follow anyone else';
+  if (publicUser) {
+    noDataText = `${publicUser.name} does not follow anyone else`;
+  }
 
   const connectionPending =
     isFollowLoading || isUnFollowingLoading || userListLoading;
@@ -138,6 +137,7 @@ export const PublicProfileFollowersPage = () => {
     }
   };
 
+  if (!user || !publicUser) return <Loader fullScreen />;
   return (
     <Contacts
       user={user}

@@ -73,7 +73,7 @@ export const PublicProfilePage = () => {
     setIsHovered(false);
   };
 
-  const handleConnect = async () => {
+  const handleUserConnect = async () => {
     if (!followingStatus) {
       const { status } = await followMutation({ userId: publicUserId });
       if (status) {
@@ -129,7 +129,7 @@ export const PublicProfilePage = () => {
             $followingStatus={followingStatus}
             onMouseEnter={handleHover}
             onMouseLeave={handleHoverExit}
-            onClick={handleConnect}
+            onClick={handleUserConnect}
           >
             {connectButtonText}
           </ConnectButton>
@@ -145,6 +145,7 @@ export const PublicProfilePage = () => {
             userList={mostPopularUsers}
             userListLoading={isMostPopularUsersLoading}
             showBio={false}
+            handleUserConnect={handleUserConnect}
           />
         }
         bottomWindowChilde={<Trends />}

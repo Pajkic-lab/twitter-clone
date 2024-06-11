@@ -43,11 +43,11 @@ export const ConnectButton = (props: ConnectButtonProps) => {
 
   const btFollowText = isConnectButtonHovered ? 'UnFollow' : 'Following';
   const connectButtonText = followingStatus ? btFollowText : 'Follow';
-  const isConnectionButtonLoading = isConnectPending;
+  // const isConnectionButtonLoading = isConnectPending; // what is tis line of code for???
 
   return (
     <Button
-      loading={isConnectionButtonLoading}
+      loading={isConnectPending}
       $followingStatus={followingStatus}
       onMouseEnter={handleConnectButtonHover}
       onMouseLeave={handleConnectButtonHoverLeave}

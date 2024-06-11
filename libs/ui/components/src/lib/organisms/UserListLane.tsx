@@ -26,7 +26,7 @@ type UserListLaneProps = {
   infScrollElRef: (node?: Element | null | undefined) => void;
   hasMoreData: boolean;
   noDataText: string;
-  handleUserConnect?: ConnectUser;
+  handleUserConnect: ConnectUser;
   isConnectPending?: number[];
 };
 

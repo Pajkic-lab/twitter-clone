@@ -14,7 +14,7 @@ type SingleUserProps = {
   meId: number;
   publicUserId?: number;
   connectButtonExist?: boolean;
-  handleUserConnect?: ConnectUser;
+  handleUserConnect: ConnectUser;
   isConnectPending?: boolean;
   showBio?: boolean;
   showConnectButton?: boolean;

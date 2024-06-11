@@ -18,7 +18,7 @@ type UserListProps = {
   hasMoreData?: boolean;
   meId: number;
   publicUserId?: number;
-  handleUserConnect?: ConnectUser;
+  handleUserConnect: ConnectUser;
   isConnectPending?: number[];
 };
 
@@ -30,7 +30,7 @@ type ContentUiProps = {
   showBio?: boolean;
   showConnectButton?: boolean;
   showUserPreview?: boolean;
-  handleUserConnect?: ConnectUser;
+  handleUserConnect: ConnectUser;
   isConnectPending?: number[];
 };
 

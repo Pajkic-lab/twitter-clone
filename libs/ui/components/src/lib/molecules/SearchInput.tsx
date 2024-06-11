@@ -97,6 +97,7 @@ const SearchResultWindow = (props: SearchResultWindowProps) => {
           showBio={false}
           showConnectButton={false}
           showUserPreview={false}
+          handleUserConnect={() => undefined}
         />
       )}
     </SearchDataWrapper>

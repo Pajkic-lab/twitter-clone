@@ -38,7 +38,6 @@ updateUser has parser build to handle class-validation, research how to do it at
 - update React version to v19, new version will be released in March or April 2024
 - there are some hardcoded values in API client and in auth query session name, inject them as envs, and change prod
 - thru all app switch userId from number to uuid, same goes for prisma schema
-- do I need 4 api routes for followers? can there be only one route and based on arguments designate response
 
 
     /*
@@ -68,10 +67,16 @@ updateUser has parser build to handle class-validation, research how to do it at
 
 - Problem with infiniteQuery not updating cache on second visit to page, network returns correct data but query is not updating...
 
-- public profile preview followers / following throws error
+- refactore handle connect function, try to make it reusable...
 
-- handle connect can not be optional also is connect panding.
-- maybe there is a way how to reuse connect function and to reuse it, current setup is to redundant.
+http://localhost:4200/public-profile/1    who to follow is not in sync with public profile, when click on user connect on main lane it does not display 
+ spinner in who to follow, and it should invalidate who to follow, when click on connect from who to follow there is no spinner and it does not omit 
+ that user after connection...
+
+
+- maybe there is a way how to reuse connect function and to reuse it, current setup is to redundant. pass all dependencies as props and then scoop them 
+ up from connect button, it will be a prop drilling but hay fuck it...
+
 - open prisma and check why so many same users amrko or what ever...
 
 
