@@ -1,6 +1,6 @@
-import { ConnectUser, PublicUserBase } from '@tw/data';
+import { PublicUserBase } from '@tw/data';
 import { colors } from '@tw/ui/assets';
-import { linksRecords } from '@tw/ui/common';
+import { InvalidationData, linksRecords } from '@tw/ui/common';
 import { usePublicUserSocialStatsQuery } from '@tw/ui/data-access';
 import { useNavigate } from 'react-router-dom';
 import { SpringValue, animated } from 'react-spring';
@@ -17,19 +17,11 @@ type UserPreviewTooltipProps = {
   };
   meId: number;
   publicUserId?: number;
-  isConnectPending?: boolean;
-  handleUserConnect?: ConnectUser;
+  invData: InvalidationData;
 };
 
 export const ProfilePreviewTooltip = (props: UserPreviewTooltipProps) => {
-  const {
-    buttonRelatedUser,
-    styleProps,
-    meId,
-    publicUserId,
-    isConnectPending,
-    handleUserConnect,
-  } = props;
+  const { buttonRelatedUser, styleProps, meId, publicUserId, invData } = props;
 
   const { id, avatar, followingStatus, name, uniqueName, bio } =
     buttonRelatedUser;
@@ -57,8 +49,7 @@ export const ProfilePreviewTooltip = (props: UserPreviewTooltipProps) => {
             buttonRelatedUserId={id}
             publicUserId={publicUserId}
             followingStatus={followingStatus}
-            isConnectPending={isConnectPending}
-            handleUserConnect={handleUserConnect}
+            invData={invData}
           />
         </TopSectionWrapper>
 

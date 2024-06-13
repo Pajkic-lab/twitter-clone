@@ -1,9 +1,6 @@
-import {
-  ConnectUser,
-  FollowerListResponseDto,
-  UserResponseDto,
-} from '@tw/data';
+import { FollowerListResponseDto, UserResponseDto } from '@tw/data';
 import { colors } from '@tw/ui/assets';
+import { InvalidationData } from '@tw/ui/common';
 import styled from 'styled-components';
 import { NavigationBar } from '../molecules/NavigationBar';
 import { UserLIst } from './UserLIst';
@@ -26,8 +23,7 @@ type UserListLaneProps = {
   infScrollElRef: (node?: Element | null | undefined) => void;
   hasMoreData: boolean;
   noDataText: string;
-  handleUserConnect: ConnectUser;
-  isConnectPending?: number[];
+  invData: InvalidationData;
 };
 
 export const UserListLane = (props: UserListLaneProps) => {
@@ -42,8 +38,7 @@ export const UserListLane = (props: UserListLaneProps) => {
     infScrollElRef,
     hasMoreData,
     noDataText,
-    handleUserConnect,
-    isConnectPending,
+    invData,
   } = props;
 
   return (
@@ -69,8 +64,7 @@ export const UserListLane = (props: UserListLaneProps) => {
         infScrollElRef={infScrollElRef}
         hasMoreData={hasMoreData}
         noDataText={noDataText}
-        handleUserConnect={handleUserConnect}
-        isConnectPending={isConnectPending}
+        invData={invData}
       />
     </Wrapper>
   );

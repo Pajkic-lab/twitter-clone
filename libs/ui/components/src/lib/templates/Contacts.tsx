@@ -1,8 +1,5 @@
-import {
-  ConnectUser,
-  FollowerListResponseDto,
-  UserResponseDto,
-} from '@tw/data';
+import { FollowerListResponseDto, UserResponseDto } from '@tw/data';
+import { InvalidationData } from '@tw/ui/common';
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 import { Mediabar } from '../organisms/Mediabar';
@@ -20,10 +17,9 @@ type ContactsProps = {
   infScrollElRef: (node?: Element | null | undefined) => void;
   hasMoreData: boolean;
   noDataText: string;
-  handleUserConnect: ConnectUser;
-  isConnectPending?: number[];
-  topWindowChilde: ReactNode;
-  bottomWindowChilde: ReactNode;
+  mediabarTopWindowChilde: ReactNode;
+  mediabarBottomWindowChilde: ReactNode;
+  invData: InvalidationData;
 };
 
 export const Contacts = (props: ContactsProps) => {
@@ -38,10 +34,9 @@ export const Contacts = (props: ContactsProps) => {
     infScrollElRef,
     hasMoreData,
     noDataText,
-    handleUserConnect,
-    isConnectPending,
-    topWindowChilde,
-    bottomWindowChilde,
+    mediabarTopWindowChilde,
+    mediabarBottomWindowChilde,
+    invData,
   } = props;
 
   const { id: meId, name, uniqueName, avatar } = user;
@@ -62,14 +57,13 @@ export const Contacts = (props: ContactsProps) => {
         infScrollElRef={infScrollElRef}
         hasMoreData={hasMoreData}
         noDataText={noDataText}
-        handleUserConnect={handleUserConnect}
-        isConnectPending={isConnectPending}
+        invData={invData}
       />
 
       <Mediabar
         meId={meId}
-        topWindowChilde={topWindowChilde}
-        bottomWindowChilde={bottomWindowChilde}
+        topWindowChilde={mediabarTopWindowChilde}
+        bottomWindowChilde={mediabarBottomWindowChilde}
       />
     </Wrapper>
   );

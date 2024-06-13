@@ -65,21 +65,17 @@ updateUser has parser build to handle class-validation, research how to do it at
     * TODO
     */
 
-- Problem with infiniteQuery not updating cache on second visit to page, network returns correct data but query is not updating...
 
-- refactore handle connect function, try to make it reusable...
+- tippy is turned of, find viable alternative: https://chatgpt.com/c/7f31624f-7331-4553-aad5-7dfaf6f8063a
 
-
-http://localhost:4200/public-profile/1    who to follow is not in sync with public profile, when click on user connect on main lane it does not display 
- spinner in who to follow, and it should invalidate who to follow, when click on connect from who to follow there is no spinner and it does not omit 
- that user after connection...
+- can profilePage and publicProfilePage be extracted to template? or should i create post first???
 
 
-- rethink and refactor connect function, should be based in connect button... 
+
+
+
 
 - open prisma and check why so many same users amrko or what ever...
-
-
 
 - refactor list components from top to bottom, 
 

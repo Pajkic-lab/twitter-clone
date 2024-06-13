@@ -1,12 +1,11 @@
 import Tippy from '@tippyjs/react/headless';
-import { ConnectUser, PublicUserBase } from '@tw/data';
+import { PublicUserBase } from '@tw/data';
 import { colors } from '@tw/ui/assets';
-import { linksRecords } from '@tw/ui/common';
+import { InvalidationData, linksRecords } from '@tw/ui/common';
 import { ReactNode, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSpring } from 'react-spring';
 import styled from 'styled-components';
-import { ProfilePreviewTooltip } from '../organisms/profile/ProfilePreviewTooltip';
 import { ConnectButton } from './ConnectButton';
 
 type SingleUserProps = {
@@ -14,11 +13,10 @@ type SingleUserProps = {
   meId: number;
   publicUserId?: number;
   connectButtonExist?: boolean;
-  handleUserConnect: ConnectUser;
-  isConnectPending?: boolean;
   showBio?: boolean;
   showConnectButton?: boolean;
   showUserPreview?: boolean;
+  invData: InvalidationData;
 };
 
 export const SingleUser = (props: SingleUserProps) => {
@@ -26,11 +24,10 @@ export const SingleUser = (props: SingleUserProps) => {
     meId,
     publicUserId,
     buttonRelatedUser,
-    handleUserConnect,
-    isConnectPending,
     showBio = true,
     showConnectButton = true,
     showUserPreview = true,
+    invData,
   } = props;
 
   const { id, name, avatar, uniqueName, bio, followingStatus } =
@@ -52,7 +49,10 @@ export const SingleUser = (props: SingleUserProps) => {
   };
 
   function onMount() {
-    setShowTooltipContent(true);
+    // setShowTooltipContent(true);
+    setTimeout(() => {
+      setShowTooltipContent(true);
+    }, 1000);
     setSpring({
       opacity: 1,
       transform: 'scale(1)',
@@ -64,12 +64,14 @@ export const SingleUser = (props: SingleUserProps) => {
 
   function onHide({ unmount }: { unmount: any }) {
     if (unmount) {
+      setShowTooltipContent(false);
       setSpring({
         ...initialStyles,
         onRest: unmount,
         config: { ...config, clamp: true },
       });
     }
+    setShowTooltipContent(false);
   }
 
   // should this be extracted as separate component? is there a need for it???
@@ -83,15 +85,17 @@ export const SingleUser = (props: SingleUserProps) => {
           onHide={onHide}
           render={(attrs) =>
             showUserPreview && showTooltipContent ? (
-              <ProfilePreviewTooltip
-                {...attrs}
-                styleProps={styleProps}
-                buttonRelatedUser={buttonRelatedUser}
-                meId={meId}
-                publicUserId={publicUserId}
-                isConnectPending={isConnectPending}
-                handleUserConnect={handleUserConnect}
-              />
+              // <ProfilePreviewTooltip
+              //   {...attrs}
+              //   styleProps={styleProps}
+              //   buttonRelatedUser={buttonRelatedUser}
+              //   meId={meId}
+              //   publicUserId={publicUserId}
+              //   isConnectPending={isConnectPending}
+              //   handleUserConnect={handleUserConnect}
+              //   invData={invData}
+              // />
+              <></>
             ) : (
               <></>
             )
@@ -120,8 +124,7 @@ export const SingleUser = (props: SingleUserProps) => {
               buttonRelatedUserId={id}
               publicUserId={publicUserId}
               followingStatus={followingStatus}
-              isConnectPending={isConnectPending}
-              handleUserConnect={handleUserConnect}
+              invData={invData}
             />
           )}
         </ProfileWrapper>

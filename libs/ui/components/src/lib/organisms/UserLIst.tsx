@@ -1,6 +1,7 @@
-import { ConnectUser, FollowerListResponseDto } from '@tw/data';
+import { FollowerListResponseDto } from '@tw/data';
 import { colors } from '@tw/ui/assets';
-import { memo, useMemo } from 'react';
+import { InvalidationData } from '@tw/ui/common';
+import { memo, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { Loader } from '../atoms/Loader';
 import { SingleUser } from '../atoms/SingleUser';
@@ -18,8 +19,7 @@ type UserListProps = {
   hasMoreData?: boolean;
   meId: number;
   publicUserId?: number;
-  handleUserConnect: ConnectUser;
-  isConnectPending?: number[];
+  invData: InvalidationData;
 };
 
 type ContentUiProps = {
@@ -30,8 +30,7 @@ type ContentUiProps = {
   showBio?: boolean;
   showConnectButton?: boolean;
   showUserPreview?: boolean;
-  handleUserConnect: ConnectUser;
-  isConnectPending?: number[];
+  invData: InvalidationData;
 };
 
 type NoDataUiProps = {
@@ -57,8 +56,7 @@ export const UserLIst = (props: UserListProps) => {
     showUserPreview,
     infScrollElRef,
     hasMoreData,
-    handleUserConnect,
-    isConnectPending,
+    invData,
   } = props;
 
   const memoizedValues = useMemo(() => {
@@ -87,8 +85,7 @@ export const UserLIst = (props: UserListProps) => {
           showBio={showBio}
           showUserPreview={showUserPreview}
           showConnectButton={showConnectButton}
-          handleUserConnect={handleUserConnect}
-          isConnectPending={isConnectPending}
+          invData={invData}
         />
       )}
       {scrollable && <InfScrollElTrigger ref={infScrollElRef} />}
@@ -106,11 +103,10 @@ const ContentUi = memo((props: ContentUiProps) => {
     publicUserId,
     title,
     userList,
-    handleUserConnect,
-    isConnectPending,
     showBio,
     showConnectButton,
     showUserPreview,
+    invData,
   } = props;
 
   return (
@@ -125,8 +121,7 @@ const ContentUi = memo((props: ContentUiProps) => {
           showConnectButton={showConnectButton}
           publicUserId={publicUserId}
           buttonRelatedUser={user}
-          handleUserConnect={handleUserConnect}
-          isConnectPending={isConnectPending?.includes(user.id)}
+          invData={invData}
         />
       ))}
     </ContentWrapper>
@@ -135,10 +130,22 @@ const ContentUi = memo((props: ContentUiProps) => {
 
 const NoDataUi = memo((props: NoDataUiProps) => {
   const { noDataText, scrollable } = props;
+
+  const [showContent, setShowContent] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowContent(true);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <NoResultWrapper scrollable={scrollable}>
-      <H3>{noDataText}</H3>
-    </NoResultWrapper>
+    showContent && (
+      <NoResultWrapper scrollable={scrollable}>
+        <H3>{noDataText}</H3>
+      </NoResultWrapper>
+    )
   );
 });
 

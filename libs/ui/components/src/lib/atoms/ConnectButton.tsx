@@ -1,6 +1,7 @@
-import { ConnectUser } from '@tw/data';
 import { colors } from '@tw/ui/assets';
-import { MouseEvent, useState } from 'react';
+import { InvalidationData } from '@tw/ui/common';
+import { useFollowMutation, useUnFollowMutation } from '@tw/ui/data-access';
+import { MouseEvent, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { SecondaryButton } from './Button';
 
@@ -8,46 +9,79 @@ type ConnectButtonProps = {
   meId: number;
   buttonRelatedUserId: number;
   publicUserId?: number;
-  isConnectPending?: boolean;
   followingStatus: boolean;
-  handleUserConnect?: ConnectUser;
+  invData: InvalidationData;
 };
 
 export const ConnectButton = (props: ConnectButtonProps) => {
-  const {
-    meId,
-    buttonRelatedUserId,
-    publicUserId,
-    followingStatus,
-    isConnectPending,
-    handleUserConnect,
-  } = props;
+  const { meId, buttonRelatedUserId, publicUserId, followingStatus, invData } =
+    props;
   if (buttonRelatedUserId === meId) return;
 
-  const [isConnectButtonHovered, setIsConnectButtonHovered] =
-    useState<boolean>(false);
+  const [isButtonHovered, setIsButtonHovered] = useState<boolean>(false);
+  const [isButtonLoading, setIsButtonLoading] = useState<boolean>(false);
+  const [click, setClick] = useState<boolean>(false);
+  const [followStatus, setFollowStatus] = useState<boolean>(false);
 
-  const handleConnectUser = (e: MouseEvent) => {
-    e.stopPropagation();
-    handleUserConnect &&
-      handleUserConnect(buttonRelatedUserId, followingStatus, publicUserId);
-  };
+  const { mutateAsync: followMutation } = useFollowMutation();
+  const { mutateAsync: unFollowMutation } = useUnFollowMutation();
+
+  const btFollowText = useMemo(() => {
+    return isButtonHovered ? 'UnFollow' : 'Following';
+  }, [isButtonHovered]);
+
+  const connectButtonText = useMemo(() => {
+    return followingStatus ? btFollowText : 'Follow';
+  }, [followingStatus, btFollowText]);
 
   const handleConnectButtonHover = () => {
-    setIsConnectButtonHovered(true);
+    setIsButtonHovered(true);
   };
 
   const handleConnectButtonHoverLeave = () => {
-    setIsConnectButtonHovered(false);
+    setIsButtonHovered(false);
   };
 
-  const btFollowText = isConnectButtonHovered ? 'UnFollow' : 'Following';
-  const connectButtonText = followingStatus ? btFollowText : 'Follow';
-  // const isConnectionButtonLoading = isConnectPending; // what is tis line of code for???
+  useEffect(() => {
+    if (click && followingStatus === followStatus) {
+      // ORDER IS IMPORTANT
+      setIsButtonLoading(false);
+      setClick(false);
+    }
+  }, [click, followingStatus, followStatus]);
+
+  const handleConnectUser = async (e: MouseEvent) => {
+    // ORDER IS IMPORTANT
+    e.stopPropagation();
+    setIsButtonLoading(true);
+    setFollowStatus(!followingStatus);
+    setClick(true);
+
+    if (!followingStatus) {
+      const { status } = await followMutation({ userId: buttonRelatedUserId });
+
+      if (status) {
+        if (publicUserId) {
+          invData.followIfPublicUser(publicUserId);
+        }
+        invData.follow();
+      }
+      return;
+    }
+
+    const { status } = await unFollowMutation({ userId: buttonRelatedUserId });
+
+    if (status) {
+      if (publicUserId) {
+        invData.unFollowIfPublicUser(publicUserId);
+      }
+      invData.unFollow();
+    }
+  };
 
   return (
     <Button
-      loading={isConnectPending}
+      loading={isButtonLoading}
       $followingStatus={followingStatus}
       onMouseEnter={handleConnectButtonHover}
       onMouseLeave={handleConnectButtonHoverLeave}

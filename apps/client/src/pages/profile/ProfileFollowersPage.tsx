@@ -1,16 +1,17 @@
 import { FollowerListResponseDto, UserResponseDto } from '@tw/data';
+import {
+  InvalidationData,
+  invFollowersData,
+  invMediabarData,
+} from '@tw/ui/common';
 import { Contacts, Trends, UserLIst } from '@tw/ui/components';
 import {
   QueryAction,
-  mostPopularUsersQueryKey,
-  useFollowMutation,
   useFollowersInfQuery,
   useMostPopularUsersQuery,
   useResetQuery,
-  useUnFollowMutation,
   useUserQuery,
   userGetFollowersKey,
-  userGetFollowingKey,
 } from '@tw/ui/data-access';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
@@ -24,9 +25,6 @@ export const ProfileFollowersPage = () => {
     threshold: 0,
   });
 
-  const [idToConnectTo, setIdToConnectTo] = useState<number>(0);
-  const [isConnectPending, setIsConnectPending] = useState<number[]>([]);
-
   const { data: user } = useUserQuery() as { data: UserResponseDto };
   const { data: mostPopularUsers, isFetching: mostPopularUsersLoading } =
     useMostPopularUsersQuery();
@@ -38,23 +36,7 @@ export const ProfileFollowersPage = () => {
     hasNextPage,
   } = useFollowersInfQuery(FOLLOWERS_LIST_SIZE_LIMIT);
 
-  const { mutateAsync: followMutation, isPending: isFollowLoading } =
-    useFollowMutation();
-  const { mutateAsync: unFollowMutation, isPending: isUnFollowingLoading } =
-    useUnFollowMutation();
-
   const userList: FollowerListResponseDto[] = data?.pages?.flat() ?? [];
-
-  const connectionPending =
-    isFollowLoading || isUnFollowingLoading || userListLoading;
-
-  useEffect(() => {
-    if (connectionPending) {
-      setIsConnectPending([...isConnectPending, idToConnectTo]);
-    } else {
-      setIsConnectPending([]);
-    }
-  }, [connectionPending, idToConnectTo]);
 
   useEffect(() => {
     if (inView) {
@@ -62,45 +44,23 @@ export const ProfileFollowersPage = () => {
     }
   }, [inView, fetchNextPage]);
 
-  const handleUserConnect = async (
-    connectUserId: number,
-    followingStatus: boolean
-  ) => {
-    if (!followingStatus) {
-      setIdToConnectTo(connectUserId);
+  const [invMainLane, setInvMainLane] = useState<InvalidationData>(
+    invFollowersData(userList, mostPopularUsers)
+  );
 
-      const { status } = await followMutation({ userId: connectUserId });
+  const invMediaBar = invMediabarData();
 
-      if (status) {
-        useResetQuery(QueryAction.Refetch, userGetFollowingKey());
-        useResetQuery(QueryAction.Invalidate, userGetFollowersKey());
+  useEffect(() => {
+    const invData = invFollowersData(userList, mostPopularUsers);
+    setInvMainLane(invData);
+  }, [userList, mostPopularUsers]);
 
-        if (
-          userList.some((user) =>
-            mostPopularUsers?.some((popUser) => user.id === popUser.id)
-          )
-        ) {
-          useResetQuery(QueryAction.Invalidate, mostPopularUsersQueryKey());
-        }
-      }
-      return;
-    }
-    setIdToConnectTo(connectUserId);
-
-    const { status } = await unFollowMutation({ userId: connectUserId });
-
-    if (status) {
-      useResetQuery(QueryAction.Refetch, userGetFollowingKey());
+  useEffect(() => {
+    // THERE IS A PROBLEM WITH INF QUERY, IT WONT TRIGGER ON SECOND PAGE LANDING
+    setTimeout(() => {
       useResetQuery(QueryAction.Invalidate, userGetFollowersKey());
-      if (
-        userList.some((user) =>
-          mostPopularUsers?.some((popUser) => user.id === popUser.id)
-        )
-      ) {
-        useResetQuery(QueryAction.Invalidate, mostPopularUsersQueryKey());
-      }
-    }
-  };
+    }, 50);
+  }, []);
 
   return (
     <Contacts
@@ -110,20 +70,18 @@ export const ProfileFollowersPage = () => {
       infScrollElRef={ref}
       hasMoreData={hasNextPage}
       noDataText={NO_DATA_TEXT}
-      handleUserConnect={handleUserConnect}
-      isConnectPending={isConnectPending}
-      topWindowChilde={
+      invData={invMainLane}
+      mediabarTopWindowChilde={
         <UserLIst
           meId={user.id}
           title={MEDIA_BAR_USER_LIST_TITLE}
           userList={mostPopularUsers}
           showBio={false}
           userListLoading={mostPopularUsersLoading}
-          handleUserConnect={handleUserConnect}
-          isConnectPending={isConnectPending}
+          invData={invMediaBar}
         />
       }
-      bottomWindowChilde={<Trends />}
+      mediabarBottomWindowChilde={<Trends />}
     />
   );
 };

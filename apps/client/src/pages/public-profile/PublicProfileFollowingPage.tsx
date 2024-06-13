@@ -1,19 +1,15 @@
 import { FollowerListResponseDto } from '@tw/data';
+import {
+  InvalidationData,
+  invPublicProfileFollowingPage,
+  invPublicProfileMediabarData,
+} from '@tw/ui/common';
 import { Contacts, Loader, Trends, UserLIst } from '@tw/ui/components';
 import {
-  QueryAction,
-  mostPopularUsersQueryKey,
-  publicProfileFollowersKey,
-  publicProfileFollowingKey,
-  useFollowMutation,
   useMostPopularUsersQuery,
   usePublicProfileFollowingInfQuery,
   usePublicProfileQuery,
-  useResetQuery,
-  useUnFollowMutation,
   useUserQuery,
-  userGetFollowersKey,
-  userGetFollowingKey,
 } from '@tw/ui/data-access';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
@@ -31,9 +27,6 @@ export const PublicProfileFollowingPage = () => {
 
   const publicUserId = Number(params?.userId);
 
-  const [idToConnectTo, setIdToConnectTo] = useState<number>(0);
-  const [isConnectPending, setIsConnectPending] = useState<number[]>([]);
-
   const { data: user } = useUserQuery();
   const publicUserRes = usePublicProfileQuery(publicUserId);
 
@@ -50,11 +43,6 @@ export const PublicProfileFollowingPage = () => {
     FOLLOWING_LIST_SIZE_LIMIT
   );
 
-  const { mutateAsync: followMutation, isPending: isFollowLoading } =
-    useFollowMutation();
-  const { mutateAsync: unFollowMutation, isPending: isUnFollowingLoading } =
-    useUnFollowMutation();
-
   const publicUser = publicUserRes?.data?.user;
 
   const userList: FollowerListResponseDto[] = data?.pages?.flat() ?? [];
@@ -63,82 +51,25 @@ export const PublicProfileFollowingPage = () => {
     noDataText = `${publicUser.name} does not follow anyone else`;
   }
 
-  const connectionPending =
-    isFollowLoading || isUnFollowingLoading || userListLoading;
-
-  useEffect(() => {
-    if (connectionPending) {
-      setIsConnectPending([...isConnectPending, idToConnectTo]);
-    } else {
-      setIsConnectPending([]);
-    }
-  }, [connectionPending, idToConnectTo]);
-
   useEffect(() => {
     if (inView) {
       fetchNextPage();
     }
   }, [inView, fetchNextPage]);
 
-  const handleUserConnect = async (
-    connectUserId: number,
-    followingStatus: boolean,
-    pubUserId?: number
-  ) => {
-    if (!followingStatus) {
-      setIdToConnectTo(connectUserId);
+  const [invData, setInvData] = useState<InvalidationData>(
+    invPublicProfileFollowingPage(userList, mostPopularUsers)
+  );
 
-      const { status } = await followMutation({ userId: connectUserId });
+  const invMediaBar = invPublicProfileMediabarData();
 
-      if (status) {
-        if (pubUserId) {
-          useResetQuery(
-            QueryAction.Invalidate,
-            publicProfileFollowersKey(pubUserId)
-          );
-          useResetQuery(
-            QueryAction.Invalidate,
-            publicProfileFollowingKey(pubUserId)
-          );
-        }
-        useResetQuery(QueryAction.Refetch, userGetFollowingKey());
-        useResetQuery(QueryAction.Invalidate, userGetFollowersKey());
-        if (
-          userList.some((user) =>
-            mostPopularUsers?.some((popUser) => user.id === popUser.id)
-          )
-        ) {
-          useResetQuery(QueryAction.Invalidate, mostPopularUsersQueryKey());
-        }
-      }
-      return;
-    }
-    setIdToConnectTo(connectUserId);
-
-    const { status } = await unFollowMutation({ userId: connectUserId });
-
-    if (status) {
-      if (pubUserId) {
-        useResetQuery(
-          QueryAction.Invalidate,
-          publicProfileFollowersKey(pubUserId)
-        );
-        useResetQuery(
-          QueryAction.Invalidate,
-          publicProfileFollowingKey(pubUserId)
-        );
-      }
-      useResetQuery(QueryAction.Refetch, userGetFollowingKey());
-      useResetQuery(QueryAction.Invalidate, userGetFollowersKey());
-      if (
-        userList.some((user) =>
-          mostPopularUsers?.some((popUser) => user.id === popUser.id)
-        )
-      ) {
-        useResetQuery(QueryAction.Invalidate, mostPopularUsersQueryKey());
-      }
-    }
-  };
+  useEffect(() => {
+    const invalidateData = invPublicProfileFollowingPage(
+      userList,
+      mostPopularUsers
+    );
+    setInvData(invalidateData);
+  }, [userList, mostPopularUsers]);
 
   if (!user || !publicUser) return <Loader fullScreen />;
   return (
@@ -150,21 +81,19 @@ export const PublicProfileFollowingPage = () => {
       infScrollElRef={ref}
       hasMoreData={hasNextPage}
       noDataText={noDataText}
-      handleUserConnect={handleUserConnect}
-      isConnectPending={isConnectPending}
-      topWindowChilde={
+      invData={invData}
+      mediabarTopWindowChilde={
         <UserLIst
           meId={user.id}
           publicUserId={publicUserId}
           title={MEDIA_BAR_USER_LIST_TITLE}
           userList={mostPopularUsers}
           userListLoading={mostPopularUsersLoading}
-          handleUserConnect={handleUserConnect}
-          isConnectPending={isConnectPending}
           showBio={false}
+          invData={invMediaBar}
         />
       }
-      bottomWindowChilde={<Trends />}
+      mediabarBottomWindowChilde={<Trends />}
     />
   );
 };
