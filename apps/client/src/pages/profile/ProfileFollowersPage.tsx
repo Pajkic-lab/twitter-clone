@@ -1,9 +1,5 @@
 import { FollowerListResponseDto, UserResponseDto } from '@tw/data';
-import {
-  InvalidationData,
-  invFollowersData,
-  invMediabarData,
-} from '@tw/ui/common';
+import { invFollowersData, invMediabarData } from '@tw/ui/common';
 import { Contacts, Trends, UserLIst } from '@tw/ui/components';
 import {
   QueryAction,
@@ -13,7 +9,7 @@ import {
   useUserQuery,
   userGetFollowersKey,
 } from '@tw/ui/data-access';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 const FOLLOWERS_LIST_SIZE_LIMIT = 20;
@@ -24,6 +20,9 @@ export const ProfileFollowersPage = () => {
   const { ref, inView } = useInView({
     threshold: 0,
   });
+
+  const invMediaBar = invMediabarData();
+  const invMainLane = invFollowersData();
 
   const { data: user } = useUserQuery() as { data: UserResponseDto };
   const { data: mostPopularUsers, isFetching: mostPopularUsersLoading } =
@@ -44,19 +43,8 @@ export const ProfileFollowersPage = () => {
     }
   }, [inView, fetchNextPage]);
 
-  const [invMainLane, setInvMainLane] = useState<InvalidationData>(
-    invFollowersData(userList, mostPopularUsers)
-  );
-
-  const invMediaBar = invMediabarData();
-
   useEffect(() => {
-    const invData = invFollowersData(userList, mostPopularUsers);
-    setInvMainLane(invData);
-  }, [userList, mostPopularUsers]);
-
-  useEffect(() => {
-    // THERE IS A PROBLEM WITH INF QUERY, IT WONT TRIGGER ON SECOND PAGE LANDING
+    // THERE IS A PROBLEM WITH INF QUERY, IT WONT TRIGGER ON PAGE LANDING FOR SECOND TIME
     setTimeout(() => {
       useResetQuery(QueryAction.Invalidate, userGetFollowersKey());
     }, 50);

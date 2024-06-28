@@ -1,4 +1,3 @@
-import { FollowerListResponseDto, MostPopularUsersResponseDto } from '@tw/data';
 import {
   QueryAction,
   mostPopularUsersQueryKey,
@@ -9,10 +8,7 @@ import {
   userGetFollowingKey,
 } from '@tw/ui/data-access';
 
-export const invPublicProfileFollowersData = (
-  userList: FollowerListResponseDto[],
-  mostPopularUsers: MostPopularUsersResponseDto[] | undefined
-) => {
+export const invPublicProfileFollowersData = () => {
   return {
     followIfPublicUser: (pubUserId: number) => {
       useResetQuery(
@@ -27,14 +23,7 @@ export const invPublicProfileFollowersData = (
     follow: () => {
       useResetQuery(QueryAction.Refetch, userGetFollowingKey());
       useResetQuery(QueryAction.Invalidate, userGetFollowersKey());
-
-      if (
-        userList.some((user) =>
-          mostPopularUsers?.some((popUser) => user.id === popUser.id)
-        )
-      ) {
-        useResetQuery(QueryAction.Invalidate, mostPopularUsersQueryKey());
-      }
+      useResetQuery(QueryAction.Invalidate, mostPopularUsersQueryKey());
     },
 
     unFollowIfPublicUser: (pubUserId: number) => {
@@ -50,14 +39,7 @@ export const invPublicProfileFollowersData = (
     unFollow: () => {
       useResetQuery(QueryAction.Refetch, userGetFollowingKey());
       useResetQuery(QueryAction.Invalidate, userGetFollowersKey());
-
-      if (
-        userList.some((user) =>
-          mostPopularUsers?.some((popUser) => user.id === popUser.id)
-        )
-      ) {
-        useResetQuery(QueryAction.Invalidate, mostPopularUsersQueryKey());
-      }
+      useResetQuery(QueryAction.Invalidate, mostPopularUsersQueryKey());
     },
   };
 };

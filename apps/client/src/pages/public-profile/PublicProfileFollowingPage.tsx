@@ -1,17 +1,19 @@
 import { FollowerListResponseDto } from '@tw/data';
 import {
-  InvalidationData,
   invPublicProfileFollowingPage,
   invPublicProfileMediabarData,
 } from '@tw/ui/common';
 import { Contacts, Loader, Trends, UserLIst } from '@tw/ui/components';
 import {
+  QueryAction,
+  publicProfileFollowingKey,
   useMostPopularUsersQuery,
   usePublicProfileFollowingInfQuery,
   usePublicProfileQuery,
+  useResetQuery,
   useUserQuery,
 } from '@tw/ui/data-access';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useParams } from 'react-router-dom';
 
@@ -24,6 +26,9 @@ export const PublicProfileFollowingPage = () => {
   const { ref, inView } = useInView({
     threshold: 0,
   });
+
+  const invData = invPublicProfileFollowingPage();
+  const invMediaBar = invPublicProfileMediabarData();
 
   const publicUserId = Number(params?.userId);
 
@@ -57,19 +62,15 @@ export const PublicProfileFollowingPage = () => {
     }
   }, [inView, fetchNextPage]);
 
-  const [invData, setInvData] = useState<InvalidationData>(
-    invPublicProfileFollowingPage(userList, mostPopularUsers)
-  );
-
-  const invMediaBar = invPublicProfileMediabarData();
-
   useEffect(() => {
-    const invalidateData = invPublicProfileFollowingPage(
-      userList,
-      mostPopularUsers
-    );
-    setInvData(invalidateData);
-  }, [userList, mostPopularUsers]);
+    // THERE IS A PROBLEM WITH INF QUERY, IT WONT TRIGGER ON PAGE LANDING FOR SECOND TIME
+    setTimeout(() => {
+      useResetQuery(
+        QueryAction.Invalidate,
+        publicProfileFollowingKey(publicUserId)
+      );
+    }, 50);
+  }, []);
 
   if (!user || !publicUser) return <Loader fullScreen />;
   return (

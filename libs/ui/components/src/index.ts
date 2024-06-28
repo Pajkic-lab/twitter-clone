@@ -8,7 +8,6 @@ export * from './lib/atoms/Loader';
 export * from './lib/atoms/PageLane';
 export * from './lib/atoms/SideBarNavigationButton';
 export * from './lib/atoms/SideBarOptionsButton';
-export * from './lib/atoms/SingleUser';
 
 // molecules
 export * from './lib/molecules/EditProfileForm';
@@ -19,6 +18,7 @@ export * from './lib/molecules/NavigationBar';
 export * from './lib/molecules/SetAccountForm';
 export * from './lib/molecules/SignInForm';
 export * from './lib/molecules/SignUpForm';
+export * from './lib/molecules/SingleUser';
 export * from './lib/molecules/Trends';
 
 // organisms

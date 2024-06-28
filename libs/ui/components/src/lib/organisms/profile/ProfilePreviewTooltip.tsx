@@ -3,25 +3,21 @@ import { colors } from '@tw/ui/assets';
 import { InvalidationData, linksRecords } from '@tw/ui/common';
 import { usePublicUserSocialStatsQuery } from '@tw/ui/data-access';
 import { useNavigate } from 'react-router-dom';
-import { SpringValue, animated } from 'react-spring';
+import { animated } from 'react-spring';
 import styled from 'styled-components';
 import { ConnectButton } from '../../atoms/ConnectButton';
 import { NameAndUniquename } from './components/NameAndUniquename';
 import { SocialStats } from './components/SocialStats';
 
 type UserPreviewTooltipProps = {
-  buttonRelatedUser: PublicUserBase;
-  styleProps: {
-    opacity: SpringValue<number>;
-    transform: SpringValue<string>;
-  };
   meId: number;
+  buttonRelatedUser: PublicUserBase;
   publicUserId?: number;
   invData: InvalidationData;
 };
 
 export const ProfilePreviewTooltip = (props: UserPreviewTooltipProps) => {
-  const { buttonRelatedUser, styleProps, meId, publicUserId, invData } = props;
+  const { buttonRelatedUser, meId, publicUserId, invData } = props;
 
   const { id, avatar, followingStatus, name, uniqueName, bio } =
     buttonRelatedUser;
@@ -36,7 +32,7 @@ export const ProfilePreviewTooltip = (props: UserPreviewTooltipProps) => {
   };
 
   return (
-    <WrapperAnimated style={styleProps}>
+    <WrapperAnimated>
       <div
         onClick={(e) => {
           e.stopPropagation();

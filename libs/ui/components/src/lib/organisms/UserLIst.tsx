@@ -4,7 +4,7 @@ import { InvalidationData } from '@tw/ui/common';
 import { memo, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { Loader } from '../atoms/Loader';
-import { SingleUser } from '../atoms/SingleUser';
+import { SingleUser } from '../molecules/SingleUser';
 
 type UserListProps = {
   userList: FollowerListResponseDto[] | undefined;

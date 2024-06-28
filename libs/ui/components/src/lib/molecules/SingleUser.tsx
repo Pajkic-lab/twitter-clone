@@ -1,12 +1,9 @@
-import Tippy from '@tippyjs/react/headless';
 import { PublicUserBase } from '@tw/data';
 import { colors } from '@tw/ui/assets';
 import { InvalidationData, linksRecords } from '@tw/ui/common';
-import { ReactNode, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSpring } from 'react-spring';
 import styled from 'styled-components';
-import { ConnectButton } from './ConnectButton';
+import { ConnectButton } from '../atoms/ConnectButton';
 
 type SingleUserProps = {
   buttonRelatedUser: PublicUserBase;
@@ -35,12 +32,6 @@ export const SingleUser = (props: SingleUserProps) => {
 
   const navigate = useNavigate();
 
-  const [showTooltipContent, setShowTooltipContent] = useState<boolean>(false);
-
-  const config = { tension: 300, friction: 15 };
-  const initialStyles = { opacity: 0, transform: 'scale(0.5)' };
-  const [styleProps, setSpring] = useSpring(() => initialStyles);
-
   const goToUserPage = () => {
     if (meId === id) {
       return navigate(linksRecords.profilePage.base);
@@ -48,68 +39,74 @@ export const SingleUser = (props: SingleUserProps) => {
     navigate(linksRecords.publicProfilePage.baseById(id));
   };
 
-  function onMount() {
-    // setShowTooltipContent(true);
-    setTimeout(() => {
-      setShowTooltipContent(true);
-    }, 1000);
-    setSpring({
-      opacity: 1,
-      transform: 'scale(1)',
-      onRest: () => {},
-      config,
-      delay: 1000,
-    });
-  }
+  // UI is done, there is a problem with logic, list will reset on every update, and there is a problem how to
+  // force window to open and close only on specific actions, and connect button propagation makes problems
+  // const TippyWrapper = ({ element }: { element: ReactNode }) => {
+  //   const [referenceElement, setReferenceElement] =
+  //     useState<HTMLDivElement | null>(null);
+  //   const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(
+  //     null
+  //   );
+  //   const [visible, setVisible] = useState(false);
+  //   const [onPreview, setOnPreview] = useState(false);
 
-  function onHide({ unmount }: { unmount: any }) {
-    if (unmount) {
-      setShowTooltipContent(false);
-      setSpring({
-        ...initialStyles,
-        onRest: unmount,
-        config: { ...config, clamp: true },
-      });
-    }
-    setShowTooltipContent(false);
-  }
+  //   const { styles, attributes } = usePopper(referenceElement, popperElement, {
+  //     modifiers: [{ name: 'arrow' }],
+  //   });
 
-  // should this be extracted as separate component? is there a need for it???
-  const TippyWrapper = ({ element }: { element: ReactNode }) => {
-    return (
-      <div>
-        <Tippy
-          interactive
-          animation
-          onMount={onMount}
-          onHide={onHide}
-          render={(attrs) =>
-            showUserPreview && showTooltipContent ? (
-              // <ProfilePreviewTooltip
-              //   {...attrs}
-              //   styleProps={styleProps}
-              //   buttonRelatedUser={buttonRelatedUser}
-              //   meId={meId}
-              //   publicUserId={publicUserId}
-              //   isConnectPending={isConnectPending}
-              //   handleUserConnect={handleUserConnect}
-              //   invData={invData}
-              // />
-              <></>
-            ) : (
-              <></>
-            )
-          }
-        >
-          <div>{element}</div>
-        </Tippy>
-      </div>
-    );
-  };
+  //   const showTooltip = () => {
+  //     setTimeout(() => {
+  //       setVisible(true);
+  //     }, 1000);
+  //   };
+
+  //   const hideTooltip = () => {
+  //     setTimeout(() => {
+  //       setVisible(false);
+  //     }, 1500);
+  //   };
+
+  //   const tooltipHovered = () => {
+  //     setOnPreview(true);
+  //   };
+
+  //   const tooltipOff = () => {
+  //     setOnPreview(false);
+  //   };
+
+  //   return (
+  //     <>
+  //       <div
+  //         ref={setReferenceElement}
+  //         onMouseEnter={showTooltip}
+  //         onMouseLeave={hideTooltip}
+  //       >
+  //         {element}
+  //       </div>
+
+  //       {(visible || onPreview) && (
+  //         <div
+  //           onMouseEnter={tooltipHovered}
+  //           onMouseLeave={tooltipOff}
+  //           ref={setPopperElement}
+  //           style={styles.popper}
+  //           {...attributes.popper}
+  //         >
+  //           <ProfilePreviewTooltip
+  //             meId={meId}
+  //             buttonRelatedUser={buttonRelatedUser}
+  //             publicUserId={publicUserId}
+  //             invData={invData}
+  //           />
+  //         </div>
+  //       )}
+  //     </>
+  //   );
+  // };
 
   return (
     <Wrapper onClick={goToUserPage}>
-      <TippyWrapper element={<ProfileImage $backgroundImage={avatar} />} />
+      <ProfileImage $backgroundImage={avatar} />
       <ContentWrapper>
         <ProfileWrapper>
           <ContextWrapper>

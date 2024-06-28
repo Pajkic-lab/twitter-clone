@@ -21,6 +21,9 @@ export const ProfileFollowingPage = () => {
     threshold: 0,
   });
 
+  const invMediaBar = invMediabarData();
+  const invMainLane = invFollowingData();
+
   const { data: user } = useUserQuery() as { data: UserResponseDto };
   const { data: mostPopularUsers, isFetching: mostPopularUsersLoading } =
     useMostPopularUsersQuery();
@@ -34,9 +37,6 @@ export const ProfileFollowingPage = () => {
 
   const userList: FollowerListResponseDto[] = data?.pages?.flat() ?? [];
 
-  const invMediaBar = invMediabarData();
-  const invMainLane = invFollowingData();
-
   useEffect(() => {
     if (inView) {
       fetchNextPage();
@@ -44,7 +44,7 @@ export const ProfileFollowingPage = () => {
   }, [inView, fetchNextPage]);
 
   useEffect(() => {
-    // THERE IS A PROBLEM WITH INF QUERY, IT WONT TRIGGER ON SECOND PAGE LANDING
+    // THERE IS A PROBLEM WITH INF QUERY, IT WONT TRIGGER ON PAGE LANDING FOR SECOND TIME
     setTimeout(() => {
       useResetQuery(QueryAction.Invalidate, userGetFollowingKey());
     }, 50);

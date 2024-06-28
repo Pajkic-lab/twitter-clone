@@ -66,23 +66,8 @@ updateUser has parser build to handle class-validation, research how to do it at
     */
 
 
-- tippy is turned of, find viable alternative: https://chatgpt.com/c/7f31624f-7331-4553-aad5-7dfaf6f8063a
-
-- can profilePage and publicProfilePage be extracted to template? or should i create post first???
-
-
-
-
-
-
-- open prisma and check why so many same users amrko or what ever...
-
 - refactor list components from top to bottom, 
-
-
-
 -after finishing auth user and social should set base value from 14px to 16px (this should be researched if it's tru at twitter) 
 and go thru all design and do changes to be 1 to 1 with wire frames.
-
 - aca review apply
 
