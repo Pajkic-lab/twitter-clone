@@ -1,13 +1,16 @@
+import { FollowerListResponseDto } from '@tw/data';
 import {
-  FollowerListResponseDto,
-  PublicUserResponseDto,
-  UserResponseDto,
-} from '@tw/data';
-import { Contacts } from '@tw/ui/components';
+  invPublicProfileFollowingPage,
+  invPublicProfileMediabarData,
+} from '@tw/ui/common';
+import { Contacts, Loader, Trends, UserLIst } from '@tw/ui/components';
 import {
+  QueryAction,
+  publicProfileFollowingKey,
   useMostPopularUsersQuery,
   usePublicProfileFollowingInfQuery,
   usePublicProfileQuery,
+  useResetQuery,
   useUserQuery,
 } from '@tw/ui/data-access';
 import { useEffect } from 'react';
@@ -15,6 +18,7 @@ import { useInView } from 'react-intersection-observer';
 import { useParams } from 'react-router-dom';
 
 const FOLLOWING_LIST_SIZE_LIMIT = 20;
+const MEDIA_BAR_USER_LIST_TITLE = 'Who to follow';
 
 export const PublicProfileFollowingPage = () => {
   const params = useParams();
@@ -23,10 +27,14 @@ export const PublicProfileFollowingPage = () => {
     threshold: 0,
   });
 
+  const invData = invPublicProfileFollowingPage();
+  const invMediaBar = invPublicProfileMediabarData();
+
   const publicUserId = Number(params?.userId);
 
-  const { data: user } = useUserQuery() as { data: UserResponseDto };
+  const { data: user } = useUserQuery();
   const publicUserRes = usePublicProfileQuery(publicUserId);
+
   const { data: mostPopularUsers, isFetching: mostPopularUsersLoading } =
     useMostPopularUsersQuery();
 
@@ -40,12 +48,13 @@ export const PublicProfileFollowingPage = () => {
     FOLLOWING_LIST_SIZE_LIMIT
   );
 
-  // console.log(2, publicUserId);
+  const publicUser = publicUserRes?.data?.user;
 
-  const publicUser = publicUserRes?.data?.user as PublicUserResponseDto;
   const userList: FollowerListResponseDto[] = data?.pages?.flat() ?? [];
-  const noDataText = `${publicUser.name} does not follow anyone else`;
-  const mediaBarUserListTitle = 'Who to follow';
+  let noDataText = 'user does not follow anyone else';
+  if (publicUser) {
+    noDataText = `${publicUser.name} does not follow anyone else`;
+  }
 
   useEffect(() => {
     if (inView) {
@@ -53,6 +62,17 @@ export const PublicProfileFollowingPage = () => {
     }
   }, [inView, fetchNextPage]);
 
+  useEffect(() => {
+    // THERE IS A PROBLEM WITH INF QUERY, IT WONT TRIGGER ON PAGE LANDING FOR SECOND TIME
+    setTimeout(() => {
+      useResetQuery(
+        QueryAction.Invalidate,
+        publicProfileFollowingKey(publicUserId)
+      );
+    }, 50);
+  }, []);
+
+  if (!user || !publicUser) return <Loader fullScreen />;
   return (
     <Contacts
       user={user}
@@ -62,9 +82,19 @@ export const PublicProfileFollowingPage = () => {
       infScrollElRef={ref}
       hasMoreData={hasNextPage}
       noDataText={noDataText}
-      mediaBarUserListTitle={mediaBarUserListTitle}
-      mostPopularUsers={mostPopularUsers}
-      mostPopularUsersLoading={mostPopularUsersLoading}
+      invData={invData}
+      mediabarTopWindowChilde={
+        <UserLIst
+          meId={user.id}
+          publicUserId={publicUserId}
+          title={MEDIA_BAR_USER_LIST_TITLE}
+          userList={mostPopularUsers}
+          userListLoading={mostPopularUsersLoading}
+          showBio={false}
+          invData={invMediaBar}
+        />
+      }
+      mediabarBottomWindowChilde={<Trends />}
     />
   );
 };

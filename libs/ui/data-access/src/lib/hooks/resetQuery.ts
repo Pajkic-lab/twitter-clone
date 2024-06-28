@@ -3,14 +3,16 @@ import { queryClient } from './core';
 export enum QueryAction {
   Remove = 'remove',
   Invalidate = 'invalidate',
+  Refetch = 'Refetch',
 }
 export async function useResetQuery(queryAction: QueryAction, key: string[]) {
-  console.log('res', key);
   if (queryAction === QueryAction.Invalidate) {
-    const res = await queryClient.invalidateQueries({ queryKey: key });
-    console.log('query inv response', res);
+    queryClient.invalidateQueries({ queryKey: key });
   }
   if (queryAction === QueryAction.Remove) {
     queryClient.removeQueries({ queryKey: [key] });
+  }
+  if (queryAction === QueryAction.Refetch) {
+    queryClient.refetchQueries({ queryKey: [key] });
   }
 }

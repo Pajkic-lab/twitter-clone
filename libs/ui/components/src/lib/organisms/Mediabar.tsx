@@ -1,5 +1,5 @@
 import { colors } from '@tw/ui/assets';
-import { BreakpointKeys, Breakpoints } from '@tw/ui/common';
+import { BreakpointKeys, Breakpoints, invDataEmpty } from '@tw/ui/common';
 import { useMediabarState, useSearchUserMutation } from '@tw/ui/data-access';
 import { ReactNode, useCallback } from 'react';
 import Sticky from 'react-stickynode';
@@ -43,6 +43,8 @@ export const Mediabar = (props: MediabarProps) => {
     [useSearchUser]
   );
 
+  const emptyInvData = invDataEmpty();
+
   if (sizeTable[mediabarSize] === sizeTable.m) return;
   return (
     <Wrapper size={mediabarSize}>
@@ -53,6 +55,7 @@ export const Mediabar = (props: MediabarProps) => {
           searchInputOnChange={searchInputOnChange}
           searchUserRes={searchUserRes}
           searchIsLoading={searchIsLoading}
+          invData={emptyInvData}
         />
       </SearchInputWrapper>
 

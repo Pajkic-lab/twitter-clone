@@ -11,3 +11,6 @@ export * from './response/follow-user.res.dto';
 export * from './response/follower-list.res.dto';
 export * from './response/following-list.res.dto';
 export * from './response/un-follow-user.res.dto';
+
+/* Other */
+export * from './ConnectUser';

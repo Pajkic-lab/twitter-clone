@@ -4,7 +4,8 @@ import styled from 'styled-components';
 
 /**
  * This component is for now place holder,
- * It should be polymorphic and it should be used for every tab need.
+ * It should be polymorphic and it should be used for every tab.
+ * Should not be in this dir
  */
 export const Tabs = () => {
   const [selected, setSelected] = useState({

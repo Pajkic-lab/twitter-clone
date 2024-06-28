@@ -1,6 +1,6 @@
 import { UserResponseDto } from '@tw/data';
 import { colors } from '@tw/ui/assets';
-import { ParsedError } from '@tw/ui/common';
+import { ParsedError, invProfilePage } from '@tw/ui/common';
 import {
   EditProfileForm,
   Mediabar,
@@ -53,6 +53,8 @@ export const ProfilePage = () => {
     setEditModalProfileOpen(true);
   };
 
+  const invData = invProfilePage();
+
   return (
     <PageWrapper>
       <Sidebar name={name} uniqueName={uniqueName} avatar={avatar} />
@@ -65,6 +67,8 @@ export const ProfilePage = () => {
             Edit profile
           </EditProfileButton>
         }
+        // why is this injected as child component? will there be need to have different model? think about when to have child injected
+        // and when to just use it inside component? Maybe there is need i don't know, just looks sketchy...
         profileModal={
           <Modal
             modalIsOpen={isEditProfileModalOpen}
@@ -105,6 +109,8 @@ export const ProfilePage = () => {
             title={'You might like'}
             userList={mostPopularUsers}
             userListLoading={isMostPopularUsersLoading}
+            showBio={false}
+            invData={invData}
           />
         }
         bottomWindowChilde={<Trends />}

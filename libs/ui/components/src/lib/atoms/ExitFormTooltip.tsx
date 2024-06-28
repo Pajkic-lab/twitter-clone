@@ -4,6 +4,7 @@ import { useSignOutMutation } from '@tw/ui/data-access';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
+// Rename this component
 export const ExitFormTooltip = ({ uniqueName }: { uniqueName: string }) => {
   const navigate = useNavigate();
   const useSingOut = useSignOutMutation();

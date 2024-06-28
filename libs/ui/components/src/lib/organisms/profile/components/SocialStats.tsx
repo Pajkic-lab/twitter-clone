@@ -6,15 +6,16 @@ import styled from 'styled-components';
 
 type SocialStatsProps = {
   socialStats: SocialStatsResponseDto | undefined;
+  socialStatsUserId?: number;
 };
 
 export const SocialStats = (props: SocialStatsProps) => {
-  const { socialStats } = props;
+  const { socialStats, socialStatsUserId } = props;
 
   const params = useParams();
   const navigate = useNavigate();
 
-  const userId = Number(params?.userId);
+  const userId = (socialStatsUserId || params?.userId)?.toString();
 
   const { followersCount = '', followingCount = '' } = socialStats ?? {};
 
@@ -27,7 +28,6 @@ export const SocialStats = (props: SocialStatsProps) => {
   };
 
   const navigateToFollowing = () => {
-    navigate(linksRecords.profilePage.following);
     if (userId) {
       navigate(linksRecords.publicProfilePage.followingById(userId));
     } else {
@@ -53,7 +53,6 @@ const SocialStatsWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: start;
-  padding-bottom: 1rem;
 `;
 
 const FollowingStatsWrapper = styled.div`

@@ -10,7 +10,10 @@ import { http } from '../../http/api';
 import { queryClient } from '../core';
 
 export const userQueryKey = 'userQueryKey';
-export const mostPopularUsersQueryKey = 'mostPopularUsersQueryKey';
+
+export const mostPopularUsersQueryKey = () => {
+  return ['mostPopularUser'];
+};
 
 export const useUserQuery = () => {
   return useQuery({
@@ -24,7 +27,7 @@ export const useUserQuery = () => {
 
 export const useMostPopularUsersQuery = () => {
   return useQuery({
-    queryKey: [mostPopularUsersQueryKey],
+    queryKey: mostPopularUsersQueryKey(),
     queryFn: async () => {
       const res = await http.user.getMostPopularUsers();
       return res.data.payload;
