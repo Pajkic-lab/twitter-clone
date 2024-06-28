@@ -1,5 +1,6 @@
 import { FollowerListResponseDto, UserResponseDto } from '@tw/data';
 import { colors } from '@tw/ui/assets';
+import { InvalidationData } from '@tw/ui/common';
 import styled from 'styled-components';
 import { NavigationBar } from '../molecules/NavigationBar';
 import { UserLIst } from './UserLIst';
@@ -13,23 +14,31 @@ const NAVBAR_HEIGHT = 4.286; //rem
 
 type UserListLaneProps = {
   meId: number;
-  user: UserResponseDto;
+  publicUser: UserResponseDto;
   userList: FollowerListResponseDto[];
   userListLoading: boolean;
+  showBio?: boolean;
+  showConnectButton?: boolean;
+  showUserPreview?: boolean;
   infScrollElRef: (node?: Element | null | undefined) => void;
   hasMoreData: boolean;
   noDataText: string;
+  invData: InvalidationData;
 };
 
 export const UserListLane = (props: UserListLaneProps) => {
   const {
     meId,
-    user: { name, uniqueName },
+    publicUser: { id: publicUserId, name, uniqueName },
     userList,
+    showBio,
+    showConnectButton,
+    showUserPreview,
     userListLoading,
     infScrollElRef,
     hasMoreData,
     noDataText,
+    invData,
   } = props;
 
   return (
@@ -45,12 +54,17 @@ export const UserListLane = (props: UserListLaneProps) => {
 
       <UserLIst
         meId={meId}
+        publicUserId={publicUserId}
         userList={userList}
         userListLoading={userListLoading}
+        showBio={showBio}
+        showConnectButton={showConnectButton}
+        showUserPreview={showUserPreview}
         scrollable
         infScrollElRef={infScrollElRef}
         hasMoreData={hasMoreData}
         noDataText={noDataText}
+        invData={invData}
       />
     </Wrapper>
   );

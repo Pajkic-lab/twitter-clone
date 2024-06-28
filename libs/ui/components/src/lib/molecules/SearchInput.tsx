@@ -1,5 +1,6 @@
 import { SearchUsersResponseDto } from '@tw/data';
 import { colors, MagnifyingGlass } from '@tw/ui/assets';
+import { InvalidationData } from '@tw/ui/common';
 import { UserLIst } from '@tw/ui/components';
 import { useCallback, useState } from 'react';
 import styled from 'styled-components';
@@ -10,12 +11,14 @@ type SearchInputProps = {
   searchInputOnChange: (val: string) => void;
   searchUserRes: SearchUsersResponseDto[] | undefined;
   searchIsLoading: boolean;
+  invData: InvalidationData;
 };
 
 type SearchResultWindowProps = {
   meId: number;
   searchIsLoading: boolean;
   searchUserRes: SearchUsersResponseDto[];
+  invData: InvalidationData;
 };
 
 /**
@@ -31,6 +34,7 @@ export const SearchInput = (props: SearchInputProps) => {
     searchInputOnChange,
     searchUserRes = [],
     searchIsLoading,
+    invData,
   } = props;
 
   const [isFocused, setIsFocused] = useState<boolean>(false);
@@ -78,6 +82,7 @@ export const SearchInput = (props: SearchInputProps) => {
           meId={meId}
           searchUserRes={searchUserRes}
           searchIsLoading={searchIsLoading}
+          invData={invData}
         />
       )}
     </Wrapper>
@@ -85,7 +90,7 @@ export const SearchInput = (props: SearchInputProps) => {
 };
 
 const SearchResultWindow = (props: SearchResultWindowProps) => {
-  const { meId, searchUserRes, searchIsLoading } = props;
+  const { meId, searchUserRes, searchIsLoading, invData } = props;
 
   return (
     <SearchDataWrapper>
@@ -94,6 +99,10 @@ const SearchResultWindow = (props: SearchResultWindowProps) => {
           meId={meId}
           userList={searchUserRes}
           userListLoading={searchIsLoading}
+          showBio={false}
+          showConnectButton={false}
+          showUserPreview={false}
+          invData={invData}
         />
       )}
     </SearchDataWrapper>

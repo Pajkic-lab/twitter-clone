@@ -1,9 +1,10 @@
 import { FollowerListResponseDto } from '@tw/data';
 import { colors } from '@tw/ui/assets';
-import { memo, useMemo } from 'react';
+import { InvalidationData } from '@tw/ui/common';
+import { memo, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { Loader } from '../atoms/Loader';
-import { SingleUser } from '../atoms/SingleUser';
+import { SingleUser } from '../molecules/SingleUser';
 
 type UserListProps = {
   userList: FollowerListResponseDto[] | undefined;
@@ -11,15 +12,25 @@ type UserListProps = {
   title?: string;
   noDataText?: string;
   scrollable?: boolean;
+  showBio?: boolean;
+  showConnectButton?: boolean;
+  showUserPreview?: boolean;
   infScrollElRef?: (node?: Element | null | undefined) => void;
   hasMoreData?: boolean;
   meId: number;
+  publicUserId?: number;
+  invData: InvalidationData;
 };
 
 type ContentUiProps = {
   meId: number;
+  publicUserId?: number;
   userList: FollowerListResponseDto[];
   title?: string;
+  showBio?: boolean;
+  showConnectButton?: boolean;
+  showUserPreview?: boolean;
+  invData: InvalidationData;
 };
 
 type NoDataUiProps = {
@@ -34,13 +45,18 @@ type LoaderUiProps = {
 export const UserLIst = (props: UserListProps) => {
   const {
     meId,
+    publicUserId,
     userList,
     userListLoading,
     title,
     noDataText = 'No matching data.',
     scrollable = false,
+    showBio,
+    showConnectButton,
+    showUserPreview,
     infScrollElRef,
     hasMoreData,
+    invData,
   } = props;
 
   const memoizedValues = useMemo(() => {
@@ -60,7 +76,18 @@ export const UserLIst = (props: UserListProps) => {
 
   return (
     <Wrapper>
-      {userList && <ContentUi meId={meId} userList={userList} title={title} />}
+      {userList && (
+        <ContentUi
+          meId={meId}
+          publicUserId={publicUserId}
+          userList={userList}
+          title={title}
+          showBio={showBio}
+          showUserPreview={showUserPreview}
+          showConnectButton={showConnectButton}
+          invData={invData}
+        />
+      )}
       {scrollable && <InfScrollElTrigger ref={infScrollElRef} />}
       {showLoader && <LoaderUi scrollable={scrollable} />}
       {showNoData && (
@@ -71,13 +98,31 @@ export const UserLIst = (props: UserListProps) => {
 };
 
 const ContentUi = memo((props: ContentUiProps) => {
-  const { meId, title, userList } = props;
-  // console.log(222, userList);
+  const {
+    meId,
+    publicUserId,
+    title,
+    userList,
+    showBio,
+    showConnectButton,
+    showUserPreview,
+    invData,
+  } = props;
+
   return (
     <ContentWrapper>
       {title && <Title>{title}</Title>}
       {userList.map((user) => (
-        <SingleUser key={user.id} meId={meId} publicUser={user} />
+        <SingleUser
+          key={user.id}
+          meId={meId}
+          showBio={showBio}
+          showUserPreview={showUserPreview}
+          showConnectButton={showConnectButton}
+          publicUserId={publicUserId}
+          buttonRelatedUser={user}
+          invData={invData}
+        />
       ))}
     </ContentWrapper>
   );
@@ -85,10 +130,22 @@ const ContentUi = memo((props: ContentUiProps) => {
 
 const NoDataUi = memo((props: NoDataUiProps) => {
   const { noDataText, scrollable } = props;
+
+  const [showContent, setShowContent] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowContent(true);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <NoResultWrapper scrollable={scrollable}>
-      <H3>{noDataText}</H3>
-    </NoResultWrapper>
+    showContent && (
+      <NoResultWrapper scrollable={scrollable}>
+        <H3>{noDataText}</H3>
+      </NoResultWrapper>
+    )
   );
 });
 

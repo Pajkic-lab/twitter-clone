@@ -1,5 +1,6 @@
 import { UserResponseDto } from '@tw/data';
 import { colors, TwitterIcon } from '@tw/ui/assets';
+import { invHomePage } from '@tw/ui/common';
 import {
   HomeMainLane,
   Mediabar,
@@ -19,6 +20,8 @@ import {
 import { useCallback, useMemo } from 'react';
 import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
+
+const MEDIA_BAR_TOP_WINDOW_CONTAINER_TITLE = 'You might like';
 
 export const HomePage = () => {
   const { data: user, isPending: userIsLoading } = useUserQuery();
@@ -63,6 +66,8 @@ export const HomePage = () => {
     [isNameUnique]
   );
 
+  const invData = invHomePage();
+
   return (
     <PageWrapper>
       <Sidebar name={name} uniqueName={uniqueName} avatar={avatar} />
@@ -74,9 +79,11 @@ export const HomePage = () => {
         topWindowChilde={
           <UserLIst
             meId={id}
-            title={'You might like'}
+            title={MEDIA_BAR_TOP_WINDOW_CONTAINER_TITLE}
             userList={mostPopularUsers}
             userListLoading={isMostPopularUsersLoading}
+            showBio={false}
+            invData={invData}
           />
         }
         bottomWindowChilde={<Trends />}

@@ -57,7 +57,6 @@ export class SocialService {
     });
   }
 
-  //
   async getPublicUserFollowingStatus(userId: number, publicUserId: number) {
     const followingStatus = await this.userRepository.getFollowingStatus(
       publicUserId,
@@ -69,12 +68,21 @@ export class SocialService {
       message: 'public user following status success',
     });
   }
-  //
 
   async followUser(
     userId: number,
     followUser: FollowUserRequestDto
   ): Promise<HttpResponse<FollowUserResponseDto>> {
+    const followingStatus = await this.userRepository.getFollowingStatus(
+      followUser.userId,
+      userId
+    );
+    if (followingStatus)
+      throw new HttpException(
+        'User to follow is already followed',
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+
     const social = await this.socialRepository.followUser(
       userId,
       followUser.userId
@@ -85,7 +93,6 @@ export class SocialService {
         HttpStatus.INTERNAL_SERVER_ERROR
       );
 
-    // create mapper and resolve this
     const userToFollow = this.mapper.map(
       social,
       SocialBase,
@@ -178,7 +185,6 @@ export class SocialService {
     });
   }
 
-  //
   async handlePublicProfileFollowers(
     meId: number,
     publicUserId: number,
@@ -209,7 +215,7 @@ export class SocialService {
       message: 'follower list success',
     });
   }
-  //
+
   async handlePublicProfileFollowing(
     meId: number,
     publicUserId: number,

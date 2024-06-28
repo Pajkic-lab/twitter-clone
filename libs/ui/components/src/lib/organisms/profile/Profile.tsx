@@ -6,8 +6,7 @@ import { NavigationBar } from '../../molecules/NavigationBar';
 import { SignUpForm } from '../../molecules/SignUpForm';
 import { AvatarAndOptions } from './components/AvatarAndOptions';
 import { Cover } from './components/Cover';
-import { PersonalInformation } from './components/PersonalInformation';
-import { SocialStats } from './components/SocialStats';
+import { ProfileInfo } from './components/ProfileInfo';
 import { Tabs } from './components/Tabs';
 
 type ProfileProps = {
@@ -21,13 +20,8 @@ type ProfileProps = {
 const NAVBAR_HEIGHT = 4.286; //rem
 
 export const Profile = (props: ProfileProps) => {
-  const {
-    width,
-    user: { name, id, uniqueName, avatar, cover },
-    socialStats,
-    profileActions,
-    profileModal,
-  } = props;
+  const { width, user, socialStats, profileActions, profileModal } = props;
+  const { name, id, uniqueName, avatar, cover } = user;
 
   return (
     <Wrapper>
@@ -43,10 +37,7 @@ export const Profile = (props: ProfileProps) => {
         profileActions={profileActions}
         profileModal={profileModal}
       />
-      <BioWrapper>
-        <PersonalInformation user={props.user} />
-        <SocialStats socialStats={socialStats} />
-      </BioWrapper>
+      <ProfileInfo user={user} socialStats={socialStats} />
       <Tabs />
 
       <SignUpForm

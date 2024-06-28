@@ -1,12 +1,8 @@
-import {
-  FollowerListResponseDto,
-  PublicUserBase,
-  UserResponseDto,
-} from '@tw/data';
+import { FollowerListResponseDto, UserResponseDto } from '@tw/data';
+import { InvalidationData } from '@tw/ui/common';
+import { ReactNode } from 'react';
 import styled from 'styled-components';
-import { Trends } from '../molecules/Trends';
 import { Mediabar } from '../organisms/Mediabar';
-import { UserLIst } from '../organisms/UserLIst';
 import { UserListLane } from '../organisms/UserListLane';
 import { Sidebar } from '../organisms/sidebar/Sidebar';
 
@@ -15,12 +11,15 @@ type ContactsProps = {
   pubLicUser?: UserResponseDto;
   userList: FollowerListResponseDto[];
   userListLoading: boolean;
+  showBio?: boolean;
+  showConnectButton?: boolean;
+  showUserPreview?: boolean;
   infScrollElRef: (node?: Element | null | undefined) => void;
   hasMoreData: boolean;
   noDataText: string;
-  mediaBarUserListTitle: string;
-  mostPopularUsers: PublicUserBase[] | undefined;
-  mostPopularUsersLoading: boolean;
+  mediabarTopWindowChilde: ReactNode;
+  mediabarBottomWindowChilde: ReactNode;
+  invData: InvalidationData;
 };
 
 export const Contacts = (props: ContactsProps) => {
@@ -29,16 +28,19 @@ export const Contacts = (props: ContactsProps) => {
     pubLicUser,
     userList,
     userListLoading,
+    showBio,
+    showConnectButton,
+    showUserPreview,
     infScrollElRef,
     hasMoreData,
     noDataText,
-    mediaBarUserListTitle,
-    mostPopularUsers,
-    mostPopularUsersLoading,
+    mediabarTopWindowChilde,
+    mediabarBottomWindowChilde,
+    invData,
   } = props;
 
   const { id: meId, name, uniqueName, avatar } = user;
-  const userForLane = pubLicUser ?? user;
+  const currentUser = pubLicUser ?? user;
 
   return (
     <Wrapper>
@@ -46,27 +48,22 @@ export const Contacts = (props: ContactsProps) => {
 
       <UserListLane
         meId={meId}
-        user={userForLane}
+        publicUser={currentUser}
         userList={userList}
+        showBio={showBio}
+        showConnectButton={showConnectButton}
+        showUserPreview={showUserPreview}
         userListLoading={userListLoading}
         infScrollElRef={infScrollElRef}
         hasMoreData={hasMoreData}
         noDataText={noDataText}
+        invData={invData}
       />
 
       <Mediabar
         meId={meId}
-        // should come from props!
-        topWindowChilde={
-          <UserLIst
-            meId={meId}
-            title={mediaBarUserListTitle}
-            userList={mostPopularUsers}
-            userListLoading={mostPopularUsersLoading}
-          />
-        }
-        // should come from props!
-        bottomWindowChilde={<Trends />}
+        topWindowChilde={mediabarTopWindowChilde}
+        bottomWindowChilde={mediabarBottomWindowChilde}
       />
     </Wrapper>
   );
