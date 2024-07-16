@@ -5,7 +5,7 @@ import {
   CreatableUser,
   SocialStatsResponseDto,
 } from '@tw/data';
-import { PrismaService } from 'libs/data-access/src/lib/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class AuthRepository {

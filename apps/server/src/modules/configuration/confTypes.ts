@@ -1,4 +1,4 @@
-import { IsIn, IsNotEmpty } from 'class-validator';
+import { IsNotEmpty } from 'class-validator';
 
 export class EnvironmentVariables {
   /* PORT */
@@ -18,7 +18,7 @@ export class EnvironmentVariables {
 
   /* ENVIRONMENT */
   @IsNotEmpty()
-  @IsIn(['development', 'staging', 'production'])
+  // @IsIn(['development', 'staging', 'production'])
   NODE_ENV: string;
 
   @IsNotEmpty()
