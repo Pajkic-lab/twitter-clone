@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  postgres-dev:
+    image: postgres:latest
+    container_name: postgres-dev
+    environment:
+      POSTGRES_USER: avnadmin
+      POSTGRES_PASSWORD: AVNS_0TU9ktE4pwBZ5bEgp-N
+      POSTGRES_DB: twitterclonetest6_dev
+    ports:
+      - '5432:5432'
+    volumes:
+      - pgdata-dev:/var/lib/postgresql/data
+
+  postgres-staging:
+    image: postgres:latest
+    container_name: postgres-staging
+    environment:
+      POSTGRES_USER: avnadmin
+      POSTGRES_PASSWORD: AVNS_0TU9ktE4pwBZ5bEgp-N
+      POSTGRES_DB: twitterclonetest6_staging
+    ports:
+      - '5433:5432'
+    volumes:
+      - pgdata-staging:/var/lib/postgresql/data
+
+volumes:
+  pgdata-dev:
+  pgdata-staging:

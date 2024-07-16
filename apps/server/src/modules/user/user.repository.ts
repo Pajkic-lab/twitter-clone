@@ -2,7 +2,7 @@ import { HttpException, HttpStatus } from '@nestjs/common';
 import { Injectable } from '@nestjs/common/decorators';
 import { User } from '@prisma/client';
 import { SocialStatsResponseDto, UpdateUserRequestDto } from '@tw/data';
-import { PrismaService } from 'libs/data-access/src/lib/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class UserRepository {

@@ -41,5 +41,7 @@ Thumbs.db
 .nx/cache
 
 *.env
+.env*
 .nx/
 cache
+

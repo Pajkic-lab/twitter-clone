@@ -1,0 +1,23 @@
+
+/* BUGS */
+
+- For some reason in config file i had to comment out isIn condition. it wont recognize staging.
+
+
+
+/* TODO */
+
+- how to handle multiple env var files in nx?????
+
+    - test prod command does it work???? and yes change them in onrender and create env file remove single vars from render
+
+    - create github servers inf for staging
+
+    - refactor package json commands and remove unused code
+
+
+
+
+- How to change code to accept SQL light when in staging env...
+
+
