@@ -9,6 +9,8 @@
 
 - how to handle multiple env var files in nx?????
 
+    - napravi github actions pg bazu, izgleda da moze
+
     - create github servers inf for staging
 
     - refactor package json commands and remove unused code

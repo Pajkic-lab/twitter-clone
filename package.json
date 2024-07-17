@@ -4,6 +4,8 @@
   "private": true,
   "license": "MIT",
   "scripts": {
+    "app:build": "pnpm i && pnpm run db:generate && npx nx build client && npx nx build server",
+    "app:set": "pnpm i && pnpm run db:format && pnpm run db:generate && pnpm run db:migrate && pnpm run db:deploy",
     "check-dependencies": "depcheck",
     "db:deploy": "prisma migrate deploy --schema=./apps/server/src/modules/prisma/schema.prisma",
     "db:format": "prisma format --schema=./apps/server/src/modules/prisma/schema.prisma",
@@ -11,17 +13,14 @@
     "db:gui": "prisma studio --schema=./apps/server/src/modules/prisma/schema.prisma",
     "db:migrate": "prisma migrate dev --schema=./apps/server/src/modules/prisma/schema.prisma",
     "db:reset": "prisma migrate reset --force && pnpm run db:migrate",
+    "dev": "node load-env.js dev && bash start-dev-postgres.sh && concurrently \"npx nx serve server\" \"npx nx serve client\"",
+    "dev:set": "node load-env.js dev && bash start-dev-postgres.sh && pnpm run app:set",
+    "prod": "pnpm run db:deploy && npx nx serve server --prod",
+    "prod:set": "node load-env.js prod && pnpm run app:build",
     "seed:user": "ts-node apps/server/src/modules/prisma/seeds/user.seed.ts",
     "sort-package-json": "sort-package-json",
-    "placeholder": "============================================================================================================================",
-    "app:set": "pnpm i && pnpm run db:format && pnpm run db:generate && pnpm run db:migrate && pnpm run db:deploy",
-    "app:build": "pnpm i && pnpm run db:generate && npx nx build client && npx nx build server",
-    "dev:set": "node load-env.js dev && bash start-dev-postgres.sh && pnpm run app:set",
-    "dev": "node load-env.js dev && bash start-dev-postgres.sh && concurrently \"npx nx serve server\" \"npx nx serve client\"",
-    "staging:set": "node load-env.js staging && bash start-staging-postgres.sh && pnpm run app:set",
     "staging": "node load-env.js staging && bash start-staging-postgres.sh && npx nx e2e server-e2e",
-    "prod:set": "node load-env.js prod && pnpm run app:build",
-    "prod": "pnpm run db:deploy && npx nx serve server --prod"
+    "staging:set": "node load-env.js staging && bash start-staging-postgres.sh && pnpm run app:set"
   },
   "dependencies": {
     "@automapper/classes": "^8.8.1",
