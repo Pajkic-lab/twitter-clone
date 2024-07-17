@@ -17,6 +17,18 @@ importers:
       '@automapper/nestjs':
         specifier: ^8.8.1
         version: 8.8.1(@automapper/core@8.8.1)(@nestjs/common@10.3.3(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.1.14)(rxjs@7.8.1))(@nestjs/core@10.3.3(@nestjs/common@10.3.3(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.1.14)(rxjs@7.8.1))(@nestjs/platform-express@10.3.3)(reflect-metadata@0.1.14)(rxjs@7.8.1))
+      '@babel/core':
+        specifier: ^7.24.0
+        version: 7.24.0
+      '@babel/preset-react':
+        specifier: ^7.23.3
+        version: 7.23.3(@babel/core@7.24.0)
+      '@eslint/eslintrc':
+        specifier: ^2.1.4
+        version: 2.1.4
+      '@eslint/js':
+        specifier: ~8.46.0
+        version: 8.46.0
       '@floating-ui/react':
         specifier: ^0.26.17
         version: 0.26.17(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -41,15 +53,27 @@ importers:
       '@nestjs/schedule':
         specifier: ^2.2.3
         version: 2.2.3(@nestjs/common@10.3.3(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.1.14)(rxjs@7.8.1))(@nestjs/core@10.3.3(@nestjs/common@10.3.3(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.1.14)(rxjs@7.8.1))(@nestjs/platform-express@10.3.3)(reflect-metadata@0.1.14)(rxjs@7.8.1))(reflect-metadata@0.1.14)
+      '@nestjs/schematics':
+        specifier: ^10.1.1
+        version: 10.1.1(chokidar@3.6.0)(typescript@5.1.6)
       '@nestjs/serve-static':
         specifier: ^3.0.1
         version: 3.0.1(@nestjs/common@10.3.3(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.1.14)(rxjs@7.8.1))(@nestjs/core@10.3.3(@nestjs/common@10.3.3(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.1.14)(rxjs@7.8.1))(@nestjs/platform-express@10.3.3)(reflect-metadata@0.1.14)(rxjs@7.8.1))(express@4.18.3)
+      '@nestjs/testing':
+        specifier: ^10.3.3
+        version: 10.3.3(@nestjs/common@10.3.3(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.1.14)(rxjs@7.8.1))(@nestjs/core@10.3.3(@nestjs/common@10.3.3(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.1.14)(rxjs@7.8.1))(@nestjs/platform-express@10.3.3)(reflect-metadata@0.1.14)(rxjs@7.8.1))(@nestjs/platform-express@10.3.3(@nestjs/common@10.3.3(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.1.14)(rxjs@7.8.1))(@nestjs/core@10.3.3))
       '@ngneat/falso':
         specifier: ^6.4.0
         version: 6.4.0
       '@nrwl/react':
         specifier: ^17.3.2
         version: 17.3.2(@babel/traverse@7.24.8)(@swc-node/register@1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6))(@swc/core@1.3.107)(@types/node@18.14.2)(js-yaml@4.1.0)(nx@17.0.3(@swc-node/register@1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6))(@swc/core@1.3.107))(typescript@5.1.6)(webpack@5.90.3(@swc/core@1.3.107))
+      '@nx/eslint':
+        specifier: 17.0.3
+        version: 17.0.3(@babel/traverse@7.24.8)(@swc-node/register@1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6))(@swc/core@1.3.107)(@types/node@18.14.2)(eslint@8.46.0)(nx@17.0.3(@swc-node/register@1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6))(@swc/core@1.3.107))
+      '@nx/eslint-plugin':
+        specifier: 17.0.3
+        version: 17.0.3(@babel/traverse@7.24.8)(@swc-node/register@1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6))(@swc/core@1.3.107)(@types/node@18.14.2)(@typescript-eslint/parser@5.62.0(eslint@8.46.0)(typescript@5.1.6))(eslint-config-prettier@9.1.0(eslint@8.46.0))(eslint@8.46.0)(nx@17.0.3(@swc-node/register@1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6))(@swc/core@1.3.107))(typescript@5.1.6)
       '@nx/jest':
         specifier: 17.0.3
         version: 17.0.3(@babel/traverse@7.24.8)(@swc-node/register@1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6))(@swc/core@1.3.107)(@types/node@18.14.2)(nx@17.0.3(@swc-node/register@1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6))(@swc/core@1.3.107))(ts-node@10.9.1(@swc/core@1.3.107)(@types/node@18.14.2)(typescript@5.1.6))(typescript@5.1.6)
@@ -71,6 +95,9 @@ importers:
       '@nx/workspace':
         specifier: 17.0.3
         version: 17.0.3(@swc-node/register@1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6))(@swc/core@1.3.107)
+      '@pmmmwh/react-refresh-webpack-plugin':
+        specifier: ^0.5.11
+        version: 0.5.11(react-refresh@0.10.0)(type-fest@4.10.3)(webpack-dev-server@4.15.1(webpack@5.90.3(@swc/core@1.3.107)))(webpack@5.90.3(@swc/core@1.3.107))
       '@popperjs/core':
         specifier: ^2.11.8
         version: 2.11.8
@@ -89,12 +116,33 @@ importers:
       '@styled-icons/foundation':
         specifier: ^10.46.0
         version: 10.46.0(react@18.2.0)(styled-components@5.3.11(@babel/core@7.24.0)(react-dom@18.2.0(react@18.2.0))(react-is@18.2.0)(react@18.2.0))
+      '@svgr/webpack':
+        specifier: ^8.1.0
+        version: 8.1.0(typescript@5.1.6)
+      '@swc-node/register':
+        specifier: ~1.6.8
+        version: 1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6)
+      '@swc/cli':
+        specifier: ~0.1.65
+        version: 0.1.65(@swc/core@1.3.107)(chokidar@3.6.0)
+      '@swc/core':
+        specifier: ~1.3.107
+        version: 1.3.107
+      '@tanstack/eslint-plugin-query':
+        specifier: ^5.20.1
+        version: 5.20.1(eslint@8.46.0)(typescript@5.1.6)
       '@tanstack/react-query':
         specifier: ^5.24.1
         version: 5.24.1(react@18.2.0)
+      '@tanstack/react-query-devtools':
+        specifier: ^5.24.1
+        version: 5.24.1(@tanstack/react-query@5.24.1(react@18.2.0))(react@18.2.0)
       '@testing-library/jest-dom':
         specifier: ^5.17.0
         version: 5.17.0
+      '@testing-library/react':
+        specifier: 14.0.0
+        version: 14.0.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@tippyjs/react':
         specifier: ^4.2.6
         version: 4.2.6(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -104,24 +152,84 @@ importers:
       '@ts-rest/nest':
         specifier: ^3.33.0
         version: 3.33.0(@nestjs/common@10.3.3(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.1.14)(rxjs@7.8.1))(@nestjs/core@10.3.3(@nestjs/common@10.3.3(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.1.14)(rxjs@7.8.1))(@nestjs/platform-express@10.3.3)(reflect-metadata@0.1.14)(rxjs@7.8.1))(rxjs@7.8.1)(zod@3.22.4)
+      '@types/bcryptjs':
+        specifier: ^2.4.6
+        version: 2.4.6
+      '@types/compression':
+        specifier: ^1.7.5
+        version: 1.7.5
+      '@types/express':
+        specifier: ^4.17.21
+        version: 4.17.21
+      '@types/express-session':
+        specifier: ^1.18.0
+        version: 1.18.0
+      '@types/hpp':
+        specifier: ^0.2.6
+        version: 0.2.6
+      '@types/is-base64':
+        specifier: ^1.1.3
+        version: 1.1.3
       '@types/jest':
         specifier: ^29.5.12
         version: 29.5.12
       '@types/js-cookie':
         specifier: ^3.0.6
         version: 3.0.6
+      '@types/lodash':
+        specifier: ^4.14.202
+        version: 4.14.202
       '@types/node':
         specifier: 18.14.2
         version: 18.14.2
+      '@types/passport':
+        specifier: ^1.0.16
+        version: 1.0.16
       '@types/passport-google-oauth20':
         specifier: ^2.0.14
         version: 2.0.14
       '@types/passport-local':
         specifier: ^1.0.38
         version: 1.0.38
+      '@types/react':
+        specifier: 18.2.33
+        version: 18.2.33
+      '@types/react-dom':
+        specifier: 18.2.14
+        version: 18.2.14
+      '@types/react-modal':
+        specifier: ^3.16.3
+        version: 3.16.3
+      '@types/react-router-dom':
+        specifier: ^5.3.3
+        version: 5.3.3
+      '@types/react-stickynode':
+        specifier: ^4.0.3
+        version: 4.0.3
+      '@types/styled-components':
+        specifier: ^5.1.34
+        version: 5.1.34
+      '@types/styled-react-modal':
+        specifier: ^1.2.5
+        version: 1.2.5
+      '@types/supertest':
+        specifier: ^6.0.2
+        version: 6.0.2
+      '@types/uuid':
+        specifier: ^9.0.8
+        version: 9.0.8
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^5.62.0
+        version: 5.62.0(@typescript-eslint/parser@5.62.0(eslint@8.46.0)(typescript@5.1.6))(eslint@8.46.0)(typescript@5.1.6)
+      '@typescript-eslint/parser':
+        specifier: ^5.62.0
+        version: 5.62.0(eslint@8.46.0)(typescript@5.1.6)
       axios:
         specifier: ^1.6.7
         version: 1.6.7
+      babel-jest:
+        specifier: ^29.7.0
+        version: 29.7.0(@babel/core@7.24.0)
       bcryptjs:
         specifier: ^2.4.3
         version: 2.4.3
@@ -243,114 +351,6 @@ importers:
         specifier: ^3.22.4
         version: 3.22.4
     devDependencies:
-      '@babel/core':
-        specifier: ^7.24.0
-        version: 7.24.0
-      '@babel/preset-react':
-        specifier: ^7.23.3
-        version: 7.23.3(@babel/core@7.24.0)
-      '@eslint/eslintrc':
-        specifier: ^2.1.4
-        version: 2.1.4
-      '@eslint/js':
-        specifier: ~8.46.0
-        version: 8.46.0
-      '@nestjs/schematics':
-        specifier: ^10.1.1
-        version: 10.1.1(chokidar@3.6.0)(typescript@5.1.6)
-      '@nestjs/testing':
-        specifier: ^10.3.3
-        version: 10.3.3(@nestjs/common@10.3.3(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.1.14)(rxjs@7.8.1))(@nestjs/core@10.3.3(@nestjs/common@10.3.3(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.1.14)(rxjs@7.8.1))(@nestjs/platform-express@10.3.3)(reflect-metadata@0.1.14)(rxjs@7.8.1))(@nestjs/platform-express@10.3.3(@nestjs/common@10.3.3(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.1.14)(rxjs@7.8.1))(@nestjs/core@10.3.3))
-      '@nx/eslint':
-        specifier: 17.0.3
-        version: 17.0.3(@babel/traverse@7.24.8)(@swc-node/register@1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6))(@swc/core@1.3.107)(@types/node@18.14.2)(eslint@8.46.0)(nx@17.0.3(@swc-node/register@1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6))(@swc/core@1.3.107))
-      '@nx/eslint-plugin':
-        specifier: 17.0.3
-        version: 17.0.3(@babel/traverse@7.24.8)(@swc-node/register@1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6))(@swc/core@1.3.107)(@types/node@18.14.2)(@typescript-eslint/parser@5.62.0(eslint@8.46.0)(typescript@5.1.6))(eslint-config-prettier@9.1.0(eslint@8.46.0))(eslint@8.46.0)(nx@17.0.3(@swc-node/register@1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6))(@swc/core@1.3.107))(typescript@5.1.6)
-      '@pmmmwh/react-refresh-webpack-plugin':
-        specifier: ^0.5.11
-        version: 0.5.11(react-refresh@0.10.0)(type-fest@4.10.3)(webpack-dev-server@4.15.1(webpack@5.90.3(@swc/core@1.3.107)))(webpack@5.90.3(@swc/core@1.3.107))
-      '@svgr/webpack':
-        specifier: ^8.1.0
-        version: 8.1.0(typescript@5.1.6)
-      '@swc-node/register':
-        specifier: ~1.6.8
-        version: 1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6)
-      '@swc/cli':
-        specifier: ~0.1.65
-        version: 0.1.65(@swc/core@1.3.107)(chokidar@3.6.0)
-      '@swc/core':
-        specifier: ~1.3.107
-        version: 1.3.107
-      '@tanstack/eslint-plugin-query':
-        specifier: ^5.20.1
-        version: 5.20.1(eslint@8.46.0)(typescript@5.1.6)
-      '@tanstack/react-query-devtools':
-        specifier: ^5.24.1
-        version: 5.24.1(@tanstack/react-query@5.24.1(react@18.2.0))(react@18.2.0)
-      '@testing-library/react':
-        specifier: 14.0.0
-        version: 14.0.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@types/bcryptjs':
-        specifier: ^2.4.6
-        version: 2.4.6
-      '@types/compression':
-        specifier: ^1.7.5
-        version: 1.7.5
-      '@types/express':
-        specifier: ^4.17.21
-        version: 4.17.21
-      '@types/express-session':
-        specifier: ^1.18.0
-        version: 1.18.0
-      '@types/hpp':
-        specifier: ^0.2.6
-        version: 0.2.6
-      '@types/is-base64':
-        specifier: ^1.1.3
-        version: 1.1.3
-      '@types/lodash':
-        specifier: ^4.14.202
-        version: 4.14.202
-      '@types/passport':
-        specifier: ^1.0.16
-        version: 1.0.16
-      '@types/react':
-        specifier: 18.2.33
-        version: 18.2.33
-      '@types/react-dom':
-        specifier: 18.2.14
-        version: 18.2.14
-      '@types/react-modal':
-        specifier: ^3.16.3
-        version: 3.16.3
-      '@types/react-router-dom':
-        specifier: ^5.3.3
-        version: 5.3.3
-      '@types/react-stickynode':
-        specifier: ^4.0.3
-        version: 4.0.3
-      '@types/styled-components':
-        specifier: ^5.1.34
-        version: 5.1.34
-      '@types/styled-react-modal':
-        specifier: ^1.2.5
-        version: 1.2.5
-      '@types/supertest':
-        specifier: ^6.0.2
-        version: 6.0.2
-      '@types/uuid':
-        specifier: ^9.0.8
-        version: 9.0.8
-      '@typescript-eslint/eslint-plugin':
-        specifier: ^5.62.0
-        version: 5.62.0(@typescript-eslint/parser@5.62.0(eslint@8.46.0)(typescript@5.1.6))(eslint@8.46.0)(typescript@5.1.6)
-      '@typescript-eslint/parser':
-        specifier: ^5.62.0
-        version: 5.62.0(eslint@8.46.0)(typescript@5.1.6)
-      babel-jest:
-        specifier: ^29.7.0
-        version: 29.7.0(@babel/core@7.24.0)
       depcheck:
         specifier: ^1.4.7
         version: 1.4.7
