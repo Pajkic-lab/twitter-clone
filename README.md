@@ -2,6 +2,10 @@
 
 # App will be dockerized as sun as platform onRender starts supporting docker compose files
 
+# https://feedback.render.com/features/p/support-docker-compose
+
+<!--  -->
+
 SET DEV:
 
 - Create .env.development file in root dir, read the comment from .env.example
@@ -25,6 +29,3 @@ SET PROD:
 - to set prod run command pnpm run prod:set
 
 - to run prod run command pnpm run prod
-
-ENVs are not the same do to difference in platforms, onrender, github actions...
-this will be resolved when onRender starts supporting docker compose: https://feedback.render.com/features/p/support-docker-compose
