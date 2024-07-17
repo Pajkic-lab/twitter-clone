@@ -9,7 +9,7 @@
 
 - how to handle multiple env var files in nx?????
 
-    - neka od biblioteka is dev dep treba da se prebaci u dep, 
+    - render does not recognize port env it spins app on 10000 isted of 5000
 
     - create github servers inf for staging
 
