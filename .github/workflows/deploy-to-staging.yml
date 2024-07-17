@@ -32,6 +32,7 @@ jobs:
           echo "GOOGLE_CLIENT_SECRET=${{ env.GOOGLE_CLIENT_SECRET }}" >> .staging.env
           echo "SESSION_NAME=${{ env.SESSION_NAME }}" >> .staging.env
           echo "SESSION_SECRET=${{ env.SESSION_SECRET }}" >> .staging.env
+          chmod 644 .staging.env
       - name: Log .staging.env contents
         run: |
           cat .staging.env
