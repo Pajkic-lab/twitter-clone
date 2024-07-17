@@ -20,15 +20,6 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      # - name: Create .staging.env file
-      # run: |
-      # echo "#!/bin/bash" > create_env.sh
-      # echo "for var in \$(env); do" >> create_env.sh
-      # echo "  echo \"$var\" >> .staging.env" >> create_env.sh
-      # echo "done" >> create_env.sh
-      # chmod +x create_env.sh
-      # ./create_env.sh
-
       - name: Print custom environment variables
         run: |
           for var in "${{ env }}"; do
@@ -52,3 +43,12 @@ jobs:
       - run: pnpm run staging:set
 
       - run: pnpm run staging
+
+      # - name: Create .staging.env file
+      # run: |
+      # echo "#!/bin/bash" > create_env.sh
+      # echo "for var in \$(env); do" >> create_env.sh
+      # echo "  echo \"$var\" >> .staging.env" >> create_env.sh
+      # echo "done" >> create_env.sh
+      # chmod +x create_env.sh
+      # ./create_env.sh
