@@ -1,3 +1,4 @@
+# This file is pure BS, unfortunately it is temporary solution until app is dockerized.
 name: Deploy to Staging
 
 on:
@@ -43,5 +44,4 @@ jobs:
         run: pnpm run staging:set-remote
 
       - name: run e2e
-        run: pnpm run staging
-# chmod 600 .staging.env
+        run: pnpm run staging-remote
