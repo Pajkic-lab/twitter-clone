@@ -29,12 +29,15 @@ jobs:
       # chmod +x create_env.sh
       # ./create_env.sh
 
-      - name: Log environment variables
-        run: env
+      - name: Print custom environment variables
+        run: |
+          for var in "${{ env }}"; do
+            if [[ $var =~ ^[A-Z_][A-Z0-9_]* ]]; then
+              echo "** $var: ${{ env.$var }}"
+            fi
+          done
 
-      - name: Display .staging.env content
-        run: cat .staging.env
-
+      - name: Install pnpm
       - run: npm install -g pnpm
 
       - uses: actions/cache@v3
