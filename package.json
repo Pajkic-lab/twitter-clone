@@ -20,7 +20,8 @@
     "seed:user": "ts-node apps/server/src/modules/prisma/seeds/user.seed.ts",
     "sort-package-json": "sort-package-json",
     "staging": "node load-env.js staging && bash start-staging-postgres.sh && npx nx e2e server-e2e",
-    "staging:set": "node load-env.js staging && bash start-staging-postgres.sh && pnpm run app:set"
+    "staging:set-local": "node load-env.js staging && bash start-staging-postgres.sh && pnpm run app:set",
+    "staging:set-remote": "node load-env.js staging && pnpm run app:set"
   },
   "dependencies": {
     "@automapper/classes": "^8.8.1",

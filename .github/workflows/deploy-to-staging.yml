@@ -40,7 +40,7 @@ jobs:
         run: npm install -g pnpm
 
       - name: set staging
-        run: pnpm run staging:set
+        run: pnpm run staging:set-remote
 
       - name: run e2e
         run: pnpm run staging
