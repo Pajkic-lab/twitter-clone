@@ -1,0 +1,4 @@
+# Force LF for specific files
+*.sh text eol=lf
+# *.prisma text eol=lf
+# pnpm-lock.yaml text eol=lf

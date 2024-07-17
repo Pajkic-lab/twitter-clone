@@ -37,7 +37,6 @@
     "@nestjs/schedule": "^2.2.3",
     "@nestjs/serve-static": "^3.0.1",
     "@ngneat/falso": "^6.4.0",
-    "@nrwl/cli": "^15.9.3",
     "@nrwl/react": "^17.3.2",
     "@popperjs/core": "^2.11.8",
     "@prisma/client": "^5.10.2",

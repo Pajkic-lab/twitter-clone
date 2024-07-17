@@ -20,4 +20,3 @@
 
 - How to change code to accept SQL light when in staging env...
 
-
