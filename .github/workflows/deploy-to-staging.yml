@@ -15,17 +15,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Create and prepare .staging.env file
-        run: |
-          touch .staging.env
-          chmod 600 .staging.env
-
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: Insert environment variables into .staging.env
         run: |
+          touch .staging.env
+
           echo NODE_ENV=${{ secrets.NODE_ENV }} >> .staging.env
           echo NODE_VERSION=${{ secrets.NODE_VERSION }} >> .staging.env
           echo PORT=${{ secrets.PORT }} >> .staging.env
@@ -42,5 +39,10 @@ jobs:
 
       - name: Install pnpm
         run: npm install -g pnpm
+
+      - name: set staging
       - run: pnpm run staging:set
+
+      - name: run e2e
       - run: pnpm run staging
+# chmod 600 .staging.env
