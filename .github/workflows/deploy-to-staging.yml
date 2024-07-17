@@ -12,14 +12,11 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NODE_VERSION: ${{ secrets.NODE_VERSION }}
-
     steps:
       - uses: actions/checkout@v3
-
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
-
       - name: Print custom environment variables
         run: |
           for var in "${{ env }}"; do
@@ -27,21 +24,16 @@ jobs:
               echo "** $var: ${{ env.$var }}"
             fi
           done
-
       - name: Install pnpm
-      - run: npm install -g pnpm
-
+        run: npm install -g pnpm
       - uses: actions/cache@v3
         with:
           path: ~/.pnpm
           key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-
-
       - run: pnpm install
-
       - run: pnpm run staging:set
-
       - run: pnpm run staging
 
       # - name: Create .staging.env file
