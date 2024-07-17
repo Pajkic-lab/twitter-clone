@@ -41,8 +41,8 @@ jobs:
         run: npm install -g pnpm
 
       - name: set staging
-      - run: pnpm run staging:set
+        run: pnpm run staging:set
 
       - name: run e2e
-      - run: pnpm run staging
+        run: pnpm run staging
 # chmod 600 .staging.env
