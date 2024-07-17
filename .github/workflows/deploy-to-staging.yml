@@ -40,21 +40,7 @@ jobs:
           echo SESSION_NAME=${{ secrets.SESSION_NAME }} >> .staging.env
           echo SESSION_SECRET=${{ secrets.SESSION_SECRET }} >> .staging.env
 
-      - name: Log .staging.env contents
-        run: |
-          cat .staging.env
-
       - name: Install pnpm
         run: npm install -g pnpm
-
-      - uses: actions/cache@v3
-        with:
-          path: ~/.pnpm
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-
-
-      - run: pnpm install
       - run: pnpm run staging:set
       - run: pnpm run staging
-#  echo API_KEY=${{ secrets.API_KEY }} >> .env
