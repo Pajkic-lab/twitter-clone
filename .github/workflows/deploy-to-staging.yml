@@ -26,19 +26,19 @@ jobs:
 
       - name: Insert environment variables into .staging.env
         run: |
-          echo NODE_ENV=${{ env.NODE_ENV }} >> .staging.env
-          echo NODE_VERSION=${{ env.NODE_VERSION }} >> .staging.env
-          echo PORT=${{ env.PORT }} >> .staging.env
-          echo BASE_URL_CLIENT=${{ env.BASE_URL_CLIENT }} >> .staging.env
-          echo BASE_URL_SERVER=${{ env.BASE_URL_SERVER }} >> .staging.env
-          echo CLOUDINARY_API_KEY=${{ env.CLOUDINARY_API_KEY }} >> .staging.env
-          echo CLOUDINARY_API_SECRET=${{ env.CLOUDINARY_API_SECRET }} >> .staging.env
-          echo CLOUDINARY_CLOUD_NAME=${{ env.CLOUDINARY_CLOUD_NAME }} >> .staging.env
-          echo DATABASE_URL_PG=${{ env.DATABASE_URL_PG }} >> .staging.env
-          echo GOOGLE_CLIENT_ID=${{ env.GOOGLE_CLIENT_ID }} >> .staging.env
-          echo GOOGLE_CLIENT_SECRET=${{ env.GOOGLE_CLIENT_SECRET }} >> .staging.env
-          echo SESSION_NAME=${{ env.SESSION_NAME }} >> .staging.env
-          echo SESSION_SECRET=${{ env.SESSION_SECRET }} >> .staging.env
+          echo NODE_ENV=${{ secrets.NODE_ENV }} >> .staging.env
+          echo NODE_VERSION=${{ secrets.NODE_VERSION }} >> .staging.env
+          echo PORT=${{ secrets.PORT }} >> .staging.env
+          echo BASE_URL_CLIENT=${{ secrets.BASE_URL_CLIENT }} >> .staging.env
+          echo BASE_URL_SERVER=${{ secrets.BASE_URL_SERVER }} >> .staging.env
+          echo CLOUDINARY_API_KEY=${{ secrets.CLOUDINARY_API_KEY }} >> .staging.env
+          echo CLOUDINARY_API_SECRET=${{ secrets.CLOUDINARY_API_SECRET }} >> .staging.env
+          echo CLOUDINARY_CLOUD_NAME=${{ secrets.CLOUDINARY_CLOUD_NAME }} >> .staging.env
+          echo DATABASE_URL_PG=${{ secrets.DATABASE_URL_PG }} >> .staging.env
+          echo GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }} >> .staging.env
+          echo GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }} >> .staging.env
+          echo SESSION_NAME=${{ secrets.SESSION_NAME }} >> .staging.env
+          echo SESSION_SECRET=${{ secrets.SESSION_SECRET }} >> .staging.env
 
       - name: Log .staging.env contents
         run: |
