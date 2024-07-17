@@ -19,9 +19,10 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
       - name: Print custom environment variables
         run: |
-          for var in "${{ env }}"; do
-            if [[ $var =~ ^[A-Z_][A-Z0-9_]* ]]; then
-              echo "** $var: ${{ env.$var }}"
+          #!/bin/bash
+          for var in "${!env}"; do
+            if [[ "$var" =~ ^[A-Z_][A-Z0-9_]* ]]; then
+              echo "** $var: ${!var}"
             fi
           done
       - name: Install pnpm
