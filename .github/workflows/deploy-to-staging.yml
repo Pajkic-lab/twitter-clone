@@ -14,10 +14,17 @@ jobs:
       NODE_VERSION: ${{ secrets.NODE_VERSION }}
     steps:
       - uses: actions/checkout@v3
+
+      - name: Create and prepare .staging.env file
+        run: |
+          touch .staging.env
+          chmod 600 .staging.env
+
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
-      - name: create .staging.env file
+
+      - name: Insert environment variables into .staging.env
         run: |
           echo "NODE_ENV=${{ env.NODE_ENV }}" >> .staging.env
           echo "NODE_VERSION=${{ env.NODE_VERSION }}" >> .staging.env
@@ -32,18 +39,21 @@ jobs:
           echo "GOOGLE_CLIENT_SECRET=${{ env.GOOGLE_CLIENT_SECRET }}" >> .staging.env
           echo "SESSION_NAME=${{ env.SESSION_NAME }}" >> .staging.env
           echo "SESSION_SECRET=${{ env.SESSION_SECRET }}" >> .staging.env
-          chmod 644 .staging.env
+
       - name: Log .staging.env contents
         run: |
           cat .staging.env
+
       - name: Install pnpm
         run: npm install -g pnpm
+
       - uses: actions/cache@v3
         with:
           path: ~/.pnpm
           key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-
+
       - run: pnpm install
       - run: pnpm run staging:set
       - run: pnpm run staging
