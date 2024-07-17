@@ -19,23 +19,22 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - name: Insert environment variables into .staging.env
+      - name: Insert environment variables into .env.staging
         run: |
-          touch .staging.env
-
-          echo NODE_ENV=${{ secrets.NODE_ENV }} >> .staging.env
-          echo NODE_VERSION=${{ secrets.NODE_VERSION }} >> .staging.env
-          echo PORT=${{ secrets.PORT }} >> .staging.env
-          echo BASE_URL_CLIENT=${{ secrets.BASE_URL_CLIENT }} >> .staging.env
-          echo BASE_URL_SERVER=${{ secrets.BASE_URL_SERVER }} >> .staging.env
-          echo CLOUDINARY_API_KEY=${{ secrets.CLOUDINARY_API_KEY }} >> .staging.env
-          echo CLOUDINARY_API_SECRET=${{ secrets.CLOUDINARY_API_SECRET }} >> .staging.env
-          echo CLOUDINARY_CLOUD_NAME=${{ secrets.CLOUDINARY_CLOUD_NAME }} >> .staging.env
-          echo DATABASE_URL_PG=${{ secrets.DATABASE_URL_PG }} >> .staging.env
-          echo GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }} >> .staging.env
-          echo GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }} >> .staging.env
-          echo SESSION_NAME=${{ secrets.SESSION_NAME }} >> .staging.env
-          echo SESSION_SECRET=${{ secrets.SESSION_SECRET }} >> .staging.env
+          touch .env.staging
+          echo NODE_ENV=${{ secrets.NODE_ENV }} >> .env.staging
+          echo NODE_VERSION=${{ secrets.NODE_VERSION }} >> .env.staging
+          echo PORT=${{ secrets.PORT }} >> .env.staging
+          echo BASE_URL_CLIENT=${{ secrets.BASE_URL_CLIENT }} >> .env.staging
+          echo BASE_URL_SERVER=${{ secrets.BASE_URL_SERVER }} >> .env.staging
+          echo CLOUDINARY_API_KEY=${{ secrets.CLOUDINARY_API_KEY }} >> .env.staging
+          echo CLOUDINARY_API_SECRET=${{ secrets.CLOUDINARY_API_SECRET }} >> .env.staging
+          echo CLOUDINARY_CLOUD_NAME=${{ secrets.CLOUDINARY_CLOUD_NAME }} >> .env.staging
+          echo DATABASE_URL_PG=${{ secrets.DATABASE_URL_PG }} >> .env.staging
+          echo GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }} >> .env.staging
+          echo GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }} >> .env.staging
+          echo SESSION_NAME=${{ secrets.SESSION_NAME }} >> .env.staging
+          echo SESSION_SECRET=${{ secrets.SESSION_SECRET }} >> .env.staging
 
       - name: Install pnpm
         run: npm install -g pnpm
