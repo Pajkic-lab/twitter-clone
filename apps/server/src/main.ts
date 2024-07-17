@@ -82,12 +82,6 @@ function enableCompression(app: INestApplication) {
 
   const port = app.get(ConfigurationService).port;
 
-  // delete following, what is staging env returning???
-  console.log(
-    `Loaded environment: ${app.get(ConfigurationService).nodeEnvironment}`
-  );
-  //
-
   enableCors(app);
   setupSizeLimit(app);
   setupEncode(app);
@@ -98,5 +92,9 @@ function enableCompression(app: INestApplication) {
   enableGlobalPipes(app);
 
   await app.listen(port);
-  console.log(`Application is running on: ${await app.getUrl()} 🚀🚀🚀`);
+  console.log(
+    `Loaded environment: ${
+      app.get(ConfigurationService).nodeEnvironment
+    } 🚀🚀🚀 Application is running on: ${await app.getUrl()} 🚀🚀🚀`
+  );
 })();
