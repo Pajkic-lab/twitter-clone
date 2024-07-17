@@ -50,6 +50,24 @@ importers:
       '@nrwl/react':
         specifier: ^17.3.2
         version: 17.3.2(@babel/traverse@7.24.8)(@swc-node/register@1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6))(@swc/core@1.3.107)(@types/node@18.14.2)(js-yaml@4.1.0)(nx@17.0.3(@swc-node/register@1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6))(@swc/core@1.3.107))(typescript@5.1.6)(webpack@5.90.3(@swc/core@1.3.107))
+      '@nx/jest':
+        specifier: 17.0.3
+        version: 17.0.3(@babel/traverse@7.24.8)(@swc-node/register@1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6))(@swc/core@1.3.107)(@types/node@18.14.2)(nx@17.0.3(@swc-node/register@1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6))(@swc/core@1.3.107))(ts-node@10.9.1(@swc/core@1.3.107)(@types/node@18.14.2)(typescript@5.1.6))(typescript@5.1.6)
+      '@nx/js':
+        specifier: 17.0.3
+        version: 17.0.3(@babel/traverse@7.24.8)(@swc-node/register@1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6))(@swc/core@1.3.107)(@types/node@18.14.2)(nx@17.0.3(@swc-node/register@1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6))(@swc/core@1.3.107))(typescript@5.1.6)
+      '@nx/nest':
+        specifier: 17.0.3
+        version: 17.0.3(@babel/traverse@7.24.8)(@swc-node/register@1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6))(@swc/core@1.3.107)(@types/node@18.14.2)(chokidar@3.6.0)(eslint@8.46.0)(nx@17.0.3(@swc-node/register@1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6))(@swc/core@1.3.107))(ts-node@10.9.1(@swc/core@1.3.107)(@types/node@18.14.2)(typescript@5.1.6))(typescript@5.1.6)
+      '@nx/node':
+        specifier: 17.0.3
+        version: 17.0.3(@babel/traverse@7.24.8)(@swc-node/register@1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6))(@swc/core@1.3.107)(@types/node@18.14.2)(eslint@8.46.0)(nx@17.0.3(@swc-node/register@1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6))(@swc/core@1.3.107))(ts-node@10.9.1(@swc/core@1.3.107)(@types/node@18.14.2)(typescript@5.1.6))(typescript@5.1.6)
+      '@nx/react':
+        specifier: 17.0.3
+        version: 17.0.3(@babel/traverse@7.24.8)(@swc-node/register@1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6))(@swc/core@1.3.107)(@types/node@18.14.2)(eslint@8.46.0)(nx@17.0.3(@swc-node/register@1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6))(@swc/core@1.3.107))(typescript@5.1.6)(webpack@5.90.3(@swc/core@1.3.107))
+      '@nx/webpack':
+        specifier: 17.0.3
+        version: 17.0.3(@babel/traverse@7.24.8)(@swc-node/register@1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6))(@swc/core@1.3.107)(@types/node@18.14.2)(nx@17.0.3(@swc-node/register@1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6))(@swc/core@1.3.107))(typescript@5.1.6)
       '@nx/workspace':
         specifier: 17.0.3
         version: 17.0.3(@swc-node/register@1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6))(@swc/core@1.3.107)
@@ -249,24 +267,6 @@ importers:
       '@nx/eslint-plugin':
         specifier: 17.0.3
         version: 17.0.3(@babel/traverse@7.24.8)(@swc-node/register@1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6))(@swc/core@1.3.107)(@types/node@18.14.2)(@typescript-eslint/parser@5.62.0(eslint@8.46.0)(typescript@5.1.6))(eslint-config-prettier@9.1.0(eslint@8.46.0))(eslint@8.46.0)(nx@17.0.3(@swc-node/register@1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6))(@swc/core@1.3.107))(typescript@5.1.6)
-      '@nx/jest':
-        specifier: 17.0.3
-        version: 17.0.3(@babel/traverse@7.24.8)(@swc-node/register@1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6))(@swc/core@1.3.107)(@types/node@18.14.2)(nx@17.0.3(@swc-node/register@1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6))(@swc/core@1.3.107))(ts-node@10.9.1(@swc/core@1.3.107)(@types/node@18.14.2)(typescript@5.1.6))(typescript@5.1.6)
-      '@nx/js':
-        specifier: 17.0.3
-        version: 17.0.3(@babel/traverse@7.24.8)(@swc-node/register@1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6))(@swc/core@1.3.107)(@types/node@18.14.2)(nx@17.0.3(@swc-node/register@1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6))(@swc/core@1.3.107))(typescript@5.1.6)
-      '@nx/nest':
-        specifier: 17.0.3
-        version: 17.0.3(@babel/traverse@7.24.8)(@swc-node/register@1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6))(@swc/core@1.3.107)(@types/node@18.14.2)(chokidar@3.6.0)(eslint@8.46.0)(nx@17.0.3(@swc-node/register@1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6))(@swc/core@1.3.107))(ts-node@10.9.1(@swc/core@1.3.107)(@types/node@18.14.2)(typescript@5.1.6))(typescript@5.1.6)
-      '@nx/node':
-        specifier: 17.0.3
-        version: 17.0.3(@babel/traverse@7.24.8)(@swc-node/register@1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6))(@swc/core@1.3.107)(@types/node@18.14.2)(eslint@8.46.0)(nx@17.0.3(@swc-node/register@1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6))(@swc/core@1.3.107))(ts-node@10.9.1(@swc/core@1.3.107)(@types/node@18.14.2)(typescript@5.1.6))(typescript@5.1.6)
-      '@nx/react':
-        specifier: 17.0.3
-        version: 17.0.3(@babel/traverse@7.24.8)(@swc-node/register@1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6))(@swc/core@1.3.107)(@types/node@18.14.2)(eslint@8.46.0)(nx@17.0.3(@swc-node/register@1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6))(@swc/core@1.3.107))(typescript@5.1.6)(webpack@5.90.3(@swc/core@1.3.107))
-      '@nx/webpack':
-        specifier: 17.0.3
-        version: 17.0.3(@babel/traverse@7.24.8)(@swc-node/register@1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6))(@swc/core@1.3.107)(@types/node@18.14.2)(nx@17.0.3(@swc-node/register@1.6.8(@swc/core@1.3.107)(@swc/types@0.1.5)(typescript@5.1.6))(@swc/core@1.3.107))(typescript@5.1.6)
       '@pmmmwh/react-refresh-webpack-plugin':
         specifier: ^0.5.11
         version: 0.5.11(react-refresh@0.10.0)(type-fest@4.10.3)(webpack-dev-server@4.15.1(webpack@5.90.3(@swc/core@1.3.107)))(webpack@5.90.3(@swc/core@1.3.107))
