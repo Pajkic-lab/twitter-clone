@@ -1,3 +1,5 @@
+command to create module: npx nx g @nrwl/nest:module apps/server/src/modules/name-of-dir-that-will-store-module-file/name-of-module 
+
 - Button outside of form component
 solution source: https://github.com/react-hook-form/react-hook-form/issues/566#issuecomment-675515940
 

@@ -2,6 +2,10 @@
 
 # App will be dockerized as sun as platform onRender starts supporting docker compose files
 
+# https://feedback.render.com/features/p/support-docker-compose
+
+<!--  -->
+
 SET DEV:
 
 - Create .env.development file in root dir, read the comment from .env.example
@@ -14,7 +18,7 @@ SET STAGING:
 
 - Create .env.staging file in root dir, read the comment from .env.example
 
-- to set staging run command pnpm run staging:set
+- to set staging run command pnpm run staging:set-local for local and staging:set-remote for actions
 
 - to run staging run command pnpm run staging
 

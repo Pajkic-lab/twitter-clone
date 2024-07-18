@@ -9,6 +9,7 @@ import { CloudinaryModule } from './modules/cloudinary/cloudinary.module';
 import { ConfigurationModule } from './modules/configuration/configuration.module';
 import { ContractTestModule } from './modules/contract-test/contract-test.module';
 import { CronJobModule } from './modules/cron-job/cron-job.module';
+import { HealthModule } from './modules/health/health.module';
 import { HelperModule } from './modules/helper/helper.module';
 import { HttpModule } from './modules/http/http.module';
 import { PrismaModule } from './modules/prisma/prisma.module';
@@ -39,6 +40,7 @@ const applicationModules = [
   CloudinaryModule,
   UtileModule,
   ContractTestModule,
+  HealthModule,
 ];
 
 @Module({
