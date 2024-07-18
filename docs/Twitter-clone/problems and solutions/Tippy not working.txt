@@ -1,0 +1,1 @@
+- Tipy component has to wrap div element can not wrap other component
