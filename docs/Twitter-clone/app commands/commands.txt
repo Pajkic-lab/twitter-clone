@@ -1,0 +1,5 @@
+command to create module: 
+    npx nx g @nrwl/nest:module apps/server/src/modules/name-of-dir-that-will-store-module-file/name-of-module 
+
+reset nx:
+    npx nx reset
