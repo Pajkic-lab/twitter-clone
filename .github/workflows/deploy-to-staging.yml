@@ -4,7 +4,7 @@ name: Deploy to Staging
 
 on:
   push:
-    branches: [testovi]
+    branches: [dev]
 
 env:
   STAGING_ENV: staging
@@ -63,49 +63,3 @@ jobs:
 
       - name: run e2e
         run: pnpm run staging-remote
-# name: Deploy to Staging
-
-# on:
-#   push:
-#     branches: [testovi]
-
-# env:
-#   STAGING_ENV: staging
-
-# jobs:
-#   deploy:
-#     runs-on: ubuntu-latest
-#     env:
-#       NODE_VERSION: ${{ secrets.NODE_VERSION }}
-#     steps:
-#       - uses: actions/checkout@v3
-
-#       - uses: actions/setup-node@v3
-#         with:
-#           node-version: ${{ env.NODE_VERSION }}
-
-#       - name: Insert environment variables into .env.staging
-#         run: |
-#           touch .env.staging
-#           echo NODE_ENV=${{ secrets.NODE_ENV }} >> .env.staging
-#           echo NODE_VERSION=${{ secrets.NODE_VERSION }} >> .env.staging
-#           echo PORT=${{ secrets.PORT }} >> .env.staging
-#           echo BASE_URL_CLIENT=${{ secrets.BASE_URL_CLIENT }} >> .env.staging
-#           echo BASE_URL_SERVER=${{ secrets.BASE_URL_SERVER }} >> .env.staging
-#           echo CLOUDINARY_API_KEY=${{ secrets.CLOUDINARY_API_KEY }} >> .env.staging
-#           echo CLOUDINARY_API_SECRET=${{ secrets.CLOUDINARY_API_SECRET }} >> .env.staging
-#           echo CLOUDINARY_CLOUD_NAME=${{ secrets.CLOUDINARY_CLOUD_NAME }} >> .env.staging
-#           echo DATABASE_URL_PG=${{ secrets.DATABASE_URL_PG }} >> .env.staging
-#           echo GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }} >> .env.staging
-#           echo GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }} >> .env.staging
-#           echo SESSION_NAME=${{ secrets.SESSION_NAME }} >> .env.staging
-#           echo SESSION_SECRET=${{ secrets.SESSION_SECRET }} >> .env.staging
-
-#       - name: Install pnpm
-#         run: npm install -g pnpm
-
-#       - name: set staging
-#         run: pnpm run staging:set-remote
-
-#       - name: run e2e
-#         run: pnpm run staging-remote
