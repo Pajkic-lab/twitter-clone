@@ -1,15 +1,9 @@
-import {
-  randEmail,
-  randFullName,
-  randImg,
-  randPassword,
-  randUuid,
-} from '@ngneat/falso';
+import { randEmail, randFullName, randPassword, randUuid } from '@ngneat/falso';
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-async function seed() {
+export async function seed() {
   const users = [];
 
   for (let i = 0; i < 50; i++) {

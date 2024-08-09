@@ -3,6 +3,7 @@ import 'reflect-metadata';
 import { INestApplication } from '@nestjs/common';
 import { ValidationPipe } from '@nestjs/common/pipes';
 import { NestFactory } from '@nestjs/core';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { PrismaClient } from '@prisma/client';
 import { PrismaSessionStore } from '@quixo3/prisma-session-store';
 import compression from 'compression';
@@ -13,9 +14,26 @@ import { AppModule } from './app.module';
 import { ConfigurationService } from './modules/configuration/configuration.service';
 import { CorsService } from './modules/http/cors.service';
 
-const LIMIT = '50mb';
-const MAX_AGE = 2147483647;
-const CHECK_PERIOD = 2 * 60 * 1000;
+const FILE_SIZE_LIMIT = '50mb';
+const SESSION_MAX_AGE = 2147483647;
+const SESSION_CHECK_PERIOD = 2 * 60 * 1000;
+const SWAGGER_TITLE = 'API Documentation';
+const SWAGGER_DESCRIPTION = 'API Documentation';
+const SWAGGER_VERSION = '1.0';
+const SWAGGER_TAG = 'api';
+const SWAGGER_PATH = 'docs';
+
+async function generateDocumentation(app: INestApplication) {
+  const options = new DocumentBuilder()
+    .setTitle(SWAGGER_TITLE)
+    .setDescription(SWAGGER_DESCRIPTION)
+    .setVersion(SWAGGER_VERSION)
+    // .addBearerAuth()
+    .addTag(SWAGGER_TAG)
+    .build();
+  const document = SwaggerModule.createDocument(app, options);
+  SwaggerModule.setup(SWAGGER_PATH, app, document);
+}
 
 function setupSession(app: INestApplication) {
   const sessionName = app.get(ConfigurationService).sessionName;
@@ -28,11 +46,11 @@ function setupSession(app: INestApplication) {
       saveUninitialized: false,
       resave: false,
       cookie: {
-        maxAge: MAX_AGE,
+        maxAge: SESSION_MAX_AGE,
         httpOnly: false,
       },
       store: new PrismaSessionStore(new PrismaClient(), {
-        checkPeriod: CHECK_PERIOD,
+        checkPeriod: SESSION_CHECK_PERIOD,
         dbRecordIdIsSessionId: true,
         dbRecordIdFunction: undefined,
       }),
@@ -58,11 +76,11 @@ function enableGlobalPipes(app: INestApplication) {
 }
 
 function setupSizeLimit(app: INestApplication) {
-  app.use(json({ limit: LIMIT }));
+  app.use(json({ limit: FILE_SIZE_LIMIT }));
 }
 
 function setupEncode(app: INestApplication) {
-  app.use(urlencoded({ extended: true, limit: LIMIT }));
+  app.use(urlencoded({ extended: true, limit: FILE_SIZE_LIMIT }));
 }
 
 function enablePassport(app: INestApplication) {
@@ -90,6 +108,7 @@ function enableCompression(app: INestApplication) {
   enablePassportSession(app);
   enableCompression(app);
   enableGlobalPipes(app);
+  generateDocumentation(app);
 
   await app.listen(port);
   console.log(
