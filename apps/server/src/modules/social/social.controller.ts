@@ -114,7 +114,7 @@ export class SocialController {
     @Param('userId') userId: number,
     @Param('offset') offset: number,
     @Param('limit') limit: number,
-    @Req() request: RequestContainingUserId //
+    @Req() request: RequestContainingUserId
   ): Promise<HttpResponse<FollowingListResponseDto[]>> {
     return this.socialService.handlePublicProfileFollowing(
       request.user.id,
@@ -123,5 +123,4 @@ export class SocialController {
       limit
     );
   }
-  //
 }
