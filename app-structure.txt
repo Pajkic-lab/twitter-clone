@@ -1,0 +1,242 @@
+├── app-structure.js
+├── apps
+│   ├── client
+│   │   ├── src
+│   │   │   ├── fonts
+│   │   │   ├── GlobalStyle.ts
+│   │   │   ├── pages
+│   │   │   │   ├── profile
+│   │   │   │   ├── public-profile
+│   │   │   ├── react-app-env.ts
+│   │   │   ├── router
+│   │   │   │   ├── accessRole.type.ts
+│   │   │   │   └── pages.ts
+│   │   │   ├── setupTests.ts
+│   │   │   └── types
+│   │   │       ├── index.ts
+│   │   │       └── user.ts
+│   │   └── webpack.config.js
+│   ├── server
+│   │   ├── src
+│   │   │   ├── app.module.ts
+│   │   │   ├── assets
+│   │   │   ├── common
+│   │   │   │   ├── decorators
+│   │   │   │   │   └── inject-mapper.decorator.ts
+│   │   │   │   ├── guards
+│   │   │   │   │   ├── is-auth.guard.ts
+│   │   │   │   │   └── is-guest.guard.ts
+│   │   │   │   └── http
+│   │   │   │       └── create-response.ts
+│   │   │   ├── main.ts
+│   │   │   └── modules
+│   │   │       ├── auth
+│   │   │       │   ├── apple-strategy
+│   │   │       │   │   ├── apple-auth.guard.ts
+│   │   │       │   │   └── apple-strategy.ts
+│   │   │       │   ├── auth.controller.ts
+│   │   │       │   ├── auth.module.ts
+│   │   │       │   ├── auth.profile.ts
+│   │   │       │   ├── auth.repository.ts
+│   │   │       │   ├── auth.service.ts
+│   │   │       │   ├── google-strategy
+│   │   │       │   │   ├── google-auth.guard.ts
+│   │   │       │   │   └── google-strategy.ts
+│   │   │       │   ├── local-strategy
+│   │   │       │   │   ├── dto-validation.ts
+│   │   │       │   │   ├── local-auth.guard.ts
+│   │   │       │   │   └── local-strategy.ts
+│   │   │       │   └── serializer.ts
+│   │   │       ├── automapper
+│   │   │       │   └── automapper.module.ts
+│   │   │       ├── cloudinary
+│   │   │       │   ├── cloudinary-base.service.ts
+│   │   │       │   ├── cloudinary.module.ts
+│   │   │       │   └── cloudinary.service.ts
+│   │   │       ├── configuration
+│   │   │       │   ├── configuration.module.ts
+│   │   │       │   ├── configuration.service.ts
+│   │   │       │   └── confTypes.ts
+│   │   │       ├── contract-test
+│   │   │       │   ├── contract-test.controller.ts
+│   │   │       │   └── contract-test.module.ts
+│   │   │       ├── cron-job
+│   │   │       │   ├── cron-job.module.ts
+│   │   │       │   └── cron-job.service.ts
+│   │   │       ├── health
+│   │   │       │   ├── health.contorler.ts
+│   │   │       │   └── health.module.ts
+│   │   │       ├── helper
+│   │   │       │   ├── helper.module.ts
+│   │   │       │   └── helper.service.ts
+│   │   │       ├── http
+│   │   │       │   ├── cors.service.ts
+│   │   │       │   ├── http.module.ts
+│   │   │       │   └── http.service.ts
+│   │   │       ├── prisma
+│   │   │       │   ├── migrations
+│   │   │       │   │   ├── 20231102085021_init
+│   │   │       │   ├── prisma.module.ts
+│   │   │       │   ├── prisma.service.ts
+│   │   │       │   └── seeds
+│   │   │       │       └── user.seed.ts
+│   │   │       ├── social
+│   │   │       │   ├── social.controller.ts
+│   │   │       │   ├── social.module.ts
+│   │   │       │   ├── social.profile.ts
+│   │   │       │   ├── social.repository.ts
+│   │   │       │   └── social.service.ts
+│   │   │       ├── user
+│   │   │       │   ├── user.controller.ts
+│   │   │       │   ├── user.module.ts
+│   │   │       │   ├── user.profile.ts
+│   │   │       │   ├── user.repository.ts
+│   │   │       │   └── user.service.ts
+│   │   │       └── utile
+│   │   │           ├── utile.controller.ts
+│   │   │           ├── utile.module.ts
+│   │   │           ├── utile.profile.ts
+│   │   │           ├── utile.repository.ts
+│   │   │           └── utile.service.ts
+│   │   └── webpack.config.js
+│   └── server-e2e
+│       ├── src
+│       │   ├── server
+│       │   │   └── server.spec.ts
+│       │   └── support
+│       │       ├── global-setup.ts
+│       │       ├── global-teardown.ts
+│       │       └── test-setup.ts
+├── libs
+│   ├── contract
+│   │   ├── src
+│   │   │   ├── index.ts
+│   │   │   └── lib
+│   │   │       └── contract.ts
+│   ├── data
+│   │   ├── src
+│   │   │   ├── index.ts
+│   │   │   └── lib
+│   │   │       ├── auth
+│   │   │       │   ├── index.ts
+│   │   │       │   ├── request
+│   │   │       │   │   ├── sign-in-email.req.dto.ts
+│   │   │       │   │   └── sign-up-email.req.dto.ts
+│   │   │       │   └── response
+│   │   │       │       ├── authentication.res.dto.ts
+│   │   │       │       ├── sign-in-email.res.dto.ts
+│   │   │       │       └── sign-up-email.res.dto.ts
+│   │   │       ├── data.module.ts
+│   │   │       ├── http
+│   │   │       │   ├── http-response.type.ts
+│   │   │       │   └── index.ts
+│   │   │       ├── social
+│   │   │       │   ├── ConnectUser.ts
+│   │   │       │   ├── index.ts
+│   │   │       │   ├── request
+│   │   │       │   │   ├── follow-user.req.dto.ts
+│   │   │       │   │   ├── follower-list.req.dto.ts
+│   │   │       │   │   ├── following-list.req.dto.ts
+│   │   │       │   │   ├── public-profile-follower-list.req.dto.ts
+│   │   │       │   │   ├── public-profile-following-list.req.dto.ts
+│   │   │       │   │   └── un-follow-user.req.dto.ts
+│   │   │       │   └── response
+│   │   │       │       ├── follow-user.res.dto.ts
+│   │   │       │       ├── follower-list.res.dto.ts
+│   │   │       │       ├── following-list.res.dto.ts
+│   │   │       │       └── un-follow-user.res.dto.ts
+│   │   │       └── user
+│   │   │           ├── index.ts
+│   │   │           ├── request
+│   │   │           │   ├── name-uniqueness.req.dto.ts
+│   │   │           │   ├── search-user.req.dto.ts
+│   │   │           │   └── update-user.req.dto.ts
+│   │   │           ├── response
+│   │   │           │   ├── most-popular-users.res.dto.ts
+│   │   │           │   ├── name-unique-update.res.dto.ts
+│   │   │           │   ├── name-uniqueness.res.dto.ts
+│   │   │           │   ├── public-user.res.dto.ts
+│   │   │           │   ├── search-users.res.dto.ts
+│   │   │           │   ├── social-stats.res.dto.ts
+│   │   │           │   ├── update-user.res.dto.ts
+│   │   │           │   └── user.res.dto.ts
+│   │   │           └── user.type.ts
+│   └── ui
+│       ├── assets
+│       │   ├── src
+│       │   │   ├── index.ts
+│       │   │   └── lib
+│       │   │       ├── img
+│       │   │       │   ├── index.ts
+│       │   │       ├── styles
+│       │   │       │   └── index.ts
+│       │   │       └── svg
+│       │   │           ├── index.ts
+│       ├── common
+│       │   ├── src
+│       │   │   ├── index.ts
+│       │   │   └── lib
+│       │   │       ├── breakpoints.ts
+│       │   │       ├── class-validator-error-parser.ts
+│       │   │       ├── invalidationData
+│       │   │       │   ├── invalidationData.type.ts
+│       │   │       │   ├── invDataEmpty.ts
+│       │   │       │   ├── invHomePage
+│       │   │       │   │   └── invHomePage.ts
+│       │   │       │   ├── invProfileFollowingPage
+│       │   │       │   │   └── invProfileFollowingPage.ts
+│       │   │       │   ├── invProfilePage
+│       │   │       │   │   └── invProfilePage.ts
+│       │   │       │   ├── invPublicProfileFollowersPage
+│       │   │       │   │   └── invPublicProfileFollowersPage.ts
+│       │   │       │   ├── invPublicProfileFollowingPage
+│       │   │       │   │   └── invPublicProfileFollowingPage.ts
+│       │   │       │   ├── invPublicProfilePage
+│       │   │       │   │   └── invPublicProfilePage.ts
+│       │   │       │   └── profileFollowersPage
+│       │   │       │       └── invProfileFollowersPage.ts
+│       │   │       └── links.ts
+│       ├── components
+│       │   ├── src
+│       │   │   ├── index.ts
+│       │   │   └── lib
+│       │   │       ├── atoms
+│       │   │       ├── molecules
+│       │   │       │   ├── make-form-component-props.type.ts
+│       │   │       ├── organisms
+│       │   │       │   ├── footer
+│       │   │       │   │   ├── footer-landing-page-data.ts
+│       │   │       │   ├── profile
+│       │   │       │   │   ├── components
+│       │   │       │   ├── sidebar
+│       │   │       │   │   ├── sidebar-data.ts
+│       │   │       └── templates
+│       └── data-access
+│           ├── src
+│           │   ├── index.ts
+│           │   └── lib
+│           │       ├── hooks
+│           │       │   ├── auth
+│           │       │   │   └── index.ts
+│           │       │   ├── core.ts
+│           │       │   ├── index.ts
+│           │       │   ├── public-profile
+│           │       │   │   └── index.ts
+│           │       │   ├── public-profile-social
+│           │       │   │   └── index.ts
+│           │       │   ├── resetQuery.ts
+│           │       │   ├── social
+│           │       │   │   └── index.ts
+│           │       │   └── user
+│           │       │       └── index.ts
+│           │       ├── http
+│           │       │   ├── api.ts
+│           │       │   └── client.ts
+│           │       └── state
+│           │           ├── index.ts
+│           │           ├── mediabar-state.ts
+│           │           ├── routes-state.ts
+│           │           ├── sidebar-state.ts
+│           │           ├── state-utils.ts
+│           │           └── user-state.ts
+├── load-env.js
