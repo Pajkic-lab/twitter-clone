@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="libs/ui/assets/src/lib/svg/twitterLogo.svg" alt="logo" style="display: block; margin: auto; width: 60px; filter: brightness(0) saturate(100%) invert(25%) sepia(100%) saturate(1000%) hue-rotate(190deg) brightness(105%);">
+    <img src="libs/ui/assets/src/lib/img/twitter-logo-png.png" alt="logo" style="width: 60px;">
     <p style="font-size: 34px;">Twitter clone</p>
     <hr/>
     <p style="font-size: 24px;">Purpose: sharing Knowledge!</p>
