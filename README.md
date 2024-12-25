@@ -1,9 +1,8 @@
 <div align="center">
     <img src="libs/ui/assets/src/lib/img/twitter-logo-png.png" alt="logo" style="width: 60px;">
-    <p style="font-size: 34px;">Twitter clone</p>
-    <hr/>
-    <p style="font-size: 24px;">Purpose: sharing Knowledge!</p>
-    <p style="font-size: 18px;">Everybody is welcome, regardless of your skill level. 😊</p>
+    <h1>Twitter clone</h1>
+</div>
+<div align="center">
     <img src="libs/ui/assets/src/lib/img/jumbo post.jpg">
     <div style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;">
         <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.txt" target="_blank">
