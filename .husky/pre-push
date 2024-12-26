@@ -1,6 +1,6 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-pnpm run staging:set-local
-pnpm run staging-local
-pnpm run dev:set
+winpty pnpm run staging:set-local
+winpty pnpm run staging-local
+winpty pnpm run dev:set
