@@ -36,14 +36,6 @@ If you want to help out with a code contribution, our project uses the following
 - [TypeScript](https://www.typescriptlang.org/docs)
 - [Styled components](https://styled-components.com/)
 
-<!-- If you don't feel ready to make a code contribution yet, no problem! You can also check out the [documentation issues](https://github.com/amplication/amplication/labels/type%3A%20docs).
-
-# <a name="submit-pr"></a> How do I make a code contribution?
-
-## Open to community
-
-You can check all the issues that are open for community contributions. Check [here](https://github.com/amplication/amplication/issues?q=is%3Aopen+is%3Aissue+label%3A%22open+to+community%22). -->
-
 ## Good first issues
 
 Are you new to open source contribution? Wondering how contributions work in our project? Here's a quick rundown.
