@@ -1,2 +1,0 @@
-- Can not use enebeled and invalidate query at the same time
-    solution source: https://stackoverflow.com/questions/68577988/invalidate-queries-doesnt-work-react-query
