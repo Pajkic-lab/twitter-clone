@@ -44,4 +44,5 @@ Thumbs.db
 .env*
 .nx/
 cache
+app-structure.txt
 
