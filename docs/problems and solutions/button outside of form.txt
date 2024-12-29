@@ -1,2 +1,0 @@
-- Button outside of form component
-    solution source: https://github.com/react-hook-form/react-hook-form/issues/566#issuecomment-675515940
