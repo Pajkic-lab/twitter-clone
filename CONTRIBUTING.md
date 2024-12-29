@@ -2,9 +2,15 @@
 
 We would love it if you contributed to the project and helped make Twclone better. We will make sure that contributing to Twclone is easy, enjoyable, and educational for anyone and everyone. All contributions are welcome, including features, issues, documentation, guides, and more.
 
+All contributions to this open-source Twclone app must adhere to high-quality standards. Developers are expected to ensure that all code is covered with tests, as testing will be an integral part of the development process. Additionally, contributors must follow linting rules and other guidelines, which will be discussed and clearly established to maintain consistency and code quality throughout the project. 😊
+
+## Current state and future development
+
+The app is currently built as a monolith. Once all the major features are implemented, we plan to engage with our community to explore the possibility of refactoring it into a microservices architecture, depending on the level of interest.
+
 ## Got a question?
 
-You can ask questions, consult with more experienced Twclone devs, and discuss Twclone-related topics in the our [Github discussions]().
+You can ask questions, consult with more experienced Twclone devs, and discuss Twclone-related topics in the our [Github discussions](https://github.com/Pajkic-lab/twitter-clone/discussions).
 
 ## Found a bug?
 
@@ -62,7 +68,7 @@ Set up and run the development environment on your local machine following the [
 
 ## Step 4: Create a branch
 
-Create a new branch for your changes.
+Create a new branch for your changes from develop branch.
 In order to keep branch names uniform and easy-to-understand, please use the following conventions for branch naming.
 Generally speaking, it is a good idea to add a group/type prefix to a branch.
 Here is a list of good examples:

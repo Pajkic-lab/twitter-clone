@@ -53,7 +53,7 @@ By contributing to this project, you’ll gain hands-on experience with system d
    - Copy `.env.example` template file content and create `.env.development` file for development and `.env.staging` for the staging environment.
    - For the staging environment, you should change the `DATABASE_URL_PG` value, which you can find in the `docker-compose` file.
 4. **Set up app for development:**
-   - This command sets the app environment. Run it initially and whenever you change the environment:
+   - This command sets development app environment. Run it initially and whenever you change the environment:
      ```bash
      pnpm run dev:set
      ```
@@ -62,7 +62,7 @@ By contributing to this project, you’ll gain hands-on experience with system d
      pnpm run dev
      ```
 5. **Set up app for staging:**
-   - This command sets the app environment. Run it initially and whenever you change the environment:
+   - This command sets staging app environment. Run it initially and whenever you change the environment:
      ```bash
      pnpm run staging:set-local
      ```
