@@ -22,6 +22,7 @@ const SWAGGER_DESCRIPTION = 'API Documentation';
 const SWAGGER_VERSION = '1.0';
 const SWAGGER_TAG = 'api';
 const SWAGGER_PATH = 'docs';
+const PORT = 5000;
 
 async function generateDocumentation(app: INestApplication) {
   const options = new DocumentBuilder()
@@ -98,7 +99,7 @@ function enableCompression(app: INestApplication) {
 (async function boot() {
   const app = await NestFactory.create(AppModule);
 
-  const port = app.get(ConfigurationService).port;
+  const port = app.get(ConfigurationService).port || PORT ;
 
   enableCors(app);
   setupSizeLimit(app);
