@@ -98,8 +98,7 @@ function enableCompression(app: INestApplication) {
 (async function boot() {
   const app = await NestFactory.create(AppModule);
 
-    const port =
-     app.get(ConfigurationService).port || process.env.PORT  || 5000; 
+    const port =app.get(ConfigurationService).port; 
 
   enableCors(app);
   setupSizeLimit(app);
