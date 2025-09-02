@@ -21,7 +21,7 @@ const SWAGGER_TITLE = 'API Documentation';
 const SWAGGER_DESCRIPTION = 'API Documentation';
 const SWAGGER_VERSION = '1.0';
 const SWAGGER_TAG = 'api';
-const SWAGGER_PATH = 'docs'; 
+const SWAGGER_PATH = 'docs';
 
 async function generateDocumentation(app: INestApplication) {
   const options = new DocumentBuilder()
@@ -54,7 +54,7 @@ function setupSession(app: INestApplication) {
         dbRecordIdIsSessionId: true,
         dbRecordIdFunction: undefined,
       }),
-    })
+    }),
   );
 }
 
@@ -71,7 +71,7 @@ function enableGlobalPipes(app: INestApplication) {
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
-    })
+    }),
   );
 }
 
@@ -98,7 +98,7 @@ function enableCompression(app: INestApplication) {
 (async function boot() {
   const app = await NestFactory.create(AppModule);
 
-    const port =app.get(ConfigurationService).port; 
+  const port = app.get(ConfigurationService).port;
 
   enableCors(app);
   setupSizeLimit(app);
@@ -114,6 +114,6 @@ function enableCompression(app: INestApplication) {
   console.log(
     `Loaded environment: ${
       app.get(ConfigurationService).nodeEnvironment
-    } 🚀🚀🚀 Application is running on: ${await app.getUrl()} 🚀🚀🚀`
+    } 🚀🚀🚀 Application is running on: ${await app.getUrl()} 🚀🚀🚀`,
   );
 })();

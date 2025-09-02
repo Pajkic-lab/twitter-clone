@@ -1,0 +1,28 @@
+name: Lint Affected Projects
+
+on:
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  lint:
+    name: ESLint Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run ESLint on affected projects
+        run: |
+          npx nx affected:lint --base=origin/develop --head=HEAD --parallel
