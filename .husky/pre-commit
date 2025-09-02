@@ -1,0 +1,24 @@
+#!/usr/bin/env sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "=== PRE-COMMIT HOOK DEBUG ==="
+echo "Working directory: $(pwd)"
+echo "Node version: $(node --version)"
+echo "NPM version: $(npm --version)"
+
+echo "Staged files:"
+git diff --cached --name-only
+
+echo "Files matching prettier pattern:"
+git diff --cached --name-only | grep -E '\.(js|ts|tsx|json|css|md)$'
+
+echo "Running lint-staged..."
+npx lint-staged
+
+if [ $? -eq 0 ]; then
+    echo "✅ lint-staged completed successfully"
+else
+    echo "❌ lint-staged failed"
+fi
+
+echo "=== END DEBUG ==="
