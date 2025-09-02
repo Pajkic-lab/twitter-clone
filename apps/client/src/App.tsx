@@ -4,6 +4,7 @@ import { ModalProvider } from 'styled-react-modal';
 import { GlobalStyle } from './GlobalStyle';
 import { Router } from './router';
 
+//
 export const App = () => {
   return (
     <>
