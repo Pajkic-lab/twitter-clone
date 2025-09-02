@@ -12,23 +12,15 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const ButtonComponent = forwardRef<HTMLButtonElement, ButtonProps>(
-  (
-    { children, leftIcon, rightIcon, disabled, loading, type, ...props },
-    ref
-  ) => {
+  ({ children, leftIcon, rightIcon, disabled, loading, type, ...props }, ref) => {
     return (
-      <button
-        ref={ref}
-        disabled={disabled || loading}
-        type={type ?? 'button'}
-        {...props}
-      >
+      <button ref={ref} disabled={disabled || loading} type={type ?? 'button'} {...props}>
         {leftIcon ? <img src={leftIcon} /> : null}
         <span>{loading ? <ButtonLoader /> : children}</span>
         {rightIcon ? <img src={rightIcon} /> : null}
       </button>
     );
-  }
+  },
 );
 
 export const ButtonBase = styled(ButtonComponent)<{

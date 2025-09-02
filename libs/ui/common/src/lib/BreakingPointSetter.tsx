@@ -17,10 +17,7 @@ export const BreakingPointSetter = () => {
       if (window.innerWidth <= breakpoints['m']) {
         setMediabarSize('m');
       }
-      if (
-        window.innerWidth > breakpoints['m'] &&
-        window.innerWidth <= breakpoints['l']
-      ) {
+      if (window.innerWidth > breakpoints['m'] && window.innerWidth <= breakpoints['l']) {
         setMediabarSize('l');
       }
       if (window.innerWidth > breakpoints['l']) {

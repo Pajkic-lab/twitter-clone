@@ -15,10 +15,7 @@ export class SocialRepository {
         },
       });
     } catch (error) {
-      throw new HttpException(
-        'Error while following user',
-        HttpStatus.INTERNAL_SERVER_ERROR
-      );
+      throw new HttpException('Error while following user', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -31,10 +28,7 @@ export class SocialRepository {
         },
       });
     } catch (error) {
-      throw new HttpException(
-        'Error while following user',
-        HttpStatus.INTERNAL_SERVER_ERROR
-      );
+      throw new HttpException('Error while following user', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -75,10 +69,7 @@ export class SocialRepository {
 
       return followersWithStatus;
     } catch (error) {
-      throw new HttpException(
-        'Error while getting followers',
-        HttpStatus.INTERNAL_SERVER_ERROR
-      );
+      throw new HttpException('Error while getting followers', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -125,7 +116,7 @@ export class SocialRepository {
     } catch (error) {
       throw new HttpException(
         'Error while getting following users',
-        HttpStatus.INTERNAL_SERVER_ERROR
+        HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
   }
@@ -134,7 +125,7 @@ export class SocialRepository {
     meId: number,
     publicUserId: number,
     offset: number,
-    limit: number
+    limit: number,
   ) {
     // refactor this to use raw query or what ever, just move all the logic to db
     try {
@@ -172,10 +163,7 @@ export class SocialRepository {
 
       return followersWithStatus;
     } catch (error) {
-      throw new HttpException(
-        'Error while getting followers',
-        HttpStatus.INTERNAL_SERVER_ERROR
-      );
+      throw new HttpException('Error while getting followers', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
   //
@@ -186,7 +174,7 @@ export class SocialRepository {
     meId: number,
     publicUserId: number,
     offset: number,
-    limit: number
+    limit: number,
   ) {
     // refactor this to use raw query or what ever, just move all the logic to db
     try {
@@ -236,7 +224,7 @@ export class SocialRepository {
     } catch (error) {
       throw new HttpException(
         'Error while getting following users',
-        HttpStatus.INTERNAL_SERVER_ERROR
+        HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
   }

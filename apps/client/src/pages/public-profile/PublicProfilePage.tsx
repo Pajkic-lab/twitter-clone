@@ -37,12 +37,7 @@ export const PublicProfilePage = () => {
   const publicUserId = publicUserRes?.data?.user?.id as number;
   const followingStatus = followingStatusData?.followingStatus as boolean;
 
-  const {
-    id: meId,
-    name,
-    uniqueName,
-    avatar,
-  } = userRes.data ?? ({} as UserResponseDto);
+  const { id: meId, name, uniqueName, avatar } = userRes.data ?? ({} as UserResponseDto);
 
   const invMediaBar = invMediabarData();
   const invData = invPublicProfilePage();

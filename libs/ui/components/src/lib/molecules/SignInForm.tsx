@@ -24,16 +24,15 @@ type SingInFormProps = {
 export const SignInForm = (props: SingInFormProps) => {
   const { onSubmit, isPending, error } = props;
 
-  const { handleSubmit, control, formState, setError } =
-    useForm<SignInFormData>({
-      resolver: zodResolver(signInSchema),
-      criteriaMode: 'all',
-      mode: 'onBlur',
-      defaultValues: {
-        email: '',
-        password: '',
-      },
-    });
+  const { handleSubmit, control, formState, setError } = useForm<SignInFormData>({
+    resolver: zodResolver(signInSchema),
+    criteriaMode: 'all',
+    mode: 'onBlur',
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  });
 
   useEffect(() => {
     /**
@@ -52,20 +51,8 @@ export const SignInForm = (props: SingInFormProps) => {
     <>
       <H1>Sign in to Twitter</H1>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <FormInput
-          control={control}
-          name="email"
-          id={uuid()}
-          type="text"
-          required
-        />
-        <FormInput
-          control={control}
-          name="password"
-          id={uuid()}
-          type="text"
-          required
-        />
+        <FormInput control={control} name="email" id={uuid()} type="text" required />
+        <FormInput control={control} name="password" id={uuid()} type="text" required />
         <JumboButton loading={isPending} type="submit">
           Sign In
         </JumboButton>

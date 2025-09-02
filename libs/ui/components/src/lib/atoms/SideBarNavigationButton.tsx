@@ -11,9 +11,7 @@ type SideBarNavigationButtonProps = {
   collapsed: boolean;
 };
 
-export const SideBarNavigationButton = (
-  props: SideBarNavigationButtonProps
-) => {
+export const SideBarNavigationButton = (props: SideBarNavigationButtonProps) => {
   const { IconBase, IconActive, isActive, text, path, collapsed } = props;
 
   const navigate = useNavigate();

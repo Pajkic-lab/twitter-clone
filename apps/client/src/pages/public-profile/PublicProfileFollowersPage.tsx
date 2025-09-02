@@ -1,8 +1,5 @@
 import { FollowerListResponseDto, UserResponseDto } from '@tw/data';
-import {
-  invPublicProfileFollowersData,
-  invPublicProfileMediabarData,
-} from '@tw/ui/common';
+import { invPublicProfileFollowersData, invPublicProfileMediabarData } from '@tw/ui/common';
 import { Contacts, Loader, Trends, UserLIst } from '@tw/ui/components';
 import {
   QueryAction,
@@ -60,10 +57,7 @@ export const PublicProfileFollowersPage = () => {
   useEffect(() => {
     // THERE IS A PROBLEM WITH INF QUERY, IT WONT TRIGGER ON PAGE LANDING FOR SECOND TIME
     setTimeout(() => {
-      useResetQuery(
-        QueryAction.Invalidate,
-        publicProfileFollowersKey(publicUserId)
-      );
+      useResetQuery(QueryAction.Invalidate, publicProfileFollowersKey(publicUserId));
     }, 50);
   }, []);
 

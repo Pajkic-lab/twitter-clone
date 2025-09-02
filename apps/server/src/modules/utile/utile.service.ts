@@ -7,7 +7,7 @@ import { UtileRepository } from './utile.repository';
 export class UtileService {
   constructor(
     private utileRepository: UtileRepository,
-    @InjectMapper() private readonly mapper: Mapper
+    @InjectMapper() private readonly mapper: Mapper,
   ) {}
 
   async handleGetUserList() {

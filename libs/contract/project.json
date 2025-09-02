@@ -18,10 +18,7 @@
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "libs/contract/**/*.ts",
-          "libs/contract/package.json"
-        ]
+        "lintFilePatterns": ["libs/contract/**/*.ts", "libs/contract/package.json"]
       }
     },
     "test": {

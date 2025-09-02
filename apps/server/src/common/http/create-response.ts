@@ -8,7 +8,7 @@ export class HttpResponseInner {
 }
 
 export function createResponse<T, const Key>(
-  params: Partial<Except<HttpResponse, 'message'>> & { message?: Key } = {}
+  params: Partial<Except<HttpResponse, 'message'>> & { message?: Key } = {},
 ): HttpResponse<T> {
   return Object.assign(new HttpResponseInner(), {
     ...params,

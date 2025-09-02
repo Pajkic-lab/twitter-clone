@@ -1,8 +1,5 @@
 import { FollowerListResponseDto } from '@tw/data';
-import {
-  invPublicProfileFollowingPage,
-  invPublicProfileMediabarData,
-} from '@tw/ui/common';
+import { invPublicProfileFollowingPage, invPublicProfileMediabarData } from '@tw/ui/common';
 import { Contacts, Loader, Trends, UserLIst } from '@tw/ui/components';
 import {
   QueryAction,
@@ -43,10 +40,7 @@ export const PublicProfileFollowingPage = () => {
     fetchNextPage,
     isFetching: userListLoading,
     hasNextPage,
-  } = usePublicProfileFollowingInfQuery(
-    publicUserId,
-    FOLLOWING_LIST_SIZE_LIMIT
-  );
+  } = usePublicProfileFollowingInfQuery(publicUserId, FOLLOWING_LIST_SIZE_LIMIT);
 
   const publicUser = publicUserRes?.data?.user;
 
@@ -65,10 +59,7 @@ export const PublicProfileFollowingPage = () => {
   useEffect(() => {
     // THERE IS A PROBLEM WITH INF QUERY, IT WONT TRIGGER ON PAGE LANDING FOR SECOND TIME
     setTimeout(() => {
-      useResetQuery(
-        QueryAction.Invalidate,
-        publicProfileFollowingKey(publicUserId)
-      );
+      useResetQuery(QueryAction.Invalidate, publicProfileFollowingKey(publicUserId));
     }, 50);
   }, []);
 

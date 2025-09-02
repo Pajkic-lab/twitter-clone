@@ -12,16 +12,10 @@ export type InputProps = {
   required?: boolean;
   touched?: boolean;
   isDirty?: boolean;
-} & Omit<
-  DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
-  'ref'
->;
+} & Omit<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, 'ref'>;
 
 export const InputComponent = forwardRef<HTMLInputElement, InputProps>(
-  (
-    { id, name, width, error, disabled, required, type, isDirty, ...rest },
-    ref
-  ) => {
+  ({ id, name, width, error, disabled, required, type, isDirty, ...rest }, ref) => {
     return (
       <Wrapper>
         <Input
@@ -41,7 +35,7 @@ export const InputComponent = forwardRef<HTMLInputElement, InputProps>(
         {error && <ErrorMessage>{error}</ErrorMessage>}
       </Wrapper>
     );
-  }
+  },
 );
 
 const Wrapper = styled.div`
@@ -67,8 +61,7 @@ const Input = styled.input<{
 
   width: ${({ width }) => width}rem;
 
-  border: 1px solid
-    ${({ error }) => (error ? colors.red : colors.graySecondary)};
+  border: 1px solid ${({ error }) => (error ? colors.red : colors.graySecondary)};
 
   &:focus {
     border: 1px solid ${colors.bluePrimary};
@@ -98,8 +91,7 @@ const Label = styled.label<{
 
   color: ${({ error }) => (error ? colors.red : colors.graySecondary)};
 
-  transform: ${({ error, isDirty }) =>
-    error || isDirty ? 'translateY(-2rem)' : 'none'};
+  transform: ${({ error, isDirty }) => (error || isDirty ? 'translateY(-2rem)' : 'none')};
 `;
 
 const ErrorMessage = styled.h4`

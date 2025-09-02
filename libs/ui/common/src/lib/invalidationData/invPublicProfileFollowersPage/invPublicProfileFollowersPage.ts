@@ -11,14 +11,8 @@ import {
 export const invPublicProfileFollowersData = () => {
   return {
     followIfPublicUser: (pubUserId: number) => {
-      useResetQuery(
-        QueryAction.Invalidate,
-        publicProfileFollowersKey(pubUserId)
-      );
-      useResetQuery(
-        QueryAction.Invalidate,
-        publicProfileFollowingKey(pubUserId)
-      );
+      useResetQuery(QueryAction.Invalidate, publicProfileFollowersKey(pubUserId));
+      useResetQuery(QueryAction.Invalidate, publicProfileFollowingKey(pubUserId));
     },
     follow: () => {
       useResetQuery(QueryAction.Refetch, userGetFollowingKey());
@@ -27,14 +21,8 @@ export const invPublicProfileFollowersData = () => {
     },
 
     unFollowIfPublicUser: (pubUserId: number) => {
-      useResetQuery(
-        QueryAction.Invalidate,
-        publicProfileFollowersKey(pubUserId)
-      );
-      useResetQuery(
-        QueryAction.Invalidate,
-        publicProfileFollowingKey(pubUserId)
-      );
+      useResetQuery(QueryAction.Invalidate, publicProfileFollowersKey(pubUserId));
+      useResetQuery(QueryAction.Invalidate, publicProfileFollowingKey(pubUserId));
     },
     unFollow: () => {
       useResetQuery(QueryAction.Refetch, userGetFollowingKey());
@@ -47,27 +35,15 @@ export const invPublicProfileFollowersData = () => {
 export const invPublicProfileMediabarData = () => {
   return {
     followIfPublicUser: (pubUserId: number) => {
-      useResetQuery(
-        QueryAction.Invalidate,
-        publicProfileFollowersKey(pubUserId)
-      );
-      useResetQuery(
-        QueryAction.Invalidate,
-        publicProfileFollowingKey(pubUserId)
-      );
+      useResetQuery(QueryAction.Invalidate, publicProfileFollowersKey(pubUserId));
+      useResetQuery(QueryAction.Invalidate, publicProfileFollowingKey(pubUserId));
       useResetQuery(QueryAction.Invalidate, mostPopularUsersQueryKey());
     },
     follow: () => {},
 
     unFollowIfPublicUser: (pubUserId: number) => {
-      useResetQuery(
-        QueryAction.Invalidate,
-        publicProfileFollowersKey(pubUserId)
-      );
-      useResetQuery(
-        QueryAction.Invalidate,
-        publicProfileFollowingKey(pubUserId)
-      );
+      useResetQuery(QueryAction.Invalidate, publicProfileFollowersKey(pubUserId));
+      useResetQuery(QueryAction.Invalidate, publicProfileFollowingKey(pubUserId));
       useResetQuery(QueryAction.Invalidate, mostPopularUsersQueryKey());
     },
     unFollow: () => {},

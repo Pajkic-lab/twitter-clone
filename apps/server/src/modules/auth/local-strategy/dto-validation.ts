@@ -19,7 +19,7 @@ export class DtoValidation {
         {
           message: validationErrors.join(', '),
         },
-        HttpStatus.BAD_REQUEST
+        HttpStatus.BAD_REQUEST,
       );
     }
   };
@@ -39,7 +39,7 @@ export class DtoValidation {
         {
           message: validationErrors.join(', '),
         },
-        HttpStatus.BAD_REQUEST
+        HttpStatus.BAD_REQUEST,
       );
     }
   };

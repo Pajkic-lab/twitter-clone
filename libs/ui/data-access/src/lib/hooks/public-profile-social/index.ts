@@ -37,10 +37,7 @@ export const usePublicUserFollowingStatusQuery = (userId: number) => {
   });
 };
 
-export const usePublicProfileFollowersInfQuery = (
-  userId: number,
-  limit: number
-) => {
+export const usePublicProfileFollowersInfQuery = (userId: number, limit: number) => {
   return useInfiniteQuery({
     queryKey: publicProfileFollowersKey(userId),
     initialPageParam: 0,
@@ -58,10 +55,7 @@ export const usePublicProfileFollowersInfQuery = (
   });
 };
 
-export const usePublicProfileFollowingInfQuery = (
-  userId: number,
-  limit: number
-) => {
+export const usePublicProfileFollowingInfQuery = (userId: number, limit: number) => {
   return useInfiniteQuery({
     queryKey: publicProfileFollowingKey(userId),
     initialPageParam: 0,

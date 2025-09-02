@@ -23,20 +23,18 @@ export class CloudinaryService extends CloudinaryBase {
     } catch (error) {
       throw new HttpException(
         `Error while uploading img, user: ${userId}, dir: ${dir}`,
-        HttpStatus.INTERNAL_SERVER_ERROR
+        HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
   }
 
   async deleteDir(userId: number, dir: MediaDirectory) {
     try {
-      return await cloudinary.api.delete_resources_by_prefix(
-        `twitter-clone/user:${userId}/${dir}`
-      );
+      return await cloudinary.api.delete_resources_by_prefix(`twitter-clone/user:${userId}/${dir}`);
     } catch (error) {
       throw new HttpException(
         `Error while deleting images, user: ${userId}, dir: ${dir}`,
-        HttpStatus.INTERNAL_SERVER_ERROR
+        HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
   }

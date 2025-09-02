@@ -40,7 +40,7 @@ export const Mediabar = (props: MediabarProps) => {
       }
       useSearchUser.mutate({ searchData });
     },
-    [useSearchUser]
+    [useSearchUser],
   );
 
   const emptyInvData = invDataEmpty();
@@ -64,8 +64,8 @@ export const Mediabar = (props: MediabarProps) => {
         <BottomWindow>{bottomWindowChilde}</BottomWindow>
         <MediabarFooterContainer>
           <Text>
-            Terms of Service Privacy Policy Cookie Policy Accessibility Ads info
-            More © 2022 Twitter, Inc.
+            Terms of Service Privacy Policy Cookie Policy Accessibility Ads info More © 2022
+            Twitter, Inc.
           </Text>
         </MediabarFooterContainer>
       </Sticky>

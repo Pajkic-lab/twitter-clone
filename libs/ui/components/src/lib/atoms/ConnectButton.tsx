@@ -14,8 +14,7 @@ type ConnectButtonProps = {
 };
 
 export const ConnectButton = (props: ConnectButtonProps) => {
-  const { meId, buttonRelatedUserId, publicUserId, followingStatus, invData } =
-    props;
+  const { meId, buttonRelatedUserId, publicUserId, followingStatus, invData } = props;
   if (buttonRelatedUserId === meId) return;
 
   const [isButtonHovered, setIsButtonHovered] = useState<boolean>(false);
@@ -97,16 +96,12 @@ const Button = styled(SecondaryButton)<{ $followingStatus: boolean }>`
   padding: 0 16px;
   width: 6rem;
 
-  color: ${({ $followingStatus }) =>
-    $followingStatus ? colors.black : colors.grayPrimary};
+  color: ${({ $followingStatus }) => ($followingStatus ? colors.black : colors.grayPrimary)};
 
-  background-color: ${({ $followingStatus }) =>
-    $followingStatus ? colors.white : ''};
+  background-color: ${({ $followingStatus }) => ($followingStatus ? colors.white : '')};
 
   &:hover {
-    color: ${({ $followingStatus }) =>
-      $followingStatus ? colors.red : colors.white};
-    border: ${({ $followingStatus }) =>
-      $followingStatus ? `1px solid ${colors.red}` : ''};
+    color: ${({ $followingStatus }) => ($followingStatus ? colors.red : colors.white)};
+    border: ${({ $followingStatus }) => ($followingStatus ? `1px solid ${colors.red}` : '')};
   }
 `;

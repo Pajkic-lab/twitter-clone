@@ -31,18 +31,17 @@ type SignUpModalProps = {
 export const SignUpForm = (props: SignUpModalProps) => {
   const { onSubmit, isPending, error } = props;
 
-  const { handleSubmit, control, formState, setError } =
-    useForm<SignUpFormData>({
-      resolver: zodResolver(signUpSchema),
-      criteriaMode: 'all',
-      mode: 'onBlur',
-      defaultValues: {
-        username: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-      },
-    });
+  const { handleSubmit, control, formState, setError } = useForm<SignUpFormData>({
+    resolver: zodResolver(signUpSchema),
+    criteriaMode: 'all',
+    mode: 'onBlur',
+    defaultValues: {
+      username: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+    },
+  });
 
   useEffect(() => {
     /**
@@ -67,34 +66,10 @@ export const SignUpForm = (props: SignUpModalProps) => {
     <>
       <H1>Create your account</H1>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <FormInput
-          control={control}
-          name="username"
-          id={uuid()}
-          type="text"
-          required
-        />
-        <FormInput
-          control={control}
-          name="email"
-          id={uuid()}
-          type="text"
-          required
-        />
-        <FormInput
-          control={control}
-          name="password"
-          id={uuid()}
-          type="text"
-          required
-        />
-        <FormInput
-          control={control}
-          name="confirmPassword"
-          id={uuid()}
-          type="text"
-          required
-        />
+        <FormInput control={control} name="username" id={uuid()} type="text" required />
+        <FormInput control={control} name="email" id={uuid()} type="text" required />
+        <FormInput control={control} name="password" id={uuid()} type="text" required />
+        <FormInput control={control} name="confirmPassword" id={uuid()} type="text" required />
         <JumboButton loading={isPending} type="submit">
           Sign Up
         </JumboButton>

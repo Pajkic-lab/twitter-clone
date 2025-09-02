@@ -12,9 +12,7 @@ const c = nestControllerContract(contract);
 type RequestShapes = NestRequestShapes<typeof c>;
 
 @Controller()
-export class ContractTestController
-  implements NestControllerInterface<typeof c>
-{
+export class ContractTestController implements NestControllerInterface<typeof c> {
   constructor() {}
 
   @TsRest(c.getPost)
