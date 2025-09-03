@@ -33,6 +33,37 @@ By contributing to this project, you’ll gain hands-on experience with system d
 
 **Everybody is welcome!** Whether you’re a seasoned developer or just starting, we encourage you to join our community and grow together.
 
+## ✅ Project Roadmap
+
+### Done
+
+- [x] App structure & Nx monorepo setup
+- [x] Development, staging, and production environments
+- [x] Authentication (signup, login, JWT/refresh tokens)
+- [x] Follow system (users can follow/unfollow)
+
+### To Do
+
+#### 📝 Core Twitter Features
+
+- [ ] Posting system – create text posts, with media support later
+- [ ] Feed/timeline – display posts from followed users
+- [ ] Post interactions – like, repost, comment, mention, and hashtag support
+
+#### 🔔 Engagement Features
+
+- [ ] Notifications – alerts for follows, likes, comments, reposts
+- [ ] Direct Messages (DMs) – private conversations
+- [ ] Search – find users, posts, and hashtags
+
+#### ⚙️ Extra / Nice-to-Have
+
+- [ ] Bookmarks / saved posts
+- [ ] Trends & Explore page
+- [ ] Threaded posts (multi-tweet posts)
+- [ ] Analytics / impressions
+- [ ] Admin tools – moderation, reporting
+
 ## Getting Started
 
 ### Prerequisites
