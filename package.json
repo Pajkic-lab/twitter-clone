@@ -23,10 +23,19 @@
     "app:set": "pnpm i && pnpm run db:format && pnpm run db:generate && pnpm run db:migrate && pnpm run db:deploy",
     "check-dependencies": "depcheck",
     "sort-package-json": "sort-package-json",
-    "app-structure": "node app-structure.js"
+    "app-structure": "node app-structure.js",
+    "prepare": "husky",
+    "lint": "npx nx lint",
+    "lint:fix": "npx nx lint --fix",
+    "format": "prettier --write \"**/*.{js,ts,tsx,json,css,md,html,yml,yaml}\"",
+    "format:check": "prettier --check \"**/*.{js,ts,tsx,json,css,md,html,yml,yaml}\"",
+    "test": "pnpm i"
   },
   "lint-staged": {
-    "*.{js,ts,tsx,json,css,md}": [
+    "*.{js,ts,tsx}": [
+      "prettier --write"
+    ],
+    "*.{json,css,md,html,yml,yaml}": [
       "prettier --write"
     ]
   },
