@@ -21,6 +21,7 @@
     "seed:user": "ts-node apps/server/src/modules/prisma/seeds/user.seed.ts",
     "app:build": "pnpm i && pnpm run db:generate && npx nx build client && npx nx build server",
     "app:set": "pnpm i && pnpm run db:format && pnpm run db:generate && pnpm run db:migrate && pnpm run db:deploy",
+    "env:set": "node setup-env.js",
     "check-dependencies": "depcheck",
     "app-structure": "node app-structure.js",
     "prepare": "husky",
