@@ -1,10 +1,5 @@
 import { Mapper } from '@automapper/core';
-import {
-  HttpException,
-  HttpStatus,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import {
   FollowUserRequestDto,
   FollowUserResponseDto,
@@ -28,12 +23,10 @@ export class SocialService {
     private authRepository: AuthRepository,
     private socialRepository: SocialRepository,
     private userRepository: UserRepository,
-    @InjectMapper() private readonly mapper: Mapper
+    @InjectMapper() private readonly mapper: Mapper,
   ) {}
 
-  async getStats(
-    userId: number
-  ): Promise<HttpResponse<SocialStatsResponseDto>> {
+  async getStats(userId: number): Promise<HttpResponse<SocialStatsResponseDto>> {
     const socialStats = await this.authRepository.getSocialStats(userId);
 
     if (!socialStats) throw new NotFoundException('Social stats do not exist');
@@ -45,7 +38,7 @@ export class SocialService {
   }
 
   async getPublicUserSocialStats(
-    publicUserId: number
+    publicUserId: number,
   ): Promise<HttpResponse<SocialStatsResponseDto>> {
     const socialStats = await this.authRepository.getSocialStats(publicUserId);
 
@@ -58,10 +51,7 @@ export class SocialService {
   }
 
   async getPublicUserFollowingStatus(userId: number, publicUserId: number) {
-    const followingStatus = await this.userRepository.getFollowingStatus(
-      publicUserId,
-      userId
-    );
+    const followingStatus = await this.userRepository.getFollowingStatus(publicUserId, userId);
 
     return createResponse({
       payload: { followingStatus },
@@ -71,33 +61,20 @@ export class SocialService {
 
   async followUser(
     userId: number,
-    followUser: FollowUserRequestDto
+    followUser: FollowUserRequestDto,
   ): Promise<HttpResponse<FollowUserResponseDto>> {
-    const followingStatus = await this.userRepository.getFollowingStatus(
-      followUser.userId,
-      userId
-    );
+    const followingStatus = await this.userRepository.getFollowingStatus(followUser.userId, userId);
     if (followingStatus)
       throw new HttpException(
         'User to follow is already followed',
-        HttpStatus.INTERNAL_SERVER_ERROR
+        HttpStatus.INTERNAL_SERVER_ERROR,
       );
 
-    const social = await this.socialRepository.followUser(
-      userId,
-      followUser.userId
-    );
+    const social = await this.socialRepository.followUser(userId, followUser.userId);
     if (!social)
-      throw new HttpException(
-        'Error while following user',
-        HttpStatus.INTERNAL_SERVER_ERROR
-      );
+      throw new HttpException('Error while following user', HttpStatus.INTERNAL_SERVER_ERROR);
 
-    const userToFollow = this.mapper.map(
-      social,
-      SocialBase,
-      FollowUserResponseDto
-    );
+    const userToFollow = this.mapper.map(social, SocialBase, FollowUserResponseDto);
 
     return createResponse({
       payload: userToFollow,
@@ -107,18 +84,12 @@ export class SocialService {
 
   async unFollowUser(
     userId: number,
-    userIdToUnFollow: number
+    userIdToUnFollow: number,
   ): Promise<HttpResponse<UnFollowUserResponseDto>> {
-    const { count } = await this.socialRepository.unFollowUser(
-      userId,
-      userIdToUnFollow
-    );
+    const { count } = await this.socialRepository.unFollowUser(userId, userIdToUnFollow);
 
     if (!count)
-      throw new HttpException(
-        'Error while unFollowing user',
-        HttpStatus.INTERNAL_SERVER_ERROR
-      );
+      throw new HttpException('Error while unFollowing user', HttpStatus.INTERNAL_SERVER_ERROR);
 
     return createResponse({
       payload: { userIdToUnFollow },
@@ -129,24 +100,17 @@ export class SocialService {
   async handleFollowers(
     userId: number,
     offset: number,
-    limit: number
+    limit: number,
   ): Promise<HttpResponse<FollowerListResponseDto[]>> {
-    const userList = await this.socialRepository.getFollowers(
-      userId,
-      offset,
-      limit
-    );
+    const userList = await this.socialRepository.getFollowers(userId, offset, limit);
     if (!userList) {
-      throw new HttpException(
-        'Error while finding followers',
-        HttpStatus.INTERNAL_SERVER_ERROR
-      );
+      throw new HttpException('Error while finding followers', HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     const followerList = this.mapper.mapArray(
       userList,
       UserWithFollowingStatus,
-      FollowerListResponseDto
+      FollowerListResponseDto,
     );
 
     return createResponse({
@@ -158,25 +122,21 @@ export class SocialService {
   async handleFollowing(
     userId: number,
     offset: number,
-    limit: number
+    limit: number,
   ): Promise<HttpResponse<FollowingListResponseDto[]>> {
-    const userList = await this.socialRepository.getFollowingUsers(
-      userId,
-      offset,
-      limit
-    );
+    const userList = await this.socialRepository.getFollowingUsers(userId, offset, limit);
 
     if (!userList) {
       throw new HttpException(
         'Error while finding following users',
-        HttpStatus.INTERNAL_SERVER_ERROR
+        HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
 
     const followingList = this.mapper.mapArray(
       userList,
       UserWithFollowingStatus,
-      FollowingListResponseDto
+      FollowingListResponseDto,
     );
 
     return createResponse({
@@ -189,25 +149,22 @@ export class SocialService {
     meId: number,
     publicUserId: number,
     offset: number,
-    limit: number
+    limit: number,
   ): Promise<HttpResponse<FollowerListResponseDto[]>> {
     const userList = await this.socialRepository.getPublicProfileFollowers(
       meId,
       publicUserId,
       offset,
-      limit
+      limit,
     );
     if (!userList) {
-      throw new HttpException(
-        'Error while finding followers',
-        HttpStatus.INTERNAL_SERVER_ERROR
-      );
+      throw new HttpException('Error while finding followers', HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     const followerList = this.mapper.mapArray(
       userList,
       UserWithFollowingStatus,
-      FollowerListResponseDto
+      FollowerListResponseDto,
     );
 
     return createResponse({
@@ -220,26 +177,26 @@ export class SocialService {
     meId: number,
     publicUserId: number,
     offset: number,
-    limit: number
+    limit: number,
   ): Promise<HttpResponse<FollowingListResponseDto[]>> {
     const userList = await this.socialRepository.getPublicProfileFollowingUsers(
       meId,
       publicUserId,
       offset,
-      limit
+      limit,
     );
 
     if (!userList) {
       throw new HttpException(
         'Error while finding following users',
-        HttpStatus.INTERNAL_SERVER_ERROR
+        HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
 
     const followingList = this.mapper.mapArray(
       userList,
       UserWithFollowingStatus,
-      FollowingListResponseDto
+      FollowingListResponseDto,
     );
 
     return createResponse({

@@ -43,14 +43,14 @@ export const LandingPage = () => {
     (signUpFormData: SignUpFormData) => {
       signUpMutate(signUpFormData);
     },
-    [signUpMutate]
+    [signUpMutate],
   );
 
   const signInFormOnSubmit = useCallback(
     (signInFormData: SignInFormData) => {
       signInMutate(signInFormData);
     },
-    [signInMutate]
+    [signInMutate],
   );
 
   /**
@@ -89,10 +89,7 @@ export const LandingPage = () => {
             <H3>Join Twitter today.</H3>
 
             <FormWrapper>
-              <SocialSignInButton
-                onClick={googleSignIn}
-                leftIcon={googleLogoImg}
-              >
+              <SocialSignInButton onClick={googleSignIn} leftIcon={googleLogoImg}>
                 Sign up with Google
               </SocialSignInButton>
 
@@ -102,9 +99,7 @@ export const LandingPage = () => {
 
               <Divider text={'or'} />
 
-              <PrimaryButton onClick={handleSignUpModal}>
-                Sign up with email
-              </PrimaryButton>
+              <PrimaryButton onClick={handleSignUpModal}>Sign up with email</PrimaryButton>
               <Modal
                 hasCloseButton
                 modalIsOpen={signUpModalIsOpen}
@@ -127,9 +122,7 @@ export const LandingPage = () => {
               </PolicyTextWrapper>
               <H4>Already have an account?</H4>
 
-              <SecondaryButton onClick={handleSignInModal}>
-                Sign in
-              </SecondaryButton>
+              <SecondaryButton onClick={handleSignInModal}>Sign in</SecondaryButton>
               <Modal
                 hasCloseButton
                 modalIsOpen={signInModalIsOpen}

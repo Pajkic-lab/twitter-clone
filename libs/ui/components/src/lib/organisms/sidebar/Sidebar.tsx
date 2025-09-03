@@ -91,8 +91,7 @@ export const Sidebar = (props: SidebarProps) => {
  * This div is here to define position and size in reference to its parent element
  */
 const Wrapper = styled.div<SidebarStyleProps>`
-  min-width: ${({ collapsed }) =>
-    collapsed ? SIDEBAR_WIDTH_COLLAPSED : SIDEBAR_WIDTH_FULL};
+  min-width: ${({ collapsed }) => (collapsed ? SIDEBAR_WIDTH_COLLAPSED : SIDEBAR_WIDTH_FULL)};
   margin-right: ${({ collapsed }) => (collapsed ? '0' : '2rem')};
 `;
 
@@ -100,8 +99,7 @@ const Wrapper = styled.div<SidebarStyleProps>`
  * This div is here to enable fix position nad size for containing elements
  */
 const ButtonWrapper = styled.div<SidebarStyleProps>`
-  width: ${({ collapsed }) =>
-    collapsed ? SIDEBAR_WIDTH_COLLAPSED : SIDEBAR_WIDTH_FULL};
+  width: ${({ collapsed }) => (collapsed ? SIDEBAR_WIDTH_COLLAPSED : SIDEBAR_WIDTH_FULL)};
   position: fixed;
   height: 100vh;
 
@@ -133,8 +131,7 @@ const TwLogo = styled(TwitterIcon)`
  * Had to stringify boolean value, for some reason trows error when plane boolean.
  */
 const PostButton = styled(PrimaryButton)<{ collapsed: string }>`
-  width: ${({ collapsed }) =>
-    collapsed === 'true' ? '3.5rem' : SIDEBAR_WIDTH_FULL};
+  width: ${({ collapsed }) => (collapsed === 'true' ? '3.5rem' : SIDEBAR_WIDTH_FULL)};
   height: 3.5rem;
   font-size: large;
   margin-top: 1rem;

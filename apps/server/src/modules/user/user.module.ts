@@ -8,13 +8,7 @@ import { UserService } from './user.service';
 
 @Module({
   imports: [],
-  providers: [
-    UserService,
-    UserRepository,
-    IsAuthGuard,
-    UserProfile,
-    CloudinaryService,
-  ],
+  providers: [UserService, UserRepository, IsAuthGuard, UserProfile, CloudinaryService],
   controllers: [UserController],
 })
 export class UserModule {}

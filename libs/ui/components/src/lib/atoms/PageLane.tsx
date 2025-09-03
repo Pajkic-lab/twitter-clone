@@ -27,8 +27,6 @@ const Wrapper = styled.div<StyleProps>`
   min-height: 100vh;
   width: ${({ width }) => `${width}px`};
   min-width: ${({ width }) => `${width}px`};
-  border-left: ${({ hasBorder }) =>
-    hasBorder && `2px solid ${colors.grayDark}`};
-  border-right: ${({ hasBorder }) =>
-    hasBorder && `2px solid ${colors.grayDark}`};
+  border-left: ${({ hasBorder }) => hasBorder && `2px solid ${colors.grayDark}`};
+  border-right: ${({ hasBorder }) => hasBorder && `2px solid ${colors.grayDark}`};
 `;

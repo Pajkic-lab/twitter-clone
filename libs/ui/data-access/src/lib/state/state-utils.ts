@@ -11,9 +11,6 @@ export function atomWithPersist<T>(key: string, defaultValue: T) {
   const fullKey = `jotai.${key}`;
   const inState = localStorage.getItem(fullKey);
 
-  const createdAtom = atomWithStorage<T>(
-    fullKey,
-    inState ? JSON.parse(inState) : defaultValue
-  );
+  const createdAtom = atomWithStorage<T>(fullKey, inState ? JSON.parse(inState) : defaultValue);
   return createdAtom;
 }

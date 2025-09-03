@@ -16,10 +16,7 @@ import { LocalAuthGuard } from './local-strategy/local-auth.guard';
 
 @Controller('auth')
 export class AuthController {
-  constructor(
-    private httpService: HttpService,
-    private authService: AuthService
-  ) {}
+  constructor(private httpService: HttpService, private authService: AuthService) {}
 
   @Get('google/sign-in')
   @UseGuards(IsGuestGuard, GoogleAuthGuard)
@@ -36,7 +33,7 @@ export class AuthController {
   @Post('sign-up')
   @UseGuards(IsGuestGuard, LocalAuthGuard)
   handleLocalRegister(
-    @Req() request: RequestContainingUserId
+    @Req() request: RequestContainingUserId,
   ): Promise<HttpResponse<SignUpEmailResponseDto>> {
     return this.authService.sigUpGetUser(request.user.id);
   }
@@ -44,7 +41,7 @@ export class AuthController {
   @Post('sign-in')
   @UseGuards(IsGuestGuard, LocalAuthGuard)
   handleLocalLogin(
-    @Req() request: RequestContainingUserId
+    @Req() request: RequestContainingUserId,
   ): Promise<HttpResponse<SignInEmailResponseDto>> {
     return this.authService.signInGetUser(request.user.id);
   }
@@ -52,7 +49,7 @@ export class AuthController {
   @Get()
   @UseGuards(IsAuthGuard)
   handleAuthUser(
-    @Req() request: RequestContainingUserId
+    @Req() request: RequestContainingUserId,
   ): Promise<HttpResponse<AuthenticationResponseDto>> {
     return this.authService.authUser(request.user.id);
   }

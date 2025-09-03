@@ -30,23 +30,18 @@ export const ProfilePage = () => {
   const { data: mostPopularUsers, isFetching: isMostPopularUsersLoading } =
     useMostPopularUsersQuery();
 
-  const {
-    mutate: updateUserMutate,
-    isPending: updateUserLoading,
-    error,
-  } = useUpdateUserMutation();
+  const { mutate: updateUserMutate, isPending: updateUserLoading, error } = useUpdateUserMutation();
 
   const { name, uniqueName, avatar } = user ?? ({} as UserResponseDto);
   const updateUserErrorMessage = error?.message as ParsedError;
 
-  const [isEditProfileModalOpen, setEditModalProfileOpen] =
-    useState<boolean>(false);
+  const [isEditProfileModalOpen, setEditModalProfileOpen] = useState<boolean>(false);
 
   const onSubmitUpdateUser = useCallback(
     (userFormData: UpdateUserFormData) => {
       updateUserMutate(userFormData);
     },
-    [updateUserMutate]
+    [updateUserMutate],
   );
 
   const openEditProfileModal = () => {
@@ -63,9 +58,7 @@ export const ProfilePage = () => {
         user={user}
         socialStats={socialStats}
         profileActions={
-          <EditProfileButton onClick={openEditProfileModal}>
-            Edit profile
-          </EditProfileButton>
+          <EditProfileButton onClick={openEditProfileModal}>Edit profile</EditProfileButton>
         }
         // why is this injected as child component? will there be need to have different model? think about when to have child injected
         // and when to just use it inside component? Maybe there is need i don't know, just looks sketchy...

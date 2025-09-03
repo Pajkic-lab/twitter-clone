@@ -34,10 +34,8 @@ export const HomePage = () => {
     isPending: checkUniqueNameLoading,
   } = useCheckUniqueUserNameMutation();
 
-  const {
-    mutate: updateUniqueUserNameMutate,
-    isPending: updateUniqueUserNameLoading,
-  } = useUpdateUniqueUserNameMutation();
+  const { mutate: updateUniqueUserNameMutate, isPending: updateUniqueUserNameLoading } =
+    useUpdateUniqueUserNameMutation();
 
   const { id, name, uniqueName, avatar } = user ?? ({} as UserResponseDto);
   const { isNameUnique } = uniqueUserName ?? {};
@@ -46,25 +44,22 @@ export const HomePage = () => {
     (uniqueNameFormData: UniqueNameFormData) => {
       updateUniqueUserNameMutate(uniqueNameFormData);
     },
-    [updateUniqueUserNameMutate]
+    [updateUniqueUserNameMutate],
   );
 
   const onChangeUniqueName = useCallback(
     (uniqueName: string) => {
       checkUniqueUserNameMutate({ uniqueName });
     },
-    [checkUniqueUserNameMutate]
+    [checkUniqueUserNameMutate],
   );
 
   const userHasNoUniqueName = useMemo(
     () => !uniqueName && !userIsLoading,
-    [uniqueName, userIsLoading]
+    [uniqueName, userIsLoading],
   );
 
-  const isNameUniqueServerResponse = useMemo(
-    () => !!isNameUnique,
-    [isNameUnique]
-  );
+  const isNameUniqueServerResponse = useMemo(() => !!isNameUnique, [isNameUnique]);
 
   const invData = invHomePage();
 

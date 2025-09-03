@@ -52,13 +52,13 @@ export const ImageInput = forwardRef<HTMLInputElement, Props>(
             },
             OUTPUT_TYPE,
             MIN_WIDTH,
-            MIN_HEIGHT
+            MIN_HEIGHT,
           );
         } catch (error: any) {
           setErrorMessage(error.message as string);
         }
       },
-      [setErrorMessage, onChange]
+      [setErrorMessage, onChange],
     );
 
     const handleFileChange = useCallback(
@@ -87,7 +87,7 @@ export const ImageInput = forwardRef<HTMLInputElement, Props>(
 
         resizeImage(file);
       },
-      [resizeImage]
+      [resizeImage],
     );
 
     return (
@@ -105,7 +105,7 @@ export const ImageInput = forwardRef<HTMLInputElement, Props>(
         />
       </SVGWrapper>
     );
-  }
+  },
 );
 
 const SVGWrapper = styled.div`

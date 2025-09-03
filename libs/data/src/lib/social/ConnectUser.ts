@@ -1,5 +1,5 @@
 export type ConnectUser = (
   connectUserId: number,
   followingStatus: boolean,
-  publicUserId?: number
+  publicUserId?: number,
 ) => Promise<void> | undefined;

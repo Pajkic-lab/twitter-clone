@@ -12,7 +12,7 @@ import { Control, FieldValues, Path } from 'react-hook-form';
  */
 export type MakeFormComponentProps<
   TProps extends { name?: string },
-  TValues extends FieldValues = FieldValues
+  TValues extends FieldValues = FieldValues,
 > = Omit<TProps, 'name'> & {
   control: Control<TValues>;
   name: Path<TValues>;

@@ -19,8 +19,7 @@ type UserPreviewTooltipProps = {
 export const ProfilePreviewTooltip = (props: UserPreviewTooltipProps) => {
   const { buttonRelatedUser, meId, publicUserId, invData } = props;
 
-  const { id, avatar, followingStatus, name, uniqueName, bio } =
-    buttonRelatedUser;
+  const { id, avatar, followingStatus, name, uniqueName, bio } = buttonRelatedUser;
 
   const navigate = useNavigate();
 

@@ -13,7 +13,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
   constructor(
     authService: AuthService,
     httpService: HttpService,
-    confService: ConfigurationService
+    confService: ConfigurationService,
   ) {
     super({
       clientID: confService.googleClientId,
@@ -24,11 +24,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
     this.authService = authService;
   }
 
-  async validate(
-    accessToken: string,
-    refreshToken: string,
-    profile: Profile
-  ): Promise<User> {
+  async validate(accessToken: string, refreshToken: string, profile: Profile): Promise<User> {
     if (!profile.emails?.[0]?.value) {
       throw new Error('Missing email address');
     }

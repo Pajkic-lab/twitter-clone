@@ -29,8 +29,7 @@ export const SideBarOptionsButton = (props: SideBarOptionsButtonProps) => {
 
 const Wrapper = styled.div<{ collapsed: boolean }>`
   display: flex;
-  justify-content: ${({ collapsed }) =>
-    collapsed ? 'center' : 'space-between'};
+  justify-content: ${({ collapsed }) => (collapsed ? 'center' : 'space-between')};
   align-items: center;
   border-radius: 5rem;
   cursor: pointer;

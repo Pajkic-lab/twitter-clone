@@ -1,9 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import {
-  NameUniqueRequestDto,
-  SearchUserRequestDto,
-  UpdateUserRequestDto,
-} from '@tw/data';
+import { NameUniqueRequestDto, SearchUserRequestDto, UpdateUserRequestDto } from '@tw/data';
 import { errorParser } from '@tw/ui/common';
 import { isAxiosError } from 'axios';
 import { http } from '../../http/api';

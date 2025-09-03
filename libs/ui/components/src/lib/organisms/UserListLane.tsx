@@ -43,12 +43,7 @@ export const UserListLane = (props: UserListLaneProps) => {
 
   return (
     <Wrapper>
-      <NavigationBar
-        title={name}
-        text={uniqueName}
-        width={LANE_WIDTH}
-        height={NAVBAR_HEIGHT}
-      />
+      <NavigationBar title={name} text={uniqueName} width={LANE_WIDTH} height={NAVBAR_HEIGHT} />
 
       <Divider topMargin={NAVBAR_HEIGHT} />
 
