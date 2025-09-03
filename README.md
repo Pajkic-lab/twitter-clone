@@ -75,16 +75,20 @@ By contributing to this project, you’ll gain hands-on experience with system d
 ### Installation
 
 1. **Fork the repository**
-   <br/>
-   <br/>
 2. **Clone the repository:**
-   <br/>
-   <br/>
+
+   - Clone repo to your machine
+
+     ```bash
+     git clone git@github.com:Pajkic-lab/twitter-clone.git
+     ```
+
 3. **Set up the environment variables:**
-   - Copy `.env.example` template file content and create `.env.development` file for development and `.env.staging` for the staging environment.
-   - For the staging environment, you should change the `DATABASE_URL_PG` value, which you can find in the `docker-compose` file.
+   - Docker app has to be running.
+   - To setup development environment, create file `.env.development` in root than copy content from `.env.example` file and paste it in new file `.env.development`.
+   - To setup staging environment, create file `.env.staging` in root dir than copy content from `.env.example` file and paste it in new file `.env.staging`, than in `.env.staging` file change `DATABASE_URL_PG` variable to `postgres://avnadmin:AVNS_0TU9ktE4pwBZ5bEgp-N@localhost:5433/twitterclonetest6_staging` because testing environment is using different db from development. you can find this in docker-compose file.
 4. **Set up app for development:**
-   - This command sets development app environment. Run it initially and whenever you change the environment:
+   - This command sets development environment. Run it initially and whenever you change the environment:
      ```bash
      pnpm run dev:set
      ```
