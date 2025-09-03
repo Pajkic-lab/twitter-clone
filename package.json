@@ -22,14 +22,10 @@
     "app:build": "pnpm i && pnpm run db:generate && npx nx build client && npx nx build server",
     "app:set": "pnpm i && pnpm run db:format && pnpm run db:generate && pnpm run db:migrate && pnpm run db:deploy",
     "check-dependencies": "depcheck",
-    "sort-package-json": "sort-package-json",
     "app-structure": "node app-structure.js",
     "prepare": "husky",
-    "lint": "npx nx lint",
-    "lint:fix": "npx nx lint --fix",
     "format": "prettier --write \"**/*.{js,ts,tsx,json,css,md,html,yml,yaml}\"",
-    "format:check": "prettier --check \"**/*.{js,ts,tsx,json,css,md,html,yml,yaml}\"",
-    "test": "pnpm i"
+    "format:check": "prettier --check \"**/*.{js,ts,tsx,json,css,md,html,yml,yaml}\""
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [
@@ -148,7 +144,6 @@
     "nx": "17.0.3",
     "prettier": "^2.8.8",
     "prettier-plugin-organize-imports": "^3.2.4",
-    "sort-package-json": "^2.8.0",
     "supertest": "^7.0.0",
     "ts-jest": "^29.1.2",
     "ts-node": "10.9.1",
