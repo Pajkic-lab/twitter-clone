@@ -2,10 +2,7 @@ import { UserResponseDto } from '@tw/data';
 import { colors } from '@tw/ui/assets';
 import styled from 'styled-components';
 
-type NameAndUniquenameProps = Pick<
-  UserResponseDto,
-  'name' | 'uniqueName' | 'bio'
-> & {
+type NameAndUniquenameProps = Pick<UserResponseDto, 'name' | 'uniqueName' | 'bio'> & {
   navigateToUser?: () => void;
 };
 

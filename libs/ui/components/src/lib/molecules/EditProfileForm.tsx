@@ -34,27 +34,20 @@ type EditProfileFormProps = {
 export const EditProfileForm = (props: EditProfileFormProps) => {
   const { formId, onSubmitUpdateUser, user, error } = props;
 
-  const {
-    handleSubmit,
-    control,
-    formState,
-    setError,
-    clearErrors,
-    watch,
-    setValue,
-  } = useForm<UpdateUserFormData>({
-    resolver: zodResolver(updateUserSchema),
-    criteriaMode: 'all',
-    mode: 'onBlur',
-    defaultValues: {
-      cover: '',
-      avatar: '',
-      name: '',
-      bio: '',
-      location: '',
-      website: '',
-    },
-  });
+  const { handleSubmit, control, formState, setError, clearErrors, watch, setValue } =
+    useForm<UpdateUserFormData>({
+      resolver: zodResolver(updateUserSchema),
+      criteriaMode: 'all',
+      mode: 'onBlur',
+      defaultValues: {
+        cover: '',
+        avatar: '',
+        name: '',
+        bio: '',
+        location: '',
+        website: '',
+      },
+    });
 
   const { avatar, cover } = watch();
 
@@ -80,20 +73,10 @@ export const EditProfileForm = (props: EditProfileFormProps) => {
     <>
       <form id={formId} onSubmit={handleSubmit(onSubmitUpdateUser)}>
         <CoverWrapper $backgroundImage={cover}>
-          <FormImageInput
-            control={control}
-            id={uuid()}
-            type={'file'}
-            name={'cover'}
-          />
+          <FormImageInput control={control} id={uuid()} type={'file'} name={'cover'} />
         </CoverWrapper>
         <AvatarWrapper $backgroundImage={avatar}>
-          <FormImageInput
-            control={control}
-            id={uuid()}
-            type={'file'}
-            name={'avatar'}
-          />
+          <FormImageInput control={control} id={uuid()} type={'file'} name={'avatar'} />
         </AvatarWrapper>
         <FormInput control={control} name="name" id={uuid()} type="text" />
         <FormInput control={control} name="bio" id={uuid()} type="text" />

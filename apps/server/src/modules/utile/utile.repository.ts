@@ -15,10 +15,7 @@ export class UtileRepository {
         },
       });
     } catch (error) {
-      throw new HttpException(
-        'Error while getting user list',
-        HttpStatus.INTERNAL_SERVER_ERROR
-      );
+      throw new HttpException('Error while getting user list', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }

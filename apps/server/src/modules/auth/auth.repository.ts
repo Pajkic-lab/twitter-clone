@@ -1,10 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { User } from '@prisma/client';
-import {
-  CreatableGoogleUser,
-  CreatableUser,
-  SocialStatsResponseDto,
-} from '@tw/data';
+import { CreatableGoogleUser, CreatableUser, SocialStatsResponseDto } from '@tw/data';
 import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
@@ -19,10 +15,7 @@ export class AuthRepository {
         },
       });
     } catch (error) {
-      throw new HttpException(
-        'Error while finding user',
-        HttpStatus.INTERNAL_SERVER_ERROR
-      );
+      throw new HttpException('Error while finding user', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -36,10 +29,7 @@ export class AuthRepository {
         },
       });
     } catch (error) {
-      throw new HttpException(
-        'Error while creating user',
-        HttpStatus.INTERNAL_SERVER_ERROR
-      );
+      throw new HttpException('Error while creating user', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -54,7 +44,7 @@ export class AuthRepository {
     } catch (error) {
       throw new HttpException(
         'Error while creating user via google',
-        HttpStatus.INTERNAL_SERVER_ERROR
+        HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
   }
@@ -70,7 +60,7 @@ export class AuthRepository {
     } catch (error) {
       throw new HttpException(
         'Error while finding user via google',
-        HttpStatus.INTERNAL_SERVER_ERROR
+        HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
   }
@@ -87,10 +77,7 @@ export class AuthRepository {
       });
       return { followingCount, followersCount };
     } catch (error) {
-      throw new HttpException(
-        'Error while getting social stats',
-        HttpStatus.INTERNAL_SERVER_ERROR
-      );
+      throw new HttpException('Error while getting social stats', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }

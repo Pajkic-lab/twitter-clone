@@ -1,10 +1,4 @@
-import {
-  Mapper,
-  MappingProfile,
-  createMap,
-  forMember,
-  mapFrom,
-} from '@automapper/core';
+import { Mapper, MappingProfile, createMap, forMember, mapFrom } from '@automapper/core';
 import { AutomapperProfile } from '@automapper/nestjs';
 import { Injectable } from '@nestjs/common';
 import {
@@ -30,8 +24,8 @@ export class SocialProfile extends AutomapperProfile {
         FollowUserResponseDto,
         forMember(
           (destination) => destination.userIdToFollow,
-          mapFrom((source) => source.followingId)
-        )
+          mapFrom((source) => source.followingId),
+        ),
       );
       createMap(mapper, UserWithFollowingStatus, FollowerListResponseDto);
       createMap(mapper, UserWithFollowingStatus, FollowingListResponseDto);

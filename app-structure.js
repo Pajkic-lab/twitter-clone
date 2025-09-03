@@ -40,10 +40,7 @@ function getDirStructure(dir, prefix = '') {
     structure += `${prefix}${isLast ? '└──' : '├──'} ${item}\n`;
 
     if (stats.isDirectory()) {
-      structure += getDirStructure(
-        itemPath,
-        `${prefix}${isLast ? '    ' : '│   '}`
-      );
+      structure += getDirStructure(itemPath, `${prefix}${isLast ? '    ' : '│   '}`);
     }
   });
 

@@ -90,9 +90,7 @@ export const UserLIst = (props: UserListProps) => {
       )}
       {scrollable && <InfScrollElTrigger ref={infScrollElRef} />}
       {showLoader && <LoaderUi scrollable={scrollable} />}
-      {showNoData && (
-        <NoDataUi scrollable={scrollable} noDataText={noDataText} />
-      )}
+      {showNoData && <NoDataUi scrollable={scrollable} noDataText={noDataText} />}
     </Wrapper>
   );
 };

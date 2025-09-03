@@ -27,8 +27,7 @@ export const SingleUser = (props: SingleUserProps) => {
     invData,
   } = props;
 
-  const { id, name, avatar, uniqueName, bio, followingStatus } =
-    buttonRelatedUser;
+  const { id, name, avatar, uniqueName, bio, followingStatus } = buttonRelatedUser;
 
   const navigate = useNavigate();
 

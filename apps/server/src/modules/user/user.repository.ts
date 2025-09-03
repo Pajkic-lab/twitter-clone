@@ -18,7 +18,7 @@ export class UserRepository {
     } catch (error) {
       throw new HttpException(
         'Error while checking name uniqueness',
-        HttpStatus.INTERNAL_SERVER_ERROR
+        HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
   }
@@ -36,14 +36,14 @@ export class UserRepository {
     } catch (error) {
       throw new HttpException(
         'Error while checking name uniqueness',
-        HttpStatus.INTERNAL_SERVER_ERROR
+        HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
   }
 
   async updateUser(
     userId: number,
-    { name, avatar, cover, bio, website, location }: UpdateUserRequestDto
+    { name, avatar, cover, bio, website, location }: UpdateUserRequestDto,
   ): Promise<User> {
     try {
       return await this.prisma.user.update({
@@ -60,10 +60,7 @@ export class UserRepository {
         },
       });
     } catch (error) {
-      throw new HttpException(
-        'Error while editing user',
-        HttpStatus.INTERNAL_SERVER_ERROR
-      );
+      throw new HttpException('Error while editing user', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -77,7 +74,7 @@ export class UserRepository {
     } catch (error) {
       throw new HttpException(
         'Error while finding user via google',
-        HttpStatus.INTERNAL_SERVER_ERROR
+        HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
   }
@@ -94,17 +91,11 @@ export class UserRepository {
       });
       return { followingCount, followersCount };
     } catch (error) {
-      throw new HttpException(
-        'Error while geting social stats',
-        HttpStatus.INTERNAL_SERVER_ERROR
-      );
+      throw new HttpException('Error while geting social stats', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
-  async getFollowingStatus(
-    publicUserId: number,
-    userId: number
-  ): Promise<boolean> {
+  async getFollowingStatus(publicUserId: number, userId: number): Promise<boolean> {
     try {
       const res = await this.prisma.social.findFirst({
         where: {
@@ -115,10 +106,7 @@ export class UserRepository {
       if (res) return true;
       return false;
     } catch (error) {
-      throw new HttpException(
-        'Error while geting social status',
-        HttpStatus.INTERNAL_SERVER_ERROR
-      );
+      throw new HttpException('Error while geting social status', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -151,10 +139,7 @@ export class UserRepository {
         take: 3, // this should come from API, it should not be hardcoded
       });
     } catch (error) {
-      throw new HttpException(
-        'Error while finding users',
-        HttpStatus.INTERNAL_SERVER_ERROR
-      );
+      throw new HttpException('Error while finding users', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -179,10 +164,7 @@ export class UserRepository {
         take: 10,
       });
     } catch (error) {
-      throw new HttpException(
-        'Error while searching for user',
-        HttpStatus.INTERNAL_SERVER_ERROR
-      );
+      throw new HttpException('Error while searching for user', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }

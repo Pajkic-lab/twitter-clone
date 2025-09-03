@@ -1,10 +1,5 @@
 import { Mapper } from '@automapper/core';
-import {
-  HttpException,
-  HttpStatus,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import {
   HttpResponse,
   MediaDirectory,
@@ -30,7 +25,7 @@ export class UserService {
   constructor(
     private userRepository: UserRepository,
     private cloudinaryService: CloudinaryService,
-    @InjectMapper() private readonly mapper: Mapper
+    @InjectMapper() private readonly mapper: Mapper,
   ) {}
 
   async getUser(userId: number): Promise<HttpResponse<UserResponseDto>> {
@@ -49,7 +44,7 @@ export class UserService {
   }
 
   async checkNameUniqueness(
-    data: NameUniqueRequestDto
+    data: NameUniqueRequestDto,
   ): Promise<HttpResponse<NameUniqueResponseDto>> {
     // should return what data is validating
     const res = await this.userRepository.isUserNameUnique(data.uniqueName);
@@ -70,24 +65,17 @@ export class UserService {
 
   async updateUniqueUserName(
     userId: number,
-    data: NameUniqueRequestDto
+    data: NameUniqueRequestDto,
   ): Promise<HttpResponse<NameUniqueUpdateResponseDto>> {
     let user;
     user = await this.userRepository.isUserNameUnique(data.uniqueName);
     if (user !== null) {
       throw new NotFoundException('Unique user name already exist!');
     } else {
-      user = await this.userRepository.updateUserNameUnique(
-        userId,
-        data.uniqueName
-      );
+      user = await this.userRepository.updateUserNameUnique(userId, data.uniqueName);
     }
 
-    const uniqueName = this.mapper.map(
-      user,
-      UserBase,
-      NameUniqueUpdateResponseDto
-    );
+    const uniqueName = this.mapper.map(user, UserBase, NameUniqueUpdateResponseDto);
 
     return createResponse({
       payload: uniqueName,
@@ -97,13 +85,13 @@ export class UserService {
 
   async updateUser(
     userId: number,
-    updateUser: UpdateUserRequestDto
+    updateUser: UpdateUserRequestDto,
   ): Promise<HttpResponse<UpdateUserResponseDto>> {
     if (updateUser.avatar && isBase64(updateUser.avatar)) {
       const { url } = await this.cloudinaryService.uploadImage(
         updateUser.avatar,
         userId,
-        MediaDirectory.avatar
+        MediaDirectory.avatar,
       );
       updateUser.avatar = url;
     }
@@ -111,7 +99,7 @@ export class UserService {
       const { url } = await this.cloudinaryService.uploadImage(
         updateUser.cover,
         userId,
-        MediaDirectory.cover
+        MediaDirectory.cover,
       );
       updateUser.cover = url;
     }
@@ -128,16 +116,14 @@ export class UserService {
 
   async getPublicUser(
     publicUserId: number,
-    userId?: number
+    userId?: number,
   ): Promise<
     HttpResponse<{
       user: PublicUserResponseDto;
     }>
   > {
     if (publicUserId === userId) {
-      throw new NotFoundException(
-        'Can not access to specific user as authenticated same user'
-      );
+      throw new NotFoundException('Can not access to specific user as authenticated same user');
     }
 
     const user = await this.userRepository.findUserById(publicUserId);
@@ -152,24 +138,16 @@ export class UserService {
     });
   }
 
-  async getMostPopularUsers(
-    userId: number
-  ): Promise<HttpResponse<MostPopularUsersResponseDto[]>> {
-    const mostPopularUsers = await this.userRepository.getMostPopularUsers(
-      userId
-    );
+  async getMostPopularUsers(userId: number): Promise<HttpResponse<MostPopularUsersResponseDto[]>> {
+    const mostPopularUsers = await this.userRepository.getMostPopularUsers(userId);
     if (!mostPopularUsers) {
       throw new HttpException(
         'Error while finding most pupular profiles',
-        HttpStatus.INTERNAL_SERVER_ERROR
+        HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
 
-    const users = this.mapper.mapArray(
-      mostPopularUsers,
-      UserBase,
-      MostPopularUsersResponseDto
-    );
+    const users = this.mapper.mapArray(mostPopularUsers, UserBase, MostPopularUsersResponseDto);
 
     return createResponse({
       payload: users,
@@ -179,25 +157,15 @@ export class UserService {
 
   async getSearchData(
     searchData: string,
-    userId?: number
+    userId?: number,
   ): Promise<HttpResponse<SearchUsersResponseDto[]>> {
-    const searchedUsers = await this.userRepository.getSearchData(
-      searchData,
-      userId
-    );
+    const searchedUsers = await this.userRepository.getSearchData(searchData, userId);
 
     if (!searchedUsers) {
-      throw new HttpException(
-        'Error while searching for user',
-        HttpStatus.INTERNAL_SERVER_ERROR
-      );
+      throw new HttpException('Error while searching for user', HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    const users = this.mapper.mapArray(
-      searchedUsers,
-      UserBase,
-      SearchUsersResponseDto
-    );
+    const users = this.mapper.mapArray(searchedUsers, UserBase, SearchUsersResponseDto);
 
     return createResponse({
       payload: users,

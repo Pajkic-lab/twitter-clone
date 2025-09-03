@@ -9,10 +9,7 @@ import { DtoValidation } from './dto-validation';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
-  constructor(
-    private authService: AuthService,
-    private dtoValidation: DtoValidation
-  ) {
+  constructor(private authService: AuthService, private dtoValidation: DtoValidation) {
     super({
       passReqToCallback: true,
     });
@@ -21,10 +18,8 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
   async validate(request: Request): Promise<User> {
     const requestUser = request.body;
 
-    const shapeDeterminate = async <
-      T extends SignUpEmailRequestDto | SignInEmailRequestDto
-    >(
-      requestUser: T
+    const shapeDeterminate = async <T extends SignUpEmailRequestDto | SignInEmailRequestDto>(
+      requestUser: T,
     ): Promise<User> => {
       if ('confirmPassword' in requestUser) {
         try {

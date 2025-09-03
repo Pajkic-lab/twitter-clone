@@ -2,12 +2,7 @@ const baseConfig = require('../../eslint.config.js');
 module.exports = [
   ...baseConfig,
   {
-    files: [
-      'libs/data/**/*.ts',
-      'libs/data/**/*.tsx',
-      'libs/data/**/*.js',
-      'libs/data/**/*.jsx',
-    ],
+    files: ['libs/data/**/*.ts', 'libs/data/**/*.tsx', 'libs/data/**/*.js', 'libs/data/**/*.jsx'],
     rules: {},
   },
   {

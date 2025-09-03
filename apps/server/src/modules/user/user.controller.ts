@@ -32,16 +32,14 @@ export class UserController {
 
   @Get()
   @UseGuards(IsAuthGuard)
-  handleGetUser(
-    @Req() request: RequestContainingUserId
-  ): Promise<HttpResponse<UserResponseDto>> {
+  handleGetUser(@Req() request: RequestContainingUserId): Promise<HttpResponse<UserResponseDto>> {
     return this.userService.getUser(request.user.id);
   }
 
   @Post('name-unique')
   @UseGuards(IsAuthGuard)
   handleNameUniqueness(
-    @Body() body: NameUniqueRequestDto
+    @Body() body: NameUniqueRequestDto,
   ): Promise<HttpResponse<NameUniqueResponseDto>> {
     return this.userService.checkNameUniqueness(body);
   }
@@ -50,7 +48,7 @@ export class UserController {
   @UseGuards(IsAuthGuard)
   handleUpdateUserUniqueName(
     @Req() request: RequestContainingUserId,
-    @Body() body: NameUniqueRequestDto
+    @Body() body: NameUniqueRequestDto,
   ): Promise<HttpResponse<NameUniqueUpdateResponseDto>> {
     return this.userService.updateUniqueUserName(request.user.id, body);
   }
@@ -59,7 +57,7 @@ export class UserController {
   @UseGuards(IsAuthGuard)
   handleUpdateUser(
     @Req() request: RequestContainingUserId,
-    @Body() body: UpdateUserRequestDto
+    @Body() body: UpdateUserRequestDto,
   ): Promise<HttpResponse<UpdateUserResponseDto>> {
     return this.userService.updateUser(request.user.id, body);
   }
@@ -68,7 +66,7 @@ export class UserController {
   @UsePipes(new ParseIntPipe())
   handleGetPublicUser(
     @Param('id') id: number,
-    @Req() request: RequestContainingUserId
+    @Req() request: RequestContainingUserId,
   ): Promise<
     HttpResponse<{
       user: PublicUserResponseDto;
@@ -80,7 +78,7 @@ export class UserController {
   @Get('most-popular')
   @UseGuards(IsAuthGuard)
   handleGetMostPopularUsers(
-    @Req() request: RequestContainingUserId
+    @Req() request: RequestContainingUserId,
   ): Promise<HttpResponse<MostPopularUsersResponseDto[]>> {
     return this.userService.getMostPopularUsers(request.user.id);
   }
@@ -88,7 +86,7 @@ export class UserController {
   @Get('search/:searchData')
   handleGetSearchData(
     @Param('searchData') searchData: string,
-    @Req() request: RequestContainingUserId
+    @Req() request: RequestContainingUserId,
   ): Promise<HttpResponse<SearchUsersResponseDto[]>> {
     return this.userService.getSearchData(searchData, request.user.id);
   }

@@ -11,7 +11,7 @@ import { InjectMapper as InjectAutoMapper } from '@automapper/nestjs';
  * https://github.com/nestjs/nest/pull/10970
  */
 export function InjectMapper(
-  name?: string
+  name?: string,
 ): (target: object, key: string | symbol | undefined, index: number) => void {
   return InjectAutoMapper(name) as never;
 }

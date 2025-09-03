@@ -3,12 +3,12 @@ import { ImageInput } from '../atoms/ImageInput';
 import { InputProps } from '../atoms/Input';
 import { MakeFormComponentProps } from './make-form-component-props.type';
 
-export type FormImageInputProps<T extends FieldValues = FieldValues> =
-  MakeFormComponentProps<InputProps, T>;
+export type FormImageInputProps<T extends FieldValues = FieldValues> = MakeFormComponentProps<
+  InputProps,
+  T
+>;
 
-export function FormImageInput<T extends FieldValues = FieldValues>(
-  props: FormImageInputProps<T>
-) {
+export function FormImageInput<T extends FieldValues = FieldValues>(props: FormImageInputProps<T>) {
   const { control, name, required, disabled, ...rest } = props;
   const formState = useFormState({ control, name, disabled });
 

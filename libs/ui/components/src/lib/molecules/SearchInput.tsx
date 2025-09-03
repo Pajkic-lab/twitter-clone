@@ -45,14 +45,14 @@ export const SearchInput = (props: SearchInputProps) => {
       searchInputOnChange(val);
       setInputValue(val);
     },
-    [searchInputOnChange]
+    [searchInputOnChange],
   );
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       onChange(e.target.value);
     },
-    [onChange]
+    [onChange],
   );
 
   const handleFocus = () => {

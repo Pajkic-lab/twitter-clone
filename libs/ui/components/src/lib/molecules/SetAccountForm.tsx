@@ -23,34 +23,27 @@ const uniqueNameSchema = z.object({
 export type UniqueNameFormData = z.infer<typeof uniqueNameSchema>;
 
 export const SetAccountForm = (props: SetAccountFormProps) => {
-  const {
-    onSubmit,
-    onChange,
-    isFormSubmitting,
-    isNameUnique,
-    isUniqueNameChecking,
-  } = props;
+  const { onSubmit, onChange, isFormSubmitting, isNameUnique, isUniqueNameChecking } = props;
 
-  const { handleSubmit, control, formState, setError, clearErrors } =
-    useForm<UniqueNameFormData>({
-      resolver: zodResolver(uniqueNameSchema),
-      criteriaMode: 'all',
-      mode: 'all',
-      defaultValues: {
-        uniqueName: '',
-      },
-    });
+  const { handleSubmit, control, formState, setError, clearErrors } = useForm<UniqueNameFormData>({
+    resolver: zodResolver(uniqueNameSchema),
+    criteriaMode: 'all',
+    mode: 'all',
+    defaultValues: {
+      uniqueName: '',
+    },
+  });
 
   const { uniqueName } = useWatch({ control });
   const { isValid } = formState;
 
   const isLoading = useMemo(
     () => isFormSubmitting || isUniqueNameChecking,
-    [isFormSubmitting, isUniqueNameChecking]
+    [isFormSubmitting, isUniqueNameChecking],
   );
   const nameNotApproved = useMemo(
     () => !isNameUnique || !isValid || isLoading,
-    [isNameUnique, isValid, isLoading]
+    [isNameUnique, isValid, isLoading],
   );
 
   useEffect(() => {
@@ -76,18 +69,8 @@ export const SetAccountForm = (props: SetAccountFormProps) => {
       <H1>What should we call you?</H1>
       <H5>Your @username is unique. You can always change it later.</H5>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <FormInput
-          control={control}
-          name="uniqueName"
-          id={uuid()}
-          type="text"
-          required
-        />
-        <JumboButton
-          type="submit"
-          disabled={nameNotApproved}
-          loading={isLoading}
-        >
+        <FormInput control={control} name="uniqueName" id={uuid()} type="text" required />
+        <JumboButton type="submit" disabled={nameNotApproved} loading={isLoading}>
           Join us
         </JumboButton>
       </form>

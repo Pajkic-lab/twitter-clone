@@ -80,10 +80,8 @@ const ActionsWrapper = styled.div<{
   hasCloseButton: boolean;
   actionsPositionSticky: ActionsPositionSticky;
 }>`
-  position: ${({ actionsPositionSticky }) =>
-    actionsPositionSticky ? 'sticky' : 'static'};
-  backdrop-filter: ${({ actionsPositionSticky }) =>
-    actionsPositionSticky && 'blur(10px)'};
+  position: ${({ actionsPositionSticky }) => (actionsPositionSticky ? 'sticky' : 'static')};
+  backdrop-filter: ${({ actionsPositionSticky }) => actionsPositionSticky && 'blur(10px)'};
   top: 0;
   padding: 1rem;
   padding-right: ${({ hasCloseButton }) => hasCloseButton && '3.5rem'};
@@ -98,8 +96,7 @@ const ActionsContentWrapper = styled.div<{
 }>`
   width: 100%;
   display: flex;
-  justify-content: ${({ actionsContentAlinement }) =>
-    actionsContentAlinement ?? 'center'};
+  justify-content: ${({ actionsContentAlinement }) => actionsContentAlinement ?? 'center'};
   align-items: center;
   padding-left: ${({ hasCloseButton }) => hasCloseButton && '3rem'};
 `;

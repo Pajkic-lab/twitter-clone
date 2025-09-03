@@ -1,9 +1,5 @@
 import { Mapper } from '@automapper/core';
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { Req } from '@nestjs/common/decorators';
 import { User } from '@prisma/client';
 import {
@@ -27,7 +23,7 @@ import { AuthRepository } from './auth.repository';
 export class AuthService {
   constructor(
     private authRepository: AuthRepository,
-    @InjectMapper() private readonly mapper: Mapper
+    @InjectMapper() private readonly mapper: Mapper,
   ) {}
 
   // invoked from strategy
@@ -60,9 +56,7 @@ export class AuthService {
     throw new NotFoundException('Invalid credentials');
   }
 
-  async signInGetUser(
-    userId: number
-  ): Promise<HttpResponse<SignInEmailResponseDto>> {
+  async signInGetUser(userId: number): Promise<HttpResponse<SignInEmailResponseDto>> {
     const user = await this.authRepository.findUserById(userId);
 
     if (!user) throw new NotFoundException('User does not exist');
@@ -72,9 +66,7 @@ export class AuthService {
     return createResponse({ payload, message: 'sign in success' });
   }
 
-  async sigUpGetUser(
-    userId: number
-  ): Promise<HttpResponse<SignUpEmailResponseDto>> {
+  async sigUpGetUser(userId: number): Promise<HttpResponse<SignUpEmailResponseDto>> {
     const user = await this.authRepository.findUserById(userId);
 
     if (!user) throw new NotFoundException('User does not exist');
@@ -84,9 +76,7 @@ export class AuthService {
     return createResponse({ payload, message: 'sign up success' });
   }
 
-  async authUser(
-    userId: number
-  ): Promise<HttpResponse<AuthenticationResponseDto>> {
+  async authUser(userId: number): Promise<HttpResponse<AuthenticationResponseDto>> {
     let user;
 
     user = await this.authRepository.findUserById(userId);

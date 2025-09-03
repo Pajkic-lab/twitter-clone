@@ -16,7 +16,7 @@ const envArg = process.argv[2];
 
 if (!envArg || !envMapping[envArg]) {
   console.error(
-    `Please provide a valid environment: dev, staging, or prod. You have provided "${envArg}" which is not valid!`
+    `Please provide a valid environment: dev, staging, or prod. You have provided "${envArg}" which is not valid!`,
   );
   process.exit(1);
 }
