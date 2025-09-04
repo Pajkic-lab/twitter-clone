@@ -4,7 +4,9 @@ import styled from 'styled-components';
 export const HomeMainLane = () => {
   return (
     <Wrapper>
+      {/* why this TabWrapper is not component for itself??? */}
       <TabWrapper>
+        {/* Tab should be atom component */}
         <Tab>
           <Text $active>For you</Text>
         </Tab>

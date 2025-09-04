@@ -8,12 +8,15 @@ type SideBarOptionsButtonProps = {
   collapsed: boolean;
 };
 
+// Should this component be atom or molecule?
 export const SideBarOptionsButton = (props: SideBarOptionsButtonProps) => {
   const { name, uniqueName, avatar, collapsed } = props;
 
   return (
     <Wrapper collapsed={collapsed}>
       <BioWrapper>
+        {/* Profile image should be atom component, used in multiple places
+        refactor this */}
         <ProfileImage $backgroundImage={avatar} />
         {!collapsed && (
           <div>

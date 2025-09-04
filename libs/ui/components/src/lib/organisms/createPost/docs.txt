@@ -1,0 +1,14 @@
+- structure:
+
+ATOM:
+1 input or text area, research difference??? don't forget feature, when user passes number of allowed characters, background gets red
+2 everyone can reply, should this be component for it self, could it have some other use????
+3 badge
+4 circle, thats showing how many characters u used, and how many u have left
+5 banner thats displaying message to upgrade to premium
+6 user avatar, left from input, should already exist, and should be polymorphic, should be used as component at home page as main avatar
+7 button, which already exist??? 
+8 there is also add button / badge when u start writing its being displayed, 
+
+MOLECULE:
+1 create post component, which is going to wrap it all. This should be reused in modal component
