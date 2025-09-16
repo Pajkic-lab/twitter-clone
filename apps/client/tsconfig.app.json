@@ -13,7 +13,11 @@
     "src/**/*.spec.js",
     "src/**/*.test.js",
     "src/**/*.spec.jsx",
-    "src/**/*.test.jsx"
+    "src/**/*.test.jsx",
+    "**/*.stories.ts",
+    "**/*.stories.js",
+    "**/*.stories.jsx",
+    "**/*.stories.tsx"
   ],
   "include": [
     "src/**/*.js",
@@ -22,6 +26,7 @@
     "src/**/*.tsx",
     "../../libs/ui/components/src/lib/atoms/ImageInput.tsx",
     "../../libs/ui/components/src/lib/organisms/footer/Footer.tsx",
-    "../../libs/ui/components/src/lib/molecules/SearchInput.tsx"
+    "../../libs/ui/components/src/lib/molecules/SearchInput.tsx",
+    "../../libs/ui/theme/src/lib/GlobalStyle.ts"
   ]
 }

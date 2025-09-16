@@ -1,6 +1,7 @@
 import { colors } from '@tw/ui/assets';
 import styled from 'styled-components';
 
+// could Mainlane component be used here, is there a need for this component?
 export const HomeMainLane = () => {
   return (
     <Wrapper>

@@ -1,8 +1,8 @@
 {
   "name": "server-e2e",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "implicitDependencies": ["server"],
   "projectType": "application",
+  "implicitDependencies": ["server"],
   "targets": {
     "e2e": {
       "executor": "@nx/jest:jest",

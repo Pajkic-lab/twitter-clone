@@ -1,0 +1,18 @@
+1 Navigation bar should not be nested in Profile component
+2 Cover is atom, move it there
+3 Avatar and options, avatar should be comp for it self
+4 Profile info should be single polymorphic component reused in all app, think it thru
+5 i have already saw Tabs somewhere, also should be single component reused
+
+
+RESEARCH a11y, in combination with linter, its for accessability!!!
+How design better frontend; simple, make it most performant
+
+Plan:
+    1. start with tabs, make a polymorphic component and use it in all of the app. tab should be atom component and GroupTab should be molecule
+    2. profile info component, what to do with this, should we have atom which purpose is going to be just to render plain text???
+    3. avatar component
+    4. cover should be polymorphic and atom and reused in other places
+    5. Navigation bar should be molecule...
+    6. Redme file should be adjusted, remove git clone command, and move "Docker has to be running" to section "setup app for development" 
+    7. Clean branches locally

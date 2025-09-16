@@ -3,7 +3,6 @@ import { colors } from '@tw/ui/assets';
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 import { NavigationBar } from '../../molecules/NavigationBar';
-import { SignUpForm } from '../../molecules/SignUpForm';
 import { AvatarAndOptions } from './components/AvatarAndOptions';
 import { Cover } from './components/Cover';
 import { ProfileInfo } from './components/ProfileInfo';
@@ -34,78 +33,6 @@ export const Profile = (props: ProfileProps) => {
       />
       <ProfileInfo user={user} socialStats={socialStats} />
       <Tabs />
-
-      <SignUpForm
-        onSubmit={function (signUpFormData: {
-          username: string;
-          email: string;
-          password: string;
-          confirmPassword: string;
-        }): void {
-          throw new Error('Function not implemented.');
-        }}
-        isPending={false}
-      />
-
-      <SignUpForm
-        onSubmit={function (signUpFormData: {
-          username: string;
-          email: string;
-          password: string;
-          confirmPassword: string;
-        }): void {
-          throw new Error('Function not implemented.');
-        }}
-        isPending={false}
-      />
-
-      <SignUpForm
-        onSubmit={function (signUpFormData: {
-          username: string;
-          email: string;
-          password: string;
-          confirmPassword: string;
-        }): void {
-          throw new Error('Function not implemented.');
-        }}
-        isPending={false}
-      />
-
-      <SignUpForm
-        onSubmit={function (signUpFormData: {
-          username: string;
-          email: string;
-          password: string;
-          confirmPassword: string;
-        }): void {
-          throw new Error('Function not implemented.');
-        }}
-        isPending={false}
-      />
-
-      <SignUpForm
-        onSubmit={function (signUpFormData: {
-          username: string;
-          email: string;
-          password: string;
-          confirmPassword: string;
-        }): void {
-          throw new Error('Function not implemented.');
-        }}
-        isPending={false}
-      />
-
-      <SignUpForm
-        onSubmit={function (signUpFormData: {
-          username: string;
-          email: string;
-          password: string;
-          confirmPassword: string;
-        }): void {
-          throw new Error('Function not implemented.');
-        }}
-        isPending={false}
-      />
     </Wrapper>
   );
 };

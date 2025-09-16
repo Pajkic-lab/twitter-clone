@@ -1,6 +1,7 @@
 export type BreakpointKeys = keyof typeof breakpoints;
 export type Breakpoints = typeof breakpoints;
 
+// This file is absolute, breakpoints are in theme file now
 export const breakpoints = {
   s: 600,
   m: 960,

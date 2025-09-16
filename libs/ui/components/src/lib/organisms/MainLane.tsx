@@ -4,7 +4,7 @@ import { ReactNode } from 'react';
 import styled from 'styled-components';
 import { Profile } from './profile/Profile';
 
-type ProfileMainLaneProps = {
+type MainLaneProps = {
   user: UserResponseDto;
   socialStats: SocialStatsResponseDto | undefined;
   profileActions: ReactNode;
@@ -13,11 +13,13 @@ type ProfileMainLaneProps = {
 
 const LANE_WIDTH = 598; // px
 
-export const ProfileMainLane = (props: ProfileMainLaneProps) => {
+// What is purpose of this component? to wrap one other component????
+export const MainLane = (props: MainLaneProps) => {
   const { user, socialStats, profileActions, profileModal } = props;
 
   return (
     <Wrapper>
+      {/* <NavigationBar title={name} text={uniqueName} width={width} height={4.286} /> */}
       <Profile
         width={LANE_WIDTH}
         user={user}
