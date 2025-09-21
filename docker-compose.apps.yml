@@ -6,6 +6,9 @@ services:
       dockerfile: ./apps/server/Dockerfile
       target: development
     image: twitter-clone:server
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
     ports:
       - ${SERVER_PORT:-3000}:5000
     volumes:
@@ -18,10 +21,30 @@ services:
       - NX_DAEMON=true
       - DATABASE_URL_PG=postgres://avnadmin:AVNS_0TU9ktE4pwBZ5bEgp-N@postgres-dev:5432/twitterclonetest6_dev
 
+  migrate:
+    restart: 'no'
+    build:
+      context: .
+      dockerfile: ./apps/server/Dockerfile
+      target: development
+    image: twitter-clone:migrate
+    command: sh -c "pnpm prisma migrate dev --schema=./apps/server/src/modules/prisma/schema.prisma"
+    depends_on:
+      postgres-dev:
+        condition: service_healthy
+    environment:
+      - DATABASE_URL_PG=postgres://avnadmin:AVNS_0TU9ktE4pwBZ5bEgp-N@postgres-dev:5432/twitterclonetest6_dev
+
   postgres-dev:
     extends:
       file: ./docker-compose.yml
       service: postgres-dev
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U avnadmin -d twitterclonetest6_dev']
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
 
 volumes:
   pgdata-dev:
