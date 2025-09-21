@@ -1,0 +1,26 @@
+services:
+  server:
+    restart: always
+    build:
+      context: .
+      dockerfile: ./apps/server/Dockerfile
+    image: twitter-clone:server
+    ports:
+      - ${SERVER_PORT:-3000}:5000
+    volumes:
+      - ./apps/server:/usr/src/app/apps/server
+      - ./libs:/usr/src/app/libs
+    env_file:
+      - path: .env.example # defaults
+        required: true
+    environment:
+      - NX_DAEMON=true
+      - DATABASE_URL_PG=postgres://avnadmin:AVNS_0TU9ktE4pwBZ5bEgp-N@postgres-dev:5432/twitterclonetest6_dev
+
+  postgres-dev:
+    extends:
+      file: ./docker-compose.yml
+      service: postgres-dev
+
+volumes:
+  pgdata-dev:
