@@ -4,7 +4,8 @@ import axios from 'axios';
 
 // replace hardcoded values with env vars!!!
 export const serverLookupTable: { [key: string]: string } = {
-  development: 'http://localhost:5000',
+  // Nx only exposes variables prefixed with NX
+  development: process.env.NX_BASE_URL_SERVER ?? 'http://localhost:5000',
   staging: '',
   production: 'https://twitter-clone-j82h.onrender.com',
 };
