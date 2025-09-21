@@ -4,6 +4,7 @@
   "private": true,
   "license": "CC BY-NC-SA 4.0",
   "scripts": {
+    "docker:dev": "docker compose -f docker-compose.apps.yml up --attach migrate --attach server --attach client",
     "dev": "node load-env.js dev && bash start-dev-postgres.sh && concurrently \"npx nx serve server\" \"npx nx serve client\"",
     "dev:set": "node load-env.js dev && bash start-dev-postgres.sh && pnpm run app:set",
     "staging-local": "node load-env.js staging && bash start-staging-postgres.sh && npx nx e2e server-e2e",
@@ -149,5 +150,6 @@
     "ts-jest": "^29.1.2",
     "ts-node": "10.9.1",
     "typescript": "~5.1.6"
-  }
+  },
+  "packageManager": "pnpm@10.17.0+sha512.fce8a3dd29a4ed2ec566fb53efbb04d8c44a0f05bc6f24a73046910fb9c3ce7afa35a0980500668fa3573345bd644644fa98338fa168235c80f4aa17aa17fbef"
 }
