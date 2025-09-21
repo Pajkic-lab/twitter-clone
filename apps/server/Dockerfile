@@ -9,7 +9,7 @@ COPY nx.json tsconfig.base.json package.json pnpm-lock.yaml ./
 EXPOSE 3000
 
 FROM base AS dev-deps
-RUN pnpm install --frozen-lockfil
+RUN pnpm install --frozen-lockfile
 COPY apps/server/src/modules/prisma ./apps/server/src/modules/prisma
 RUN pnpm prisma generate --schema=./apps/server/src/modules/prisma/schema.prisma
 
