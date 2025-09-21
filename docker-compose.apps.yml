@@ -1,4 +1,26 @@
 services:
+  client:
+    restart: always
+    build:
+      context: .
+      dockerfile: ./apps/client/Dockerfile
+      target: development
+    image: twitter-clone:client
+    depends_on:
+      server:
+        condition: service_started
+    ports:
+      - ${SERVER_PORT:-4200}:4200
+    volumes:
+      - ./apps/client:/usr/src/app/apps/client
+      - ./libs:/usr/src/app/libs
+    env_file:
+      - path: .env.example # defaults
+        required: true
+    environment:
+      - NX_DAEMON=true
+      - NX_BASE_URL_SERVER=http://localhost:3000/ # from browser to exposed server
+
   server:
     restart: always
     build:
