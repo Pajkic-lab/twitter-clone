@@ -72,7 +72,25 @@ By contributing to this project, you’ll gain hands-on experience with system d
 - pnpm (v9.x)
 - Docker and Docker Compose
 
-### Installation
+### Running in Docker
+1. **Fork the repository**
+2. **Clone the repository:**
+    ```bash
+     git clone git@github.com:Pajkic-lab/twitter-clone.git
+     ```
+4. **Run the application in dev mode:**
+
+    ```bash
+     pnpm run docker:dev
+     ```
+- Spins up all required services and runs pending db migrations.
+- Keeps source code mounted as volumes so changes are reflected live without rebuilding.
+5. **Open in your browser:**
+    ```bash
+    http://localhost:4200/
+    ```
+
+### Local Installation
 
 1. **Fork the repository**
 2. **Clone the repository:**
