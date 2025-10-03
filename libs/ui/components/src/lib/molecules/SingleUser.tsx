@@ -1,9 +1,11 @@
+import Tippy from '@tippyjs/react';
 import { PublicUserBase } from '@tw/data';
 import { colors } from '@tw/ui/assets';
 import { InvalidationData, linksRecords } from '@tw/ui/common';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { ConnectButton } from '../atoms/ConnectButton';
+import { ProfilePreview } from './ProfilePreview';
 
 type SingleUserProps = {
   buttonRelatedUser: PublicUserBase;
@@ -105,15 +107,34 @@ export const SingleUser = (props: SingleUserProps) => {
 
   return (
     <Wrapper onClick={goToUserPage}>
-      <ProfileImage $backgroundImage={avatar} />
       <ContentWrapper>
         <ProfileWrapper>
-          <ContextWrapper>
-            <TextWrapper>
-              <H3>{name}</H3>
-              <Span>{uniqueName}</Span>
-            </TextWrapper>
-          </ContextWrapper>
+          <Tippy
+            interactive
+            placement="left"
+            delay={[300, 0]}
+            hideOnClick={false}
+            offset={[0, 120]}
+            content={
+              showUserPreview && (
+                <ProfilePreview
+                  buttonRelatedUser={buttonRelatedUser}
+                  meId={meId}
+                  publicUserId={publicUserId}
+                  invData={invData}
+                  showConnectButton={showConnectButton}
+                />
+              )
+            }
+          >
+            <ContextWrapper>
+              <ProfileImage $backgroundImage={avatar} />
+              <TextWrapper>
+                <H3>{name}</H3>
+                <Span>{uniqueName}</Span>
+              </TextWrapper>
+            </ContextWrapper>
+          </Tippy>
           {showConnectButton && (
             <ConnectButton
               meId={meId}
@@ -142,7 +163,6 @@ const Wrapper = styled.div`
 
 const ContentWrapper = styled.div`
   width: 100%;
-  padding-left: 0.8rem;
 `;
 
 const S = styled.span`
@@ -168,6 +188,7 @@ const ProfileImage = styled.div<{ $backgroundImage: string }>`
   min-width: 3.2rem;
   height: 3.2rem;
   background-color: ${colors.bluePrimary};
+  margin-right: 0.8rem;
 
   ${(props) =>
     props.$backgroundImage &&
@@ -186,6 +207,7 @@ const H3 = styled.h3`
   margin: 0;
   color: ${colors.grayPrimary};
   font-weight: 700;
+  cursor: 'pointer';
 `;
 
 const Span = styled.span`
