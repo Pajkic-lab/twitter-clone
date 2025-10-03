@@ -10,52 +10,44 @@ const tabs = [
   { tabName: 'Tab 2', content: <div>Tab 2 content</div> },
 ];
 
+const renderWithTheme = (ui: React.ReactElement) =>
+  render(<ThemeProvider theme={theme}>{ui}</ThemeProvider>);
+
 describe('TabGroup', () => {
   it('should render tabs successfully', () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <TabGroup tabs={tabs} />
-      </ThemeProvider>,
-    );
+    renderWithTheme(<TabGroup tabs={tabs} />);
 
     const renderedTabs = screen.getAllByRole('button');
     expect(renderedTabs).toHaveLength(tabs.length);
   });
 
   it('should render tab panel successfully', () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <TabGroup tabs={tabs} />
-      </ThemeProvider>,
-    );
+    renderWithTheme(<TabGroup tabs={tabs} />);
 
     const tabPanel = screen.getByText('Tab 1 content');
     expect(tabPanel).toBeInTheDocument();
   });
 
   it('should render active tab', () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <TabGroup tabs={tabs} />
-      </ThemeProvider>,
-    );
+    renderWithTheme(<TabGroup tabs={tabs} />);
 
     const underline = screen.getByTestId('underline');
     expect(underline).toBeInTheDocument();
   });
 
-  it('should on click activate tab', async () => {
+  it('moves underline to second tab after clicking', async () => {
     const user = userEvent.setup();
-    render(
-      <ThemeProvider theme={theme}>
-        <TabGroup tabs={tabs} />
-      </ThemeProvider>,
-    );
+    renderWithTheme(<TabGroup tabs={tabs} />);
 
     const secondTab = screen.getByRole('button', { name: 'Tab 2' });
+
     await user.click(secondTab);
 
-    const underline = screen.getByTestId('underline');
+    const underline = await screen.findByTestId('underline');
+
     expect(underline).toBeInTheDocument();
+
+    expect(screen.getByText('Tab 2 content')).toBeInTheDocument();
+    expect(screen.queryByText('Tab 1 content')).not.toBeInTheDocument();
   });
 });
