@@ -13,10 +13,9 @@ interface Props {
   isDirty?: boolean;
 }
 
-// following stats should be set according to necessity
 const MAX_WIDTH = 400;
 const MAX_HEIGHT = 400;
-const IMAGE_FORMAT = 'JPEG' || 'PNG';
+const IMAGE_FORMAT: 'JPEG' | 'PNG' = 'JPEG';
 const QUALITY = 100;
 const ROTATION = 0;
 const OUTPUT_TYPE = 'base64';

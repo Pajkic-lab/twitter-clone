@@ -96,6 +96,7 @@
     "@babel/core": "^7.24.0",
     "@eslint/eslintrc": "^2.1.4",
     "@eslint/js": "~8.46.0",
+    "@faker-js/faker": "^10.0.0",
     "@nestjs/testing": "^10.3.3",
     "@ngneat/falso": "^6.4.0",
     "@nx/eslint-plugin": "21.5.1",

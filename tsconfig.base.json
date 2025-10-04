@@ -32,7 +32,8 @@
       "@tw/ui/assets": ["libs/ui/assets/src/index.ts"],
       "@tw/ui/common": ["libs/ui/common/src/index.ts"],
       "@tw/ui/components": ["libs/ui/components/src/index.ts"],
-      "@tw/ui/data-access": ["libs/ui/data-access/src/index.ts"]
+      "@tw/ui/data-access": ["libs/ui/data-access/src/index.ts"],
+      "@tw/test-utils": ["libs/ui/components/test-utils.tsx"]
     }
   },
   "exclude": ["node_modules", "tmp"]

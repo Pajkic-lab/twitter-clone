@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import styled, { css } from 'styled-components';
 
-type TabGroupProps = {
+type TabsProps = {
   tabs: {
     tabName: string;
     content: React.ReactNode;
@@ -23,7 +23,7 @@ type UnderlineProps = {
   $width: number;
 };
 
-export function TabGroup(tabGroupProps: TabGroupProps) {
+export function Tabs(tabGroupProps: TabsProps) {
   const { tabs, defaultTab } = tabGroupProps;
 
   const [activeTab, setActiveTab] = useState<string>(tabs[defaultTab || 0]!.tabName);
@@ -53,7 +53,7 @@ export function TabGroup(tabGroupProps: TabGroupProps) {
 }
 
 function Tab(props: TabProps) {
-  const { text, active = false } = props;
+  const { text, active = false, onClick } = props;
   const [textWidth, setTextWidth] = useState<number>(0);
 
   useEffect(() => {
@@ -64,7 +64,7 @@ function Tab(props: TabProps) {
   }, [active, text]);
 
   return (
-    <StyledTab $active={active}>
+    <StyledTab $active={active} onClick={onClick}>
       <Text>{text}</Text>
       {active && <Underline $width={textWidth} data-testid="underline" />}
     </StyledTab>

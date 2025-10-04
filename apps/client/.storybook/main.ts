@@ -7,7 +7,11 @@ const config: StorybookConfig = {
     // libraries stories
     '../../../libs/ui/components/src/**/*.stories.@(js|jsx|ts|tsx|mdx)',
   ],
-  addons: ['@nx/react/plugins/storybook'],
+  addons: [
+    '@nx/react/plugins/storybook',
+    // '@storybook/addon-essentials',
+    // '@storybook/addon-interactions',
+  ],
   framework: {
     name: '@storybook/react-webpack5',
     options: {},
