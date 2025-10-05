@@ -6,6 +6,8 @@ type CoverProps = {
   topMargin: number;
 };
 
+// Why is width and height predefined, why is it not coming from props, and u can have props default values
+// Should this component be reused in edit profile modal????? and in other places
 export const Cover = (props: CoverProps) => {
   const { cover, topMargin } = props;
 
