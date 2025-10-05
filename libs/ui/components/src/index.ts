@@ -19,6 +19,7 @@ export * from './lib/molecules/SetAccountForm';
 export * from './lib/molecules/SignInForm';
 export * from './lib/molecules/SignUpForm';
 export * from './lib/molecules/SingleUser';
+export * from './lib/molecules/tabs/Tabs';
 export * from './lib/molecules/Trends';
 
 // organisms

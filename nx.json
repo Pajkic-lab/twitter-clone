@@ -69,8 +69,10 @@
   },
   "tasksRunnerOptions": {
     "default": {
+      "runner": "nx/tasks-runners/default",
       "options": {
-        "cacheableOperations": ["build-storybook"]
+        "cacheableOperations": ["build-storybook"],
+        "useDaemonProcess": false
       }
     }
   },

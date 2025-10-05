@@ -5,22 +5,22 @@
 
 export const theme = {
   colors: {
-    white: '#ffffff', // --color-white
-    lavender: '#e7e9ea', // --color-lavender
-    lavender1: '#e6ecf0', // --color-lavender-1
-    whiteSmoke: '#eff3f4', // --color-white-smoke
-    royalBlue: '#1d9bf0', // --color-royal-blue
-    gray: '#71767b', // component border, tabs text
-    slateGray: '#5b7083', // --color-slate-gray
-    dimGray: '#595d62', // --color-dim-gray
-    dimGray1: '#536471', // --color-dim-gray-1
-    charcoal: '#4b4e52', // --color-charcoal
-    darkGray: '#141d26', // --color-dark-gray
-    darkGray1: '#2f3336', // --color-dark-gray-1
-    darkGray2: '#333639', // --color-dark-gray-2
-    black: '#000000', // --color-black
-    black1: '#121517', // --color-black-1
-    black2: '#0f1419', // --color-black-2
+    white: '#ffffff',
+    lavender: '#e7e9ea',
+    lavender1: '#e6ecf0',
+    whiteSmoke: '#eff3f4',
+    royalBlue: '#1d9bf0',
+    gray: '#71767b',
+    slateGray: '#5b7083',
+    dimGray: '#595d62',
+    dimGray1: '#536471',
+    charcoal: '#4b4e52',
+    darkGray: '#141d26',
+    darkGray1: '#2f3336',
+    darkGray2: '#333639',
+    black: '#000000',
+    black1: '#121517',
+    black2: '#0f1419',
   },
   typography: {
     fontFamily: "'chip-regular', Verdana, 'Segoe UI', sans-serif",

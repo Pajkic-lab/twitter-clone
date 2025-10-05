@@ -13,7 +13,8 @@ type MainLaneProps = {
 
 const LANE_WIDTH = 598; // px
 
-// What is purpose of this component? to wrap one other component????
+// What is purpose of this component? to wrap one other component?
+// Should this component be used to pass other elements in it as props? That way we dont need HomeMainLane.
 export const MainLane = (props: MainLaneProps) => {
   const { user, socialStats, profileActions, profileModal } = props;
 

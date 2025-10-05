@@ -23,8 +23,8 @@ type UnderlineProps = {
   $width: number;
 };
 
-export function Tabs(tabGroupProps: TabsProps) {
-  const { tabs, defaultTab } = tabGroupProps;
+export function Tabs(tabsProps: TabsProps) {
+  const { tabs, defaultTab } = tabsProps;
 
   const [activeTab, setActiveTab] = useState<string>(tabs[defaultTab || 0]!.tabName);
   const activeContent = useMemo(
@@ -52,8 +52,8 @@ export function Tabs(tabGroupProps: TabsProps) {
   );
 }
 
-function Tab(props: TabProps) {
-  const { text, active = false, onClick } = props;
+function Tab(TabProps: TabProps) {
+  const { text, active = false, onClick } = TabProps;
   const [textWidth, setTextWidth] = useState<number>(0);
 
   useEffect(() => {
@@ -94,7 +94,7 @@ const TabGroupWrapper = styled.div`
 const TabsWrapper = styled.div`
   display: flex;
   width: 100%;
-  border-bottom: 0.2px solid ${({ theme }) => theme.colors.gray};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.darkGray1};
 `;
 
 const StyledTab = styled.button<StyledTabProps>(
@@ -122,13 +122,12 @@ const StyledTab = styled.button<StyledTabProps>(
 
     ${$active &&
     css`
-      color: ${theme.colors.white};
+      color: ${theme.colors.lavender};
     `}
   `,
 );
 
 const Text = styled.span`
-  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -136,11 +135,12 @@ const Text = styled.span`
 
 const Underline = styled.div<UnderlineProps>(
   ({ theme, $width }) => css`
+    position: absolute;
+    bottom: 0;
     height: 4px;
     border-radius: ${theme.radii.md};
     width: ${$width}px;
     background-color: ${theme.colors.royalBlue};
-    margin-top: auto;
   `,
 );
 

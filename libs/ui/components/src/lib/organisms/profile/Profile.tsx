@@ -1,12 +1,11 @@
 import { SocialStatsResponseDto, UserResponseDto } from '@tw/data';
-import { colors } from '@tw/ui/assets';
+import { Tabs } from '@tw/ui/components';
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 import { NavigationBar } from '../../molecules/NavigationBar';
 import { AvatarAndOptions } from './components/AvatarAndOptions';
 import { Cover } from './components/Cover';
 import { ProfileInfo } from './components/ProfileInfo';
-import { Tabs } from './components/Tabs';
 
 type ProfileProps = {
   width: number;
@@ -17,6 +16,15 @@ type ProfileProps = {
 };
 
 const NAVBAR_HEIGHT = 4.286; //rem
+
+const tabs = [
+  { content: null, tabName: 'Posts' },
+  { content: null, tabName: 'Replies' },
+  { content: null, tabName: 'Highlights' },
+  { content: null, tabName: 'Articles' },
+  { content: null, tabName: 'Media' },
+  { content: null, tabName: 'Links' },
+];
 
 export const Profile = (props: ProfileProps) => {
   const { width, user, socialStats, profileActions, profileModal } = props;
@@ -32,13 +40,12 @@ export const Profile = (props: ProfileProps) => {
         profileModal={profileModal}
       />
       <ProfileInfo user={user} socialStats={socialStats} />
-      <Tabs />
+      <Tabs tabs={tabs} />
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
-  border-bottom: 2px solid ${colors.grayDark};
   position: relative;
 `;
 
