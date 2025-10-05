@@ -6,9 +6,9 @@
   "scripts": {
     "dev": "node load-env.js dev && bash start-dev-postgres.sh && concurrently \"npx nx serve server\" \"npx nx serve client\"",
     "dev:set": "node load-env.js dev && bash start-dev-postgres.sh && pnpm run app:set",
-    "staging-local": "node load-env.js staging && bash start-staging-postgres.sh && npx nx e2e server-e2e",
+    "staging-local": "node load-env.js staging && bash start-staging-postgres.sh && npx nx run-many --target=test --all && npx nx e2e server-e2e",
     "staging:set-local": "node load-env.js staging && bash start-staging-postgres.sh && pnpm run app:set",
-    "staging-remote": "node load-env.js staging && npx nx e2e server-e2e",
+    "staging-remote": "node load-env.js staging && npx nx run-many --target=test --all && npx nx e2e server-e2e",
     "staging:set-remote": "node load-env.js staging && pnpm run app:set",
     "prod": "pnpm run db:deploy && node dist/apps/server/main.js",
     "prod:set": "node load-env.js prod && pnpm run app:build",
