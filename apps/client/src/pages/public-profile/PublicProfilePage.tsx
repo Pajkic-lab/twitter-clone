@@ -22,7 +22,7 @@ import styled from 'styled-components';
 export const PublicProfilePage = () => {
   const params = useParams();
 
-  const userId = Number(params?.userId);
+  const userId = String(params?.userId);
 
   const userRes = useUserQuery();
   const publicUserRes = usePublicProfileQuery(userId);
@@ -34,7 +34,7 @@ export const PublicProfilePage = () => {
     useMostPopularUsersQuery();
 
   const publicUser = publicUserRes?.data?.user as PublicUserResponseDto;
-  const publicUserId = publicUserRes?.data?.user?.id as number;
+  const publicUserId = publicUserRes?.data?.user?.id as string;
   const followingStatus = followingStatusData?.followingStatus as boolean;
 
   const { id: meId, name, uniqueName, avatar } = userRes.data ?? ({} as UserResponseDto);
