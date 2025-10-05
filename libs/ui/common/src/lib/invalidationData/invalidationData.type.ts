@@ -1,6 +1,6 @@
 export type InvalidationData = {
-  followIfPublicUser: (pubUserId: number) => void;
+  followIfPublicUser: (pubUserId: string) => void;
   follow: () => void;
-  unFollowIfPublicUser: (pubUserId: number) => void;
+  unFollowIfPublicUser: (pubUserId: string) => void;
   unFollow: () => void;
 };

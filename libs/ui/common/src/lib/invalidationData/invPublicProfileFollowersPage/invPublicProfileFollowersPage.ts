@@ -10,7 +10,7 @@ import {
 
 export const invPublicProfileFollowersData = () => {
   return {
-    followIfPublicUser: (pubUserId: number) => {
+    followIfPublicUser: (pubUserId: string) => {
       useResetQuery(QueryAction.Invalidate, publicProfileFollowersKey(pubUserId));
       useResetQuery(QueryAction.Invalidate, publicProfileFollowingKey(pubUserId));
     },
@@ -20,7 +20,7 @@ export const invPublicProfileFollowersData = () => {
       useResetQuery(QueryAction.Invalidate, mostPopularUsersQueryKey());
     },
 
-    unFollowIfPublicUser: (pubUserId: number) => {
+    unFollowIfPublicUser: (pubUserId: string) => {
       useResetQuery(QueryAction.Invalidate, publicProfileFollowersKey(pubUserId));
       useResetQuery(QueryAction.Invalidate, publicProfileFollowingKey(pubUserId));
     },
@@ -34,14 +34,14 @@ export const invPublicProfileFollowersData = () => {
 
 export const invPublicProfileMediabarData = () => {
   return {
-    followIfPublicUser: (pubUserId: number) => {
+    followIfPublicUser: (pubUserId: string) => {
       useResetQuery(QueryAction.Invalidate, publicProfileFollowersKey(pubUserId));
       useResetQuery(QueryAction.Invalidate, publicProfileFollowingKey(pubUserId));
       useResetQuery(QueryAction.Invalidate, mostPopularUsersQueryKey());
     },
     follow: () => {},
 
-    unFollowIfPublicUser: (pubUserId: number) => {
+    unFollowIfPublicUser: (pubUserId: string) => {
       useResetQuery(QueryAction.Invalidate, publicProfileFollowersKey(pubUserId));
       useResetQuery(QueryAction.Invalidate, publicProfileFollowingKey(pubUserId));
       useResetQuery(QueryAction.Invalidate, mostPopularUsersQueryKey());

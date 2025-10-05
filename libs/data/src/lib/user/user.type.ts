@@ -1,11 +1,11 @@
 import { AutoMap } from '@automapper/classes';
 import { Social, User } from '@prisma/client';
-import { IsNotEmpty, IsNumber } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 import { Request } from 'express';
 
 export class UserBase implements User {
   @AutoMap()
-  id: number;
+  id: string;
 
   @AutoMap()
   email: string;
@@ -51,16 +51,16 @@ export class SocialBase implements Social {
   id: number;
 
   @AutoMap()
-  userId: number;
+  userId: string;
 
   @AutoMap()
-  followingId: number;
+  followingId: string;
 }
 
 class UserIdProperty {
   @IsNotEmpty()
-  @IsNumber()
-  id: number;
+  @IsString()
+  id: string;
 }
 
 export type RequestContainingUserId = Request & {
@@ -89,7 +89,7 @@ export class PublicUserBase {
   followingStatus: boolean;
 
   @AutoMap()
-  id: number;
+  id: string;
 
   @AutoMap()
   email: string;

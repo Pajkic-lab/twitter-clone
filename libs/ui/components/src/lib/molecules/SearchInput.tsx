@@ -7,7 +7,7 @@ import styled from 'styled-components';
 
 type SearchInputProps = {
   inputId: string;
-  meId: number;
+  meId: string;
   searchInputOnChange: (val: string) => void;
   searchUserRes: SearchUsersResponseDto[] | undefined;
   searchIsLoading: boolean;
@@ -15,7 +15,7 @@ type SearchInputProps = {
 };
 
 type SearchResultWindowProps = {
-  meId: number;
+  meId: string;
   searchIsLoading: boolean;
   searchUserRes: SearchUsersResponseDto[];
   invData: InvalidationData;
