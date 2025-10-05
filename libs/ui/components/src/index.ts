@@ -19,20 +19,21 @@ export * from './lib/molecules/SetAccountForm';
 export * from './lib/molecules/SignInForm';
 export * from './lib/molecules/SignUpForm';
 export * from './lib/molecules/SingleUser';
+export * from './lib/molecules/tabs/Tabs';
 export * from './lib/molecules/Trends';
 
 // organisms
-export * from './lib/organisms/HomeMainLane';
-export * from './lib/organisms/Mediabar';
-export * from './lib/organisms/ProfileMainLane';
-export * from './lib/organisms/UserLIst';
-export * from './lib/organisms/UserListLane';
 export * from './lib/organisms/footer/Footer';
 export * from './lib/organisms/footer/footer-landing-page-data';
+export * from './lib/organisms/HomeMainLane';
+export * from './lib/organisms/MainLane';
+export * from './lib/organisms/Mediabar';
 export * from './lib/organisms/profile/Profile';
 export * from './lib/organisms/profile/ProfilePreviewTooltip';
 export * from './lib/organisms/sidebar/Sidebar';
 export * from './lib/organisms/sidebar/sidebar-data';
+export * from './lib/organisms/UserLIst';
+export * from './lib/organisms/UserListLane';
 
 // templates
 export * from './lib/templates/Contacts';

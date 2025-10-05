@@ -3,9 +3,9 @@ import { colors } from '@tw/ui/assets';
 import { ParsedError, invProfilePage } from '@tw/ui/common';
 import {
   EditProfileForm,
+  MainLane,
   Mediabar,
   Modal,
-  ProfileMainLane,
   SecondaryButton,
   Sidebar,
   Trends,
@@ -54,10 +54,12 @@ export const ProfilePage = () => {
     <PageWrapper>
       <Sidebar name={name} uniqueName={uniqueName} avatar={avatar} />
 
-      <ProfileMainLane
+      <MainLane
         user={user}
         socialStats={socialStats}
         profileActions={
+          // this is not being passed dynamicly, so whats the point passing it as props, just use it in component
+          // meaning, if this is only case, then u dont ned this option
           <EditProfileButton onClick={openEditProfileModal}>Edit profile</EditProfileButton>
         }
         // why is this injected as child component? will there be need to have different model? think about when to have child injected
