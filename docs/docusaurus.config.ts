@@ -12,7 +12,7 @@ const config: Config = {
 
   organizationName: 'Pajkic-lab',
   projectName: 'twitter-clone',
-  deploymentBranch: 'main',
+  // deploymentBranch: 'feat/278-feature-add-docusaurus-documentation',
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
