@@ -12,7 +12,6 @@ const config: Config = {
 
   organizationName: 'Pajkic-lab',
   projectName: 'twitter-clone',
-  deploymentBranch: 'main',
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
