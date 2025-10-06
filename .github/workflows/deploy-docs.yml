@@ -2,7 +2,7 @@ name: Deploy Docusaurus to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [feat/278-feature-add-docusaurus-documentation]
 
 concurrency:
   group: pages
@@ -34,7 +34,7 @@ jobs:
           cache: 'pnpm'
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install
 
       - name: Build Docusaurus (Nx)
         run: pnpm run docs:build
