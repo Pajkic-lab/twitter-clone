@@ -4,6 +4,7 @@
   "private": true,
   "license": "CC BY-NC-SA 4.0",
   "scripts": {
+
     "// === Development ===": "",
     "dev:set": "node load-env.js dev && bash start-dev-postgres.sh && pnpm run app:set",
     "dev": "node load-env.js dev && bash start-dev-postgres.sh && concurrently \"npx nx serve server\" \"npx nx serve client\"",
@@ -43,7 +44,11 @@
     "// === Testing ===": "",
     "test": "npx nx run-many --target=test --all",
     "test-components": "npx nx run ui-components:test",
-    "test-client": "npx nx run client:test"
+    "test-client": "npx nx run client:test",
+
+    "// === Docs ===": "",
+    "docs:dev": "nx serve docs",
+    "docs:build": "nx build docs"
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [
@@ -78,6 +83,7 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "cloudinary": "^1.41.3",
+    "clsx": "^2.0.0",
     "compression": "^1.7.4",
     "dayjs": "^1.11.10",
     "express": "^4.18.3",
@@ -108,11 +114,18 @@
   },
   "devDependencies": {
     "@babel/core": "^7.24.0",
+    "@docusaurus/core": "3.4.0",
+    "@docusaurus/module-type-aliases": "3.4.0",
+    "@docusaurus/preset-classic": "3.4.0",
+    "@docusaurus/tsconfig": "3.4.0",
+    "@docusaurus/types": "3.4.0",
     "@eslint/eslintrc": "^2.1.4",
     "@eslint/js": "~8.46.0",
     "@faker-js/faker": "^10.0.0",
+    "@mdx-js/react": "^3.1.1",
     "@nestjs/testing": "^10.3.3",
     "@ngneat/falso": "^6.4.0",
+    "@nx-extend/docusaurus": "^4.0.1",
     "@nx/eslint-plugin": "21.5.1",
     "@nx/jest": "21.5.1",
     "@nx/js": "21.5.1",
@@ -184,6 +197,7 @@
     "nx": "21.5.1",
     "prettier": "^2.8.8",
     "prettier-plugin-organize-imports": "^3.2.4",
+    "prism-react-renderer": "^2.4.1",
     "react-docgen-typescript-plugin": "^1.0.8",
     "storybook": "9.1.5",
     "supertest": "^7.0.0",
