@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_tw_source=self.webpackChunk_tw_source||[]).push([[1903],{180:e=>{e.exports=JSON.parse('{"blogBasePath":"/twitter-clone/blog","blogTitle":"Blog"}')}}]);

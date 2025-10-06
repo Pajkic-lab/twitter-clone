@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_tw_source=self.webpackChunk_tw_source||[]).push([[1703],{2467:e=>{e.exports=JSON.parse('{"metadata":{"permalink":"/twitter-clone/blog","page":1,"postsPerPage":10,"totalPages":1,"totalCount":4,"blogDescription":"Blog","blogTitle":"Blog"}}')}}]);
