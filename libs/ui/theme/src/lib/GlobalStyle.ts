@@ -1,26 +1,9 @@
-import { colors } from '@tw/ui/assets';
+import { colors, fonts } from '@tw/ui/assets';
 import { createGlobalStyle } from 'styled-components';
-import chipBold from './fonts/chip-bold.woff';
-import chipRegular from './fonts/chip-regular.woff';
 
 export const GlobalStyle = createGlobalStyle<{
-  theme?: any;
   customCss?: any;
 }>`
-
-  @font-face {
-    font-family: 'chip-bold';
-    src: local('chip-bold'), url(${chipBold}) format('woff');
-    font-weight: 700;
-    font-style: normal;
-  }
-
-  @font-face {
-    font-family: 'chip-regular';
-    src: local('chip-regular'), url(${chipRegular}) format('woff');
-    font-weight: 300;
-    font-style: normal;
-  }
 
   * {
     box-sizing: border-box;
@@ -34,8 +17,8 @@ export const GlobalStyle = createGlobalStyle<{
   html, body {
     margin: 0;
     padding: 0;
-    color: ${colors.grayDark};
     font-size: 14px;
+    color: ${colors.grayDark};
     font-family: 'chip-regular', Verdana, "Segoe UI", Arial, sans-serif, Helvetica;
     background-color: ${colors.black};
     -webkit-font-smoothing: antialiased;
@@ -58,8 +41,9 @@ export const GlobalStyle = createGlobalStyle<{
     color: ${colors.bluePrimary};
   }
   
-  input, textarea {
-    font-family: 'DM Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  input, textarea, button {
+    font-family: 'chip-regular', Verdana, "Segoe UI", Arial, sans-serif, Helvetica;
+    border: none;
   }
   
   table.table {
@@ -137,6 +121,22 @@ export const GlobalStyle = createGlobalStyle<{
     div {
       cursor: default;
     }
+  }
+
+  @font-face {
+    font-family: 'chip-bold';
+    src: local('chip-bold'), url(${fonts.chipBold}) format('woff');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'chip-regular';
+    src: local('chip-regular'), url(${fonts.chipRegular}) format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
   }
 
   ${(props) => `${props.customCss}`}

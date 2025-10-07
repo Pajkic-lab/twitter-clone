@@ -3,8 +3,8 @@ import { invMediabarData, invPublicProfilePage } from '@tw/ui/common';
 import {
   ConnectButton,
   Loader,
+  MainLane,
   Mediabar,
-  ProfileMainLane,
   Sidebar,
   Trends,
   UserLIst,
@@ -47,7 +47,7 @@ export const PublicProfilePage = () => {
     <PageWrapper>
       <Sidebar name={name} uniqueName={uniqueName} avatar={avatar} />
 
-      <ProfileMainLane
+      <MainLane
         user={publicUser}
         socialStats={socialStats}
         profileActions={

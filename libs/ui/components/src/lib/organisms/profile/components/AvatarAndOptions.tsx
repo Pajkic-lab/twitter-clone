@@ -9,6 +9,7 @@ type AvatarAndOptionsProps = {
   profileModal?: ReactNode;
 };
 
+// Avatar should be component for it self, where ese are we using this component? should we use it in every avatar place???
 export const AvatarAndOptions = (props: AvatarAndOptionsProps) => {
   const { avatar, profileActions, profileModal } = props;
 

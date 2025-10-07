@@ -1,11 +1,13 @@
+import { theme } from '@tw/theme';
 import { useMediabarState, useSidebarState } from '@tw/ui/data-access';
 import { useEffect } from 'react';
-import { breakpoints } from './breakpoints';
 
 export const BreakingPointSetter = () => {
   const { setSidebarCollapsed } = useSidebarState();
   const { setMediabarSize } = useMediabarState();
+  const { breakpoints } = theme;
 
+  // why IF blocks, use case block
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth <= breakpoints['xl']) {
