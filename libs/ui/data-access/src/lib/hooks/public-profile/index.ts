@@ -5,7 +5,7 @@ export const publicProfileQueryKey = (userId: any) => {
   return ['publicUser', userId];
 };
 
-export const usePublicProfileQuery = (userId: number) => {
+export const usePublicProfileQuery = (userId: string) => {
   return useQuery({
     queryKey: publicProfileQueryKey(userId),
     queryFn: async () => {

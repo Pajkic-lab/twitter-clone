@@ -7,8 +7,8 @@ import { ConnectButton } from '../atoms/ConnectButton';
 
 type SingleUserProps = {
   buttonRelatedUser: PublicUserBase;
-  meId: number;
-  publicUserId?: number;
+  meId: string;
+  publicUserId?: string;
   connectButtonExist?: boolean;
   showBio?: boolean;
   showConnectButton?: boolean;

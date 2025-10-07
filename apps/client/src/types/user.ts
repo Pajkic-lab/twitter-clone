@@ -1,6 +1,6 @@
 // Should be completely replace by shared types for Data lib
 export interface User {
-  id: number | null;
+  id: string | null;
   name: string;
   email: string;
   avatar: string;

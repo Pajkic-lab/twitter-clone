@@ -8,7 +8,7 @@ import { v4 as uuid } from 'uuid';
 import { SearchInput } from '../molecules/SearchInput';
 
 type MediabarProps = {
-  meId: number;
+  meId: string;
   topWindowChilde: ReactNode;
   bottomWindowChilde: ReactNode;
 };

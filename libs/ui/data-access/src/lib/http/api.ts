@@ -87,7 +87,7 @@ export const http = {
       return httpClient.get(`user/search/${searchData}`);
     },
     //
-    getPublicUser(id: number): Promise<
+    getPublicUser(id: string): Promise<
       AxiosResponse<
         HttpResponse<{
           user: PublicUserResponseDto; // is there a need for type literal
@@ -103,12 +103,12 @@ export const http = {
     },
     //
     getPublicUserSocialStats(
-      userId: number,
+      userId: string,
     ): Promise<AxiosResponse<HttpResponse<SocialStatsResponseDto>>> {
       return httpClient.get(`social/stats/public-user/${userId}`);
     },
     // return type is missing
-    getPublicUserFollowingStatus(userId: number) {
+    getPublicUserFollowingStatus(userId: string) {
       return httpClient.get(`social/following-status/public-user/${userId}`);
     },
     //

@@ -5,7 +5,7 @@ export class FollowingListResponseDto {
   followingStatus: boolean;
 
   @AutoMap()
-  id: number;
+  id: string;
 
   @AutoMap()
   email: string;

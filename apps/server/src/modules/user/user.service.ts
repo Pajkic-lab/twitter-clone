@@ -28,7 +28,7 @@ export class UserService {
     @InjectMapper() private readonly mapper: Mapper,
   ) {}
 
-  async getUser(userId: number): Promise<HttpResponse<UserResponseDto>> {
+  async getUser(userId: string): Promise<HttpResponse<UserResponseDto>> {
     let user;
 
     user = await this.userRepository.findUserById(userId);
@@ -64,7 +64,7 @@ export class UserService {
   }
 
   async updateUniqueUserName(
-    userId: number,
+    userId: string,
     data: NameUniqueRequestDto,
   ): Promise<HttpResponse<NameUniqueUpdateResponseDto>> {
     let user;
@@ -84,7 +84,7 @@ export class UserService {
   }
 
   async updateUser(
-    userId: number,
+    userId: string,
     updateUser: UpdateUserRequestDto,
   ): Promise<HttpResponse<UpdateUserResponseDto>> {
     if (updateUser.avatar && isBase64(updateUser.avatar)) {
@@ -115,8 +115,8 @@ export class UserService {
   }
 
   async getPublicUser(
-    publicUserId: number,
-    userId?: number,
+    publicUserId: string,
+    userId?: string,
   ): Promise<
     HttpResponse<{
       user: PublicUserResponseDto;
@@ -138,7 +138,7 @@ export class UserService {
     });
   }
 
-  async getMostPopularUsers(userId: number): Promise<HttpResponse<MostPopularUsersResponseDto[]>> {
+  async getMostPopularUsers(userId: string): Promise<HttpResponse<MostPopularUsersResponseDto[]>> {
     const mostPopularUsers = await this.userRepository.getMostPopularUsers(userId);
     if (!mostPopularUsers) {
       throw new HttpException(
@@ -157,7 +157,7 @@ export class UserService {
 
   async getSearchData(
     searchData: string,
-    userId?: number,
+    userId?: string,
   ): Promise<HttpResponse<SearchUsersResponseDto[]>> {
     const searchedUsers = await this.userRepository.getSearchData(searchData, userId);
 

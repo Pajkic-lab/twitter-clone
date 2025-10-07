@@ -10,7 +10,7 @@ import {
 
 export const invPublicProfileFollowingPage = () => {
   return {
-    followIfPublicUser: (pubUserId: number) => {
+    followIfPublicUser: (pubUserId: string) => {
       useResetQuery(QueryAction.Invalidate, publicProfileFollowersKey(pubUserId));
       useResetQuery(QueryAction.Invalidate, publicProfileFollowingKey(pubUserId));
     },
@@ -20,7 +20,7 @@ export const invPublicProfileFollowingPage = () => {
       useResetQuery(QueryAction.Invalidate, mostPopularUsersQueryKey());
     },
 
-    unFollowIfPublicUser: (pubUserId: number) => {
+    unFollowIfPublicUser: (pubUserId: string) => {
       useResetQuery(QueryAction.Invalidate, publicProfileFollowersKey(pubUserId));
       useResetQuery(QueryAction.Invalidate, publicProfileFollowingKey(pubUserId));
     },

@@ -23,11 +23,11 @@ export class UserRepository {
     }
   }
 
-  async updateUserNameUnique(id: number, uniqueName: string): Promise<User> {
+  async updateUserNameUnique(userId: string, uniqueName: string): Promise<User> {
     try {
       return await this.prisma.user.update({
         where: {
-          id,
+          id: userId,
         },
         data: {
           uniqueName,
@@ -42,7 +42,7 @@ export class UserRepository {
   }
 
   async updateUser(
-    userId: number,
+    userId: string,
     { name, avatar, cover, bio, website, location }: UpdateUserRequestDto,
   ): Promise<User> {
     try {
@@ -64,7 +64,7 @@ export class UserRepository {
     }
   }
 
-  async findUserById(userId: number): Promise<User | null> {
+  async findUserById(userId: string): Promise<User | null> {
     try {
       return await this.prisma.user.findUnique({
         where: {
@@ -79,7 +79,7 @@ export class UserRepository {
     }
   }
 
-  async getSocialStats(userId: number): Promise<SocialStatsResponseDto> {
+  async getSocialStats(userId: string): Promise<SocialStatsResponseDto> {
     try {
       const followingCount = await this.prisma.social.count({
         where: { userId },
@@ -95,7 +95,7 @@ export class UserRepository {
     }
   }
 
-  async getFollowingStatus(publicUserId: number, userId: number): Promise<boolean> {
+  async getFollowingStatus(publicUserId: string, userId: string): Promise<boolean> {
     try {
       const res = await this.prisma.social.findFirst({
         where: {
@@ -110,7 +110,7 @@ export class UserRepository {
     }
   }
 
-  async getMostPopularUsers(userId: number): Promise<User[]> {
+  async getMostPopularUsers(userId: string): Promise<User[]> {
     try {
       return await this.prisma.user.findMany({
         where: {
@@ -143,7 +143,7 @@ export class UserRepository {
     }
   }
 
-  async getSearchData(searchData: string, userId?: number): Promise<User[]> {
+  async getSearchData(searchData: string, userId?: string): Promise<User[]> {
     try {
       const normalizedSearchData = searchData.toLowerCase();
       return await this.prisma.user.findMany({

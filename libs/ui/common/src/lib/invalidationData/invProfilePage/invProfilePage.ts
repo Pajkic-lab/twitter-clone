@@ -9,7 +9,7 @@ import {
 
 export const invProfilePage = () => {
   return {
-    followIfPublicUser: (pubUserId: number) => {}, // should be optional for all
+    followIfPublicUser: (pubUserId: string) => {}, // should be optional for all
     follow: () => {
       useResetQuery(QueryAction.Invalidate, userGetFollowingKey());
       useResetQuery(QueryAction.Invalidate, userGetFollowersKey());
@@ -18,7 +18,7 @@ export const invProfilePage = () => {
       useResetQuery(QueryAction.Invalidate, socialStatsQueryKey());
     },
 
-    unFollowIfPublicUser: (pubUserId: number) => {}, // should be optional for all
+    unFollowIfPublicUser: (pubUserId: string) => {}, // should be optional for all
     unFollow: () => {
       useResetQuery(QueryAction.Invalidate, userGetFollowingKey());
       useResetQuery(QueryAction.Invalidate, userGetFollowersKey());

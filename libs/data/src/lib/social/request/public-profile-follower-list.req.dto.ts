@@ -1,8 +1,8 @@
-import { IsNumber } from 'class-validator';
+import { IsNumber, IsString } from 'class-validator';
 
 export class PublicProfileFollowerListRequestDto {
-  @IsNumber()
-  userId: number;
+  @IsString()
+  userId: string;
 
   @IsNumber()
   PPfollowerOffset: number;

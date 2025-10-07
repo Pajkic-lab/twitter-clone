@@ -1,15 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Param,
-  ParseIntPipe,
-  Patch,
-  Post,
-  Req,
-  UseGuards,
-  UsePipes,
-} from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, Req, UseGuards } from '@nestjs/common';
 import {
   HttpResponse,
   MostPopularUsersResponseDto,
@@ -63,9 +52,8 @@ export class UserController {
   }
 
   @Get('public/:id')
-  @UsePipes(new ParseIntPipe())
   handleGetPublicUser(
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Req() request: RequestContainingUserId,
   ): Promise<
     HttpResponse<{

@@ -50,7 +50,7 @@ export class AuthRepository {
   }
 
   // this is duplicate, there is already findUserById in user repo
-  async findUserById(userId: number): Promise<User | null> {
+  async findUserById(userId: string): Promise<User | null> {
     try {
       return await this.prisma.user.findUnique({
         where: {
@@ -65,7 +65,7 @@ export class AuthRepository {
     }
   }
 
-  async getSocialStats(userId: number): Promise<SocialStatsResponseDto> {
+  async getSocialStats(userId: string): Promise<SocialStatsResponseDto> {
     try {
       const followingCount = await this.prisma.social.count({
         where: { userId },

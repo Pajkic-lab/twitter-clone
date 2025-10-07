@@ -8,14 +8,14 @@ import {
 
 export const invFollowersData = () => {
   return {
-    followIfPublicUser: (pubUserId: number) => {},
+    followIfPublicUser: (pubUserId: string) => {},
     follow: () => {
       useResetQuery(QueryAction.Refetch, userGetFollowingKey()); // why is refetch here???
       useResetQuery(QueryAction.Invalidate, userGetFollowersKey());
       useResetQuery(QueryAction.Invalidate, mostPopularUsersQueryKey());
     },
 
-    unFollowIfPublicUser: (pubUserId: number) => {},
+    unFollowIfPublicUser: (pubUserId: string) => {},
     unFollow: () => {
       useResetQuery(QueryAction.Refetch, userGetFollowingKey()); // why is refetch here???
       useResetQuery(QueryAction.Invalidate, userGetFollowersKey());
@@ -26,14 +26,14 @@ export const invFollowersData = () => {
 
 export const invMediabarData = () => {
   return {
-    followIfPublicUser: (pubUserId: number) => {},
+    followIfPublicUser: (pubUserId: string) => {},
     follow: () => {
       useResetQuery(QueryAction.Invalidate, mostPopularUsersQueryKey());
       useResetQuery(QueryAction.Invalidate, userGetFollowersKey());
       useResetQuery(QueryAction.Invalidate, userGetFollowingKey());
     },
 
-    unFollowIfPublicUser: (pubUserId: number) => {},
+    unFollowIfPublicUser: (pubUserId: string) => {},
     unFollow: () => {
       useResetQuery(QueryAction.Invalidate, mostPopularUsersQueryKey());
       useResetQuery(QueryAction.Invalidate, userGetFollowersKey());

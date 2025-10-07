@@ -27,7 +27,7 @@ export const PublicProfileFollowingPage = () => {
   const invData = invPublicProfileFollowingPage();
   const invMediaBar = invPublicProfileMediabarData();
 
-  const publicUserId = Number(params?.userId);
+  const publicUserId = String(params?.userId);
 
   const { data: user } = useUserQuery();
   const publicUserRes = usePublicProfileQuery(publicUserId);

@@ -56,7 +56,7 @@ export class AuthService {
     throw new NotFoundException('Invalid credentials');
   }
 
-  async signInGetUser(userId: number): Promise<HttpResponse<SignInEmailResponseDto>> {
+  async signInGetUser(userId: string): Promise<HttpResponse<SignInEmailResponseDto>> {
     const user = await this.authRepository.findUserById(userId);
 
     if (!user) throw new NotFoundException('User does not exist');
@@ -66,7 +66,7 @@ export class AuthService {
     return createResponse({ payload, message: 'sign in success' });
   }
 
-  async sigUpGetUser(userId: number): Promise<HttpResponse<SignUpEmailResponseDto>> {
+  async sigUpGetUser(userId: string): Promise<HttpResponse<SignUpEmailResponseDto>> {
     const user = await this.authRepository.findUserById(userId);
 
     if (!user) throw new NotFoundException('User does not exist');
@@ -76,7 +76,7 @@ export class AuthService {
     return createResponse({ payload, message: 'sign up success' });
   }
 
-  async authUser(userId: number): Promise<HttpResponse<AuthenticationResponseDto>> {
+  async authUser(userId: string): Promise<HttpResponse<AuthenticationResponseDto>> {
     let user;
 
     user = await this.authRepository.findUserById(userId);
@@ -99,7 +99,7 @@ export class AuthService {
     return await this.authRepository.createGoogleUser(createUser);
   }
 
-  async findUser(userId: number) {
+  async findUser(userId: string) {
     const user = await this.authRepository.findUserById(userId);
     return user;
   }

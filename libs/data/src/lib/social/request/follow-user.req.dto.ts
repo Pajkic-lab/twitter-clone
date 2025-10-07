@@ -1,6 +1,6 @@
-import { IsNumber } from 'class-validator';
+import { IsString } from 'class-validator';
 
 export class FollowUserRequestDto {
-  @IsNumber()
-  userId: number;
+  @IsString()
+  userId: string;
 }

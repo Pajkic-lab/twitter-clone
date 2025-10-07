@@ -17,7 +17,7 @@ export const publicProfileFollowingKey = (userId: any) => {
   return ['publicUser', 'following', userId];
 };
 
-export const usePublicUserSocialStatsQuery = (userId: number) => {
+export const usePublicUserSocialStatsQuery = (userId: string) => {
   return useQuery({
     queryKey: publicUserSocialStatsQueryKey(userId),
     queryFn: async () => {
@@ -27,7 +27,7 @@ export const usePublicUserSocialStatsQuery = (userId: number) => {
   });
 };
 
-export const usePublicUserFollowingStatusQuery = (userId: number) => {
+export const usePublicUserFollowingStatusQuery = (userId: string) => {
   return useQuery({
     queryKey: publicUserFollowingStatsQueryKey(userId),
     queryFn: async () => {
@@ -37,7 +37,7 @@ export const usePublicUserFollowingStatusQuery = (userId: number) => {
   });
 };
 
-export const usePublicProfileFollowersInfQuery = (userId: number, limit: number) => {
+export const usePublicProfileFollowersInfQuery = (userId: string, limit: number) => {
   return useInfiniteQuery({
     queryKey: publicProfileFollowersKey(userId),
     initialPageParam: 0,
@@ -55,7 +55,7 @@ export const usePublicProfileFollowersInfQuery = (userId: number, limit: number)
   });
 };
 
-export const usePublicProfileFollowingInfQuery = (userId: number, limit: number) => {
+export const usePublicProfileFollowingInfQuery = (userId: string, limit: number) => {
   return useInfiniteQuery({
     queryKey: publicProfileFollowingKey(userId),
     initialPageParam: 0,
