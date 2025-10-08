@@ -33,6 +33,24 @@ export const SingleUser = (props: SingleUserProps) => {
 
   const navigate = useNavigate();
 
+  const tippyOptions = {
+    interactive: true,
+    delay: [300, 0] as [number | null, number | null],
+    hideOnClick: false,
+  };
+
+  const tippyContent = showUserPreview && (
+    <div onClick={(e) => e.stopPropagation()}>
+      <ProfilePreview
+        buttonRelatedUser={buttonRelatedUser}
+        meId={meId}
+        publicUserId={publicUserId}
+        invData={invData}
+        showConnectButton={showConnectButton}
+      />
+    </div>
+  );
+
   const goToUserPage = () => {
     if (meId === id) {
       return navigate(linksRecords.profilePage.base);
@@ -40,94 +58,16 @@ export const SingleUser = (props: SingleUserProps) => {
     navigate(linksRecords.publicProfilePage.baseById(id));
   };
 
-  // UI is done, there is a problem with logic, list will reset on every update, and there is a problem how to
-  // force window to open and close only on specific actions, and connect button propagation makes problems
-  // const TippyWrapper = ({ element }: { element: ReactNode }) => {
-  //   const [referenceElement, setReferenceElement] =
-  //     useState<HTMLDivElement | null>(null);
-  //   const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(
-  //     null
-  //   );
-  //   const [visible, setVisible] = useState(false);
-  //   const [onPreview, setOnPreview] = useState(false);
-
-  //   const { styles, attributes } = usePopper(referenceElement, popperElement, {
-  //     modifiers: [{ name: 'arrow' }],
-  //   });
-
-  //   const showTooltip = () => {
-  //     setTimeout(() => {
-  //       setVisible(true);
-  //     }, 1000);
-  //   };
-
-  //   const hideTooltip = () => {
-  //     setTimeout(() => {
-  //       setVisible(false);
-  //     }, 1500);
-  //   };
-
-  //   const tooltipHovered = () => {
-  //     setOnPreview(true);
-  //   };
-
-  //   const tooltipOff = () => {
-  //     setOnPreview(false);
-  //   };
-
-  //   return (
-  //     <>
-  //       <div
-  //         ref={setReferenceElement}
-  //         onMouseEnter={showTooltip}
-  //         onMouseLeave={hideTooltip}
-  //       >
-  //         {element}
-  //       </div>
-
-  //       {(visible || onPreview) && (
-  //         <div
-  //           onMouseEnter={tooltipHovered}
-  //           onMouseLeave={tooltipOff}
-  //           ref={setPopperElement}
-  //           style={styles.popper}
-  //           {...attributes.popper}
-  //         >
-  //           <ProfilePreviewTooltip
-  //             meId={meId}
-  //             buttonRelatedUser={buttonRelatedUser}
-  //             publicUserId={publicUserId}
-  //             invData={invData}
-  //           />
-  //         </div>
-  //       )}
-  //     </>
-  //   );
-  // };
-
   return (
     <Wrapper onClick={goToUserPage}>
       <ContentWrapper>
         <ProfileWrapper>
           <Tippy
+            {...tippyOptions}
             interactive
-            placement="left"
             delay={[300, 0]}
             hideOnClick={false}
-            offset={[0, 120]}
-            content={
-              showUserPreview && (
-                <div onClick={(e) => e.stopPropagation()}>
-                  <ProfilePreview
-                    buttonRelatedUser={buttonRelatedUser}
-                    meId={meId}
-                    publicUserId={publicUserId}
-                    invData={invData}
-                    showConnectButton={showConnectButton}
-                  />
-                </div>
-              )
-            }
+            content={tippyContent}
           >
             <ContextWrapper>
               <ProfileImage $backgroundImage={avatar} />

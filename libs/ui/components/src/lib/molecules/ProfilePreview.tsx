@@ -1,12 +1,12 @@
 import { PublicUserBase } from '@tw/data';
-import { colors } from '@tw/ui/assets'; // use your project's color palette
-import { InvalidationData } from '@tw/ui/common';
+import { colors } from '@tw/ui/assets';
+import { InvalidationData, linksRecords } from '@tw/ui/common';
 import { usePublicUserSocialStatsQuery } from '@tw/ui/data-access';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { SecondaryButton } from '../atoms/Button';
 import { ConnectButton } from '../atoms/ConnectButton';
-import { ProfileSummaryButton } from '../atoms/ProfileSummaryButton';
 
 type ProfilePreviewProps = {
   buttonRelatedUser: PublicUserBase;
@@ -25,12 +25,16 @@ export const ProfilePreview: React.FC<ProfilePreviewProps> = ({
 }) => {
   const { id, name, avatar, uniqueName, bio, followingStatus } = buttonRelatedUser;
   const { data: socialStats } = usePublicUserSocialStatsQuery(id);
+  const navigate = useNavigate();
 
   return (
     <Wrapper>
       <Popup>
         <Header>
-          <Avatar src={avatar} alt={name} />
+          <ProfileImage
+            $backgroundImage={avatar}
+            onClick={() => navigate(linksRecords.publicProfilePage.baseById(id))}
+          />
           {showConnectButton && (
             <ConnectButton
               meId={meId}
@@ -44,7 +48,9 @@ export const ProfilePreview: React.FC<ProfilePreviewProps> = ({
 
         <Content>
           <NameBlock>
-            <NameLink to={`/public-profile/${id}`}>{name}</NameLink>
+            <NameLink onClick={() => navigate(linksRecords.publicProfilePage.baseById(id))}>
+              {name}
+            </NameLink>
             <Handle>{uniqueName}</Handle>
           </NameBlock>
           <Bio>{bio}</Bio>
@@ -57,14 +63,12 @@ export const ProfilePreview: React.FC<ProfilePreviewProps> = ({
             </Stat>
           </Stats>
 
-          <ProfileSummaryButton onClick={() => console.log('click')} />
+          <SecondaryButton onClick={() => console.log('click')}>Profile Summary</SecondaryButton>
         </Content>
       </Popup>
     </Wrapper>
   );
 };
-
-// ================= Styled Components =================
 
 const Wrapper = styled.div`
   position: relative;
@@ -93,10 +97,21 @@ const Header = styled.div`
   justify-content: space-between;
 `;
 
-const Avatar = styled.img`
+const ProfileImage = styled.div<{ $backgroundImage: string }>`
+  border-radius: 100%;
   width: 70px;
   height: 70px;
-  border-radius: 50%;
+  background-color: ${colors.bluePrimary};
+  margin-right: 0.8rem;
+  ${(props) =>
+    props.$backgroundImage &&
+    `
+    background-image: url(${props.$backgroundImage});
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: ${colors.black};
+  `}
 `;
 
 const NameBlock = styled.div``;
@@ -139,7 +154,7 @@ const Content = styled.div`
   margin-left: 6px;
 `;
 
-const NameLink = styled(Link)`
+const NameLink = styled.div`
   color: ${colors.white};
   text-decoration: none;
   font-size: 17px;
