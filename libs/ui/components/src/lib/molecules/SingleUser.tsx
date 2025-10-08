@@ -5,7 +5,7 @@ import { InvalidationData, linksRecords } from '@tw/ui/common';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { ConnectButton } from '../atoms/ConnectButton';
-import { ProfilePreview } from './ProfilePreview';
+import { ProfilePreview } from './ProfilePreview/ProfilePreview';
 
 type SingleUserProps = {
   buttonRelatedUser: PublicUserBase;

@@ -1,12 +1,11 @@
 import { PublicUserBase } from '@tw/data';
-import { colors } from '@tw/ui/assets';
 import { InvalidationData, linksRecords } from '@tw/ui/common';
 import { usePublicUserSocialStatsQuery } from '@tw/ui/data-access';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { SecondaryButton } from '../atoms/Button';
-import { ConnectButton } from '../atoms/ConnectButton';
+import { SecondaryButton } from '../../atoms/Button';
+import { ConnectButton } from '../../atoms/ConnectButton';
 
 type ProfilePreviewProps = {
   buttonRelatedUser: PublicUserBase;
@@ -27,11 +26,17 @@ export const ProfilePreview: React.FC<ProfilePreviewProps> = ({
   const { data: socialStats } = usePublicUserSocialStatsQuery(id);
   const navigate = useNavigate();
 
+  const truncate = (text: string, maxLength: number) => {
+    if (!text) return '';
+    return text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
+  };
+
   return (
     <Wrapper>
       <Popup>
         <Header>
           <ProfileImage
+            data-testid="profile-avatar"
             $backgroundImage={avatar}
             onClick={() => navigate(linksRecords.publicProfilePage.baseById(id))}
           />
@@ -48,18 +53,21 @@ export const ProfilePreview: React.FC<ProfilePreviewProps> = ({
 
         <Content>
           <NameBlock>
-            <NameLink onClick={() => navigate(linksRecords.publicProfilePage.baseById(id))}>
-              {name}
+            <NameLink
+              data-testid="profile-name"
+              onClick={() => navigate(linksRecords.publicProfilePage.baseById(id))}
+            >
+              {truncate(name ?? ``, 20)}
             </NameLink>
             <Handle>{uniqueName}</Handle>
           </NameBlock>
-          <Bio>{bio}</Bio>
+          <Bio data-testid="profile-bio">{truncate(bio ?? ``, 20)}</Bio>
           <Stats>
             <Stat>
-              <Count>{socialStats?.followingCount}</Count> <Label>Following</Label>
+              <Count>{socialStats?.followingCount ?? 0}</Count> <Label>Following</Label>
             </Stat>
             <Stat>
-              <Count>{socialStats?.followersCount}</Count> <Label>Followers</Label>
+              <Count>{socialStats?.followersCount ?? 0}</Count> <Label>Followers</Label>
             </Stat>
           </Stats>
 
@@ -82,8 +90,8 @@ const Popup = styled.div`
   margin-top: 10px;
   padding: 20px 14px;
   width: 300px;
-  background: ${colors.black};
-  color: ${colors.white};
+  background-color: ${({ theme }) => theme.colors.black};
+  color: ${({ theme }) => theme.colors.white};
   border-radius: 16px;
   /* subtle light shadow around the popup */
   box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.2), 0 4px 12px rgba(255, 255, 255, 0.1);
@@ -93,7 +101,7 @@ const Popup = styled.div`
 const Header = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: top;
+  align-items: flex-start;
   justify-content: space-between;
 `;
 
@@ -101,7 +109,7 @@ const ProfileImage = styled.div<{ $backgroundImage: string }>`
   border-radius: 100%;
   width: 70px;
   height: 70px;
-  background-color: ${colors.bluePrimary};
+  background-color: ${({ theme }) => theme.colors.royalBlue};
   margin-right: 0.8rem;
   ${(props) =>
     props.$backgroundImage &&
@@ -110,21 +118,21 @@ const ProfileImage = styled.div<{ $backgroundImage: string }>`
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    background-color: ${colors.black};
+    background-color:${props.theme.colors.royalBlue};
   `}
 `;
 
 const NameBlock = styled.div``;
 
 const Handle = styled.div`
-  color: ${colors.graySecondary};
+  color: ${({ theme }) => theme.colors.gray};
   font-size: 14px;
 `;
 
 const Bio = styled.div`
   margin-top: 8px;
   font-size: 16px;
-  color: ${colors.white};
+  color: ${({ theme }) => theme.colors.white};
 `;
 
 const Stats = styled.div`
@@ -138,11 +146,11 @@ const Stats = styled.div`
 const Stat = styled.div``;
 
 const Count = styled.strong`
-  color: ${colors.white};
+  color: ${({ theme }) => theme.colors.white};
 `;
 
 const Label = styled.span`
-  color: ${colors.graySecondary};
+  color: ${({ theme }) => theme.colors.gray};
 `;
 
 const Content = styled.div`
@@ -155,7 +163,7 @@ const Content = styled.div`
 `;
 
 const NameLink = styled.div`
-  color: ${colors.white};
+  color: ${({ theme }) => theme.colors.white};
   text-decoration: none;
   font-size: 17px;
   font-weight: bold;

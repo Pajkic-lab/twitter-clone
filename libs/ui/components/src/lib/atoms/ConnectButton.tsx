@@ -80,6 +80,7 @@ export const ConnectButton = (props: ConnectButtonProps) => {
 
   return (
     <Button
+      data-testid="connect-button"
       loading={isButtonLoading}
       $followingStatus={followingStatus}
       onMouseEnter={handleConnectButtonHover}
