@@ -1,22 +1,17 @@
 import { colors } from '@tw/ui/assets';
+import { Tabs } from '@tw/ui/components';
 import styled from 'styled-components';
 
+const tabs = [
+  { content: null, tabName: 'For you' },
+  { content: null, tabName: 'Following' },
+];
+
+// could Mainlane component be used here, is there a need for this component?
 export const HomeMainLane = () => {
   return (
     <Wrapper>
-      <TabWrapper>
-        <Tab>
-          <Text $active>For you</Text>
-        </Tab>
-        <Tab>
-          <Text>Following</Text>
-        </Tab>
-      </TabWrapper>
-
-      <NotificationWrapper>
-        <Title>Posts coming soon!</Title>
-        <Description>Feature in development...</Description>
-      </NotificationWrapper>
+      <Tabs tabs={tabs} />;
     </Wrapper>
   );
 };

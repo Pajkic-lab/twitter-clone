@@ -11,6 +11,11 @@ type NavigationBarProps = {
 
 type NavigationBarStyleProps = Pick<NavigationBarProps, 'width' | 'height'>;
 
+/**
+ * Navbar design is bad,
+ * it should be component for itself which stretches the whole page,
+ * then it could have sticky property which would solve problem with bottom margin.
+ */
 export const NavigationBar = (props: NavigationBarProps) => {
   const { title, text, width, height } = props;
 
@@ -23,6 +28,7 @@ export const NavigationBar = (props: NavigationBarProps) => {
   return (
     <Container width={width} height={height}>
       <Wrapper>
+        {/* should this be component for itself */}
         <SVGWrapper onClick={goBack}>
           <ArrowLogo />
         </SVGWrapper>
@@ -84,9 +90,3 @@ const H3 = styled.h3`
 const SpanHeader = styled.span`
   color: ${colors.graySecondary};
 `;
-
-/**
- * Navbar is design is bad,
- * it should be component for itself which stretches the whole page,
- * then it could have sticky property which would solve problem with bottom margin.
- */

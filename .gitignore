@@ -46,3 +46,10 @@ Thumbs.db
 cache
 app-structure.txt
 
+
+
+storybook-static
+
+# Generated Docusaurus files
+.docusaurus/
+.cache-loader/
