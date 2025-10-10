@@ -1,3 +1,6 @@
+/*
+ * This script should have guard, if .env.development already exists, show message in console and skip override.
+ */
 const fs = require('fs');
 const path = require('path');
 
@@ -5,6 +8,7 @@ const EXAMPLE_FILE = path.resolve('.env.example');
 const DEV_FILE = path.resolve('.env.development');
 const STAGING_FILE = path.resolve('.env.staging');
 
+// this should be created dynamically for staging and dev
 const NEW_DB_URL =
   'postgres://avnadmin:AVNS_0TU9ktE4pwBZ5bEgp-N@localhost:5433/twitterclonetest6_staging';
 
