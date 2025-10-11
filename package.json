@@ -10,7 +10,7 @@
     "// === Staging ===": "",
     "staging:set-local": "node load-env.js staging && bash start-staging-postgres.sh && pnpm run app:set",
     "staging-local": "node load-env.js staging && bash start-staging-postgres.sh && pnpm run test && npx nx e2e server-e2e",
-    "staging:set-remote": "node load-env.js staging && && node start-staging-postgres.js pnpm run app:set",
+    "staging:set-remote": "node load-env.js staging && node start-staging-postgres.js pnpm run app:set",
     "staging-remote": "node load-env.js staging && pnpm run test && npx nx e2e server-e2e",
     "// === Production ===": "",
     "prod:set": "node load-env.js prod && pnpm run app:build",
