@@ -22,6 +22,10 @@ jobs:
       - name: Create .env
         run: pnpm run env:set
 
+      - name: Create .env.staging from secret
+        run: |
+          echo "${{ secrets.ENV_STAGING }}" > .env.staging
+
       - name: Prepare staging environment
         run: pnpm run staging:set-remote
 
