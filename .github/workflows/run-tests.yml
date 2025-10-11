@@ -22,14 +22,9 @@ jobs:
       - name: Create base .env files
         run: pnpm run env:set
 
-      - name: Create .env.staging from secrets
-        run: |
-          echo "${{ secrets.ENV_STAGING }}" > .env.staging
-
       - name: Debug .env.staging (optional)
         run: |
-          echo "Checking .env.staging:"
-          cat .env.staging | sed 's/PASSWORD=.*/PASSWORD=***/'
+          cat .env.staging
 
       - name: Prepare staging environment
         run: pnpm run staging:set-remote
