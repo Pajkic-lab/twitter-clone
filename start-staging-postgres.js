@@ -1,5 +1,5 @@
-// start-staging-postgres.js
 const { execSync } = require('child_process');
+const fs = require('fs');
 
 function run(command) {
   try {
@@ -11,17 +11,18 @@ function run(command) {
 }
 
 // 1️⃣ Make sure .env.staging exists
-const fs = require('fs');
 if (!fs.existsSync('.env.staging')) {
   console.error('.env.staging file not found. Please run "pnpm run env:set" first.');
   process.exit(1);
 }
 
-// 3️⃣ Start Postgres container with explicit env file
-console.log('Starting PostgreSQL container...');
-run('docker compose --env-file .env.staging up -d postgres-staging');
+// 2️⃣ Start Postgres container with trust authentication
+console.log('Starting PostgreSQL container with trust authentication...');
+run(
+  'POSTGRES_HOST_AUTH_METHOD=trust docker compose --env-file .env.staging up -d postgres-staging',
+);
 
-// 4️⃣ Wait for Postgres to be ready
+// 3️⃣ Wait for Postgres to be ready
 console.log('Waiting for PostgreSQL to be ready...');
 let ready = false;
 const maxRetries = 30;
@@ -44,7 +45,7 @@ while (!ready && retries < maxRetries) {
   }
 }
 
-// 5️⃣ Optional: run any command passed to this script
+// 4️⃣ Optional: run any command passed to this script
 const args = process.argv.slice(2);
 if (args.length) {
   run(args.join(' '));
