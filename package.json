@@ -4,25 +4,21 @@
   "private": true,
   "license": "CC BY-NC-SA 4.0",
   "scripts": {
-
     "// === Development ===": "",
     "dev:set": "node load-env.js dev && bash start-dev-postgres.sh && pnpm run app:set",
     "dev": "node load-env.js dev && bash start-dev-postgres.sh && concurrently \"npx nx serve server\" \"npx nx serve client\"",
-
     "// === Staging ===": "",
     "staging:set-local": "node load-env.js staging && bash start-staging-postgres.sh && pnpm run app:set",
     "staging-local": "node load-env.js staging && bash start-staging-postgres.sh && pnpm run test && npx nx e2e server-e2e",
-    "staging:set-remote": "node load-env.js staging && pnpm run app:set",
+    "staging:set-remote": "node load-env.js staging && && node start-staging-postgres.js pnpm run app:set",
     "staging-remote": "node load-env.js staging && pnpm run test && npx nx e2e server-e2e",
-
     "// === Production ===": "",
     "prod:set": "node load-env.js prod && pnpm run app:build",
     "prod": "pnpm run db:deploy && node dist/apps/server/main.js",
-
     "// === Build & Setup ===": "",
     "app:set": "pnpm i && pnpm run db:format && pnpm run db:generate && pnpm run db:migrate && pnpm run db:deploy",
     "app:build": "pnpm i && pnpm run db:generate && npx nx build client && npx nx build server",
-
+    "env:set": "node create-env.js",
     "// === Database (Prisma) ===": "",
     "db:deploy": "node prisma-cli.js migrate deploy",
     "db:format": "node prisma-cli.js format",
@@ -31,21 +27,18 @@
     "db:migrate": "node prisma-cli.js migrate dev",
     "db:reset": "node prisma-cli.js migrate reset --force && pnpm run db:migrate",
     "seed:user": "ts-node apps/server/src/modules/prisma/seeds/user.seed.ts",
-
     "// === Utilities ===": "",
-    "env:set": "node setup-env.js",
     "storybook": "npx nx storybook client --port 6006",
     "check-dependencies": "depcheck",
     "app-structure": "node app-structure.js",
     "prepare": "husky",
     "format": "prettier --write \"**/*.{js,ts,tsx,json,css,md,html,yml,yaml}\"",
     "format:check": "prettier --check \"**/*.{js,ts,tsx,json,css,md,html,yml,yaml}\"",
-
+    "nx:fix": "npx nx daemon --stop && npx nx reset && cross-env NX_DAEMON=false",
     "// === Testing ===": "",
     "test": "npx nx run-many --target=test --all",
     "test-components": "npx nx run ui-components:test",
     "test-client": "npx nx run client:test",
-
     "// === Docs ===": "",
     "docs:dev": "nx serve docs",
     "docs:build": "nx build docs"
@@ -178,6 +171,7 @@
     "@vitejs/plugin-react": "^4.2.0",
     "babel-jest": "30.0.5",
     "concurrently": "^7.6.0",
+    "cross-env": "^10.1.0",
     "depcheck": "^1.4.7",
     "eslint": "~8.46.0",
     "eslint-config-prettier": "^9.1.0",

@@ -1,21 +1,13 @@
-name: Run tests
+name: Run Staging Tests
 
 on:
-  # pull_request:
-  #   branches: [develop]
   push:
-    branches: [fix/296-environment-variables-not-detected-in-ci]
+    branches:
+      - fix/296-environment-variables-not-detected-in-ci
 
 jobs:
-  # 🧩 1️⃣ Job: Prepare .env and extract values
-  prepare-env:
-    name: Prepare environment
+  test:
     runs-on: ubuntu-latest
-
-    outputs:
-      POSTGRES_DB: ${{ steps.extract.outputs.db }}
-      POSTGRES_USER: ${{ steps.extract.outputs.user }}
-      POSTGRES_PASSWORD: ${{ steps.extract.outputs.password }}
 
     steps:
       - uses: actions/checkout@v3
@@ -27,64 +19,15 @@ jobs:
       - name: Install pnpm
         run: npm install -g pnpm
 
-      # 🪄 Generate the .env file (this runs your custom script)
-      - name: Create .env file
+      - name: Create .env
         run: pnpm run env:set
 
-      # 🧠 Extract needed variables from .env and pass them to next job
-      - id: extract
-        run: |
-          # Load .env variables into the shell
-          set -o allexport
-          source .env
-          set +o allexport
-
-          # Write outputs for the next job
-          echo "db=$PG_DBNAME" >> $GITHUB_OUTPUT
-          echo "user=$PG_USER" >> $GITHUB_OUTPUT
-          echo "password=$PG_PASSWORD" >> $GITHUB_OUTPUT
-
-  # 🧪 2️⃣ Job: Run tests using extracted envs
-  running-tests:
-    runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres:latest
-        ports:
-          - 5432:5432
-        env:
-          POSTGRES_DB: ${{ needs.prepare-env.outputs.POSTGRES_DB }}
-          POSTGRES_USER: ${{ needs.prepare-env.outputs.POSTGRES_USER }}
-          POSTGRES_PASSWORD: ${{ needs.prepare-env.outputs.POSTGRES_PASSWORD }}
-
-    steps:
-      # 1️⃣ Checkout code
-      - uses: actions/checkout@v3
-
-      # 2️⃣ Setup Node.js
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 20
-          cache: 'pnpm' # do i need this? should this be defined here?
-
-      - name: Install pnpm
-        run: npm install -g pnpm
-
-      # 4️⃣ Create .env file (now Node + pnpm available)
-      - name: Create .env file
-        run: pnpm run env:set
-
-      # 5️⃣ Wait for DB
-      - name: Wait for PostgreSQL
-        run: |
-          echo "Waiting for PostgreSQL to start..."
-          while ! nc -z postgres 5432; do
-            sleep 1
-          done
-          echo "PostgreSQL is up and running!"
-
-      - name: set environment
+      - name: Prepare staging environment
         run: pnpm run staging:set-remote
 
-      - name: run tests
+      - name: Run tests
         run: pnpm run staging-remote
+
+      - name: Stop PostgreSQL
+        if: always()
+        run: docker compose down
