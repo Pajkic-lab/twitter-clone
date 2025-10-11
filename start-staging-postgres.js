@@ -17,15 +17,6 @@ if (!fs.existsSync('.env.staging')) {
   process.exit(1);
 }
 
-// 2️⃣ Verify POSTGRES_PASSWORD exists
-console.log('Checking for POSTGRES_PASSWORD...');
-const envContent = fs.readFileSync('.env.staging', 'utf8');
-if (!envContent.includes('POSTGRES_PASSWORD=')) {
-  console.error('POSTGRES_PASSWORD not found in .env.staging');
-  process.exit(1);
-}
-console.log('✓ POSTGRES_PASSWORD found in .env.staging');
-
 // 3️⃣ Start Postgres container with explicit env file
 console.log('Starting PostgreSQL container...');
 run('docker compose --env-file .env.staging up -d postgres-staging');
