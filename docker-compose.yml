@@ -1,12 +1,9 @@
-version: '3.8'
 services:
   postgres-dev:
     image: postgres:latest
     container_name: postgres-dev
-    environment:
-      POSTGRES_USER: avnadmin
-      POSTGRES_PASSWORD: AVNS_0TU9ktE4pwBZ5bEgp-N
-      POSTGRES_DB: twitterclonetest6_dev
+    env_file:
+      - .env.development
     ports:
       - '5432:5432'
     volumes:
@@ -15,10 +12,8 @@ services:
   postgres-staging:
     image: postgres:latest
     container_name: postgres-staging
-    environment:
-      POSTGRES_USER: avnadmin
-      POSTGRES_PASSWORD: AVNS_0TU9ktE4pwBZ5bEgp-N
-      POSTGRES_DB: twitterclonetest6_staging
+    env_file:
+      - .env.staging
     ports:
       - '5433:5432'
     volumes:
