@@ -1,0 +1,32 @@
+name: Run Staging Tests
+
+on:
+  pull_request:
+    branches: [develop]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Setup environment variables
+        run: pnpm run env:set
+
+      - name: Prepare staging environment
+        run: pnpm run staging-remote:set
+
+      - name: Run tests
+        run: pnpm run staging-remote
+
+      - name: Stop PostgreSQL
+        if: always()
+        run: docker compose down
