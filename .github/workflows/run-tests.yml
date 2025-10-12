@@ -19,12 +19,12 @@ jobs:
       - name: Install pnpm
         run: npm install -g pnpm
 
-      - name: Create base .env files
+      - name: Setup environment variables
         run: pnpm run env:set
 
-      - name: Debug .env.staging (optional)
-        run: |
-          cat .env.staging
+      # - name: Debug .env.staging (optional)
+      #   run: |
+      #     cat .env.staging
 
       - name: Prepare staging environment
         run: pnpm run staging:set-remote
