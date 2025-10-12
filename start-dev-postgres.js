@@ -10,9 +10,9 @@ function run(command) {
   }
 }
 
-const envPath = path.resolve('.env.staging');
+const envPath = path.resolve('.env.development');
 if (!fs.existsSync(envPath)) {
-  console.error('.env.staging file not found. Please run "pnpm run env:set" first.');
+  console.error('.env.development file not found. Please run "pnpm run env:set" first.');
   process.exit(1);
 }
 
@@ -27,14 +27,14 @@ const env = Object.fromEntries(
 process.env.POSTGRES_HOST_AUTH_METHOD = 'trust';
 
 console.log('🚀 Starting PostgreSQL container...');
-run('docker compose --env-file .env.staging up -d postgres-staging');
+run('docker compose --env-file .env.development up -d postgres-dev');
 
 console.log('⏳ Waiting for PostgreSQL...');
 const MAX_RETRIES = 30;
 const WAIT_MS = 1000;
 
 const POSTGRES_USER = env.POSTGRES_USER;
-const CONTAINER_NAME = 'postgres-staging';
+const CONTAINER_NAME = 'postgres-dev';
 
 (async () => {
   for (let i = 0; i < MAX_RETRIES; i++) {
