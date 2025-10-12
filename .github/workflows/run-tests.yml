@@ -22,12 +22,8 @@ jobs:
       - name: Setup environment variables
         run: pnpm run env:set
 
-      # - name: Debug .env.staging (optional)
-      #   run: |
-      #     cat .env.staging
-
       - name: Prepare staging environment
-        run: pnpm run staging:set-remote
+        run: pnpm run staging-remote:set
 
       - name: Run tests
         run: pnpm run staging-remote
