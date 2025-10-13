@@ -27,6 +27,8 @@ Welcome to the **Twitter Clone App** repository! This open-source, non-commercia
 
 Built with a robust tech stack including **TypeScript**, **Nx Monorepo**, **React**, **NestJS**, and **PostgreSQL**, the app replicates core features of Twitter while serving as a platform for growth and innovation.
 
+Check out the full [documentation here](https://pajkic-lab.github.io/twitter-clone/).
+
 ### Why Should You Join Us?
 
 By contributing to this project, you’ll gain hands-on experience with system design, write clean and test-covered code, and follow professional, production-ready best practices. Collaborate on a codebase that prioritizes quality and embraces modern development standards.
@@ -117,7 +119,9 @@ TWclone code is open-source. We are committed to a transparent development proce
 
 Not sure where to start? Join our [github discussions](https://github.com/Pajkic-lab/twitter-clone/discussions) and we will help you get started!
 
-## Special thanks to media team for promoting us
+## Highly recommend to checkout documentation
+
+Check out the full [documentation](https://pajkic-lab.github.io/twitter-clone/).
 
 ### Licensing of Contributions
 
