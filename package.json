@@ -40,7 +40,7 @@
     "test-components": "npx nx run ui-components:test",
     "test-client": "npx nx run client:test",
     "// === Docs ===": "",
-    "docs:dev": "nx serve docs",
+    "docs:dev": "pnpm i && nx serve docs",
     "docs:build": "nx build docs"
   },
   "lint-staged": {
@@ -112,9 +112,11 @@
     "@docusaurus/preset-classic": "3.4.0",
     "@docusaurus/tsconfig": "3.4.0",
     "@docusaurus/types": "3.4.0",
+    "@easyops-cn/docusaurus-search-local": "^0.52.1",
     "@eslint/eslintrc": "^2.1.4",
     "@eslint/js": "~8.46.0",
     "@faker-js/faker": "^10.0.0",
+    "@giscus/react": "^3.1.0",
     "@mdx-js/react": "^3.1.1",
     "@nestjs/testing": "^10.3.3",
     "@ngneat/falso": "^6.4.0",
