@@ -64,7 +64,7 @@ git clone -b next https://github.com/{your-GitHub-username}/twitter-clone.git
 
 ## Step 3: Prepare the development environment
 
-Set up and run the development environment on your local machine following the [README](./README.md#Installation)
+Set up and run the development environment on your local machine following the [README](https://github.com/Pajkic-lab/twitter-clone/blob/main/README.md)
 
 ## Step 4: Create a branch
 
