@@ -16,6 +16,21 @@ export class EnvironmentVariables {
   @IsNotEmpty()
   DATABASE_URL_PG: string;
 
+  @IsNotEmpty()
+  POSTGRES_USER: string;
+
+  @IsNotEmpty()
+  POSTGRES_PASSWORD: string;
+
+  @IsNotEmpty()
+  POSTGRES_HOST: string;
+
+  @IsNotEmpty()
+  POSTGRES_PORT: string;
+
+  @IsNotEmpty()
+  POSTGRES_DBNAME: string;
+
   /* ENVIRONMENT */
   @IsNotEmpty()
   // @IsIn(['development', 'staging', 'production'])

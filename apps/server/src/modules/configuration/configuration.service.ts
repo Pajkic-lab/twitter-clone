@@ -34,6 +34,25 @@ export class ConfigurationService {
     return this.get('DATABASE_URL_PG');
   }
 
+  get postgresUser(): string {
+    return this.get('POSTGRES_USER');
+  }
+
+  get postgresPassword(): string {
+    return this.get('POSTGRES_PASSWORD');
+  }
+
+  get postgresHost(): string {
+    return this.get('POSTGRES_HOST');
+  }
+
+  get postgresPort(): string {
+    return this.get('POSTGRES_PORT');
+  }
+
+  get postgresDbName(): string {
+    return this.get('POSTGRES_DBNAME');
+  }
   get port(): string {
     return this.get('PORT');
   }
