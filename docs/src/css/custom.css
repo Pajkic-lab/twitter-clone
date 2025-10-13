@@ -28,3 +28,11 @@
   --ifm-color-primary-lightest: #4eaff9;
   --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.08);
 }
+
+.navbar__brand img {
+  filter: invert(46%) sepia(83%) saturate(5400%) hue-rotate(192deg) brightness(95%) contrast(95%);
+}
+
+.navbar__title {
+  color: #1d9bf0;
+}

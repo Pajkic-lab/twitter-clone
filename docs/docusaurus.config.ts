@@ -3,8 +3,8 @@ import type { Config } from '@docusaurus/types';
 import { themes as prismThemes } from 'prism-react-renderer';
 
 const config: Config = {
-  title: 'TWclone Docs',
-  tagline: 'Learn and explore TWclone',
+  title: 'TWC',
+  tagline: 'Grow your skills, grow the community.',
   favicon: 'img/favicon.ico',
 
   url: 'https://Pajkic-lab.github.io',
@@ -39,7 +39,7 @@ const config: Config = {
   themeConfig: {
     image: 'img/docusaurus-social-card.jpg',
     navbar: {
-      title: 'TWC docs',
+      title: 'TWC',
       logo: {
         alt: 'My Site Logo',
         src: 'img/twitterLogo.svg',
@@ -48,18 +48,14 @@ const config: Config = {
         {
           type: 'doc',
           docId: 'intro',
-          position: 'left',
-          label: 'About',
-          sidebarId: 'aboutSidebar',
-        },
-        {
-          type: 'doc',
-          docId: 'technical/design-decisions/dc',
-          position: 'left',
-          label: 'Technical Docs',
-          sidebarId: 'technicalSidebar',
+          position: 'right',
+          label: 'Getting started',
+          sidebarId: 'gettingStartedSidebar',
         },
       ],
+    },
+    colorMode: {
+      defaultMode: 'dark',
     },
     footer: {
       style: 'dark',
@@ -77,16 +73,12 @@ const config: Config = {
           title: 'Community',
           items: [
             {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+              label: 'Github discussions',
+              href: 'https://github.com/Pajkic-lab/twitter-clone/discussions',
             },
             {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
-            },
-            {
-              label: 'Twitter',
-              href: 'https://twitter.com/docusaurus',
+              label: 'TWC',
+              href: 'https://twitter-clone-j82h.onrender.com/',
             },
           ],
         },
@@ -94,12 +86,8 @@ const config: Config = {
           title: 'More',
           items: [
             {
-              label: 'Blog',
-              to: '/blog',
-            },
-            {
               label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
+              href: 'https://github.com/Pajkic-lab/twitter-clone',
             },
           ],
         },
