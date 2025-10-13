@@ -1,10 +1,5 @@
 #!/usr/bin/env node
 
-// change trigger in github action workflow to this branch and test it
-// remove unused scripts
-// add env vars to production, render platform
-// production reset db, command is not working for some reason
-
 const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');

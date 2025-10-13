@@ -1,10 +1,8 @@
 name: Run Staging Tests
 
 on:
-  # pull_request:
-  #   branches: [develop]
-  push:
-    branches: [fix/296-environment-variables-not-detected-in-ci]
+  pull_request:
+    branches: [develop]
 
 jobs:
   test:
