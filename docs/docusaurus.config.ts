@@ -3,8 +3,8 @@ import type { Config } from '@docusaurus/types';
 import { themes as prismThemes } from 'prism-react-renderer';
 
 const config: Config = {
-  title: 'TWclone Docs',
-  tagline: 'Learn and explore TWclone',
+  title: 'TWC',
+  tagline: 'Grow your skills, grow the community.',
   favicon: 'img/favicon.ico',
 
   url: 'https://Pajkic-lab.github.io',
@@ -29,10 +29,6 @@ const config: Config = {
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl: 'https://github.com/Pajkic-lab/twitter-clone/edit/main/docs/',
         },
-        blog: {
-          showReadingTime: true,
-          editUrl: 'https://github.com/Pajkic-lab/twitter-clone/edit/main/docs/',
-        },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
@@ -41,28 +37,25 @@ const config: Config = {
   ],
 
   themeConfig: {
-    // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
     navbar: {
-      title: 'My Site',
+      title: 'TWC',
       logo: {
         alt: 'My Site Logo',
-        src: 'img/logo.svg',
+        src: 'img/twitterLogo.svg',
       },
       items: [
         {
-          type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
-          position: 'left',
-          label: 'Tutorial',
-        },
-        { to: '/blog', label: 'Blog', position: 'left' },
-        {
-          href: 'https://github.com/facebook/docusaurus',
-          label: 'GitHub',
+          type: 'doc',
+          docId: 'intro',
           position: 'right',
+          label: 'Getting started',
+          sidebarId: 'gettingStartedSidebar',
         },
       ],
+    },
+    colorMode: {
+      defaultMode: 'dark',
     },
     footer: {
       style: 'dark',
@@ -80,16 +73,12 @@ const config: Config = {
           title: 'Community',
           items: [
             {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+              label: 'Github discussions',
+              href: 'https://github.com/Pajkic-lab/twitter-clone/discussions',
             },
             {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
-            },
-            {
-              label: 'Twitter',
-              href: 'https://twitter.com/docusaurus',
+              label: 'TWC',
+              href: 'https://twitter-clone-j82h.onrender.com/',
             },
           ],
         },
@@ -97,12 +86,8 @@ const config: Config = {
           title: 'More',
           items: [
             {
-              label: 'Blog',
-              to: '/blog',
-            },
-            {
               label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
+              href: 'https://github.com/Pajkic-lab/twitter-clone',
             },
           ],
         },
@@ -114,6 +99,19 @@ const config: Config = {
       darkTheme: prismThemes.dracula,
     },
   } satisfies Preset.ThemeConfig,
+
+  plugins: [
+    [
+      require.resolve('@easyops-cn/docusaurus-search-local'),
+      {
+        hashed: true,
+        indexDocs: true,
+        indexBlog: false,
+        indexPages: true,
+        language: ['en'],
+      },
+    ],
+  ],
 };
 
 export default config;
