@@ -6,7 +6,7 @@ import { PrismaService } from '../prisma/prisma.service';
 export class SocialRepository {
   constructor(private prisma: PrismaService) {}
 
-  async followUser(userId: number, userIdToFollow: number): Promise<Social> {
+  async followUser(userId: string, userIdToFollow: string): Promise<Social> {
     try {
       return await this.prisma.social.create({
         data: {
@@ -19,7 +19,7 @@ export class SocialRepository {
     }
   }
 
-  async unFollowUser(userId: number, userIdToUnFollow: number) {
+  async unFollowUser(userId: string, userIdToUnFollow: string) {
     try {
       return await this.prisma.social.deleteMany({
         where: {
@@ -32,7 +32,7 @@ export class SocialRepository {
     }
   }
 
-  async getFollowers(userId: number, offset: number, limit: number) {
+  async getFollowers(userId: string, offset: number, limit: number) {
     // refactor this to use raw query or what ever, just move all the logic to db
     try {
       const followers = await this.prisma.social.findMany({
@@ -73,7 +73,7 @@ export class SocialRepository {
     }
   }
 
-  async getFollowingUsers(userId: number, offset: number, limit: number) {
+  async getFollowingUsers(userId: string, offset: number, limit: number) {
     // refactor this to use raw query or what ever, just move all the logic to db
     try {
       const followingUsers = await this.prisma.social.findMany({
@@ -122,8 +122,8 @@ export class SocialRepository {
   }
 
   async getPublicProfileFollowers(
-    meId: number,
-    publicUserId: number,
+    meId: string,
+    publicUserId: string,
     offset: number,
     limit: number,
   ) {
@@ -171,8 +171,8 @@ export class SocialRepository {
   //
   //
   async getPublicProfileFollowingUsers(
-    meId: number,
-    publicUserId: number,
+    meId: string,
+    publicUserId: string,
     offset: number,
     limit: number,
   ) {

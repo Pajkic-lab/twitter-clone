@@ -10,9 +10,9 @@ import { NameAndUniquename } from './components/NameAndUniquename';
 import { SocialStats } from './components/SocialStats';
 
 type UserPreviewTooltipProps = {
-  meId: number;
+  meId: string;
   buttonRelatedUser: PublicUserBase;
-  publicUserId?: number;
+  publicUserId?: string;
   invData: InvalidationData;
 };
 

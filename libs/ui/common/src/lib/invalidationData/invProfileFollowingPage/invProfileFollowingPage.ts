@@ -8,7 +8,7 @@ import {
 
 export const invFollowingData = () => {
   return {
-    followIfPublicUser: (pubUserId: number) => {}, // should be optional for all
+    followIfPublicUser: (pubUserId: string) => {}, // should be optional for all
     follow: () => {
       useResetQuery(QueryAction.Invalidate, userGetFollowingKey());
       useResetQuery(QueryAction.Remove, userGetFollowersKey());
@@ -16,7 +16,7 @@ export const invFollowingData = () => {
       useResetQuery(QueryAction.Invalidate, mostPopularUsersQueryKey());
     },
 
-    unFollowIfPublicUser: (pubUserId: number) => {}, // should be optional for all
+    unFollowIfPublicUser: (pubUserId: string) => {}, // should be optional for all
     unFollow: () => {
       useResetQuery(QueryAction.Invalidate, userGetFollowingKey());
       useResetQuery(QueryAction.Remove, userGetFollowersKey());

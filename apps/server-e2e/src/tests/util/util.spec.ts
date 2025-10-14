@@ -36,7 +36,7 @@ describe('UtileController (e2e)', () => {
           cover: expect.any(String),
           createdAt: expect.any(String),
           email: expect.any(String),
-          id: expect.any(Number),
+          id: expect.any(String),
           location: expect.any(String),
           name: expect.any(String),
           password: expect.any(String),

@@ -1,3 +1,3 @@
 export class UnFollowUserResponseDto {
-  userIdToUnFollow: number;
+  userIdToUnFollow: string;
 }

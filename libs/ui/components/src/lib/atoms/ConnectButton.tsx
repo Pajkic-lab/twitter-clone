@@ -6,9 +6,9 @@ import styled from 'styled-components';
 import { SecondaryButton } from './Button';
 
 type ConnectButtonProps = {
-  meId: number;
-  buttonRelatedUserId: number;
-  publicUserId?: number;
+  meId: string;
+  buttonRelatedUserId: string;
+  publicUserId?: string;
   followingStatus: boolean;
   invData: InvalidationData;
 };

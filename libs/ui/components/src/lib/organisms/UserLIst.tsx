@@ -17,14 +17,14 @@ type UserListProps = {
   showUserPreview?: boolean;
   infScrollElRef?: (node?: Element | null | undefined) => void;
   hasMoreData?: boolean;
-  meId: number;
-  publicUserId?: number;
+  meId: string;
+  publicUserId?: string;
   invData: InvalidationData;
 };
 
 type ContentUiProps = {
-  meId: number;
-  publicUserId?: number;
+  meId: string;
+  publicUserId?: string;
   userList: FollowerListResponseDto[];
   title?: string;
   showBio?: boolean;
