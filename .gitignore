@@ -39,14 +39,12 @@ testem.log
 Thumbs.db
 
 .nx/cache
-
-*.env
-.env*
 .nx/
 cache
 app-structure.txt
 
-
+.env*
+!.env*.example
 
 storybook-static
 
