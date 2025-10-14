@@ -15,6 +15,7 @@ export * from './lib/molecules/FormImageInput';
 export * from './lib/molecules/FormInput';
 export * from './lib/molecules/Modal';
 export * from './lib/molecules/NavigationBar';
+export * from './lib/molecules/profilePreview/ProfilePreview';
 export * from './lib/molecules/SetAccountForm';
 export * from './lib/molecules/SignInForm';
 export * from './lib/molecules/SignUpForm';
@@ -37,3 +38,6 @@ export * from './lib/organisms/UserListLane';
 
 // templates
 export * from './lib/templates/Contacts';
+
+// utils
+export * from './lib/utils/text/Truncate';

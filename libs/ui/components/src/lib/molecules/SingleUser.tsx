@@ -2,10 +2,29 @@ import Tippy from '@tippyjs/react';
 import { PublicUserBase } from '@tw/data';
 import { colors } from '@tw/ui/assets';
 import { InvalidationData, linksRecords } from '@tw/ui/common';
+import { ConnectButton, ProfilePreview } from '@tw/ui/components';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { ConnectButton } from '../atoms/ConnectButton';
-import { ProfilePreview } from './ProfilePreview/ProfilePreview';
+
+function UserHeader({
+  avatar,
+  name,
+  uniqueName,
+}: {
+  avatar: string;
+  name: string;
+  uniqueName: string;
+}) {
+  return (
+    <ContextWrapper>
+      <ProfileImage $backgroundImage={avatar} />
+      <TextWrapper>
+        <H3>{name}</H3>
+        <Span>{uniqueName}</Span>
+      </TextWrapper>
+    </ContextWrapper>
+  );
+}
 
 type SingleUserProps = {
   buttonRelatedUser: PublicUserBase;
@@ -35,14 +54,14 @@ export const SingleUser = (props: SingleUserProps) => {
 
   const tippyOptions = {
     interactive: true,
-    delay: [300, 0] as [number | null, number | null],
+    delay: 300,
     hideOnClick: false,
   };
 
-  const tippyContent = showUserPreview && (
+  const userPreviewContent = showUserPreview && (
     <div onClick={(e) => e.stopPropagation()}>
       <ProfilePreview
-        buttonRelatedUser={buttonRelatedUser}
+        displayedUser={buttonRelatedUser}
         meId={meId}
         publicUserId={publicUserId}
         invData={invData}
@@ -62,20 +81,8 @@ export const SingleUser = (props: SingleUserProps) => {
     <Wrapper onClick={goToUserPage}>
       <ContentWrapper>
         <ProfileWrapper>
-          <Tippy
-            {...tippyOptions}
-            interactive
-            delay={[300, 0]}
-            hideOnClick={false}
-            content={tippyContent}
-          >
-            <ContextWrapper>
-              <ProfileImage $backgroundImage={avatar} />
-              <TextWrapper>
-                <H3>{name}</H3>
-                <Span>{uniqueName}</Span>
-              </TextWrapper>
-            </ContextWrapper>
+          <Tippy {...tippyOptions} interactive hideOnClick={false} content={userPreviewContent}>
+            <UserHeader avatar={avatar} name={name} uniqueName={uniqueName} />
           </Tippy>
           {showConnectButton && (
             <ConnectButton
