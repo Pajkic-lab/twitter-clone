@@ -1,15 +1,4 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  ParseIntPipe,
-  Post,
-  Req,
-  UseGuards,
-  UsePipes,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Req, UseGuards } from '@nestjs/common';
 import {
   FollowUserRequestDto,
   FollowUserResponseDto,
@@ -38,7 +27,7 @@ export class SocialController {
   @Get('stats/public-user/:userId')
   @UseGuards(IsAuthGuard)
   handleGetPublicUserSocialStats(
-    @Param('userId') userId: number,
+    @Param('userId') userId: string,
   ): Promise<HttpResponse<SocialStatsResponseDto>> {
     return this.socialService.getPublicUserSocialStats(userId);
   }
@@ -47,7 +36,7 @@ export class SocialController {
   @UseGuards(IsAuthGuard)
   handleGetPublicUserFollowingStatus(
     @Req() request: RequestContainingUserId,
-    @Param('userId') userId: number,
+    @Param('userId') userId: string,
   ) {
     return this.socialService.getPublicUserFollowingStatus(request.user.id, userId);
   }
@@ -63,9 +52,8 @@ export class SocialController {
 
   @Delete('un-follow/user/:userIdToUnFollow')
   @UseGuards(IsAuthGuard)
-  @UsePipes(new ParseIntPipe())
   handleUnFollowUser(
-    @Param('userIdToUnFollow') userIdToUnFollow: number,
+    @Param('userIdToUnFollow') userIdToUnFollow: string,
     @Req() request: RequestContainingUserId,
   ): Promise<HttpResponse<UnFollowUserResponseDto>> {
     return this.socialService.unFollowUser(request.user.id, userIdToUnFollow);
@@ -93,7 +81,7 @@ export class SocialController {
 
   @Get('public-profile/followers/:userId/:offset/:limit')
   handleGetPublicProfileFollowers(
-    @Param('userId') userId: number,
+    @Param('userId') userId: string,
     @Param('offset') offset: number,
     @Param('limit') limit: number,
     @Req() request: RequestContainingUserId,
@@ -103,7 +91,7 @@ export class SocialController {
 
   @Get('public-profile/following/:userId/:offset/:limit')
   handleGetPublicProfileFollowing(
-    @Param('userId') userId: number,
+    @Param('userId') userId: string,
     @Param('offset') offset: number,
     @Param('limit') limit: number,
     @Req() request: RequestContainingUserId,

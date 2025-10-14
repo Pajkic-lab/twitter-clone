@@ -9,7 +9,7 @@ import { CloudinaryBase } from './cloudinary-base.service';
  */
 @Injectable()
 export class CloudinaryService extends CloudinaryBase {
-  async uploadImage(image: string, userId: number, dir: MediaDirectory) {
+  async uploadImage(image: string, userId: string, dir: MediaDirectory) {
     try {
       if (dir === MediaDirectory.avatar || dir === MediaDirectory.cover) {
         await this.deleteDir(userId, dir);
@@ -28,7 +28,7 @@ export class CloudinaryService extends CloudinaryBase {
     }
   }
 
-  async deleteDir(userId: number, dir: MediaDirectory) {
+  async deleteDir(userId: string, dir: MediaDirectory) {
     try {
       return await cloudinary.api.delete_resources_by_prefix(`twitter-clone/user:${userId}/${dir}`);
     } catch (error) {

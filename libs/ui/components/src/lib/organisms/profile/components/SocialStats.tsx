@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 type SocialStatsProps = {
   socialStats: SocialStatsResponseDto | undefined;
-  socialStatsUserId?: number;
+  socialStatsUserId?: string;
 };
 
 export const SocialStats = (props: SocialStatsProps) => {

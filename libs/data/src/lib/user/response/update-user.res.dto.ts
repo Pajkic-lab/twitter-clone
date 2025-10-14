@@ -2,7 +2,7 @@ import { AutoMap } from '@automapper/classes';
 
 export class UpdateUserResponseDto {
   @AutoMap()
-  id: number;
+  id: string;
 
   @AutoMap()
   name: string;

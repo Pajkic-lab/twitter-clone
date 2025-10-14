@@ -1,9 +1,9 @@
 export const invDataEmpty = () => {
   return {
-    followIfPublicUser: (pubUserId: number) => {},
+    followIfPublicUser: (pubUserId: string) => {},
     follow: () => {},
 
-    unFollowIfPublicUser: (pubUserId: number) => {},
+    unFollowIfPublicUser: (pubUserId: string) => {},
     unFollow: () => {},
   };
 };
