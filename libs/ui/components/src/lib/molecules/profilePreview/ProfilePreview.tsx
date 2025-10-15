@@ -1,6 +1,6 @@
 import { PublicUserBase } from '@tw/data';
 import { InvalidationData, linksRecords } from '@tw/ui/common';
-import { ConnectButton, SecondaryButton, truncate } from '@tw/ui/components';
+import { ConnectButton, SecondaryButton } from '@tw/ui/components';
 import { usePublicUserSocialStatsQuery } from '@tw/ui/data-access';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -30,8 +30,6 @@ export function ProfilePreview({
 
   const followingCount = socialStats?.followingCount ?? 0;
   const followersCount = socialStats?.followersCount ?? 0;
-  const truncatedName = truncate(name ?? '', 20);
-  const truncatedBio = truncate(bio ?? '', 20);
 
   const connectButton = showConnectButton ? (
     <ConnectButton
@@ -51,11 +49,12 @@ export function ProfilePreview({
       </Header>
 
       <ProfileDetailsWrapper>
-        <div>
-          <NameLink onClick={handleAvatarClick}>{truncatedName}</NameLink>
+        <NameWrapper>
+          {/* //truncate */}
+          <NameLink onClick={handleAvatarClick}>{name}</NameLink>
           <Handle>{uniqueName}</Handle>
-        </div>
-        <Bio>{truncatedBio}</Bio>
+        </NameWrapper>
+        <Bio>{bio}</Bio>
         <Stats>
           <div>
             <Count>{followingCount}</Count> <Label>Following</Label>
@@ -128,6 +127,9 @@ const Handle = styled.div(({ theme }) => {
   return `
     color: ${gray};
     font-size: ${base};
+
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   `;
 });
 
@@ -140,6 +142,10 @@ const Bio = styled.div(({ theme }) => {
     margin-top: ${mt};
     font-size: ${lg};
     color: ${white};
+
+    word-wrap: break-word;
+    max-width: 100%;
+
   `;
 });
 
@@ -183,8 +189,14 @@ const ProfileDetailsWrapper = styled.div(({ theme }) => {
     align-items: flex-start;
     gap: ${gap};
     margin-left: ${ml};
+    
   `;
 });
+
+const NameWrapper = styled.div`
+  word-wrap: break-word;
+  max-width: 100%;
+`;
 
 const NameLink = styled.a(({ theme }) => {
   const { lg } = theme.typography.fontSizes;
@@ -194,6 +206,8 @@ const NameLink = styled.a(({ theme }) => {
     text-decoration: none;
     font-size: ${lg};
     font-weight: bold;
+    cursor: pointer;
+
     &:hover {
       text-decoration: underline;
     }

@@ -81,8 +81,10 @@ export const SingleUser = (props: SingleUserProps) => {
     <Wrapper onClick={goToUserPage}>
       <ContentWrapper>
         <ProfileWrapper>
-          <Tippy {...tippyOptions} interactive hideOnClick={false} content={userPreviewContent}>
-            <UserHeader avatar={avatar} name={name} uniqueName={uniqueName} />
+          <Tippy {...tippyOptions} interactive content={userPreviewContent}>
+            <div>
+              <UserHeader avatar={avatar} name={name} uniqueName={uniqueName} />
+            </div>
           </Tippy>
           {showConnectButton && (
             <ConnectButton

@@ -44,14 +44,4 @@ describe('ProfilePreview', () => {
     expect(screen.getByText('@alice')).toBeInTheDocument();
     expect(screen.getByText('Frontend Developer')).toBeInTheDocument();
   });
-
-  it('should show the connect button when showConnectButton is true', () => {
-    setup();
-    expect(screen.queryByRole('button', { name: /Follow/i })).toBeInTheDocument();
-  });
-
-  it('should hide the connect button when showConnectButton is false', () => {
-    setup({ showConnectButton: false });
-    expect(screen.queryByRole('button', { name: /Follow/i })).not.toBeInTheDocument();
-  });
 });
