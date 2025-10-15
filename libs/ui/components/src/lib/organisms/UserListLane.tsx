@@ -13,7 +13,7 @@ const LANE_WIDTH = 598; // px
 const NAVBAR_HEIGHT = 4.286; //rem
 
 type UserListLaneProps = {
-  meId: number;
+  meId: string;
   publicUser: UserResponseDto;
   userList: FollowerListResponseDto[];
   userListLoading: boolean;

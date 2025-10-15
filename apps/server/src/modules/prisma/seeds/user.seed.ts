@@ -6,6 +6,20 @@ const prisma = new PrismaClient();
 export async function seed() {
   const users = [];
 
+  const firstUser = await prisma.user.create({
+    data: {
+      email: randEmail(),
+      password: randPassword(),
+      name: randFullName(),
+      avatar: 'https://picsum.photos/500/500',
+      cover: 'https://picsum.photos/500/500',
+      uniqueName: randUuid(),
+      bio: 'Hi im the first user',
+      location: 'Brazil',
+      website: 'https://example.com',
+    },
+  });
+
   for (let i = 0; i < 50; i++) {
     users.push({
       email: randEmail(),
@@ -22,7 +36,7 @@ export async function seed() {
           {
             following: {
               connect: {
-                id: 1,
+                id: firstUser.id,
               },
             },
           },

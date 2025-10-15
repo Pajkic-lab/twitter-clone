@@ -26,7 +26,7 @@ export class SocialService {
     @InjectMapper() private readonly mapper: Mapper,
   ) {}
 
-  async getStats(userId: number): Promise<HttpResponse<SocialStatsResponseDto>> {
+  async getStats(userId: string): Promise<HttpResponse<SocialStatsResponseDto>> {
     const socialStats = await this.authRepository.getSocialStats(userId);
 
     if (!socialStats) throw new NotFoundException('Social stats do not exist');
@@ -38,7 +38,7 @@ export class SocialService {
   }
 
   async getPublicUserSocialStats(
-    publicUserId: number,
+    publicUserId: string,
   ): Promise<HttpResponse<SocialStatsResponseDto>> {
     const socialStats = await this.authRepository.getSocialStats(publicUserId);
 
@@ -50,7 +50,7 @@ export class SocialService {
     });
   }
 
-  async getPublicUserFollowingStatus(userId: number, publicUserId: number) {
+  async getPublicUserFollowingStatus(userId: string, publicUserId: string) {
     const followingStatus = await this.userRepository.getFollowingStatus(publicUserId, userId);
 
     return createResponse({
@@ -60,7 +60,7 @@ export class SocialService {
   }
 
   async followUser(
-    userId: number,
+    userId: string,
     followUser: FollowUserRequestDto,
   ): Promise<HttpResponse<FollowUserResponseDto>> {
     const followingStatus = await this.userRepository.getFollowingStatus(followUser.userId, userId);
@@ -83,8 +83,8 @@ export class SocialService {
   }
 
   async unFollowUser(
-    userId: number,
-    userIdToUnFollow: number,
+    userId: string,
+    userIdToUnFollow: string,
   ): Promise<HttpResponse<UnFollowUserResponseDto>> {
     const { count } = await this.socialRepository.unFollowUser(userId, userIdToUnFollow);
 
@@ -98,7 +98,7 @@ export class SocialService {
   }
 
   async handleFollowers(
-    userId: number,
+    userId: string,
     offset: number,
     limit: number,
   ): Promise<HttpResponse<FollowerListResponseDto[]>> {
@@ -120,7 +120,7 @@ export class SocialService {
   }
 
   async handleFollowing(
-    userId: number,
+    userId: string,
     offset: number,
     limit: number,
   ): Promise<HttpResponse<FollowingListResponseDto[]>> {
@@ -146,8 +146,8 @@ export class SocialService {
   }
 
   async handlePublicProfileFollowers(
-    meId: number,
-    publicUserId: number,
+    meId: string,
+    publicUserId: string,
     offset: number,
     limit: number,
   ): Promise<HttpResponse<FollowerListResponseDto[]>> {
@@ -174,8 +174,8 @@ export class SocialService {
   }
 
   async handlePublicProfileFollowing(
-    meId: number,
-    publicUserId: number,
+    meId: string,
+    publicUserId: string,
     offset: number,
     limit: number,
   ): Promise<HttpResponse<FollowingListResponseDto[]>> {
