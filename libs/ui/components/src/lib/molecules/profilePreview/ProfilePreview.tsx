@@ -7,8 +7,8 @@ import styled from 'styled-components';
 
 type ProfilePreviewProps = {
   displayedUser: PublicUserBase;
-  meId: number;
-  publicUserId?: number;
+  meId: string;
+  publicUserId?: string;
   showConnectButton?: boolean;
   invData: InvalidationData;
 };

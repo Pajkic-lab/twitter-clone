@@ -4,7 +4,7 @@ import { InvalidationData } from '@tw/ui/common';
 import { ProfilePreview } from '@tw/ui/components';
 
 const mockUser: PublicUserBase = {
-  id: 1,
+  id: '1',
   email: 'alice@example.com',
   name: 'Alice',
   avatar: 'https://via.placeholder.com/150',
@@ -21,11 +21,11 @@ const mockUser: PublicUserBase = {
 interface SetupOptions {
   showConnectButton?: boolean;
   displayedUser?: PublicUserBase;
-  meId?: number;
+  meId?: string;
 }
 
 const setup = (options: SetupOptions = {}): RenderResult => {
-  const { showConnectButton = true, displayedUser = mockUser, meId = 999 } = options;
+  const { showConnectButton = true, displayedUser = mockUser, meId = '999' } = options;
 
   return render(
     <ProfilePreview

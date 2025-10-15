@@ -4,7 +4,7 @@ import { ProfilePreview } from '@tw/ui/components';
 
 function createMockUser(overrides: Partial<PublicUserBase> = {}): PublicUserBase {
   return {
-    id: 1,
+    id: '1',
     followingStatus: false,
     email: 'mock@example.com',
     name: 'Mock User',
@@ -28,7 +28,7 @@ const meta: Meta<typeof ProfilePreview> = {
   argTypes: {},
   args: {
     displayedUser: createMockUser(),
-    meId: 999,
+    meId: '999',
     showConnectButton: true,
   },
 };
@@ -52,6 +52,6 @@ export const LongText: Story = {
       bio: 'B'.repeat(50),
       uniqueName: '@verylongusername',
     }),
-    meId: 999,
+    meId: '999',
   },
 };
