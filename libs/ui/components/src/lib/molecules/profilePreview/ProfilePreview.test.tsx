@@ -1,14 +1,7 @@
 import { PublicUserBase } from '@tw/data';
-import { render, screen } from '@tw/test-utils';
+import { render, RenderResult, screen } from '@tw/test-utils';
+import { InvalidationData } from '@tw/ui/common';
 import { ProfilePreview } from '@tw/ui/components';
-
-jest.mock('@tw/ui/data-access', () => ({
-  usePublicUserSocialStatsQuery: jest.fn().mockReturnValue({
-    data: { followersCount: 42, followingCount: 7 },
-  }),
-  useFollowMutation: jest.fn().mockReturnValue({ mutate: jest.fn(), isPending: false }),
-  useUnFollowMutation: jest.fn().mockReturnValue({ mutate: jest.fn(), isPending: false }),
-}));
 
 const mockUser: PublicUserBase = {
   id: 1,
@@ -25,32 +18,40 @@ const mockUser: PublicUserBase = {
   followingStatus: false,
 };
 
+interface SetupOptions {
+  showConnectButton?: boolean;
+  displayedUser?: PublicUserBase;
+  meId?: number;
+}
+
+const setup = (options: SetupOptions = {}): RenderResult => {
+  const { showConnectButton = true, displayedUser = mockUser, meId = 999 } = options;
+
+  return render(
+    <ProfilePreview
+      displayedUser={displayedUser}
+      meId={meId}
+      invData={{} as InvalidationData}
+      showConnectButton={showConnectButton}
+    />,
+  );
+};
+
 describe('ProfilePreview', () => {
   it('should render the name, handle, and bio', () => {
-    render(
-      <ProfilePreview displayedUser={mockUser} meId={999} invData={{} as any} showConnectButton />,
-    );
+    setup();
     expect(screen.getByText('Alice')).toBeInTheDocument();
     expect(screen.getByText('@alice')).toBeInTheDocument();
     expect(screen.getByText('Frontend Developer')).toBeInTheDocument();
   });
 
   it('should show the connect button when showConnectButton is true', () => {
-    render(
-      <ProfilePreview displayedUser={mockUser} meId={999} invData={{} as any} showConnectButton />,
-    );
+    setup();
     expect(screen.queryByRole('button', { name: /Follow/i })).toBeInTheDocument();
   });
 
   it('should hide the connect button when showConnectButton is false', () => {
-    render(
-      <ProfilePreview
-        displayedUser={mockUser}
-        meId={999}
-        invData={{} as any}
-        showConnectButton={false}
-      />,
-    );
+    setup({ showConnectButton: false });
     expect(screen.queryByRole('button', { name: /Follow/i })).not.toBeInTheDocument();
   });
 });

@@ -1,15 +1,30 @@
 import type { Preview } from '@storybook/react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { GlobalStyle, theme } from '@tw/theme';
+import { MemoryRouter } from 'react-router-dom'; // is this needed any more?
 import { ThemeProvider } from 'styled-components';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 const preview: Preview = {
   decorators: [
     (Story) => (
       <>
-        <GlobalStyle />
-        <ThemeProvider theme={theme}>
-          <Story />
-        </ThemeProvider>
+        <MemoryRouter>
+          <GlobalStyle />
+          <ThemeProvider theme={theme}>
+            <QueryClientProvider client={queryClient}>
+              <Story />
+            </QueryClientProvider>
+          </ThemeProvider>
+        </MemoryRouter>
       </>
     ),
   ],

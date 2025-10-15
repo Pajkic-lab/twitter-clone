@@ -1,10 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { PublicUserBase } from '@tw/data';
 import { ProfilePreview } from '@tw/ui/components';
-import { MemoryRouter } from 'react-router-dom';
-
-const queryClient = new QueryClient();
 
 function createMockUser(overrides: Partial<PublicUserBase> = {}): PublicUserBase {
   return {
@@ -28,32 +24,23 @@ const meta: Meta<typeof ProfilePreview> = {
   title: 'Molecules/ProfilePreview',
   component: ProfilePreview,
 
-  decorators: [
-    (Story) => (
-      <MemoryRouter>
-        <QueryClientProvider client={queryClient}>
-          <Story />
-        </QueryClientProvider>
-      </MemoryRouter>
-    ),
-  ],
-};
-export default meta;
-
-type Story = StoryObj<typeof ProfilePreview>;
-
-export const Default: Story = {
+  decorators: [(Story) => <Story />],
+  argTypes: {},
   args: {
     displayedUser: createMockUser(),
     meId: 999,
     showConnectButton: true,
   },
 };
+export default meta;
+
+type Story = StoryObj<typeof ProfilePreview>;
+
+export const Default: Story = {};
 
 export const NoConnectButton: Story = {
   args: {
     displayedUser: createMockUser({ followingStatus: false }),
-    meId: 999,
     showConnectButton: false,
   },
 };
@@ -66,6 +53,5 @@ export const LongText: Story = {
       uniqueName: '@verylongusername',
     }),
     meId: 999,
-    showConnectButton: false,
   },
 };
