@@ -1,18 +1,12 @@
 import type { Preview } from '@storybook/react';
-import { GlobalStyle, theme } from '@tw/theme';
-import { ThemeProvider } from 'styled-components';
+
+/**
+ * Storybook preview configuration is in apps\client\.storybook\preview.tsx
+ *
+ */
 
 const preview: Preview = {
-  decorators: [
-    (Story) => (
-      <>
-        <GlobalStyle />
-        <ThemeProvider theme={theme}>
-          <Story />
-        </ThemeProvider>
-      </>
-    ),
-  ],
+  decorators: [(Story) => <Story />],
   parameters: {
     actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {

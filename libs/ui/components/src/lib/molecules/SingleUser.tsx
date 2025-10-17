@@ -1,9 +1,10 @@
+import Tippy from '@tippyjs/react';
 import { PublicUserBase } from '@tw/data';
 import { colors } from '@tw/ui/assets';
 import { InvalidationData, linksRecords } from '@tw/ui/common';
+import { ConnectButton, ProfilePreview } from '@tw/ui/components';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { ConnectButton } from '../atoms/ConnectButton';
 
 type SingleUserProps = {
   buttonRelatedUser: PublicUserBase;
@@ -31,6 +32,23 @@ export const SingleUser = (props: SingleUserProps) => {
 
   const navigate = useNavigate();
 
+  const tippyOptions = {
+    interactive: true,
+    delay: 300,
+    hideOnClick: false,
+  };
+
+  const userPreviewContent = showUserPreview && (
+    <div onClick={(e) => e.stopPropagation()}>
+      <ProfilePreview
+        displayedUser={buttonRelatedUser}
+        meId={meId}
+        publicUserId={publicUserId}
+        invData={invData}
+      />
+    </div>
+  );
+
   const goToUserPage = () => {
     if (meId === id) {
       return navigate(linksRecords.profilePage.base);
@@ -38,82 +56,34 @@ export const SingleUser = (props: SingleUserProps) => {
     navigate(linksRecords.publicProfilePage.baseById(id));
   };
 
-  // UI is done, there is a problem with logic, list will reset on every update, and there is a problem how to
-  // force window to open and close only on specific actions, and connect button propagation makes problems
-  // const TippyWrapper = ({ element }: { element: ReactNode }) => {
-  //   const [referenceElement, setReferenceElement] =
-  //     useState<HTMLDivElement | null>(null);
-  //   const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(
-  //     null
-  //   );
-  //   const [visible, setVisible] = useState(false);
-  //   const [onPreview, setOnPreview] = useState(false);
-
-  //   const { styles, attributes } = usePopper(referenceElement, popperElement, {
-  //     modifiers: [{ name: 'arrow' }],
-  //   });
-
-  //   const showTooltip = () => {
-  //     setTimeout(() => {
-  //       setVisible(true);
-  //     }, 1000);
-  //   };
-
-  //   const hideTooltip = () => {
-  //     setTimeout(() => {
-  //       setVisible(false);
-  //     }, 1500);
-  //   };
-
-  //   const tooltipHovered = () => {
-  //     setOnPreview(true);
-  //   };
-
-  //   const tooltipOff = () => {
-  //     setOnPreview(false);
-  //   };
-
-  //   return (
-  //     <>
-  //       <div
-  //         ref={setReferenceElement}
-  //         onMouseEnter={showTooltip}
-  //         onMouseLeave={hideTooltip}
-  //       >
-  //         {element}
-  //       </div>
-
-  //       {(visible || onPreview) && (
-  //         <div
-  //           onMouseEnter={tooltipHovered}
-  //           onMouseLeave={tooltipOff}
-  //           ref={setPopperElement}
-  //           style={styles.popper}
-  //           {...attributes.popper}
-  //         >
-  //           <ProfilePreviewTooltip
-  //             meId={meId}
-  //             buttonRelatedUser={buttonRelatedUser}
-  //             publicUserId={publicUserId}
-  //             invData={invData}
-  //           />
-  //         </div>
-  //       )}
-  //     </>
-  //   );
-  // };
-
   return (
     <Wrapper onClick={goToUserPage}>
-      <ProfileImage $backgroundImage={avatar} />
       <ContentWrapper>
         <ProfileWrapper>
-          <ContextWrapper>
-            <TextWrapper>
-              <H3>{name}</H3>
-              <Span>{uniqueName}</Span>
-            </TextWrapper>
-          </ContextWrapper>
+          <Tippy
+            {...tippyOptions}
+            interactive
+            content={
+              showUserPreview && (
+                <div onClick={(e) => e.stopPropagation()}>
+                  <ProfilePreview
+                    displayedUser={buttonRelatedUser}
+                    meId={meId}
+                    publicUserId={publicUserId}
+                    invData={invData}
+                  />
+                </div>
+              )
+            }
+          >
+            <ContextWrapper>
+              <ProfileImage $backgroundImage={avatar} />
+              <TextWrapper>
+                <H3>{name}</H3>
+                <Span>{uniqueName}</Span>
+              </TextWrapper>
+            </ContextWrapper>
+          </Tippy>
           {showConnectButton && (
             <ConnectButton
               meId={meId}
@@ -142,7 +112,6 @@ const Wrapper = styled.div`
 
 const ContentWrapper = styled.div`
   width: 100%;
-  padding-left: 0.8rem;
 `;
 
 const S = styled.span`
@@ -168,7 +137,7 @@ const ProfileImage = styled.div<{ $backgroundImage: string }>`
   min-width: 3.2rem;
   height: 3.2rem;
   background-color: ${colors.bluePrimary};
-
+  margin-right: 0.8rem;
   ${(props) =>
     props.$backgroundImage &&
     `
