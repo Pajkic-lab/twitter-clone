@@ -38,6 +38,3 @@ export * from './lib/organisms/UserListLane';
 
 // templates
 export * from './lib/templates/Contacts';
-
-// utils
-export * from './lib/utils/text/Truncate';

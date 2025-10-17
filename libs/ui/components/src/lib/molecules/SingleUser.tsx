@@ -6,26 +6,6 @@ import { ConnectButton, ProfilePreview } from '@tw/ui/components';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-function UserHeader({
-  avatar,
-  name,
-  uniqueName,
-}: {
-  avatar: string;
-  name: string;
-  uniqueName: string;
-}) {
-  return (
-    <ContextWrapper>
-      <ProfileImage $backgroundImage={avatar} />
-      <TextWrapper>
-        <H3>{name}</H3>
-        <Span>{uniqueName}</Span>
-      </TextWrapper>
-    </ContextWrapper>
-  );
-}
-
 type SingleUserProps = {
   buttonRelatedUser: PublicUserBase;
   meId: string;
@@ -65,7 +45,6 @@ export const SingleUser = (props: SingleUserProps) => {
         meId={meId}
         publicUserId={publicUserId}
         invData={invData}
-        showConnectButton={showConnectButton}
       />
     </div>
   );
@@ -81,10 +60,29 @@ export const SingleUser = (props: SingleUserProps) => {
     <Wrapper onClick={goToUserPage}>
       <ContentWrapper>
         <ProfileWrapper>
-          <Tippy {...tippyOptions} interactive content={userPreviewContent}>
-            <div>
-              <UserHeader avatar={avatar} name={name} uniqueName={uniqueName} />
-            </div>
+          <Tippy
+            {...tippyOptions}
+            interactive
+            content={
+              showUserPreview && (
+                <div onClick={(e) => e.stopPropagation()}>
+                  <ProfilePreview
+                    displayedUser={buttonRelatedUser}
+                    meId={meId}
+                    publicUserId={publicUserId}
+                    invData={invData}
+                  />
+                </div>
+              )
+            }
+          >
+            <ContextWrapper>
+              <ProfileImage $backgroundImage={avatar} />
+              <TextWrapper>
+                <H3>{name}</H3>
+                <Span>{uniqueName}</Span>
+              </TextWrapper>
+            </ContextWrapper>
           </Tippy>
           {showConnectButton && (
             <ConnectButton

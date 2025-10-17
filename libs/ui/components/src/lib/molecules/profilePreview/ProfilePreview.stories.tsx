@@ -29,7 +29,6 @@ const meta: Meta<typeof ProfilePreview> = {
   args: {
     displayedUser: createMockUser(),
     meId: '999',
-    showConnectButton: true,
   },
 };
 export default meta;
@@ -41,7 +40,6 @@ export const Default: Story = {};
 export const NoConnectButton: Story = {
   args: {
     displayedUser: createMockUser({ followingStatus: false }),
-    showConnectButton: false,
   },
 };
 

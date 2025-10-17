@@ -3,23 +3,17 @@ import { InvalidationData, linksRecords } from '@tw/ui/common';
 import { ConnectButton, SecondaryButton } from '@tw/ui/components';
 import { usePublicUserSocialStatsQuery } from '@tw/ui/data-access';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 type ProfilePreviewProps = {
   displayedUser: PublicUserBase;
   meId: string;
   publicUserId?: string;
-  showConnectButton?: boolean;
   invData: InvalidationData;
 };
 
-export function ProfilePreview({
-  displayedUser,
-  meId,
-  publicUserId,
-  showConnectButton,
-  invData,
-}: ProfilePreviewProps) {
+export function ProfilePreview(props: ProfilePreviewProps) {
+  const { displayedUser, meId, publicUserId, invData } = props;
   const { id, name, avatar, uniqueName, bio, followingStatus } = displayedUser;
   const { data: socialStats } = usePublicUserSocialStatsQuery(id);
   const navigate = useNavigate();
@@ -28,29 +22,24 @@ export function ProfilePreview({
     navigate(linksRecords.publicProfilePage.baseById(id));
   };
 
-  const followingCount = socialStats?.followingCount ?? 0;
-  const followersCount = socialStats?.followersCount ?? 0;
-
-  const connectButton = showConnectButton ? (
-    <ConnectButton
-      meId={meId}
-      buttonRelatedUserId={id}
-      publicUserId={publicUserId}
-      followingStatus={followingStatus}
-      invData={invData}
-    />
-  ) : null;
+  const followingCount = socialStats?.followingCount;
+  const followersCount = socialStats?.followersCount;
 
   return (
     <Popup>
       <Header>
         <ProfileImage $backgroundImage={avatar} onClick={handleAvatarClick} />
-        {connectButton}
+        <ConnectButton
+          meId={meId}
+          buttonRelatedUserId={id}
+          publicUserId={publicUserId}
+          followingStatus={followingStatus}
+          invData={invData}
+        />
       </Header>
 
       <ProfileDetailsWrapper>
         <NameWrapper>
-          {/* //truncate */}
           <NameLink onClick={handleAvatarClick}>{name}</NameLink>
           <Handle>{uniqueName}</Handle>
         </NameWrapper>
@@ -70,24 +59,19 @@ export function ProfilePreview({
   );
 }
 
-const Popup = styled.div(({ theme }) => {
-  const { black, white } = theme.colors;
-  const { 0.75: mt, 1.5: pY, 1: pX } = theme.spacing;
-  const { lg } = theme.radii;
-
-  return `
+const Popup = styled.div(
+  ({ theme }) => css`
     display: flex;
     flex-direction: column;
-    margin-top: ${mt};
-    padding: ${pY} ${pX};
+    margin-top: ${theme.spacing[0.75]};
+    padding: ${theme.spacing[1.5]} ${theme.spacing[1]};
     width: 300px;
-    background-color: ${black};
-    color: ${white};
-    border-radius:${lg};
-    box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.2),
-                0 4px 12px rgba(255, 255, 255, 0.1);
-  `;
-});
+    background-color: ${theme.colors.black};
+    color: ${theme.colors.white};
+    border-radius: ${theme.radii.lg};
+    box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.2), 0 4px 12px rgba(255, 255, 255, 0.1);
+  `,
+);
 
 const Header = styled.div`
   display: flex;
@@ -96,120 +80,95 @@ const Header = styled.div`
   justify-content: space-between;
 `;
 
-const ProfileImage = styled.div<{ $backgroundImage: string }>(({ theme, $backgroundImage }) => {
-  const { royalBlue } = theme.colors;
-  const { 0.75: mr } = theme.spacing;
+const ProfileImage = styled.div<{ $backgroundImage: string }>(
+  ({ theme, $backgroundImage }) =>
+    css`
+      border-radius: 100%;
+      width: 64px;
+      height: 64px;
+      background-color: ${theme.colors.royalBlue};
+      margin-right: ${theme.spacing[0.75]};
 
-  return `
-    border-radius: 100%;
-    width: 64px;
-    height: 64px;
-    background-color: ${royalBlue};
-    margin-right: ${mr};
-
-    ${
-      $backgroundImage
+      ${$backgroundImage
         ? `
       background-image: url(${$backgroundImage});
       background-position: center;
       background-repeat: no-repeat;
       background-size: cover;
-      background-color: ${royalBlue};
+      background-color: ${theme.colors.royalBlue};
     `
-        : ''
-    }
-  `;
-});
+        : ''}
+    `,
+);
 
-const Handle = styled.div(({ theme }) => {
-  const { base } = theme.typography.fontSizes;
-  const { gray } = theme.colors;
-  return `
-    color: ${gray};
-    font-size: ${base};
-
+const Handle = styled.div(
+  ({ theme }) => css`
+    color: ${theme.colors.gray};
+    font-size: ${theme.typography.fontSizes.base};
     word-wrap: break-word;
     overflow-wrap: break-word;
-  `;
-});
+  `,
+);
 
-const Bio = styled.div(({ theme }) => {
-  const { white } = theme.colors;
-  const { 0.625: mt } = theme.spacing;
-  const { lg } = theme.typography.fontSizes;
-
-  return `
-    margin-top: ${mt};
-    font-size: ${lg};
-    color: ${white};
-
+const Bio = styled.div(
+  ({ theme }) => css`
+    margin-top: ${theme.spacing[0.625]};
+    font-size: ${theme.typography.fontSizes.lg};
+    color: ${theme.colors.white};
     word-wrap: break-word;
     max-width: 100%;
+  `,
+);
 
-  `;
-});
-
-const Stats = styled.div(({ theme }) => {
-  const { 0.625: mt, 0.75: mb, 0.875: gap } = theme.spacing;
-  const { base } = theme.typography.fontSizes;
-
-  return `
-    margin-top: ${mt};
-    margin-bottom: ${mb};
+const Stats = styled.div(
+  ({ theme }) => css`
+    margin-top: ${theme.spacing[0.625]};
+    margin-bottom: ${theme.spacing[0.75]};
     display: flex;
-    gap: ${gap};
-    font-size: ${base};
-  `;
-});
+    gap: ${theme.spacing[0.875]};
+    font-size: ${theme.typography.fontSizes.base};
+  `,
+);
 
-const Count = styled.span(({ theme }) => {
-  const { white } = theme.colors;
-  const { bold } = theme.typography.fontWeight;
+const Count = styled.span(
+  ({ theme }) => css`
+    color: ${theme.colors.white};
+    font-weight: ${theme.typography.fontWeight.bold};
+  `,
+);
 
-  return `
-    color: ${white};
-    font-weight: ${bold};
+const Label = styled.span(
+  ({ theme }) => css`
+    color: ${theme.colors.gray};
+  `,
+);
 
-  `;
-});
-
-const Label = styled.span(({ theme }) => {
-  const { gray } = theme.colors;
-  return `
-    color: ${gray};
-  `;
-});
-
-const ProfileDetailsWrapper = styled.div(({ theme }) => {
-  const { 0.625: mt, 0.25: gap, 0.375: ml } = theme.spacing;
-  return `
-    margin-top:  ${mt};
+const ProfileDetailsWrapper = styled.div(
+  ({ theme }) => css`
+    margin-top: ${theme.spacing[0.625]};
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: ${gap};
-    margin-left: ${ml};
-    
-  `;
-});
+    gap: ${theme.spacing[0.25]};
+    margin-left: ${theme.spacing[0.375]};
+  `,
+);
 
 const NameWrapper = styled.div`
   word-wrap: break-word;
   max-width: 100%;
 `;
 
-const NameLink = styled.a(({ theme }) => {
-  const { lg } = theme.typography.fontSizes;
-  const { white } = theme.colors;
-  return `
-    color: ${white};
+const NameLink = styled.a(
+  ({ theme }) => css`
+    color: ${theme.colors.white};
     text-decoration: none;
-    font-size: ${lg};
+    font-size: ${theme.typography.fontSizes.lg};
     font-weight: bold;
     cursor: pointer;
 
     &:hover {
       text-decoration: underline;
     }
-  `;
-});
+  `,
+);

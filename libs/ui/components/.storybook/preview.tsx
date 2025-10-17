@@ -6,7 +6,7 @@ import type { Preview } from '@storybook/react';
  */
 
 const preview: Preview = {
-  decorators: [(Story) => <>{<Story />}</>],
+  decorators: [(Story) => <Story />],
   parameters: {
     actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {

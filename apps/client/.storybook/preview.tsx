@@ -1,7 +1,7 @@
 import type { Preview } from '@storybook/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { GlobalStyle, theme } from '@tw/theme';
-import { MemoryRouter } from 'react-router-dom'; // is this needed any more?
+import { MemoryRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
 const queryClient = new QueryClient({
@@ -16,16 +16,14 @@ const queryClient = new QueryClient({
 const preview: Preview = {
   decorators: [
     (Story) => (
-      <>
-        <MemoryRouter>
-          <GlobalStyle />
-          <ThemeProvider theme={theme}>
-            <QueryClientProvider client={queryClient}>
-              <Story />
-            </QueryClientProvider>
-          </ThemeProvider>
-        </MemoryRouter>
-      </>
+      <MemoryRouter>
+        <GlobalStyle />
+        <ThemeProvider theme={theme}>
+          <QueryClientProvider client={queryClient}>
+            <Story />
+          </QueryClientProvider>
+        </ThemeProvider>
+      </MemoryRouter>
     ),
   ],
   parameters: {
